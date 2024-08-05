@@ -4,10 +4,17 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/components/ui/use-toast';
+import { getDictionary } from '@/lib/i18n.utils';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 
-export default function SignInEmail() {
+export default function SignInEmail({
+  dictionary
+}: {
+  dictionary: Awaited<
+    ReturnType<typeof getDictionary>
+  >['auth']['login_with_email'];
+}) {
   const [email, setEmail] = useState<string | null>(null);
 
   async function signInWithEmail() {
@@ -19,22 +26,22 @@ export default function SignInEmail() {
 
     if (!res?.ok) {
       return toast({
-        title: 'Wrong login',
-        description: 'Something went wrong',
+        title: dictionary.toast_err_title,
+        description: dictionary.toast_err_text,
         variant: 'destructive'
       });
     }
 
     return toast({
-      title: 'Check your email',
-      description: 'A magic link has been sent to you'
+      title: dictionary.toast_ok_title,
+      description: dictionary.toast_ok_text
     });
   }
 
   return (
     <form action={signInWithEmail}>
       <div className="flex flex-col gap-y-2">
-        <Label>Email</Label>
+        <Label>{dictionary.email}</Label>
         <Input
           type="email"
           name="email"
@@ -43,7 +50,7 @@ export default function SignInEmail() {
         />
       </div>
       <Button type="submit" className="mt-4 w-full">
-        Login with Email
+        {dictionary.title}
       </Button>
     </form>
   );

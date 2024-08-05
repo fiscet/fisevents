@@ -3,8 +3,15 @@
 import { Button } from '@/components/ui/button';
 import { signIn } from 'next-auth/react';
 import GoogleLogo from './GoogleLogo';
+import { getDictionary } from '@/lib/i18n.utils';
 
-export default function SignInWithGoogle() {
+export default function SignInWithGoogle({
+  dictionary
+}: {
+  dictionary: Awaited<
+    ReturnType<typeof getDictionary>
+  >['auth']['login_with_google'];
+}) {
   return (
     <Button
       onClick={async () =>
@@ -17,7 +24,7 @@ export default function SignInWithGoogle() {
       <span className="mr-2">
         <GoogleLogo />
       </span>
-      Login with Google
+      {dictionary.title}
     </Button>
   );
 }
