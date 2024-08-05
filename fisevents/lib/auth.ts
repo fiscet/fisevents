@@ -2,7 +2,7 @@ import { NextAuthOptions } from 'next-auth';
 import Google from 'next-auth/providers/google';
 import Email from 'next-auth/providers/email';
 import { SanityAdapter } from 'next-auth-sanity';
-import { client } from '@/app/lib/sanity';
+import { client } from '@/lib/sanity';
 
 export const authOptions = {
   providers: [

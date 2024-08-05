@@ -6,7 +6,7 @@ import {
   CardTitle
 } from '@/components/ui/card';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../utils/auth';
+import { authOptions } from '../../lib/auth';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import SignInEmail from './components/SignInEmail';
@@ -28,7 +28,7 @@ export default async function AuthRoute() {
         <CardHeader>
           <CardTitle>
             <Image src="/img/logo.png" alt="Logo" width="320" height="320" />
-            <Separator className="my-4" />
+            <Separator className="mt-8 mb-4" />
             Please Sign in
           </CardTitle>
           <CardDescription>Choose your authentication method</CardDescription>
