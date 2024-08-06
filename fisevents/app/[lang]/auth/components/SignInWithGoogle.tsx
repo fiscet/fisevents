@@ -16,7 +16,7 @@ export default function SignInWithGoogle({
     <Button
       onClick={async () =>
         await signIn('google', {
-          callbackUrl: `${window.location.origin}`
+          callbackUrl: `${window.location.origin}/creator-admin/`
         })
       }
       variant="secondary"

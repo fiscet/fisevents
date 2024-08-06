@@ -24,6 +24,8 @@ export default function SignInEmail({
       redirect: false
     });
 
+    setEmail(null);
+
     if (!res?.ok) {
       return toast({
         title: dictionary.toast_err_title,
