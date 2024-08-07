@@ -1,8 +1,10 @@
 import { NextAuthOptions } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
 import Google from 'next-auth/providers/google';
 import Email from 'next-auth/providers/email';
 import { SanityAdapter } from 'next-auth-sanity';
 import { client } from '@/lib/sanity';
+import { FDefaultSession } from '@/types/custom.types';
 
 export const authOptions = {
   providers: [
@@ -26,5 +28,16 @@ export const authOptions = {
   session: {
     strategy: 'jwt'
   },
-  secret: process.env.AUTH_SECRET
+  secret: process.env.AUTH_SECRET,
+  callbacks: {
+    async session({ token, session }: { token: JWT, session: FDefaultSession; }) {
+      if (token) {
+        session.user!.uid = token.sub || "";
+        session.user!.name = token.name;
+        session.user!.email = token.email;
+        session.user!.image = token.picture;
+      }
+      return session;
+    }
+  },
 } satisfies NextAuthOptions;

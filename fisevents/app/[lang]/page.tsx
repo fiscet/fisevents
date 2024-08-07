@@ -13,6 +13,8 @@ export default async function MainPage() {
       {session ? (
         <div>
           <h2>Logged IN</h2>
+          <Link href="/creator-admin">Creator Admin</Link>
+          <div>OR</div>
           <LogoutButton />
         </div>
       ) : (

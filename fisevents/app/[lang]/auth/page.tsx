@@ -8,12 +8,12 @@ import {
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../lib/authOptions';
 import { redirect } from 'next/navigation';
-import Image from 'next/image';
 import SignInWithEmail from './components/SignInWithEmail';
 import SignInWithGoogle from './components/SignInWithGoogle';
 import { Separator } from '@/components/ui/separator';
 import { getDictionary } from '@/lib/i18n.utils';
 import { Locale } from '@/lib/i18n';
+import Logo from '@/components/Logo';
 
 export default async function AuthPage({
   params: { lang }
@@ -29,10 +29,10 @@ export default async function AuthPage({
   const dictionary = await getDictionary(lang);
 
   return (
-    <Card className="w-80 z-20 drop-shadow-2xl">
+    <Card className="w-80 drop-shadow-2xl">
       <CardHeader>
         <CardTitle>
-          <Image src="/img/logo.png" alt="Logo" width="320" height="320" />
+          <Logo />
           <Separator className="mt-8 mb-4" />
           Please Sign in
         </CardTitle>
