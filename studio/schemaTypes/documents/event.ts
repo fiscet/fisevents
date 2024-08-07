@@ -25,6 +25,11 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      title: 'Event image',
+      name: 'mainImage',
+      type: 'image'
+    }),
+    defineField({
       title: 'Event Type',
       name: 'eventType',
       type: 'reference',
