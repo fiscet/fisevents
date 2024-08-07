@@ -1,7 +1,7 @@
 import { PiUsers } from "react-icons/pi";
 
 export default {
-  title: 'User',
+  title: 'Users',
   name: 'user',
   icon: PiUsers,
   type: 'document',

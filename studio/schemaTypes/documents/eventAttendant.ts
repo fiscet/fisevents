@@ -2,7 +2,7 @@ import { defineField, defineType } from 'sanity';
 import { GrUserFemale } from "react-icons/gr";
 
 export default defineType({
-  title: "Event Attendant",
+  title: "Event Attendants",
   name: "eventAttendant",
   type: "document",
   icon: GrUserFemale,

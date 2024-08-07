@@ -1,8 +1,8 @@
 import { SiAmazonsimpleemailservice } from "react-icons/si";
 
 export default {
-  title: 'Verification Token',
-  name: 'verification-token',
+  title: 'Verification Tokens',
+  name: 'verificationToken',
   icon: SiAmazonsimpleemailservice,
   type: 'document',
   fields: [

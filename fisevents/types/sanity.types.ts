@@ -68,17 +68,6 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type EventAttendant = {
-  _id: string;
-  _type: "eventAttendant";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  fullName?: string;
-  email?: string;
-  phone?: string;
-};
-
 export type BlockContent = Array<{
   children?: Array<{
     marks?: Array<string>;
@@ -111,6 +100,17 @@ export type BlockContent = Array<{
   _type: "image";
   _key: string;
 }>;
+
+export type EventAttendant = {
+  _id: string;
+  _type: "eventAttendant";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  fullName?: string;
+  email?: string;
+  phone?: string;
+};
 
 export type Event = {
   _id: string;
@@ -267,5 +267,5 @@ export type User = {
   emailVerified?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventAttendant | BlockContent | Event | EventType | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug | VerificationToken | Account | User;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | BlockContent | EventAttendant | Event | EventType | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug | VerificationToken | Account | User;
 export declare const internalGroqTypeReferenceTo: unique symbol;

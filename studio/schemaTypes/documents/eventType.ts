@@ -2,7 +2,7 @@ import { defineField, defineType } from 'sanity';
 import { GrDirections } from "react-icons/gr";
 
 export default defineType({
-  title: 'Event Type',
+  title: 'Event Types',
   name: 'eventType',
   type: 'document',
   icon: GrDirections,

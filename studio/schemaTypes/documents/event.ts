@@ -2,7 +2,7 @@ import { defineField, defineType } from 'sanity';
 import { BsCalendar2Event } from "react-icons/bs";
 
 export default defineType({
-  title: 'Event',
+  title: 'Events',
   name: 'event',
   type: 'document',
   icon: BsCalendar2Event,

@@ -2,7 +2,7 @@
 import { SiGoogleauthenticator } from "react-icons/si";
 
 export default {
-  title: 'Account',
+  title: 'Accounts',
   name: 'account',
   icon: SiGoogleauthenticator,
   type: 'document',
