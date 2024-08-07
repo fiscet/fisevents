@@ -1,0 +1,4 @@
+{
+  "schema": "../fisevents/types/sanity.schema.json",
+  "generates": "../fisevents/types/sanity.types.ts"
+}
