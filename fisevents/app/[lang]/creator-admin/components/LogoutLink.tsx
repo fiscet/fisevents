@@ -1,9 +1,9 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { getDictionary } from '@/lib/i18n.utils';
-import { RiAccountCircleFill } from 'react-icons/ri';
+import Link from 'next/link';
+import { signOut } from 'next-auth/react';
+import { ImExit } from 'react-icons/im';
 import {
   Tooltip,
   TooltipContent,
@@ -11,29 +11,27 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip';
 
-export default function AccountLink({
+export default function LogoutLink({
   dictionary
 }: {
   dictionary: Awaited<ReturnType<typeof getDictionary>>['auth'];
 }) {
-  const pathname = usePathname();
-  const href = pathname.endsWith('account') ? '' : `${pathname}/account`;
-
   return (
     <div className="flex">
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Link href={href}>
-              <RiAccountCircleFill
-                className={`w-8 md:w-10 h-8 md:h-10 ${
-                  href ? 'text-orange-600' : 'text-gray-600'
-                }`}
-              />
+            <Link
+              href=""
+              onClick={() =>
+                signOut({ callbackUrl: `${window.location.origin}/auth` })
+              }
+            >
+              <ImExit className="w-6 md:w-8 h-6 md:h-8" />
             </Link>
           </TooltipTrigger>
           <TooltipContent>
-            <p>{dictionary.account}</p>
+            <p>{dictionary.logout}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

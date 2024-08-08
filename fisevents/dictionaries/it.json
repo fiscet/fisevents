@@ -1,6 +1,8 @@
 {
   "auth": {
     "login": "Login it",
+    "logout": "Esci dall'applicazione",
+    "account": "Gestisci il tuo Account",
     "login_with_email": {
       "title": "Login with Email it",
       "email": "Email",

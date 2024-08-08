@@ -1,11 +1,18 @@
 import { getServerSession } from 'next-auth';
+import { Locale } from '@/lib/i18n';
+import { getDictionary } from '@/lib/i18n.utils';
 import { authOptions } from '@/lib/authOptions';
 import Link from 'next/link';
-import LogoutButton from './auth/components/LogoutButton';
+import LogoutLink from './creator-admin/components/LogoutLink';
 import { Button } from '@/components/ui/button';
 
-export default async function MainPage() {
+export default async function MainPage({
+  params: { lang }
+}: {
+  params: { lang: Locale };
+}) {
   const session = await getServerSession(authOptions);
+  const dictionary = await getDictionary(lang);
 
   return (
     <div className="p-10">
@@ -15,7 +22,7 @@ export default async function MainPage() {
           <h2>Logged IN</h2>
           <Link href="/creator-admin">Creator Admin</Link>
           <div>OR</div>
-          <LogoutButton />
+          <LogoutLink dictionary={dictionary.auth} />
         </div>
       ) : (
         <div>

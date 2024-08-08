@@ -1,6 +1,8 @@
 {
   "auth": {
     "login": "Login hu",
+    "logout": "Logout hu",
+    "account": "Manage your Account",
     "login_with_email": {
       "title": "Login with Email",
       "email": "Email",
