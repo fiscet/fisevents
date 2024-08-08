@@ -31,7 +31,7 @@ export default async function AdminLayout({
         <header className="md:grid md:grid-cols-3">
           <div className="hidden md:block">&nbsp;</div>
           <Logo />
-          <section className="flex justify-end items-center gap-x-5 mt-5 md:mt-0">
+          <section className="flex justify-end items-center gap-x-3 mt-5 md:mt-0">
             <div>
               <AccountLink dictionary={dictionary.auth} />
             </div>
@@ -48,7 +48,7 @@ export default async function AdminLayout({
             <AlertDescription>Please complete your profile</AlertDescription>
           </Alert>
         )}
-        {children}
+        <main className="my-10">{children}</main>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@
 import { getDictionary } from '@/lib/i18n.utils';
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
-import { ImExit } from 'react-icons/im';
+import { IoLogOutSharp } from 'react-icons/io5';
 import {
   Tooltip,
   TooltipContent,
@@ -27,7 +27,7 @@ export default function LogoutLink({
                 signOut({ callbackUrl: `${window.location.origin}/auth` })
               }
             >
-              <ImExit className="w-6 md:w-8 h-6 md:h-8" />
+              <IoLogOutSharp className="w-7 md:w-9 h-7 md:h-9 transition-colors ease-in-out duration-500 hover:text-orange-500" />
             </Link>
           </TooltipTrigger>
           <TooltipContent>

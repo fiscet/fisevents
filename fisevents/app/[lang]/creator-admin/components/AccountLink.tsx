@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { getDictionary } from '@/lib/i18n.utils';
 import { RiAccountCircleFill } from 'react-icons/ri';
+import { BiSolidUserRectangle } from 'react-icons/bi';
 import {
   Tooltip,
   TooltipContent,
@@ -25,9 +26,11 @@ export default function AccountLink({
         <Tooltip>
           <TooltipTrigger asChild>
             <Link href={href}>
-              <RiAccountCircleFill
-                className={`w-8 md:w-10 h-8 md:h-10 ${
-                  href ? 'text-orange-600' : 'text-gray-600'
+              <BiSolidUserRectangle
+                className={`w-6 md:w-8 h-6 md:h-8 transition-colors ease-in-out duration-500  ${
+                  href
+                    ? 'text-orange-600 hover:text-orange-500'
+                    : 'text-gray-600'
                 }`}
               />
             </Link>
