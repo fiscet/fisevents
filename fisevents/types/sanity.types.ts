@@ -112,14 +112,25 @@ export type EventAttendant = {
   phone?: string;
 };
 
-export type Event = {
+export type Occurrence = {
   _id: string;
-  _type: "event";
+  _type: "occurrence";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   title?: string;
   slug?: Slug;
+  mainImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
   eventType?: {
     _ref: string;
     _type: "reference";
@@ -225,7 +236,7 @@ export type Slug = {
 
 export type VerificationToken = {
   _id: string;
-  _type: "verification-token";
+  _type: "verificationToken";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -267,5 +278,5 @@ export type User = {
   emailVerified?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | BlockContent | EventAttendant | Event | EventType | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug | VerificationToken | Account | User;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | BlockContent | EventAttendant | Occurrence | EventType | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug | VerificationToken | Account | User;
 export declare const internalGroqTypeReferenceTo: unique symbol;

@@ -15,7 +15,7 @@ const groups = [
     name: 'Events',
     icon: BsCalendarEventFill,
     menuGroups: [
-      ['event', 'eventAttendant'],
+      ['occurrence', 'eventAttendant'],
       ['eventType']
     ]
   }

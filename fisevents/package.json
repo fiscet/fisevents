@@ -28,8 +28,10 @@
     "next-sanity": "^9.4.4",
     "nodemailer": "^6.9.14",
     "react": "^18",
+    "react-data-table-component": "^7.6.2",
     "react-dom": "^18",
     "react-icons": "^5.2.1",
+    "styled-components": "^6.1.12",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7"
   },

@@ -3,7 +3,7 @@ import { BsCalendar2Event } from "react-icons/bs";
 
 export default defineType({
   title: 'Events',
-  name: 'event',
+  name: 'occurrence',
   type: 'document',
   icon: BsCalendar2Event,
   fields: [

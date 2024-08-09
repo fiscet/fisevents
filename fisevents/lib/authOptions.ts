@@ -3,7 +3,7 @@ import { JWT } from 'next-auth/jwt';
 import Google from 'next-auth/providers/google';
 import Email from 'next-auth/providers/email';
 import { SanityAdapter } from 'next-auth-sanity';
-import { client } from '@/lib/sanity';
+import { sanityClient } from '@/lib/sanity';
 import { FDefaultSession } from '@/types/custom.types';
 
 export const authOptions = {
@@ -24,7 +24,7 @@ export const authOptions = {
       from: process.env.EMAIL_FROM
     })
   ],
-  adapter: SanityAdapter(client),
+  adapter: SanityAdapter(sanityClient),
   session: {
     strategy: 'jwt'
   },

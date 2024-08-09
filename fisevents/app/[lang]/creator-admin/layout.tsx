@@ -9,6 +9,7 @@ import Logo from '@/components/Logo';
 import AccountLink from './components/AccountLink';
 import LogoutLink from './components/LogoutLink';
 import { getDictionary } from '@/lib/i18n.utils';
+import DotBg from './components/DotBg';
 
 export default async function AdminLayout({
   children,
@@ -48,7 +49,9 @@ export default async function AdminLayout({
             <AlertDescription>Please complete your profile</AlertDescription>
           </Alert>
         )}
-        <main className="my-10">{children}</main>
+        <main className="h-screen my-10 md:mt-14">
+          <DotBg className="h-full">{children}</DotBg>
+        </main>
       </div>
     </div>
   );
