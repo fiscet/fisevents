@@ -110,7 +110,7 @@ export default function EventList({
           }
         }
       }}
-      onRowClicked={(row) => handleOpenSingleEvent(row._id!)}
+      onRowClicked={(row) => handleOpenSingleEvent(row.slug?.current!)}
     />
   );
 }

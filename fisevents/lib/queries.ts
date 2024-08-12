@@ -12,4 +12,24 @@ export const eventListQuery = groq`*[_type == "occurrence" && createdByUser._ref
   'numAttendants': count(attendants)
 }`;
 
-export const eventSingleQuery = groq`*[_type == "occurrence" && createdByUser._ref == $createdBy && _id == $eventId ][0]`;
+export const eventSingleQuery = groq`*[_type == "occurrence" && createdByUser._ref == $createdBy && slug.current == $slug ][0] {
+  _id,
+  title,
+  description,
+  "eventTypeCode": eventType->code,
+  "pageImage": {
+    "url": mainImage.asset->url,
+    "dimensions": mainImage.asset->metadata.dimensions
+  },
+  location,
+  maxSubscribers,
+  basicPrice,
+  startDate,
+  endDate,
+  publicationStartDate,
+  active,
+  "subcribers": attendants[]->{
+      fullName, 
+      email
+    }
+}`;
