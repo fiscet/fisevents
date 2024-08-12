@@ -39,7 +39,7 @@ export default defineType({
     defineField({
       title: 'Description',
       name: 'description',
-      type: 'blockContent',
+      type: 'text',
     }),
     defineField({
       title: 'Location',
