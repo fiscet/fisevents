@@ -2,7 +2,7 @@
 
 import { getDictionary } from '@/lib/i18n.utils';
 import { OccurrenceList } from '@/types/sanity.extended.types';
-import DataTable, { TableColumn } from 'react-data-table-component';
+import DataTable, { Media, TableColumn } from 'react-data-table-component';
 import PublishedIcon from '../components/PublishedIcon';
 import NumAttendants from '../components/NumAttendants';
 
@@ -22,30 +22,21 @@ function getColumns(
         return <PublishedIcon isPublished={isPublished} inset="4px" />;
       },
       width: '120px',
-      center: 'true'
+      center: 'true',
+      hide: 640
     },
     {
       name: dictionary.title,
       selector: (row) => row.title,
-      sortable: true
-    },
-    {
-      name: dictionary.publicationStartDate,
-      selector: (row) => row.publicationStartDate,
-      format: (row) =>
-        new Date(row.publicationStartDate as string).toLocaleString(),
-      sortable: true
-    },
-    {
-      name: dictionary.startDate,
-      selector: (row) => row.startDate,
-      format: (row) => new Date(row.startDate as string).toLocaleString(),
-      sortable: true
-    },
-    {
-      name: dictionary.endDate,
-      selector: (row) => row.endDate,
-      format: (row) => new Date(row.endDate as string).toLocaleString(),
+      cell: (row) => (
+        <div>
+          <div className="pt-1">{row.title}</div>
+          <div className="flex gap-3 py-2 sm:hidden">
+            <PublishedIcon isPublished={true} inset="4px" />
+            <NumAttendants num={row.numAttendants} />
+          </div>
+        </div>
+      ),
       sortable: true
     },
     {
@@ -53,7 +44,30 @@ function getColumns(
       selector: (row) => row.numAttendants,
       cell: (row) => <NumAttendants num={row.numAttendants} />,
       width: '120px',
-      center: 'true'
+      center: 'true',
+      hide: 640
+    },
+    {
+      name: dictionary.publicationStartDate,
+      selector: (row) => row.publicationStartDate,
+      format: (row) =>
+        new Date(row.publicationStartDate as string).toLocaleString(),
+      hide: 'md',
+      sortable: true
+    },
+    {
+      name: dictionary.startDate,
+      selector: (row) => row.startDate,
+      format: (row) => new Date(row.startDate as string).toLocaleString(),
+      hide: 'md',
+      sortable: true
+    },
+    {
+      name: dictionary.endDate,
+      selector: (row) => row.endDate,
+      format: (row) => new Date(row.endDate as string).toLocaleString(),
+      hide: 'md',
+      sortable: true
     }
   ] as TableColumn<OccurrenceList>[];
 
@@ -71,7 +85,6 @@ export default function EventList({
   eventListData,
   dictionary
 }: EventListProps) {
-  console.log({ dictionary });
   return (
     <DataTable
       columns={getColumns(dictionary)}
