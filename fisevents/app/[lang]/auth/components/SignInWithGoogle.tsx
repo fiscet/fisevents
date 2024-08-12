@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { signIn } from 'next-auth/react';
 import GoogleLogo from './GoogleLogo';
 import { getDictionary } from '@/lib/i18n.utils';
+import { CreatorAdminRoutes } from '@/lib/routes';
 
 export default function SignInWithGoogle({
   dictionary
@@ -16,7 +17,7 @@ export default function SignInWithGoogle({
     <Button
       onClick={async () =>
         await signIn('google', {
-          callbackUrl: `${window.location.origin}/creator-admin/`
+          callbackUrl: `${window.location.origin}/${CreatorAdminRoutes}/`
         })
       }
       variant="secondary"

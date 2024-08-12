@@ -14,6 +14,7 @@ import { Separator } from '@/components/ui/separator';
 import { getDictionary } from '@/lib/i18n.utils';
 import { Locale } from '@/lib/i18n';
 import Logo from '@/components/Logo';
+import { CreatorAdminRoutes } from '@/lib/routes';
 
 export default async function AuthPage({
   params: { lang }
@@ -23,7 +24,7 @@ export default async function AuthPage({
   const session = await getServerSession(authOptions);
 
   if (session) {
-    return redirect('/creator-admin');
+    return redirect(`/${CreatorAdminRoutes}`);
   }
 
   const dictionary = await getDictionary(lang);

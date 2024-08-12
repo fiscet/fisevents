@@ -5,6 +5,7 @@ import { authOptions } from '@/lib/authOptions';
 import Link from 'next/link';
 import LogoutLink from './creator-admin/components/LogoutLink';
 import { Button } from '@/components/ui/button';
+import { CreatorAdminRoutes } from '@/lib/routes';
 
 export default async function MainPage({
   params: { lang }
@@ -20,7 +21,7 @@ export default async function MainPage({
       {session ? (
         <div>
           <h2>Logged IN</h2>
-          <Link href="/creator-admin">Creator Admin</Link>
+          <Link href={`/${CreatorAdminRoutes}`}>Creator Admin</Link>
           <div>OR</div>
           <LogoutLink dictionary={dictionary.auth} />
         </div>

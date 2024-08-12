@@ -1,10 +1,12 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { getDictionary } from '@/lib/i18n.utils';
 import { OccurrenceList } from '@/types/sanity.extended.types';
 import DataTable, { Media, TableColumn } from 'react-data-table-component';
 import PublishedIcon from '../components/PublishedIcon';
 import NumAttendants from '../components/NumAttendants';
+import { CreatorAdminRoutes } from '@/lib/routes';
 
 function getColumns(
   dictionary: Awaited<
@@ -85,6 +87,12 @@ export default function EventList({
   eventListData,
   dictionary
 }: EventListProps) {
+  const router = useRouter();
+
+  const handleOpenSingleEvent = (id: string) => {
+    router.push(`./${CreatorAdminRoutes.getItem('event')}/${id}`);
+  };
+
   return (
     <DataTable
       columns={getColumns(dictionary)}
@@ -102,6 +110,7 @@ export default function EventList({
           }
         }
       }}
+      onRowClicked={(row) => handleOpenSingleEvent(row._id!)}
     />
   );
 }
