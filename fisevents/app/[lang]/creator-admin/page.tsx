@@ -26,13 +26,17 @@ export default async function AdminPage({
   const dictionary = await getDictionary(lang);
 
   const eventListData = await getEventList({
-    createdBy: session.user!.uid as string
+    createdBy: session.user!.uid as string,
+    active: true
   });
 
   return (
     <div className="py-1">
       <Suspense fallback={<Loading />}>
-        <EventList eventListData={eventListData} />
+        <EventList
+          eventListData={eventListData}
+          dictionary={dictionary.creator_admin.events}
+        />
       </Suspense>
     </div>
   );

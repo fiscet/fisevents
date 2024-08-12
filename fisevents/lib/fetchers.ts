@@ -1,7 +1,11 @@
 import { sanityClient } from "./sanity";
 import { eventListQuery } from "./queries";
-import { Occurrence } from "@/types/sanity.types";
+import { OccurrenceList } from "@/types/sanity.extended.types";
 
-export const getEventList = async ({ createdBy }: { createdBy: string; }) => {
-  return await sanityClient.fetch<Partial<Occurrence>[]>(eventListQuery, { createdBy });
+export const getEventList = async ({ createdBy, active }: { createdBy: string; active: boolean; }) => {
+  if (!active && active !== false) {
+    active = true;
+  }
+
+  return await sanityClient.fetch<OccurrenceList[]>(eventListQuery, { createdBy, active });
 };

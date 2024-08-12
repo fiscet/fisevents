@@ -14,5 +14,15 @@
     "login_with_google": {
       "title": "Login with Google"
     }
+  },
+  "creator_admin": {
+    "events": {
+      "is_published": "Published",
+      "title": "Event name",
+      "publicationStartDate": "Published from",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "numAttendants": "Attendants"
+    }
   }
 }

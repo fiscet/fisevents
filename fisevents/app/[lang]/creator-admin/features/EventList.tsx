@@ -1,43 +1,80 @@
 'use client';
 
-import { Occurrence } from '@/types/sanity.types';
+import { getDictionary } from '@/lib/i18n.utils';
+import { OccurrenceList } from '@/types/sanity.extended.types';
 import DataTable, { TableColumn } from 'react-data-table-component';
+import PublishedIcon from '../components/PublishedIcon';
+import NumAttendants from '../components/NumAttendants';
 
-const columns = [
-  {
-    name: 'Title',
-    selector: (row) => row.title,
-    sortable: true
-  },
-  {
-    name: 'Start date',
-    selector: (row) => row.startDate,
-    format: (row) => new Date(row.startDate as string).toLocaleString(),
-    sortable: true
-  },
-  {
-    name: 'End date',
-    selector: (row) => row.endDate,
-    format: (row) => new Date(row.endDate as string).toLocaleString(),
-    sortable: true
-  },
-  {
-    name: 'Published from',
-    selector: (row) => row.publicationStartDate,
-    format: (row) =>
-      new Date(row.publicationStartDate as string).toLocaleString(),
-    sortable: true
-  }
-] as TableColumn<Partial<Occurrence>>[];
+function getColumns(
+  dictionary: Awaited<
+    ReturnType<typeof getDictionary>
+  >['creator_admin']['events']
+) {
+  const columns = [
+    {
+      name: dictionary.is_published,
+      cell: (row) => {
+        const isPublished =
+          Date.parse(row.publicationStartDate!) <= Date.now() &&
+          Date.parse(row.endDate!) > Date.now();
+
+        return <PublishedIcon isPublished={isPublished} inset="4px" />;
+      },
+      width: '120px',
+      center: 'true'
+    },
+    {
+      name: dictionary.title,
+      selector: (row) => row.title,
+      sortable: true
+    },
+    {
+      name: dictionary.publicationStartDate,
+      selector: (row) => row.publicationStartDate,
+      format: (row) =>
+        new Date(row.publicationStartDate as string).toLocaleString(),
+      sortable: true
+    },
+    {
+      name: dictionary.startDate,
+      selector: (row) => row.startDate,
+      format: (row) => new Date(row.startDate as string).toLocaleString(),
+      sortable: true
+    },
+    {
+      name: dictionary.endDate,
+      selector: (row) => row.endDate,
+      format: (row) => new Date(row.endDate as string).toLocaleString(),
+      sortable: true
+    },
+    {
+      name: dictionary.numAttendants,
+      selector: (row) => row.numAttendants,
+      cell: (row) => <NumAttendants num={row.numAttendants} />,
+      width: '120px',
+      center: 'true'
+    }
+  ] as TableColumn<OccurrenceList>[];
+
+  return columns;
+}
+
+export type EventListProps = {
+  eventListData: OccurrenceList[];
+  dictionary: Awaited<
+    ReturnType<typeof getDictionary>
+  >['creator_admin']['events'];
+};
 
 export default function EventList({
-  eventListData
-}: {
-  eventListData: Partial<Occurrence>[];
-}) {
+  eventListData,
+  dictionary
+}: EventListProps) {
+  console.log({ dictionary });
   return (
     <DataTable
-      columns={columns}
+      columns={getColumns(dictionary)}
       data={eventListData}
       pagination
       responsive
