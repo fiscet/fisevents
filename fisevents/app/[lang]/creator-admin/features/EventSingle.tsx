@@ -3,16 +3,17 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { getDictionary } from '@/lib/i18n.utils';
 import { OccurrenceSingle } from '@/types/sanity.extended.types';
-import EventFormField from '../components/EventFormField';
 import { dateToIsoString } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
+import EventFormField from '../components/EventFormField';
+import SaveButton from '../components/SaveButton';
 
 export type EventSingleProps = {
   eventSingleData?: OccurrenceSingle;
@@ -22,21 +23,50 @@ export type EventSingleProps = {
 };
 
 export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
-  const formSchema = z.object({
-    title: z.string().min(5, {
-      message: 'Username must be at least 5 characters.'
-    }),
-    description: z.string(),
-    eventTypeCode: z.enum(['SINGLE', 'MULTIPLE']),
-    location: z.string().optional(),
-    maxSubscribers: z.number().optional(),
-    basicPrice: z.string().optional(),
-    currency: z.string().max(3).toUpperCase().optional(),
-    startDate: z.string(),
-    endDate: z.string(),
-    publicationStartDate: z.string(),
-    active: z.boolean()
-  });
+  const formSchema = z
+    .object({
+      title: z.string().min(5, {
+        message: 'Username must be at least 5 characters.'
+      }),
+      description: z.string(),
+      eventTypeCode: z.enum(['SINGLE', 'MULTIPLE']),
+      location: z.string().optional(),
+      maxSubscribers: z.number().optional(),
+      basicPrice: z.string().optional(),
+      currency: z.string().max(3).toUpperCase().optional(),
+      publicationStartDate: z.string(),
+      startDate: z.string(),
+      endDate: z.string(),
+      active: z.boolean()
+    })
+    .refine(
+      (data) => {
+        const { publicationStartDate, startDate } = data;
+
+        const tsPublicationStartDate = Date.parse(publicationStartDate);
+        const tsStartDate = Date.parse(startDate);
+
+        return tsPublicationStartDate < tsStartDate;
+      },
+      {
+        message: 'The publication date must be before the event start date',
+        path: ['publicationStartDate']
+      }
+    )
+    .refine(
+      (data) => {
+        const { startDate, endDate } = data;
+
+        const tsStartDate = Date.parse(startDate);
+        const tsEndDate = Date.parse(endDate);
+
+        return tsStartDate < tsEndDate;
+      },
+      {
+        message: 'The start date must be before the event end date',
+        path: ['startDate']
+      }
+    );
 
   const today = new Date();
   const todayString = dateToIsoString(today);
@@ -52,12 +82,12 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
       maxSubscribers: eventSingleData?.maxSubscribers ?? 0,
       basicPrice: eventSingleData?.basicPrice?.toString() ?? '0',
       currency: eventSingleData?.currency ?? '',
+      publicationStartDate:
+        dateToIsoString(eventSingleData?.publicationStartDate) ?? todayString,
       startDate: dateToIsoString(eventSingleData?.startDate) ?? todayString,
       endDate:
         dateToIsoString(eventSingleData?.endDate) ??
         dateToIsoString(new Date(today.setDate(today.getDate() + 1))),
-      publicationStartDate:
-        dateToIsoString(eventSingleData?.publicationStartDate) ?? todayString,
       active: eventSingleData?.active ?? true
     }
   });
@@ -74,7 +104,7 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
         {eventSingleData?.title!}
       </h1>
       <Separator className="my-5" />
-      <div className="px-1 max-w-[650px] mx-auto my-5">
+      <div className="px-1 max-w-[650px] mx-auto mt-5 mb-10">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <EventFormField
@@ -84,6 +114,15 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
               formComponent={Input}
               description={'This is your event public display name.'}
             />
+            {eventSingleData?.pageImage.url && (
+              <Image
+                src={eventSingleData.pageImage.url}
+                alt="Logo"
+                width="400"
+                height="400"
+                className="mx-auto"
+              />
+            )}
             <EventFormField
               form={form}
               name="description"
@@ -110,7 +149,7 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
               label="Max Subscribers"
               formComponent={Input}
               formComponentProps={{ type: 'number' }}
-              formComponentClassName="w-20 text-right"
+              formComponentClassName="w-20 text-center"
               description={
                 'If it is a limited number, indicate the maximum number, otherwise write 0'
               }
@@ -167,7 +206,10 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
                 }}
               />
             </div>
-            <Button type="submit">Submit</Button>
+            <Separator className="my-5" />
+            <div className="flex justify-center">
+              <SaveButton className="w-full" text="Save" />
+            </div>
           </form>
         </Form>
       </div>

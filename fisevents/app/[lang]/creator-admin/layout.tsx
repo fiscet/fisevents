@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/authOptions';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { GrAlert } from 'react-icons/gr';
 
 import { Locale } from '@/lib/i18n';
@@ -26,8 +27,8 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="w-full h-min-screen flex flex-col bg-[url('/img/main-bg.jpg')] bg-contain">
-      <div className="container h-min-screen bg-slate-50 flex flex-col mx-auto p-4 border-x-2 border-orange-200 shadow-2xl z-20">
+    <div className="w-full min-h-fit h-screen flex flex-col bg-[url('/img/main-bg.jpg')] bg-contain">
+      <div className="container min-h-fit h-screen bg-slate-50 flex flex-col mx-auto p-4 border-x-2 border-orange-200 shadow-2xl z-20">
         <header className="md:grid md:grid-cols-3">
           <div className="hidden md:block">&nbsp;</div>
           <Logo />
@@ -48,8 +49,10 @@ export default async function AdminLayout({
             <AlertDescription>Please complete your profile</AlertDescription>
           </Alert>
         )}
-        <main className="h-screen my-10 md:mt-14">
-          <DotBg className="min-h-full">{children}</DotBg>
+        <main className="my-10 md:mt-14 overflow-hidden">
+          <ScrollArea className="h-full">
+            <DotBg>{children}</DotBg>
+          </ScrollArea>
         </main>
       </div>
     </div>

@@ -46,7 +46,9 @@ export default function EventFormField({
             />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
-          <FormMessage />
+          <div className="absolute">
+            <FormMessage />
+          </div>
         </FormItem>
       )}
     />

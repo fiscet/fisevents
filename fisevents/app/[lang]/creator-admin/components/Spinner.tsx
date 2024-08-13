@@ -1,10 +1,10 @@
 import { cn } from '@/lib/utils';
 
-interface SpinnerProps {
+export type SpinnerProps = {
   className?: string;
   outerSize?: string;
   childSize?: string;
-}
+};
 export default function Spinner({
   className,
   outerSize,

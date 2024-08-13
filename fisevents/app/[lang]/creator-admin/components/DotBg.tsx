@@ -1,4 +1,4 @@
-interface DotBgProps {
+export type DotBgProps = {
   /**
    * Color of the dot
    */
@@ -25,7 +25,7 @@ interface DotBgProps {
   className?: string;
 
   style?: React.CSSProperties;
-}
+};
 
 export default function DotBg({
   color = '#eee',

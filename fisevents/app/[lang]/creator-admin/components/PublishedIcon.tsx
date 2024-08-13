@@ -5,13 +5,13 @@ import { GiNightSleep } from 'react-icons/gi';
 import { cn } from '@/lib/utils';
 import { ElementType } from 'react';
 
-interface IconRippleProps extends React.HTMLAttributes<HTMLDivElement> {
+export type PublishedIconProps = React.HTMLAttributes<HTMLDivElement> & {
   publishedIcon?: ElementType;
   unPublishedIcon?: ElementType;
   borderColor?: string;
   inset?: string;
   isPublished: boolean;
-}
+};
 
 export default function PublishedIcon({
   publishedIcon: PubIcon = VscVmActive,
@@ -19,7 +19,7 @@ export default function PublishedIcon({
   borderColor = '#ddd',
   inset = '10px',
   isPublished = true
-}: IconRippleProps) {
+}: PublishedIconProps) {
   const customBorderStyle = {
     borderColor
   };
