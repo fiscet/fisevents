@@ -26,9 +26,8 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="w-screen h-screen flex flex-col bg-[url('/img/main-bg.jpg')] bg-contain">
-      <div className="w-screen h-screen bg-white opacity-70 absolute z-10"></div>
-      <div className="container h-screen bg-slate-50 flex flex-col mx-auto p-4 border-x-2 border-orange-200 shadow-2xl z-20">
+    <div className="w-full h-min-screen flex flex-col bg-[url('/img/main-bg.jpg')] bg-contain">
+      <div className="container h-min-screen bg-slate-50 flex flex-col mx-auto p-4 border-x-2 border-orange-200 shadow-2xl z-20">
         <header className="md:grid md:grid-cols-3">
           <div className="hidden md:block">&nbsp;</div>
           <Logo />
@@ -50,7 +49,7 @@ export default async function AdminLayout({
           </Alert>
         )}
         <main className="h-screen my-10 md:mt-14">
-          <DotBg className="h-full">{children}</DotBg>
+          <DotBg className="min-h-full">{children}</DotBg>
         </main>
       </div>
     </div>

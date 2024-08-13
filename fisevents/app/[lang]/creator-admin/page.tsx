@@ -7,6 +7,7 @@ import { getDictionary } from '@/lib/i18n.utils';
 import { authOptions } from '@/lib/authOptions';
 import { getEventList } from '@/lib/fetchers';
 import Loading from './loading';
+import BasicPage from './components/BasicPage';
 
 const EventList = dynamic(() => import('./features/EventList'), {
   ssr: false
@@ -31,13 +32,11 @@ export default async function AdminPage({
   });
 
   return (
-    <div className="py-1">
-      <Suspense fallback={<Loading />}>
-        <EventList
-          eventListData={eventListData}
-          dictionary={dictionary.creator_admin.events}
-        />
-      </Suspense>
-    </div>
+    <BasicPage>
+      <EventList
+        eventListData={eventListData}
+        dictionary={dictionary.creator_admin.events}
+      />
+    </BasicPage>
   );
 }

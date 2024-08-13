@@ -3,10 +3,11 @@
 import { VscVmActive } from 'react-icons/vsc';
 import { GiNightSleep } from 'react-icons/gi';
 import { cn } from '@/lib/utils';
+import { ElementType } from 'react';
 
 interface IconRippleProps extends React.HTMLAttributes<HTMLDivElement> {
-  publishedIcon?: React.ElementType;
-  unPublishedIcon?: React.ElementType;
+  publishedIcon?: ElementType;
+  unPublishedIcon?: ElementType;
   borderColor?: string;
   inset?: string;
   isPublished: boolean;

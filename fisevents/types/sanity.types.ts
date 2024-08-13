@@ -137,10 +137,11 @@ export type Occurrence = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "eventType";
   };
-  description?: BlockContent;
+  description?: string;
   location?: string;
   maxSubscribers?: number;
   basicPrice?: number;
+  currency?: string;
   startDate?: string;
   endDate?: string;
   publicationStartDate?: string;

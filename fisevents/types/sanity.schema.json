@@ -822,8 +822,7 @@
       "description": {
         "type": "objectAttribute",
         "value": {
-          "type": "inline",
-          "name": "blockContent"
+          "type": "string"
         },
         "optional": true
       },
@@ -845,6 +844,13 @@
         "type": "objectAttribute",
         "value": {
           "type": "number"
+        },
+        "optional": true
+      },
+      "currency": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
         },
         "optional": true
       },

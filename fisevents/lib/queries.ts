@@ -24,6 +24,7 @@ export const eventSingleQuery = groq`*[_type == "occurrence" && createdByUser._r
   location,
   maxSubscribers,
   basicPrice,
+  currency,
   startDate,
   endDate,
   publicationStartDate,

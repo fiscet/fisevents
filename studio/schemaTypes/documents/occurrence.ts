@@ -56,6 +56,13 @@ export default defineType({
       title: 'Basic Price',
       name: 'basicPrice',
       type: 'number',
+      validation: (rule) => rule.precision(2)
+    }),
+    defineField({
+      title: 'Currency',
+      name: 'currency',
+      type: 'string',
+      validation: (rule) => rule.max(3)
     }),
     defineField({
       title: 'Start Date',
