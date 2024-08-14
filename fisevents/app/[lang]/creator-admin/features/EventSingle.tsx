@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -26,7 +25,7 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
   const formSchema = z
     .object({
       title: z.string().min(5, {
-        message: 'Username must be at least 5 characters.'
+        message: dictionary.validation.title
       }),
       description: z.string(),
       eventTypeCode: z.enum(['SINGLE', 'MULTIPLE']),
@@ -49,7 +48,7 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
         return tsPublicationStartDate < tsStartDate;
       },
       {
-        message: 'The publication date must be before the event start date',
+        message: dictionary.validation.publicationStartDate,
         path: ['publicationStartDate']
       }
     )
@@ -63,7 +62,7 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
         return tsStartDate < tsEndDate;
       },
       {
-        message: 'The start date must be before the event end date',
+        message: dictionary.validation.startDate,
         path: ['startDate']
       }
     );
@@ -110,9 +109,9 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
             <EventFormField
               form={form}
               name="title"
-              label="Title"
+              label={dictionary.labels.title}
               formComponent={Input}
-              description={'This is your event public display name.'}
+              description={dictionary.descriptions.title}
             />
             {eventSingleData?.pageImage.url && (
               <Image
@@ -126,33 +125,27 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
             <EventFormField
               form={form}
               name="description"
-              label="Description"
+              label={dictionary.labels.description}
               formComponent={Textarea}
               formComponentProps={{ rows: 10 }}
-              description={
-                'Give your users details about this event, e.g. who it is for, what benefits it provides, what the teaching plan is, etc.'
-              }
+              description={dictionary.descriptions.description}
             />
             <EventFormField
               form={form}
               name="location"
-              label="Location"
+              label={dictionary.labels.location}
               formComponent={Textarea}
               formComponentProps={{ rows: 3 }}
-              description={
-                'Where will the event be held? If it is a venue, please provide directions to get there'
-              }
+              description={dictionary.descriptions.location}
             />
             <EventFormField
               form={form}
               name="maxSubscribers"
-              label="Max Subscribers"
+              label={dictionary.labels.maxSubscribers}
               formComponent={Input}
               formComponentProps={{ type: 'number' }}
               formComponentClassName="w-20 text-center"
-              description={
-                'If it is a limited number, indicate the maximum number, otherwise write 0'
-              }
+              description={dictionary.descriptions.maxSubscribers}
               forceNumber
             />
 
@@ -160,7 +153,7 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
               <EventFormField
                 form={form}
                 name="basicPrice"
-                label="Price"
+                label={dictionary.labels.basicPrice}
                 formComponent={Input}
                 formComponentProps={{ type: 'number' }}
                 formComponentClassName="w-20 text-right"
@@ -169,7 +162,7 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
               <EventFormField
                 form={form}
                 name="currency"
-                label="Currency"
+                label={dictionary.labels.currency}
                 formComponent={Input}
                 formComponentProps={{ maxLength: 3 }}
                 formComponentClassName="w-20"
@@ -179,7 +172,8 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
               <EventFormField
                 form={form}
                 name="publicationStartDate"
-                label="Publication Start Date"
+                label={dictionary.labels.publicationStartDate}
+                description={dictionary.descriptions.publicationStartDate}
                 formComponent={Input}
                 formComponentProps={{
                   type: 'datetime-local'
@@ -190,7 +184,7 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
               <EventFormField
                 form={form}
                 name="startDate"
-                label="Start Date"
+                label={dictionary.labels.startDate}
                 formComponent={Input}
                 formComponentProps={{
                   type: 'datetime-local'
@@ -199,7 +193,7 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
               <EventFormField
                 form={form}
                 name="endDate"
-                label="End Date"
+                label={dictionary.labels.endDate}
                 formComponent={Input}
                 formComponentProps={{
                   type: 'datetime-local'
@@ -208,7 +202,7 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
             </div>
             <Separator className="my-5" />
             <div className="flex justify-center">
-              <SaveButton className="w-full" text="Save" />
+              <SaveButton className="w-full" text={dictionary.labels.save} />
             </div>
           </form>
         </Form>
