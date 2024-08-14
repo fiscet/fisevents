@@ -9,10 +9,14 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { getDictionary } from '@/lib/i18n.utils';
 import { OccurrenceSingle } from '@/types/sanity.extended.types';
-import { dateToIsoString } from '@/lib/utils';
+import { pickerDateToIsoString, toIsoString } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 import EventFormField from '../components/EventFormField';
 import SaveButton from '../components/SaveButton';
+import { sanityClient } from '@/lib/sanity';
+import path from 'path';
+import { updateEvent } from '@/lib/actions';
+import { Occurrence } from '@/types/sanity.types';
 
 export type EventSingleProps = {
   eventSingleData?: OccurrenceSingle;
@@ -68,7 +72,7 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
     );
 
   const today = new Date();
-  const todayString = dateToIsoString(today);
+  const todayString = pickerDateToIsoString(today);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -82,19 +86,37 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
       basicPrice: eventSingleData?.basicPrice?.toString() ?? '0',
       currency: eventSingleData?.currency ?? '',
       publicationStartDate:
-        dateToIsoString(eventSingleData?.publicationStartDate) ?? todayString,
-      startDate: dateToIsoString(eventSingleData?.startDate) ?? todayString,
+        pickerDateToIsoString(eventSingleData?.publicationStartDate) ??
+        todayString,
+      startDate:
+        pickerDateToIsoString(eventSingleData?.startDate) ?? todayString,
       endDate:
-        dateToIsoString(eventSingleData?.endDate) ??
-        dateToIsoString(new Date(today.setDate(today.getDate() + 1))),
+        pickerDateToIsoString(eventSingleData?.endDate) ??
+        pickerDateToIsoString(new Date(today.setDate(today.getDate() + 1))),
       active: eventSingleData?.active ?? true
     }
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+
+    values.publicationStartDate = toIsoString(
+      new Date(values.publicationStartDate)
+    );
+    values.startDate = toIsoString(new Date(values.startDate));
+    values.endDate = toIsoString(new Date(values.endDate));
+
+    updateEvent({
+      id: eventSingleData!._id!,
+      data: values as Partial<Occurrence>
+    });
+
+    // const patch = await sanityClient
+    //   .patch(eventSingleData!._id!)
+    //   .set({ title: values.title })
+    //   .commit();
+
+    // console.log({ path });
   }
 
   return (

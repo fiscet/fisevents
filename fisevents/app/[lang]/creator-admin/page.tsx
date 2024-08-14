@@ -1,12 +1,10 @@
-import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import { Locale } from '@/lib/i18n';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { getDictionary } from '@/lib/i18n.utils';
 import { authOptions } from '@/lib/authOptions';
-import { getEventList } from '@/lib/fetchers';
-import Loading from './loading';
+import { getEventList } from '@/lib/actions';
 import BasicPage from './components/BasicPage';
 
 const EventList = dynamic(() => import('./features/EventList'), {

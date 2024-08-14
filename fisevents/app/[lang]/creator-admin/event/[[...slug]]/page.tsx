@@ -1,5 +1,5 @@
 import { authOptions } from '@/lib/authOptions';
-import { getEventSingle } from '@/lib/fetchers';
+import { getEventSingle } from '@/lib/actions';
 import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
 import { getServerSession } from 'next-auth';
