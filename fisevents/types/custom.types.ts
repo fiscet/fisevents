@@ -8,3 +8,8 @@ export interface FDefaultSession extends DefaultSession {
     image?: string | null;
   };
 }
+
+export type FileImageType = {
+  file: File;
+  imgUrl: string;
+};

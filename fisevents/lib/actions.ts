@@ -4,6 +4,8 @@ import { sanityClient } from "./sanity";
 import { eventListQuery, eventSingleQuery } from "./queries";
 import { OccurrenceList, OccurrenceSingle } from "@/types/sanity.extended.types";
 import { Occurrence } from "@/types/sanity.types";
+import { createReadStream } from "fs";
+import { basename } from "path";
 
 export const getEventList = async ({ createdBy, active }: { createdBy: string; active: boolean; }) => {
   if (!active && active !== false) {
@@ -18,10 +20,8 @@ export const getEventSingle = async ({ createdBy, slug }: { createdBy: string; s
 };
 
 export const updateEvent = async ({ id, data }: { id: string; data: Partial<Occurrence>; }) => {
-  const patch = await sanityClient
+  return await sanityClient
     .patch(id)
     .set(data)
     .commit();
-
-  console.log({ patch });
 };

@@ -1,22 +1,23 @@
 'use client';
 
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import Image from 'next/image';
+import { getDictionary } from '@/lib/i18n.utils';
+import { OccurrenceSingle } from '@/types/sanity.extended.types';
+import { FileImageType } from '@/types/custom.types';
+import { Occurrence } from '@/types/sanity.types';
+import { pickerDateToIsoString, toIsoString } from '@/lib/utils';
+import { updateEvent } from '@/lib/actions';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { getDictionary } from '@/lib/i18n.utils';
-import { OccurrenceSingle } from '@/types/sanity.extended.types';
-import { pickerDateToIsoString, toIsoString } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 import EventFormField from '../components/EventFormField';
 import SaveButton from '../components/SaveButton';
-import { sanityClient } from '@/lib/sanity';
-import path from 'path';
-import { updateEvent } from '@/lib/actions';
-import { Occurrence } from '@/types/sanity.types';
+
+import ImageUploader from '../components/ImageUploader';
 
 export type EventSingleProps = {
   eventSingleData?: OccurrenceSingle;
@@ -26,6 +27,11 @@ export type EventSingleProps = {
 };
 
 export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
+  const [newImg, setNewImg] = useState<FileImageType>({
+    file: {} as File,
+    imgUrl: ''
+  });
+
   const formSchema = z
     .object({
       title: z.string().min(5, {
@@ -97,26 +103,52 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
     }
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  const handleImageChanged = ({ file, imgUrl }: FileImageType) => {
+    setNewImg({ file, imgUrl });
+  };
 
-    values.publicationStartDate = toIsoString(
+  const uploadImage = async () => {
+    const formData = new FormData();
+    formData.append('file', newImg.file);
+
+    const response = await fetch('/api/uploadImage', {
+      method: 'POST',
+      body: formData
+    });
+    return (await response.json()) as {
+      status: string;
+      id?: string;
+      error?: any;
+    };
+  };
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const insValue = { ...values } as Partial<Occurrence>;
+
+    insValue.publicationStartDate = toIsoString(
       new Date(values.publicationStartDate)
     );
-    values.startDate = toIsoString(new Date(values.startDate));
-    values.endDate = toIsoString(new Date(values.endDate));
+    insValue.startDate = toIsoString(new Date(values.startDate));
+    insValue.endDate = toIsoString(new Date(values.endDate));
 
-    updateEvent({
+    if (newImg.imgUrl) {
+      const imgRes = await uploadImage();
+
+      if (imgRes.id) {
+        insValue.mainImage = {
+          _type: 'image',
+          asset: {
+            _type: 'reference',
+            _ref: imgRes.id
+          }
+        };
+      }
+    }
+
+    await updateEvent({
       id: eventSingleData!._id!,
-      data: values as Partial<Occurrence>
+      data: insValue as Partial<Occurrence>
     });
-
-    // const patch = await sanityClient
-    //   .patch(eventSingleData!._id!)
-    //   .set({ title: values.title })
-    //   .commit();
-
-    // console.log({ path });
   }
 
   return (
@@ -136,12 +168,9 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
               description={dictionary.descriptions.title}
             />
             {eventSingleData?.pageImage.url && (
-              <Image
-                src={eventSingleData.pageImage.url}
-                alt="Logo"
-                width="400"
-                height="400"
-                className="mx-auto"
+              <ImageUploader
+                initImageUrl={eventSingleData.pageImage.url}
+                onFileChanged={handleImageChanged}
               />
             )}
             <EventFormField
