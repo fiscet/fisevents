@@ -158,6 +158,8 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
       }
     }
 
+    insValue.basicPrice = Number(insValue.basicPrice);
+
     await updateEvent({
       id: eventSingleData!._id!,
       data: insValue as Partial<Occurrence>
