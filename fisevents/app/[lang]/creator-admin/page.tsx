@@ -7,7 +7,7 @@ import { authOptions } from '@/lib/authOptions';
 import { getEventList } from '@/lib/actions';
 import BasicPage from './components/BasicPage';
 
-const EventList = dynamic(() => import('./features/EventList'), {
+const EventList = dynamic(() => import('./features/events/EventList'), {
   ssr: false
 });
 

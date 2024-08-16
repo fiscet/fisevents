@@ -4,8 +4,8 @@ import { useRouter } from 'next/navigation';
 import { getDictionary } from '@/lib/i18n.utils';
 import { OccurrenceList } from '@/types/sanity.extended.types';
 import DataTable, { Media, TableColumn } from 'react-data-table-component';
-import PublishedIcon from '../components/PublishedIcon';
-import NumAttendants from '../components/NumAttendants';
+import PublishedIcon from '../../components/PublishedIcon';
+import NumAttendants from '../../components/NumAttendants';
 import { CreatorAdminRoutes } from '@/lib/routes';
 
 function getColumns(
