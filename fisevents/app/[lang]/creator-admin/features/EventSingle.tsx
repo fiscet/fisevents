@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -16,7 +17,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
 import EventFormField from '../components/EventFormField';
 import SaveButton from '../components/SaveButton';
-
 import ImageUploader from '../components/ImageUploader';
 
 export type EventSingleProps = {
@@ -27,9 +27,13 @@ export type EventSingleProps = {
 };
 
 export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
+  const [initImageUrl, setInitImageUrl] = useState(
+    eventSingleData?.pageImage.url ?? ''
+  );
+
   const [newImg, setNewImg] = useState<FileImageType>({
     file: {} as File,
-    imgUrl: ''
+    imgUrl: eventSingleData?.pageImage.url ?? ''
   });
 
   const formSchema = z
@@ -89,7 +93,8 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
         (eventSingleData?.eventTypeCode as 'SINGLE' | 'MULTIPLE') ?? 'SINGLE',
       location: eventSingleData?.location ?? '',
       maxSubscribers: eventSingleData?.maxSubscribers ?? 0,
-      basicPrice: eventSingleData?.basicPrice?.toString() ?? '0',
+      basicPrice:
+        eventSingleData?.basicPrice?.toString().replace(',', '.') ?? '0',
       currency: eventSingleData?.currency ?? '',
       publicationStartDate:
         pickerDateToIsoString(eventSingleData?.publicationStartDate) ??
@@ -103,8 +108,11 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
     }
   });
 
-  const handleImageChanged = ({ file, imgUrl }: FileImageType) => {
-    setNewImg({ file, imgUrl });
+  const handleRestoreImage = () => {
+    setNewImg({
+      file: {} as File,
+      imgUrl: initImageUrl
+    });
   };
 
   const uploadImage = async () => {
@@ -118,6 +126,7 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
     return (await response.json()) as {
       status: string;
       id?: string;
+      url?: string;
       error?: any;
     };
   };
@@ -131,8 +140,10 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
     insValue.startDate = toIsoString(new Date(values.startDate));
     insValue.endDate = toIsoString(new Date(values.endDate));
 
-    if (newImg.imgUrl) {
-      const imgRes = await uploadImage();
+    let imgRes;
+
+    if (newImg.imgUrl != eventSingleData?.pageImage.url) {
+      imgRes = await uploadImage();
 
       if (imgRes.id) {
         insValue.mainImage = {
@@ -142,6 +153,8 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
             _ref: imgRes.id
           }
         };
+      } else {
+        insValue.mainImage = {} as typeof insValue.mainImage;
       }
     }
 
@@ -149,6 +162,15 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
       id: eventSingleData!._id!,
       data: insValue as Partial<Occurrence>
     });
+
+    if (imgRes?.id) {
+      setNewImg({
+        file: {} as File,
+        imgUrl: imgRes!.url!
+      });
+
+      setInitImageUrl(imgRes!.url!);
+    }
   }
 
   return (
@@ -167,12 +189,12 @@ export function EventSingle({ eventSingleData, dictionary }: EventSingleProps) {
               formComponent={Input}
               description={dictionary.descriptions.title}
             />
-            {eventSingleData?.pageImage.url && (
-              <ImageUploader
-                initImageUrl={eventSingleData.pageImage.url}
-                onFileChanged={handleImageChanged}
-              />
-            )}
+            <ImageUploader
+              initImageUrl={initImageUrl}
+              img={newImg}
+              setImg={setNewImg}
+              onRestore={handleRestoreImage}
+            />
             <EventFormField
               form={form}
               name="description"

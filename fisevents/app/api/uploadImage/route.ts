@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { sanityClient } from "@/lib/sanity";
 
 type StatusResponseType = { status: "success" | "fail"; };
-type SuccessResponseType = StatusResponseType & { id: string; };
+type SuccessResponseType = StatusResponseType & { id: string; url: string; };
 type ErrorResponseType = StatusResponseType & { error: unknown; };
 
 export async function POST(req: Request) {
@@ -11,12 +11,17 @@ export async function POST(req: Request) {
 
     const file = formData.get("file") as File;
 
-    const res = await sanityClient.assets
-      .upload('image', file, {
-        filename: file.name,
-      });
+    const response: SuccessResponseType = { status: "success", id: '', url: '' };
 
-    const response: SuccessResponseType = { status: "success", id: res._id };
+    if (file.name) {
+      const res = await sanityClient.assets
+        .upload('image', file, {
+          filename: file.name,
+        });
+
+      response.id = res._id;
+      response.url = res.url;
+    }
 
     return NextResponse.json(response);
   } catch (e) {
