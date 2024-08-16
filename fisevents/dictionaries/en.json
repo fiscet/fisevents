@@ -23,6 +23,7 @@
       "startDate": "Start date",
       "endDate": "End date",
       "numAttendants": "Attendants",
+      "saving": "Saving",
       "labels": {
         "title": "Title",
         "description": "Description",

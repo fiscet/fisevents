@@ -10,6 +10,7 @@ import { updateEvent } from '@/lib/actions';
 import ImageUploader from '../../components/ImageUploader';
 import { EventFormSchemaType, getForm } from './eventSingle.form';
 import EventSingle from './EventSingle';
+import Saving from '../../components/Saving';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
@@ -30,6 +31,8 @@ export default function EventSingleContainer({
     file: {} as File,
     imgUrl: eventSingleData?.pageImage.url ?? ''
   });
+
+  const [isSaving, setIsSaving] = useState(false);
 
   const { form } = getForm({ eventSingleData, dictionary });
 
@@ -57,13 +60,15 @@ export default function EventSingleContainer({
   };
 
   async function onSubmit(values: EventFormSchemaType) {
-    const insValue = { ...values } as Partial<Occurrence>;
+    setIsSaving(true);
 
-    insValue.publicationStartDate = toIsoString(
+    const insValues = { ...values } as Partial<Occurrence>;
+
+    insValues.publicationStartDate = toIsoString(
       new Date(values.publicationStartDate)
     );
-    insValue.startDate = toIsoString(new Date(values.startDate));
-    insValue.endDate = toIsoString(new Date(values.endDate));
+    insValues.startDate = toIsoString(new Date(values.startDate));
+    insValues.endDate = toIsoString(new Date(values.endDate));
 
     let imgRes;
 
@@ -71,7 +76,7 @@ export default function EventSingleContainer({
       imgRes = await uploadImage();
 
       if (imgRes.id) {
-        insValue.mainImage = {
+        insValues.mainImage = {
           _type: 'image',
           asset: {
             _type: 'reference',
@@ -79,15 +84,15 @@ export default function EventSingleContainer({
           }
         };
       } else {
-        insValue.mainImage = {} as typeof insValue.mainImage;
+        insValues.mainImage = {} as typeof insValues.mainImage;
       }
     }
 
-    insValue.basicPrice = Number(insValue.basicPrice);
+    insValues.basicPrice = Number(insValues.basicPrice);
 
     await updateEvent({
       id: eventSingleData!._id!,
-      data: insValue as Partial<Occurrence>
+      data: insValues as Partial<Occurrence>
     });
 
     if (imgRes?.id) {
@@ -98,6 +103,8 @@ export default function EventSingleContainer({
 
       setInitImageUrl(imgRes!.url!);
     }
+
+    setIsSaving(false);
   }
 
   const MyImageUploader = (
@@ -110,12 +117,15 @@ export default function EventSingleContainer({
   );
 
   return (
-    <EventSingle
-      title={eventSingleData?.title}
-      dictionary={dictionary}
-      form={form}
-      imageUploader={MyImageUploader}
-      onSubmit={onSubmit}
-    />
+    <>
+      {isSaving && <Saving text={dictionary.saving} />}
+      <EventSingle
+        title={eventSingleData?.title}
+        dictionary={dictionary}
+        form={form}
+        imageUploader={MyImageUploader}
+        onSubmit={onSubmit}
+      />
+    </>
   );
 }

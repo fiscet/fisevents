@@ -49,11 +49,9 @@ export default async function AdminLayout({
             <AlertDescription>Please complete your profile</AlertDescription>
           </Alert>
         )}
-        <main className="my-10 md:mt-14 overflow-hidden">
-          <ScrollArea className="h-full">
-            <DotBg>{children}</DotBg>
-          </ScrollArea>
-        </main>
+        <DotBg className="h-screen my-10 md:mt-14 overflow-hidden">
+          <ScrollArea className="h-full">{children}</ScrollArea>
+        </DotBg>
       </div>
     </div>
   );
