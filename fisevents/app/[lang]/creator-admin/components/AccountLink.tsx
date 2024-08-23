@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { getDictionary } from '@/lib/i18n.utils';
-import { RiAccountCircleFill } from 'react-icons/ri';
 import { BiSolidUserRectangle } from 'react-icons/bi';
 import {
   Tooltip,

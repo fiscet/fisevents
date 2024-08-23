@@ -1,0 +1,29 @@
+.mdxeditor {
+  ul {
+    @apply list-disc;
+  }
+
+  ol {
+    @apply list-decimal;
+  }
+
+  li {
+    @apply ml-2;
+  }
+
+  .mdxeditor-root-contenteditable {
+    @apply p-2
+  }
+
+  div[class^="_contentEditable"] {
+    @apply p-2;
+  }
+
+  .mdxeditor-toolbar {
+    @apply flex items-center gap-2 border-b mb-2;
+
+    div[class^="_toolbarGroupOfGroups"] {
+      @apply flex items-center;
+    }
+  }
+}

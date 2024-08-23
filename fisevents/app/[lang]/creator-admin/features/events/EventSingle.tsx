@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import { getDictionary } from '@/lib/i18n.utils';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -9,6 +9,14 @@ import { Separator } from '@/components/ui/separator';
 import EventFormField from '../../components/EventFormField';
 import SaveButton from '../../components/SaveButton';
 import { EventFormSchemaType } from './eventSingle.form';
+import dynamic from 'next/dynamic';
+
+const EditorComp = dynamic(
+  () => import('../../components/MarkdownEditor/Editor'),
+  {
+    ssr: false
+  }
+);
 
 export type EventSingleProps = {
   title?: string;
@@ -50,6 +58,9 @@ export default function EventSingle({
               formComponentProps={{ rows: 10 }}
               description={dictionary.descriptions.description}
             />
+            <Suspense fallback={null}>
+              <EditorComp markdown={'Hello **world**!'} />
+            </Suspense>
             <EventFormField
               form={form}
               name="location"
