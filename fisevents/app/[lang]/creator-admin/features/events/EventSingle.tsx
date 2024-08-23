@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
 import EventFormField from '../../components/EventFormField';
 import SaveButton from '../../components/SaveButton';
-import { EventFormSchemaType } from './eventSingle.form';
+import { EventFormSchemaType } from './useEventSingleForm';
 import dynamic from 'next/dynamic';
 
 const EditorComp = dynamic(

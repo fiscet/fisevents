@@ -5,7 +5,7 @@ import { pickerDateToIsoString } from '@/lib/utils';
 import { getDictionary } from '@/lib/i18n.utils';
 import { OccurrenceSingle } from '@/types/sanity.extended.types';
 
-export type getFormProps = {
+export type useEventSingleFormProps = {
   eventSingleData?: OccurrenceSingle;
   dictionary: Awaited<
     ReturnType<typeof getDictionary>
@@ -29,7 +29,7 @@ export const formSchemaObj = z
 
 export type EventFormSchemaType = z.infer<typeof formSchemaObj>;
 
-export function getForm({ eventSingleData, dictionary }: getFormProps) {
+export function useEventSingleForm({ eventSingleData, dictionary }: useEventSingleFormProps) {
 
   const formSchema = z
     .object(formSchemaObj.shape)

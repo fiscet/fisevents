@@ -8,7 +8,7 @@ import { Occurrence } from '@/types/sanity.types';
 import { toIsoString } from '@/lib/utils';
 import { updateEvent } from '@/lib/actions';
 import ImageUploader from '../../components/ImageUploader';
-import { EventFormSchemaType, getForm } from './eventSingle.form';
+import { EventFormSchemaType, useEventSingleForm } from './useEventSingleForm';
 import EventSingle from './EventSingle';
 import Saving from '../../components/Saving';
 
@@ -34,7 +34,7 @@ export default function EventSingleContainer({
 
   const [isSaving, setIsSaving] = useState(false);
 
-  const { form } = getForm({ eventSingleData, dictionary });
+  const { form } = useEventSingleForm({ eventSingleData, dictionary });
 
   const handleRestoreImage = () => {
     setNewImg({
