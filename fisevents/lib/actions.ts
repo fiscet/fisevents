@@ -6,11 +6,7 @@ import { OccurrenceList, OccurrenceSingle } from "@/types/sanity.extended.types"
 import { Occurrence } from "@/types/sanity.types";
 import { revalidateTag } from "next/cache";
 
-export const getEventList = async ({ createdBy, active }: { createdBy: string; active: boolean; }) => {
-  if (!active && active !== false) {
-    active = true;
-  }
-
+export const getEventList = async ({ createdBy, active = true }: { createdBy: string; active?: boolean; }) => {
   return await sanityClient.fetch<OccurrenceList[]>(eventListQuery, { createdBy, active });
 };
 
@@ -24,7 +20,7 @@ export const updateEvent = async ({ id, data }: { id: string; data: Partial<Occu
     .set(data)
     .commit();
 
-  revalidateTag('eventSingle');
+  // revalidateTag('eventSingle');
 
   return res;
-};;;;
+};
