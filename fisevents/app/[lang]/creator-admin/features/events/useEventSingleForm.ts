@@ -68,7 +68,6 @@ export function useEventSingleForm({ eventSingleData, dictionary }: useEventSing
       }
     );
 
-
   const today = new Date();
   const todayString = pickerDateToIsoString(today);
 

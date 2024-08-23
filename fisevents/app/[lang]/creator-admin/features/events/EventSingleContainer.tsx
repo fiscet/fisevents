@@ -5,7 +5,7 @@ import { getDictionary } from '@/lib/i18n.utils';
 import { OccurrenceSingle } from '@/types/sanity.extended.types';
 import { FileImageType } from '@/types/custom.types';
 import { Occurrence } from '@/types/sanity.types';
-import { toIsoString } from '@/lib/utils';
+import { toUserIsoString } from '@/lib/utils';
 import { updateEvent } from '@/lib/actions';
 import ImageUploader from '../../components/ImageUploader';
 import { EventFormSchemaType, useEventSingleForm } from './useEventSingleForm';
@@ -64,11 +64,11 @@ export default function EventSingleContainer({
 
     const insValues = { ...values } as Partial<Occurrence>;
 
-    insValues.publicationStartDate = toIsoString(
+    insValues.publicationStartDate = toUserIsoString(
       new Date(values.publicationStartDate)
     );
-    insValues.startDate = toIsoString(new Date(values.startDate));
-    insValues.endDate = toIsoString(new Date(values.endDate));
+    insValues.startDate = toUserIsoString(new Date(values.startDate));
+    insValues.endDate = toUserIsoString(new Date(values.endDate));
 
     let imgRes;
 

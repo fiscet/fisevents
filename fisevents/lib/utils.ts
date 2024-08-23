@@ -1,5 +1,4 @@
 import { type ClassValue, clsx } from "clsx";
-import { Regex } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -12,9 +11,15 @@ export const pickerDateToIsoString = (date: Date | string | undefined) => {
   }
 
   if (typeof date == 'string') {
-    // Coming from the picker
+    // Coming from the HTML picker
     if (date.length == 16) {
-      return date;
+      const isoShortDateRegex = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/;
+
+      if (isoShortDateRegex.test(date)) {
+        return date;
+      }
+
+      return '';
     }
     // Complete ISO with milliseconds and timezone Z
     if (date.length > 16) {
@@ -31,7 +36,7 @@ export const pickerDateToIsoString = (date: Date | string | undefined) => {
   return (date as Date).toISOString().substring(0, 16);
 };
 
-export const toIsoString = (date: Date) => {
+export const toUserIsoString = (date: Date) => {
   var tzo = -date.getTimezoneOffset(),
     dif = tzo >= 0 ? '+' : '-',
     pad = function (num: number) {

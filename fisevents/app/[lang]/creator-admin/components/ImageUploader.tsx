@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, memo, useState } from 'react';
+import { ChangeEvent, memo } from 'react';
 import Image from 'next/image';
 import { GrCloudUpload } from 'react-icons/gr';
 import { GrRevert } from 'react-icons/gr';
