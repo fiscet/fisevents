@@ -8,13 +8,12 @@ import {
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../lib/authOptions';
 import { redirect } from 'next/navigation';
-import SignInWithEmail from './components/SignInWithEmail';
-import SignInWithGoogle from './components/SignInWithGoogle';
 import { Separator } from '@/components/ui/separator';
 import { getDictionary } from '@/lib/i18n.utils';
 import { Locale } from '@/lib/i18n';
 import Logo from '@/components/Logo';
 import { CreatorAdminRoutes } from '@/lib/routes';
+import SignInProviders from './components/SignInProviders';
 
 export default async function AuthPage({
   params: { lang }
@@ -40,11 +39,7 @@ export default async function AuthPage({
         <CardDescription>Choose your authentication method</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="flex flex-col">
-          <SignInWithEmail dictionary={dictionary.auth.login_with_email} />
-          <Separator className="my-4" />
-          <SignInWithGoogle dictionary={dictionary.auth.login_with_google} />
-        </div>
+        <SignInProviders dictionary={dictionary.auth} />
       </CardContent>
     </Card>
   );

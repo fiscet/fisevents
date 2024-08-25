@@ -10,7 +10,7 @@ import { FileImageType } from '@/types/custom.types';
 export type ImageUploaderProps = {
   boxSize?: number;
   initImageUrl?: string;
-  img: FileImageType;
+  img?: FileImageType;
   setImg: (img: FileImageType) => void;
   onRestore: () => void;
 };
@@ -52,7 +52,17 @@ const ImageUploader = memo(
         }}
         className={`relative mx-auto bg-slate-50 border`}
       >
-        {img.imgUrl && (
+        {!img?.imgUrl && initImageUrl && (
+          <Image
+            src={initImageUrl}
+            width={boxSize}
+            height={boxSize}
+            className="mx-auto"
+            alt=""
+            loading="lazy"
+          />
+        )}
+        {img?.imgUrl && (
           <Image
             src={img.imgUrl}
             width={boxSize}
@@ -69,7 +79,7 @@ const ImageUploader = memo(
               <GrCloudUpload className="w-5 h-5" />
               <input
                 className="w-0 h-0 opacity-0"
-                key={img.imgUrl}
+                key={img?.imgUrl}
                 type="file"
                 name="upload"
                 onChange={(e) => handleFilePicker(e)}
@@ -77,7 +87,7 @@ const ImageUploader = memo(
                 id="file_uploader"
               />
             </label>
-            {initImageUrl != img.imgUrl && (
+            {initImageUrl != img?.imgUrl && (
               <div className="cursor-pointer" onClick={onRestore}>
                 <GrRevert className="w-5 h-5 text-sky-700" />
               </div>
@@ -91,7 +101,7 @@ const ImageUploader = memo(
     );
   },
   (prevProps, nextProps) => {
-    if (prevProps.img.imgUrl === nextProps.img.imgUrl) {
+    if (prevProps.img?.imgUrl === nextProps.img?.imgUrl) {
       return true;
     }
     return false;

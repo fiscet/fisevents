@@ -3,7 +3,7 @@ import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
 import { authOptions } from '@/lib/authOptions';
 import Link from 'next/link';
-import LogoutLink from './creator-admin/components/LogoutLink';
+import LogoutLink from './creator-admin/components/LogoutLinkContainer';
 import { Button } from '@/components/ui/button';
 import { CreatorAdminRoutes } from '@/lib/routes';
 
@@ -21,7 +21,7 @@ export default async function MainPage({
       {session ? (
         <div>
           <h2>Logged IN</h2>
-          <Link href={`/${CreatorAdminRoutes}`}>Creator Admin</Link>
+          <Link href={`/${CreatorAdminRoutes.getBase()}`}>Creator Admin</Link>
           <div>OR</div>
           <LogoutLink dictionary={dictionary.auth} />
         </div>

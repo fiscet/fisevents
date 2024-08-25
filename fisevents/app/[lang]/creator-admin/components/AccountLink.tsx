@@ -1,8 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { getDictionary } from '@/lib/i18n.utils';
 import { BiSolidUserRectangle } from 'react-icons/bi';
 import {
   Tooltip,
@@ -10,14 +8,17 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from '@/components/ui/tooltip';
+import { CreatorAdminRoutes } from '@/lib/routes';
 
-export default function AccountLink({
-  dictionary
-}: {
-  dictionary: Awaited<ReturnType<typeof getDictionary>>['auth'];
-}) {
-  const pathname = usePathname();
-  const href = pathname.endsWith('account') ? '' : `${pathname}/account`;
+export type AccountLinkProps = {
+  label: string;
+  pathname?: string;
+};
+
+export default function AccountLink({ label, pathname }: AccountLinkProps) {
+  const href = pathname?.endsWith('account')
+    ? ''
+    : `${window.location.origin}/${CreatorAdminRoutes.getBase()}/account`;
 
   return (
     <div className="flex">
@@ -35,7 +36,7 @@ export default function AccountLink({
             </Link>
           </TooltipTrigger>
           <TooltipContent>
-            <p>{dictionary.account}</p>
+            <p>{label}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
