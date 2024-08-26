@@ -1,23 +1,24 @@
-// verification-token - only if you use email provider
+import { SiAmazonsimpleemailservice } from "react-icons/si";
 
 export default {
-  name: 'verification-token',
-  title: 'Verification Token',
+  title: 'Verification Tokens',
+  name: 'verificationToken',
+  icon: SiAmazonsimpleemailservice,
   type: 'document',
   fields: [
     {
-      name: 'identifier',
       title: 'Identifier',
+      name: 'identifier',
       type: 'string'
     },
     {
-      name: 'token',
       title: 'Token',
+      name: 'token',
       type: 'string'
     },
     {
-      name: 'expires',
       title: 'Expires',
+      name: 'expires',
       type: 'datetime'
     }
   ]

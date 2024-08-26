@@ -1,6 +1,8 @@
 {
   "auth": {
     "login": "Login hu",
+    "logout": "Logout hu",
+    "account": "Manage your Account",
     "login_with_email": {
       "title": "Login with Email",
       "email": "Email",
@@ -11,6 +13,42 @@
     },
     "login_with_google": {
       "title": "Login with Google"
+    }
+  },
+  "creator_admin": {
+    "events": {
+      "is_published": "Published",
+      "title": "Event name",
+      "publicationStartDate": "Published from",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "numAttendants": "Attendants",
+      "saving": "Saving",
+      "labels": {
+        "title": "Title",
+        "description": "Description",
+        "location": "Location",
+        "maxSubscribers": "Max number of participants",
+        "basicPrice": "Full Price",
+        "currency": "Currency",
+        "publicationStartDate": "Publication start date",
+        "startDate": "Event start date",
+        "endDate": "Event end date",
+        "save": "Save"
+      },
+      "descriptions": {
+        "title": "This is your event public display name.",
+        "description": "Give your users details about this event, e.g. who it is for, what benefits it provides, what the teaching plan is, etc.",
+        "location": "Where will the event be held? If it is a venue, please provide directions to get there",
+        "maxSubscribers": "If it is a limited number, indicate the maximum number, otherwise write 0",
+        "publicationStartDate": "When the event will be visible online and users will be able to register"
+
+      },
+      "validation": {
+        "title": "Title must be at least 5 characters.",
+        "publicationStartDate": "The publication date must be before the event start date",
+        "startDate": "The start date must be before the event end date"
+      }
     }
   }
 }

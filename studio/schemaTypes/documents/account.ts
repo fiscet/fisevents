@@ -1,8 +1,10 @@
-// account - required
+
+import { SiGoogleauthenticator } from "react-icons/si";
 
 export default {
+  title: 'Accounts',
   name: 'account',
-  title: 'Account',
+  icon: SiGoogleauthenticator,
   type: 'document',
   fields: [
     {
@@ -30,8 +32,8 @@ export default {
       type: 'number'
     },
     {
-      name: 'user',
       title: 'User',
+      name: 'user',
       type: 'reference',
       to: { type: 'user' }
     }

@@ -5,24 +5,32 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/components/ui/use-toast';
 import { getDictionary } from '@/lib/i18n.utils';
-import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 
-export default function SignInEmail({
-  dictionary
-}: {
+export type SignInWithEmailProps = {
   dictionary: Awaited<
     ReturnType<typeof getDictionary>
   >['auth']['login_with_email'];
-}) {
+  onSignIn: (
+    provider: string,
+    { email, callbackUrl, redirect }: any
+  ) => Promise<any>;
+};
+
+export default function SignInWithEmail({
+  dictionary,
+  onSignIn
+}: SignInWithEmailProps) {
   const [email, setEmail] = useState<string | null>(null);
 
   async function signInWithEmail() {
-    const res = await signIn('email', {
+    const res = await onSignIn('email', {
       email,
       callbackUrl: window.location.origin,
       redirect: false
     });
+
+    setEmail(null);
 
     if (!res?.ok) {
       return toast({
