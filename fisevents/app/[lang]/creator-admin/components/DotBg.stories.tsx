@@ -4,6 +4,9 @@ import DotBg, { DotBgProps } from './DotBg';
 
 const meta = {
   component: DotBg,
+  parameters: {
+    layout: 'fullscreen',
+  },
 } satisfies Meta<DotBgProps>;
 
 export default meta;
