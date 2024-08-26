@@ -3,7 +3,7 @@ import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
 import { authOptions } from '@/lib/authOptions';
 import Link from 'next/link';
-import LogoutLink from './creator-admin/components/LogoutLinkContainer';
+import LogoutLink from './creator-admin/components/LogoutLink/LogoutLinkContainer';
 import { Button } from '@/components/ui/button';
 import { CreatorAdminRoutes } from '@/lib/routes';
 

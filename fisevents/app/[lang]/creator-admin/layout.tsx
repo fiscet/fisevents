@@ -1,4 +1,3 @@
-import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/authOptions';
@@ -8,7 +7,7 @@ import { GrAlert } from 'react-icons/gr';
 import { Locale } from '@/lib/i18n';
 import Logo from '@/components/Logo';
 import AccountLink from './components/AccountLink';
-import LogoutLink from './components/LogoutLinkContainer';
+import LogoutLink from './components/LogoutLink/LogoutLinkContainer';
 import { getDictionary } from '@/lib/i18n.utils';
 import DotBg from './components/DotBg';
 
@@ -19,15 +18,12 @@ export default async function AdminLayout({
   children: React.ReactNode;
   params: { lang: Locale };
 }) {
-  const headersList = headers();
   const session = await getServerSession(authOptions);
   const dictionary = await getDictionary(lang);
 
   if (!session) {
     return redirect('/auth');
   }
-
-  const pathname = headersList.get('x-pathname');
 
   return (
     <div className="w-full min-h-fit h-screen flex flex-col bg-[url('/img/main-bg.jpg')] bg-contain">
