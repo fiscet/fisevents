@@ -9,6 +9,7 @@
       "ok_title": "Check your email",
       "ok_text": "A magic link has been sent to you",
       "err_title": "Wrong email",
+      "empty_email_text": "Please write a valid email",
       "err_text": "Something went wrong sending the link to your email"
     },
     "login_with_google": {

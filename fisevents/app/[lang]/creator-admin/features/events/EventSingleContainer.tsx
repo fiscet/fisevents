@@ -10,7 +10,7 @@ import { updateEvent } from '@/lib/actions';
 import ImageUploader from '../../components/ImageUploader';
 import { EventFormSchemaType, useEventSingleForm } from './useEventSingleForm';
 import EventSingle from './EventSingle';
-import Saving from '../../components/Saving';
+import Processing from '@/components/Processing';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
@@ -118,7 +118,7 @@ export default function EventSingleContainer({
 
   return (
     <>
-      {isSaving && <Saving text={dictionary.saving} />}
+      {isSaving && <Processing text={dictionary.saving} />}
       <EventSingle
         title={eventSingleData?.title}
         dictionary={dictionary}
