@@ -49,6 +49,10 @@
         "publicationStartDate": "The publication date must be before the event start date",
         "startDate": "The start date must be before the event end date"
       }
+    },
+    "notifications": {
+      "action_required": "Action required!",
+      "missing_user_name": "Please complete your profile"
     }
   }
 }

@@ -13,3 +13,11 @@ export type FileImageType = {
   file: File;
   imgUrl: string;
 };
+
+export const NOTIFICATION_TYPES = ['success', 'error', 'info', 'warning', 'none'] as const;
+
+export type Notification = {
+  title?: string;
+  message: string;
+  type: typeof NOTIFICATION_TYPES[number];
+};

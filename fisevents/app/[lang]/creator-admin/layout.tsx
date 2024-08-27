@@ -1,15 +1,15 @@
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/authOptions';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { GrAlert } from 'react-icons/gr';
 import { Locale } from '@/lib/i18n';
 import Logo from '@/components/Logo';
 import AccountLink from './components/AccountLink';
 import LogoutLink from './components/LogoutLink/LogoutLinkContainer';
 import { getDictionary } from '@/lib/i18n.utils';
 import DotBg from './components/DotBg';
+import { NotificationProvider } from './components/Notification/NotificationContext';
+import PageWrapper from './components/PageWrapper';
 
 export default async function AdminLayout({
   children,
@@ -31,7 +31,7 @@ export default async function AdminLayout({
         <header className="md:grid md:grid-cols-3">
           <div className="hidden md:block">&nbsp;</div>
           <Logo />
-          <section className="flex justify-end items-center gap-x-3 mt-5 md:mt-0">
+          <section className="flex justify-end items-center gap-x-3 mt-6 md:mt-0">
             <div>
               <AccountLink label={dictionary.auth.account} />
             </div>
@@ -40,17 +40,15 @@ export default async function AdminLayout({
             </div>
           </section>
         </header>
-
-        {!session?.user?.name && (
-          <Alert variant="destructive">
-            <GrAlert className="h-4 w-4" />
-            <AlertTitle>Error</AlertTitle>
-            <AlertDescription>Please complete your profile</AlertDescription>
-          </Alert>
-        )}
-        <DotBg className="h-screen my-10 md:mt-14 overflow-hidden">
-          <ScrollArea className="h-full">{children}</ScrollArea>
-        </DotBg>
+        <NotificationProvider>
+          <DotBg className="h-screen mb-10 md:mt-2 overflow-hidden">
+            <ScrollArea className="h-full">
+              <PageWrapper dictionary={dictionary.creator_admin.notifications}>
+                {children}
+              </PageWrapper>
+            </ScrollArea>
+          </DotBg>
+        </NotificationProvider>
       </div>
     </div>
   );

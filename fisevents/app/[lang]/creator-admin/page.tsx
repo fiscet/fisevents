@@ -5,7 +5,6 @@ import { getServerSession } from 'next-auth';
 import { getDictionary } from '@/lib/i18n.utils';
 import { authOptions } from '@/lib/authOptions';
 import { getEventList } from '@/lib/actions';
-import BasicPage from './components/BasicPage';
 
 const EventList = dynamic(() => import('./features/events/EventList'), {
   ssr: false
@@ -30,11 +29,9 @@ export default async function AdminPage({
   });
 
   return (
-    <BasicPage>
-      <EventList
-        eventListData={eventListData}
-        dictionary={dictionary.creator_admin.events}
-      />
-    </BasicPage>
+    <EventList
+      eventListData={eventListData}
+      dictionary={dictionary.creator_admin.events}
+    />
   );
 }
