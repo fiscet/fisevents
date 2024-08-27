@@ -57,6 +57,7 @@ export type NotificationBarProps = {
   title?: string;
   message: string;
   type: Notification['type'];
+  className?: string;
   onClose: () => void;
 };
 
@@ -64,12 +65,13 @@ export function NotificationBar({
   title,
   message,
   type,
+  className,
   onClose
 }: NotificationBarProps) {
   const { mainClasses, Icon, allowClose } = notificationStyles[type];
 
   return (
-    <div className="mt-6 md:mt-4">
+    <div className={cn('mt-6 md:mt-4', className)}>
       <div className={cn('py-2 px-4 rounded-md shadow-sm', mainClasses)}>
         <div className="flex items-center justify-between">
           <Icon />

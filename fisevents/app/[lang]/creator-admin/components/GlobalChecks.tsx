@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { useNotification } from './Notification/useNotification';
 import { getDictionary } from '@/lib/i18n.utils';
+import { useNotification } from '@/components/Notification/useNotification';
 
 export type GlobalChecksProps = {
   dictionary: Awaited<

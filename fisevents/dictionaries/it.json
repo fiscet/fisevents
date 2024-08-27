@@ -6,10 +6,10 @@
     "login_with_email": {
       "title": "Login with Email it",
       "email": "Email",
-      "toast_ok_title": "Check your email",
-      "toast_ok_text": "A magic link has been sent to you",
-      "toast_err_title": "Wrong email",
-      "toast_err_text": "Something went wrong sending the link to your email"
+      "ok_title": "Check your email",
+      "ok_text": "A magic link has been sent to you",
+      "err_title": "Wrong email",
+      "err_text": "Something went wrong sending the link to your email"
     },
     "login_with_google": {
       "title": "Login with Google it"

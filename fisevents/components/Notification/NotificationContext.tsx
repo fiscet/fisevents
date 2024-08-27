@@ -19,7 +19,13 @@ export const NotificationContext = createContext<
   NotificationContextType | undefined
 >(undefined);
 
-export function NotificationProvider({ children }: { children: ReactNode }) {
+export function NotificationProvider({
+  children,
+  className
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   const [notification, setNotification] = useState<Notification>(inintialState);
 
   const showNotification = useCallback(
@@ -42,6 +48,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
           title={notification.title}
           message={notification.message}
           type={notification.type}
+          className={className}
           onClose={hideNotification}
         />
       )}

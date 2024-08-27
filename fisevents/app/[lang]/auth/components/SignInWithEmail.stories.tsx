@@ -16,10 +16,10 @@ export const Default: Story = {
     dictionary: {
       title: 'Sign in with email',
       email: 'Email',
-      toast_ok_title: 'Success',
-      toast_ok_text: 'You have signed in successfully',
-      toast_err_title: 'Error',
-      toast_err_text: 'Something went wrong'
+      ok_title: 'Success',
+      ok_text: 'You have signed in successfully',
+      err_title: 'Error',
+      err_text: 'Something went wrong'
     },
     onSignIn:  fn()
   }

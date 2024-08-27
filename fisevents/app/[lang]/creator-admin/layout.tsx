@@ -8,8 +8,8 @@ import AccountLink from './components/AccountLink';
 import LogoutLink from './components/LogoutLink/LogoutLinkContainer';
 import { getDictionary } from '@/lib/i18n.utils';
 import DotBg from './components/DotBg';
-import { NotificationProvider } from './components/Notification/NotificationContext';
 import PageWrapper from './components/PageWrapper';
+import { NotificationProvider } from '@/components/Notification/NotificationContext';
 
 export default async function AdminLayout({
   children,
