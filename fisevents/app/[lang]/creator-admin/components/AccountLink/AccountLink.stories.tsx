@@ -12,12 +12,13 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     label: 'Account',
+    href: '/creator-admin/account'
   }
 };
 
 export const Active: Story = {
   args: {
     label: 'Account',
-    pathname: '/account'
+    href: ''
   }
 };

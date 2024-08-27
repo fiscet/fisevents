@@ -1,9 +1,9 @@
 'use client';
 
+import { useNotification } from '@/components/Notification/useNotification';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { toast } from '@/components/ui/use-toast';
 import { getDictionary } from '@/lib/i18n.utils';
 import { useState } from 'react';
 
@@ -23,6 +23,8 @@ export default function SignInWithEmail({
 }: SignInWithEmailProps) {
   const [email, setEmail] = useState<string | null>(null);
 
+  const { showNotification } = useNotification();
+
   async function signInWithEmail() {
     const res = await onSignIn('email', {
       email,
@@ -33,16 +35,19 @@ export default function SignInWithEmail({
     setEmail(null);
 
     if (!res?.ok) {
-      return toast({
-        title: dictionary.toast_err_title,
-        description: dictionary.toast_err_text,
-        variant: 'destructive'
+      showNotification({
+        title: dictionary.err_title,
+        message: dictionary.err_text,
+        type: 'error'
       });
+
+      return;
     }
 
-    return toast({
-      title: dictionary.toast_ok_title,
-      description: dictionary.toast_ok_text
+    showNotification({
+      title: dictionary.ok_title,
+      message: dictionary.ok_text,
+      type: 'success'
     });
   }
 

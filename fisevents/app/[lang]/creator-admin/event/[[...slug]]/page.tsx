@@ -5,7 +5,6 @@ import { getDictionary } from '@/lib/i18n.utils';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import EventSingle from '../../features/events/EventSingleContainer';
-import BasicPage from '../../components/BasicPage';
 
 export default async function eventSinglePage({
   params: { lang, slug }
@@ -29,11 +28,9 @@ export default async function eventSinglePage({
       : undefined;
 
   return (
-    <BasicPage>
-      <EventSingle
-        eventSingleData={eventSingleData}
-        dictionary={dictionary.creator_admin.events}
-      />
-    </BasicPage>
+    <EventSingle
+      eventSingleData={eventSingleData}
+      dictionary={dictionary.creator_admin.events}
+    />
   );
 }
