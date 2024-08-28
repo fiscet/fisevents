@@ -69,7 +69,9 @@ export default function EventSingleContainer({
   async function onSubmit(values: EventFormSchemaType) {
     setIsSaving(true);
 
-    const insValues = { ...values } as Partial<Occurrence>;
+    const { eventTypeCode, ...restValues } = values;
+
+    const insValues = { ...restValues } as Partial<Occurrence>;
 
     insValues.publicationStartDate = toUserIsoString(
       new Date(values.publicationStartDate)

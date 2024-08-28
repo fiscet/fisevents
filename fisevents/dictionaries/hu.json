@@ -32,6 +32,8 @@
         "maxSubscribers": "Max number of participants",
         "basicPrice": "Full Price",
         "currency": "Currency",
+        "active": "Published",
+        "not_active": "Unpublished",
         "publicationStartDate": "Publication start date",
         "startDate": "Event start date",
         "endDate": "Event end date",

@@ -2,14 +2,23 @@
 
 import { ReactNode, Suspense } from 'react';
 import { getDictionary } from '@/lib/i18n.utils';
-import { Form } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
+import { Checkbox } from '@/components/ui/checkbox';
 import EventFormField from '../../components/EventFormField';
 import SaveButton from '../../components/SaveButton';
 import { EventFormSchemaType } from './useEventSingleForm';
 import dynamic from 'next/dynamic';
+import { Switch } from '@/components/ui/switch';
+import EventFormActive from '../../components/EventFormActive';
 
 const EditorComp = dynamic(
   () => import('../../components/MarkdownEditor/Editor'),
@@ -104,18 +113,27 @@ export default function EventSingle({
                 formComponentClassName="w-20"
               />
             </div>
-            <EventFormField
-              form={form}
-              name="publicationStartDate"
-              label={dictionary.labels.publicationStartDate}
-              description={dictionary.descriptions.publicationStartDate}
-              formComponent={Input}
-              formComponentProps={{
-                type: 'datetime-local',
-                disabled: isExpired
-              }}
-              formComponentClassName="w-[205px]"
-            />
+            <div className="flex flex-col md:flex-row md:items-end gap-20">
+              <EventFormField
+                form={form}
+                name="publicationStartDate"
+                label={dictionary.labels.publicationStartDate}
+                description={dictionary.descriptions.publicationStartDate}
+                formComponent={Input}
+                formComponentProps={{
+                  type: 'datetime-local',
+                  disabled: isExpired
+                }}
+                formComponentClassName="w-[205px]"
+              />
+              <div className="mb-2">
+                <EventFormActive
+                  form={form}
+                  activeText={dictionary.labels.active}
+                  notActiveText={dictionary.labels.not_active}
+                />
+              </div>
+            </div>
             <div className="flex flex-col md:flex-row gap-1">
               <EventFormField
                 form={form}

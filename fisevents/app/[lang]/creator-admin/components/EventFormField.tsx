@@ -45,8 +45,9 @@ export default function EventFormField({
               {...formComponentProps}
             />
           </FormControl>
-          {description && <FormDescription>{description}</FormDescription>}
+
           <div className="absolute whitespace-nowrap">
+            {description && <FormDescription>{description}</FormDescription>}
             <FormMessage />
           </div>
         </FormItem>
