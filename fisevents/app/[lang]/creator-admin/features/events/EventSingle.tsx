@@ -35,13 +35,21 @@ export default function EventSingle({
   imageUploader: ImageUploader,
   onSubmit
 }: EventSingleProps) {
+  const endDate = form.getValues('endDate');
+  const description = form.getValues('description');
+
+  const isExpired = endDate && Date.parse(endDate) < Date.now();
+
   return (
     <>
       <h1 className="text-2xl font-bold text-center mt-5">{title}</h1>
       <Separator className="my-5" />
       <div className="px-1 max-w-[650px] mx-auto mt-5 mb-10">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form
+            onSubmit={!isExpired ? form.handleSubmit(onSubmit) : null}
+            className="space-y-8"
+          >
             <EventFormField
               form={form}
               name="title"
@@ -49,17 +57,14 @@ export default function EventSingle({
               formComponent={Input}
               description={dictionary.descriptions.title}
             />
+
             {ImageUploader}
-            <EventFormField
-              form={form}
-              name="description"
-              label={dictionary.labels.description}
-              formComponent={Textarea}
-              formComponentProps={{ rows: 10 }}
-              description={dictionary.descriptions.description}
-            />
+
             <Suspense fallback={null}>
-              <EditorComp markdown={'Hello **world**!'} />
+              <EditorComp
+                markdown={description}
+                onChange={(text) => form.setValue('description', text)}
+              />
             </Suspense>
             <EventFormField
               form={form}
@@ -106,7 +111,8 @@ export default function EventSingle({
               description={dictionary.descriptions.publicationStartDate}
               formComponent={Input}
               formComponentProps={{
-                type: 'datetime-local'
+                type: 'datetime-local',
+                disabled: isExpired
               }}
               formComponentClassName="w-[205px]"
             />
@@ -117,7 +123,8 @@ export default function EventSingle({
                 label={dictionary.labels.startDate}
                 formComponent={Input}
                 formComponentProps={{
-                  type: 'datetime-local'
+                  type: 'datetime-local',
+                  disabled: isExpired
                 }}
                 formComponentClassName="w-[205px]"
               />
@@ -127,15 +134,19 @@ export default function EventSingle({
                 label={dictionary.labels.endDate}
                 formComponent={Input}
                 formComponentProps={{
-                  type: 'datetime-local'
+                  type: 'datetime-local',
+                  disabled: isExpired
                 }}
                 formComponentClassName="w-[205px]"
               />
             </div>
+
             <Separator className="my-5" />
-            <div className="flex justify-center">
-              <SaveButton className="w-full" text={dictionary.labels.save} />
-            </div>
+            {!isExpired && (
+              <div className="flex justify-center">
+                <SaveButton className="w-full" text={dictionary.labels.save} />
+              </div>
+            )}
           </form>
         </Form>
       </div>

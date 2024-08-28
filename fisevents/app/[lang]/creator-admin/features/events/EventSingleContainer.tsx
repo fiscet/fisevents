@@ -7,8 +7,8 @@ import { FileImageType } from '@/types/custom.types';
 import { Occurrence } from '@/types/sanity.types';
 import { toUserIsoString } from '@/lib/utils';
 import { updateEvent } from '@/lib/actions';
-import ImageUploader from '../../components/ImageUploader';
 import { EventFormSchemaType, useEventSingleForm } from './useEventSingleForm';
+import ImageUploader from '../../components/ImageUploader';
 import EventSingle from './EventSingle';
 import Processing from '@/components/Processing';
 
@@ -40,6 +40,13 @@ export default function EventSingleContainer({
     setNewImg({
       file: {} as File,
       imgUrl: initImageUrl
+    });
+  };
+
+  const handleDeleteImage = () => {
+    setNewImg({
+      file: {} as File,
+      imgUrl: ''
     });
   };
 
@@ -113,6 +120,7 @@ export default function EventSingleContainer({
       img={newImg}
       setImg={setNewImg}
       onRestore={handleRestoreImage}
+      onDelete={handleDeleteImage}
     />
   );
 
