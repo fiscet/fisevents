@@ -19,7 +19,8 @@ export const Default: Story = {
       imgUrl: ''
     },
     setImg: () => {},
-    onRestore: () => {}
+    onRestore: () => {},
+    onDelete: () => {}
   },
 };
 
@@ -32,6 +33,7 @@ export const WithImageUploaded: Story = {
       imgUrl: '/stories/img-1.png'
     },
     setImg: () => {},
-    onRestore: () => {}
+    onRestore: () => { },
+    onDelete: () => {}
   },
 };
