@@ -1,4 +1,4 @@
-# FisEvent
+# FisEvents
 
 ## Purpose
 
