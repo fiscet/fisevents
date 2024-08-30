@@ -1,13 +1,15 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getDictionary } from '@/lib/i18n.utils';
 import { OccurrenceList } from '@/types/sanity.extended.types';
 import DataTable, { TableColumn } from 'react-data-table-component';
 import PublishedIcon from '../../components/PublishedIcon';
+import PublishableIcon from '../../components/PublishableIcon';
 import NumAttendants from '../../components/NumAttendants';
+import EventListFilter from '../../components/EventListFilter';
 import { CreatorAdminRoutes } from '@/lib/routes';
-import { useState } from 'react';
 
 function getColumns(
   dictionary: Awaited<
@@ -16,7 +18,7 @@ function getColumns(
 ) {
   const columns = [
     {
-      name: dictionary.is_published,
+      name: dictionary.labels.is_published,
       cell: (row) => {
         const isPublished =
           Date.parse(row.publicationStartDate!) <= Date.now() &&
@@ -29,7 +31,7 @@ function getColumns(
       hide: 640
     },
     {
-      name: dictionary.title,
+      name: dictionary.labels.title,
       selector: (row) => row.title,
       cell: (row) => (
         <div>
@@ -37,13 +39,22 @@ function getColumns(
           <div className="flex gap-3 py-2 sm:hidden">
             <PublishedIcon isPublished={true} inset="4px" />
             <NumAttendants num={row.numAttendants} />
+            <PublishableIcon isPublishable={!!row.active} />
           </div>
         </div>
       ),
       sortable: true
     },
     {
-      name: dictionary.numAttendants,
+      name: dictionary.labels.active,
+      selector: (row) => row.active,
+      cell: (row) => <PublishableIcon isPublishable={!!row.active} />,
+      center: 'true',
+      sortable: true,
+      hide: 640
+    },
+    {
+      name: dictionary.labels.numAttendants,
       selector: (row) => row.numAttendants,
       cell: (row) => <NumAttendants num={row.numAttendants} />,
       width: '120px',
@@ -51,7 +62,7 @@ function getColumns(
       hide: 640
     },
     {
-      name: dictionary.publicationStartDate,
+      name: dictionary.labels.publicationStartDate,
       selector: (row) => row.publicationStartDate,
       format: (row) =>
         new Date(row.publicationStartDate as string).toLocaleString(),
@@ -59,14 +70,14 @@ function getColumns(
       sortable: true
     },
     {
-      name: dictionary.startDate,
+      name: dictionary.labels.startDate,
       selector: (row) => row.startDate,
       format: (row) => new Date(row.startDate as string).toLocaleString(),
       hide: 'md',
       sortable: true
     },
     {
-      name: dictionary.endDate,
+      name: dictionary.labels.endDate,
       selector: (row) => row.endDate,
       format: (row) => new Date(row.endDate as string).toLocaleString(),
       hide: 'md',
@@ -112,23 +123,35 @@ export default function EventList({
   };
 
   return (
-    <DataTable
-      columns={getColumns(dictionary)}
-      data={eventListData}
-      pagination
-      responsive
-      striped
-      customStyles={{
-        rows: {
-          style: {
-            '&:hover': {
-              cursor: 'pointer',
-              backgroundColor: '#ffffee'
+    <div>
+      <EventListFilter
+        title={dictionary.labels.filters}
+        filter={filter}
+        filterText={{
+          all: dictionary.labels.all,
+          active: dictionary.labels.active,
+          published: dictionary.labels.published
+        }}
+        setFilter={setFilter}
+      />
+      <DataTable
+        columns={getColumns(dictionary)}
+        data={filterEvents(eventListData)}
+        pagination
+        responsive
+        striped
+        customStyles={{
+          rows: {
+            style: {
+              '&:hover': {
+                cursor: 'pointer',
+                backgroundColor: '#ffffee'
+              }
             }
           }
-        }
-      }}
-      onRowClicked={(row) => handleOpenSingleEvent(row.slug?.current!)}
-    />
+        }}
+        onRowClicked={(row) => handleOpenSingleEvent(row.slug?.current!)}
+      />
+    </div>
   );
 }

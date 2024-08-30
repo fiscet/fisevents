@@ -9,7 +9,8 @@ export const eventListQuery = groq`*[_type == "occurrence" && createdByUser._ref
   startDate,
   endDate,
   publicationStartDate,
-  'numAttendants': count(attendants)
+  'numAttendants': count(attendants),
+  active
 }`;
 
 export const eventSingleQuery = groq`*[_type == "occurrence" && createdByUser._ref == $createdBy && slug.current == $slug ][0] {
