@@ -7,7 +7,7 @@ import { structure } from './structure';
 export default defineConfig({
   name: 'default',
   title: 'FisEvents',
-  projectId: '***',
+  projectId: process.env.SANITY_PROJECT_ID as string,
   dataset: 'production',
 
   plugins: [structureTool({ structure }), visionTool()],
