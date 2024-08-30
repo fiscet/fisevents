@@ -2,6 +2,10 @@
 
 Congratulations, you have now installed the Sanity Content Studio, an open-source real-time content editing environment connected to the Sanity backend.
 
+The studio is intended to work locally with your Sanity project.
+
+Configure the file **sanity.config.ts** ans **sanity.cli** with your project's information to get started!
+
 Now you can do the following things:
 
 - [Read “getting started” in the docs](https://www.sanity.io/docs/introduction/getting-started?utm_source=readme)
