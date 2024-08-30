@@ -6,11 +6,12 @@ import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
-import EventFormField from '../../components/EventFormField';
+import EventFormField from './components/EventFormField';
 import SaveButton from '../../components/SaveButton';
-import { EventFormSchemaType } from './useEventSingleForm';
+import { EventFormSchemaType } from './hooks/useEventSingleForm';
 import dynamic from 'next/dynamic';
-import EventFormActive from '../../components/EventFormActive';
+import EventFormActive from './components/EventFormActive';
+import EventFormSlug from './components/EventFormSlug';
 
 const EditorComp = dynamic(
   () => import('../../components/MarkdownEditor/Editor'),
@@ -57,6 +58,12 @@ export default function EventSingle({
               label={dictionary.labels.title}
               formComponent={Input}
               description={dictionary.descriptions.title}
+            />
+            <EventFormSlug
+              form={form}
+              label={dictionary.labels.slug}
+              description={dictionary.descriptions.slug}
+              eventTitle={form.getValues('title')}
             />
 
             {ImageUploader}

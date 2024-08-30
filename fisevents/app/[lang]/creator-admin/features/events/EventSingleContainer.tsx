@@ -7,7 +7,10 @@ import { FileImageType } from '@/types/custom.types';
 import { Occurrence } from '@/types/sanity.types';
 import { toUserIsoString } from '@/lib/utils';
 import { updateEvent } from '@/lib/actions';
-import { EventFormSchemaType, useEventSingleForm } from './useEventSingleForm';
+import {
+  EventFormSchemaType,
+  useEventSingleForm
+} from './hooks/useEventSingleForm';
 import ImageUploader from '../../components/ImageUploader';
 import EventSingle from './EventSingle';
 import Processing from '@/components/Processing';

@@ -1,60 +1,62 @@
 {
   "auth": {
-    "login": "Login hu",
-    "logout": "Logout hu",
-    "account": "Manage your Account",
+    "login": "Bejelentkezés",
+    "logout": "Kilépés az alkalmazásból",
+    "account": "Fiók kezelése",
     "login_with_email": {
-      "title": "Login with Email",
+      "title": "Bejelentkezés email-lel",
       "email": "Email",
-      "ok_title": "Check your email",
-      "ok_text": "A magic link has been sent to you",
-      "err_title": "Wrong email",
-      "empty_email_text": "Please write a valid email",
-      "err_text": "Something went wrong sending the link to your email"
+      "ok_title": "Ellenőrizze az email-jét",
+      "ok_text": "Egy mágikus linket küldtünk neked",
+      "err_title": "Hibás email",
+      "empty_email_text": "Kérem, írjon be egy érvényes email címet",
+      "err_text": "Hiba történt a link elküldésekor az email címére"
     },
     "login_with_google": {
-      "title": "Login with Google"
+      "title": "Bejelentkezés Google-lel"
     }
   },
   "creator_admin": {
     "events": {
-      "saving": "Saving",
+      "saving": "Mentés",
       "labels": {
-        "is_published": "Published",
-        "title": "Event name",
-        "publicationStartDate": "Published from",
-        "startDate": "Start date",
-        "endDate": "End date",
-        "numAttendants": "Attendants",
-        "description": "Description",
-        "location": "Location",
-        "maxSubscribers": "Max number of participants",
-        "basicPrice": "Full Price",
-        "currency": "Currency",
-        "active": "Publishable",
-        "not_active": "Unpublishable",
-        "save": "Save",
-        "filters": "Filter by status",
-        "all": "All",
-        "published": "Published"
+        "is_published": "Közzétéve",
+        "title": "Esemény neve",
+        "slug": "Slug",
+        "publicationStartDate": "Közzétéve ettől",
+        "startDate": "Kezdés dátuma",
+        "endDate": "Befejezés dátuma",
+        "numAttendants": "Résztvevők",
+        "description": "Leírás",
+        "location": "Helyszín",
+        "maxSubscribers": "Maximális résztvevők száma",
+        "basicPrice": "Teljes ár",
+        "currency": "Valuta",
+        "active": "Közzétehető",
+        "not_active": "Nem közzétehető",
+        "save": "Mentés",
+        "filters": "Szűrés állapot szerint",
+        "all": "Összes",
+        "published": "Közzétéve",
+        "new_event": "Új esemény"
       },
       "descriptions": {
-        "title": "This is your event public display name.",
-        "description": "Give your users details about this event, e.g. who it is for, what benefits it provides, what the teaching plan is, etc.",
-        "location": "Where will the event be held? If it is a venue, please provide directions to get there",
-        "maxSubscribers": "If it is a limited number, indicate the maximum number, otherwise write 0",
-        "publicationStartDate": "When the event will be visible online and users will be able to register"
-
+        "title": "Ez az esemény nyilvános megjelenítési neve.",
+        "slug": "Ez az esemény URL-je. Látható lesz a böngésző címsorában.",
+        "description": "Adjon meg részleteket az eseményről a felhasználók számára, pl. kinek szól, milyen előnyöket kínál, mi a tanítási terv stb.",
+        "location": "Hol lesz az esemény? Ha helyszín, kérjük, adjon útmutatót az odajutáshoz",
+        "maxSubscribers": "Ha korlátozott számú, adja meg a maximális számot, különben írjon 0-t",
+        "publicationStartDate": "Amikor az esemény online látható lesz, és a felhasználók regisztrálhatnak"
       },
       "validation": {
-        "title": "Title must be at least 5 characters.",
-        "publicationStartDate": "The publication date must be before the event start date",
-        "startDate": "The start date must be before the event end date"
+        "title": "A címnek legalább 5 karakter hosszúságúnak kell lennie.",
+        "publicationStartDate": "A közzététel dátumának korábbinak kell lennie, mint az esemény kezdete",
+        "startDate": "A kezdési dátumnak korábbinak kell lennie, mint a befejezési dátum"
       }
     },
     "notifications": {
-      "action_required": "Action required!",
-      "missing_user_name": "Please complete your profile"
+      "action_required": "Intézkedés szükséges!",
+      "missing_user_name": "Kérjük, töltse ki a profilját"
     }
   }
 }

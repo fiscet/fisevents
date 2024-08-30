@@ -22,6 +22,7 @@
       "labels": {
         "is_published": "Published",
         "title": "Event name",
+        "slug": "Slug",
         "publicationStartDate": "Published from",
         "startDate": "Start date",
         "endDate": "End date",
@@ -36,10 +37,12 @@
         "save": "Save",
         "filters": "Filter by status",
         "all": "All",
-        "published": "Published"
+        "published": "Published",
+        "new_event": "New Event"
       },
       "descriptions": {
         "title": "This is your event public display name.",
+        "slug": "This is the URL of your event. It will be visible in the address bar of your browser.",
         "description": "Give your users details about this event, e.g. who it is for, what benefits it provides, what the teaching plan is, etc.",
         "location": "Where will the event be held? If it is a venue, please provide directions to get there",
         "maxSubscribers": "If it is a limited number, indicate the maximum number, otherwise write 0",

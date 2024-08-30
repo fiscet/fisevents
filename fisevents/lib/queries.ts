@@ -16,6 +16,7 @@ export const eventListQuery = groq`*[_type == "occurrence" && createdByUser._ref
 export const eventSingleQuery = groq`*[_type == "occurrence" && createdByUser._ref == $createdBy && slug.current == $slug ][0] {
   _id,
   title,
+  slug,
   description,
   "eventTypeCode": eventType->code,
   "pageImage": {

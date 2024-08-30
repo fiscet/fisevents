@@ -5,11 +5,14 @@ import { useRouter } from 'next/navigation';
 import { getDictionary } from '@/lib/i18n.utils';
 import { OccurrenceList } from '@/types/sanity.extended.types';
 import DataTable, { TableColumn } from 'react-data-table-component';
-import PublishedIcon from '../../components/PublishedIcon';
-import PublishableIcon from '../../components/PublishableIcon';
-import NumAttendants from '../../components/NumAttendants';
-import EventListFilter from '../../components/EventListFilter';
+import PublishedIcon from './components/PublishedIcon';
+import PublishableIcon from './components/PublishableIcon';
+import NumAttendants from './components/NumAttendants';
+import EventListFilter from './components/EventListFilter';
 import { CreatorAdminRoutes } from '@/lib/routes';
+import EventListBar from './components/EventListBar';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 function getColumns(
   dictionary: Awaited<
@@ -124,15 +127,24 @@ export default function EventList({
 
   return (
     <div>
-      <EventListFilter
-        title={dictionary.labels.filters}
-        filter={filter}
-        filterText={{
-          all: dictionary.labels.all,
-          active: dictionary.labels.active,
-          published: dictionary.labels.published
-        }}
-        setFilter={setFilter}
+      <EventListBar
+        leftElements={
+          <EventListFilter
+            title={dictionary.labels.filters}
+            filter={filter}
+            filterText={{
+              all: dictionary.labels.all,
+              active: dictionary.labels.active,
+              published: dictionary.labels.published
+            }}
+            setFilter={setFilter}
+          />
+        }
+        rightElements={
+          <Button asChild>
+            <Link href="/auth">{dictionary.labels.new_event}</Link>
+          </Button>
+        }
       />
       <DataTable
         columns={getColumns(dictionary)}
