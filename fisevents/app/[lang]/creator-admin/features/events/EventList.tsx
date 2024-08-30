@@ -7,6 +7,7 @@ import DataTable, { TableColumn } from 'react-data-table-component';
 import PublishedIcon from '../../components/PublishedIcon';
 import NumAttendants from '../../components/NumAttendants';
 import { CreatorAdminRoutes } from '@/lib/routes';
+import { useState } from 'react';
 
 function getColumns(
   dictionary: Awaited<
@@ -88,6 +89,23 @@ export default function EventList({
   dictionary
 }: EventListProps) {
   const router = useRouter();
+
+  const [filter, setFilter] = useState<'all' | 'active' | 'published'>('all');
+
+  const filterEvents = (events: OccurrenceList[]) => {
+    if (filter === 'all') return events;
+
+    const now = Date.now();
+
+    return events.filter((event) => {
+      const isActive = event.active;
+      const isPublished =
+        Date.parse(event.publicationStartDate!) <= now &&
+        Date.parse(event.endDate!) > now;
+
+      return filter === 'active' ? isActive : isPublished;
+    });
+  };
 
   const handleOpenSingleEvent = (id: string) => {
     router.push(`./${CreatorAdminRoutes.getItem('event')}/${id}`);

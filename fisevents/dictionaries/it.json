@@ -32,12 +32,15 @@
         "maxSubscribers": "Max number of participants",
         "basicPrice": "Full Price",
         "currency": "Currency",
-        "active": "Published",
-        "not_active": "Unpublished",
+        "active": "Publishable",
+        "not_active": "Unpublishable",
         "publicationStartDate": "Publication start date",
         "startDate": "Event start date",
         "endDate": "Event end date",
-        "save": "Save"
+        "save": "Save",
+        "filters": "Filter by status",
+        "all": "All",
+        "published": "Published"
       },
       "descriptions": {
         "title": "This is your event public display name.",
