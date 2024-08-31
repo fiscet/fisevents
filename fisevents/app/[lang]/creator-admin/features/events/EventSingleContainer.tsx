@@ -7,10 +7,13 @@ import { FileImageType } from '@/types/custom.types';
 import { Occurrence } from '@/types/sanity.types';
 import { toUserIsoString } from '@/lib/utils';
 import { updateEvent } from '@/lib/actions';
+import {
+  EventFormSchemaType,
+  useEventSingleForm
+} from './hooks/useEventSingleForm';
 import ImageUploader from '../../components/ImageUploader';
-import { EventFormSchemaType, useEventSingleForm } from './useEventSingleForm';
 import EventSingle from './EventSingle';
-import Saving from '../../components/Saving';
+import Processing from '@/components/Processing';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
@@ -43,6 +46,13 @@ export default function EventSingleContainer({
     });
   };
 
+  const handleDeleteImage = () => {
+    setNewImg({
+      file: {} as File,
+      imgUrl: ''
+    });
+  };
+
   const uploadImage = async () => {
     const formData = new FormData();
     formData.append('file', newImg.file);
@@ -62,7 +72,9 @@ export default function EventSingleContainer({
   async function onSubmit(values: EventFormSchemaType) {
     setIsSaving(true);
 
-    const insValues = { ...values } as Partial<Occurrence>;
+    const { eventTypeCode, ...restValues } = values;
+
+    const insValues = { ...restValues } as Partial<Occurrence>;
 
     insValues.publicationStartDate = toUserIsoString(
       new Date(values.publicationStartDate)
@@ -113,12 +125,13 @@ export default function EventSingleContainer({
       img={newImg}
       setImg={setNewImg}
       onRestore={handleRestoreImage}
+      onDelete={handleDeleteImage}
     />
   );
 
   return (
     <>
-      {isSaving && <Saving text={dictionary.saving} />}
+      {isSaving && <Processing text={dictionary.saving} />}
       <EventSingle
         title={eventSingleData?.title}
         dictionary={dictionary}

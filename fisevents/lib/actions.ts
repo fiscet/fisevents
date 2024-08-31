@@ -4,7 +4,6 @@ import { sanityClient } from "./sanity";
 import { eventListQuery, eventSingleQuery } from "./queries";
 import { OccurrenceList, OccurrenceSingle } from "@/types/sanity.extended.types";
 import { Occurrence } from "@/types/sanity.types";
-import { revalidateTag } from "next/cache";
 
 export const getEventList = async ({ createdBy, active = true }: { createdBy: string; active?: boolean; }) => {
   return await sanityClient.fetch<OccurrenceList[]>(eventListQuery, { createdBy, active });
@@ -19,8 +18,6 @@ export const updateEvent = async ({ id, data }: { id: string; data: Partial<Occu
     .patch(id)
     .set(data)
     .commit();
-
-  // revalidateTag('eventSingle');
 
   return res;
 };

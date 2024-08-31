@@ -6,10 +6,12 @@ import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
-import EventFormField from '../../components/EventFormField';
+import EventFormField from './components/EventFormField';
 import SaveButton from '../../components/SaveButton';
-import { EventFormSchemaType } from './useEventSingleForm';
+import { EventFormSchemaType } from './hooks/useEventSingleForm';
 import dynamic from 'next/dynamic';
+import EventFormActive from './components/EventFormActive';
+import EventFormSlug from './components/EventFormSlug';
 
 const EditorComp = dynamic(
   () => import('../../components/MarkdownEditor/Editor'),
@@ -35,13 +37,21 @@ export default function EventSingle({
   imageUploader: ImageUploader,
   onSubmit
 }: EventSingleProps) {
+  const endDate = form.getValues('endDate');
+  const description = form.getValues('description');
+
+  const isExpired = endDate && Date.parse(endDate) < Date.now();
+
   return (
     <>
       <h1 className="text-2xl font-bold text-center mt-5">{title}</h1>
       <Separator className="my-5" />
       <div className="px-1 max-w-[650px] mx-auto mt-5 mb-10">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form
+            onSubmit={!isExpired ? form.handleSubmit(onSubmit) : null}
+            className="space-y-8"
+          >
             <EventFormField
               form={form}
               name="title"
@@ -49,17 +59,20 @@ export default function EventSingle({
               formComponent={Input}
               description={dictionary.descriptions.title}
             />
-            {ImageUploader}
-            <EventFormField
+            <EventFormSlug
               form={form}
-              name="description"
-              label={dictionary.labels.description}
-              formComponent={Textarea}
-              formComponentProps={{ rows: 10 }}
-              description={dictionary.descriptions.description}
+              label={dictionary.labels.slug}
+              description={dictionary.descriptions.slug}
+              eventTitle={form.getValues('title')}
             />
+
+            {ImageUploader}
+
             <Suspense fallback={null}>
-              <EditorComp markdown={'Hello **world**!'} />
+              <EditorComp
+                markdown={description}
+                onChange={(text) => form.setValue('description', text)}
+              />
             </Suspense>
             <EventFormField
               form={form}
@@ -99,17 +112,27 @@ export default function EventSingle({
                 formComponentClassName="w-20"
               />
             </div>
-            <EventFormField
-              form={form}
-              name="publicationStartDate"
-              label={dictionary.labels.publicationStartDate}
-              description={dictionary.descriptions.publicationStartDate}
-              formComponent={Input}
-              formComponentProps={{
-                type: 'datetime-local'
-              }}
-              formComponentClassName="w-[205px]"
-            />
+            <div className="flex flex-col md:flex-row md:items-end gap-20">
+              <EventFormField
+                form={form}
+                name="publicationStartDate"
+                label={dictionary.labels.publicationStartDate}
+                description={dictionary.descriptions.publicationStartDate}
+                formComponent={Input}
+                formComponentProps={{
+                  type: 'datetime-local',
+                  disabled: isExpired
+                }}
+                formComponentClassName="w-[205px]"
+              />
+              <div className="mb-2">
+                <EventFormActive
+                  form={form}
+                  activeText={dictionary.labels.active}
+                  notActiveText={dictionary.labels.not_active}
+                />
+              </div>
+            </div>
             <div className="flex flex-col md:flex-row gap-1">
               <EventFormField
                 form={form}
@@ -117,7 +140,8 @@ export default function EventSingle({
                 label={dictionary.labels.startDate}
                 formComponent={Input}
                 formComponentProps={{
-                  type: 'datetime-local'
+                  type: 'datetime-local',
+                  disabled: isExpired
                 }}
                 formComponentClassName="w-[205px]"
               />
@@ -127,15 +151,19 @@ export default function EventSingle({
                 label={dictionary.labels.endDate}
                 formComponent={Input}
                 formComponentProps={{
-                  type: 'datetime-local'
+                  type: 'datetime-local',
+                  disabled: isExpired
                 }}
                 formComponentClassName="w-[205px]"
               />
             </div>
+
             <Separator className="my-5" />
-            <div className="flex justify-center">
-              <SaveButton className="w-full" text={dictionary.labels.save} />
-            </div>
+            {!isExpired && (
+              <div className="flex justify-center">
+                <SaveButton className="w-full" text={dictionary.labels.save} />
+              </div>
+            )}
           </form>
         </Form>
       </div>

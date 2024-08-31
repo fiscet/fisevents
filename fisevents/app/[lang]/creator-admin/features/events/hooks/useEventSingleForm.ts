@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { pickerDateToIsoString } from '@/lib/utils';
+import { pickerDateToIsoString, slugify } from '@/lib/utils';
 import { getDictionary } from '@/lib/i18n.utils';
 import { OccurrenceSingle } from '@/types/sanity.extended.types';
 
@@ -15,6 +15,10 @@ export type useEventSingleFormProps = {
 export const formSchemaObj = z
   .object({
     title: z.string(),
+    slug: z.object({
+      current: z.string(),
+      _type: z.literal('slug')
+    }),
     description: z.string(),
     eventTypeCode: z.enum(['SINGLE', 'MULTIPLE']),
     location: z.string().optional(),
@@ -75,6 +79,10 @@ export function useEventSingleForm({ eventSingleData, dictionary }: useEventSing
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: eventSingleData?.title ?? '',
+      slug: {
+        current: eventSingleData?.slug?.current ?? slugify(eventSingleData?.title ?? ''),
+        _type: 'slug'
+      },
       description: eventSingleData?.description ?? '',
       eventTypeCode:
         (eventSingleData?.eventTypeCode as 'SINGLE' | 'MULTIPLE') ?? 'SINGLE',

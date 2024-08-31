@@ -1,4 +1,4 @@
-import { defineConfig } from 'sanity';
+import { defineConfig, SchemaTypeDefinition } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { visionTool } from '@sanity/vision';
 import { schemaTypes } from './schemaTypes';
@@ -7,13 +7,13 @@ import { structure } from './structure';
 export default defineConfig({
   name: 'default',
   title: 'FisEvents',
-
-  projectId: 'htvid2fj',
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID as string,
   dataset: 'production',
 
   plugins: [structureTool({ structure }), visionTool()],
 
   schema: {
-    types: schemaTypes,
+    types: schemaTypes as SchemaTypeDefinition[],
   },
 });
+

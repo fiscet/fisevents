@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Saving from './Saving';
+import Processing from './Processing';
 
 const meta = {
-  component: Saving,
-} satisfies Meta<typeof Saving>;
+  component: Processing,
+} satisfies Meta<typeof Processing>;
 
 export default meta;
 

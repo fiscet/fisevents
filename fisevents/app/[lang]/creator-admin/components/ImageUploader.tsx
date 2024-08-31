@@ -13,6 +13,7 @@ export type ImageUploaderProps = {
   img?: FileImageType;
   setImg: (img: FileImageType) => void;
   onRestore: () => void;
+  onDelete: () => void;
 };
 
 const ImageUploader = memo(
@@ -21,7 +22,8 @@ const ImageUploader = memo(
     initImageUrl,
     img,
     setImg,
-    onRestore
+    onRestore,
+    onDelete
   }: ImageUploaderProps) {
     const handleFilePicker = async (
       e: ChangeEvent<HTMLInputElement>
@@ -37,11 +39,6 @@ const ImageUploader = memo(
       }
     };
 
-    const handleDeleteImage = (): void => {
-      const imageObject = { file: {} as File, imgUrl: '' };
-      setImg(imageObject);
-    };
-
     return (
       <div
         style={{
@@ -52,16 +49,6 @@ const ImageUploader = memo(
         }}
         className={`relative mx-auto bg-slate-50 border`}
       >
-        {!img?.imgUrl && initImageUrl && (
-          <Image
-            src={initImageUrl}
-            width={boxSize}
-            height={boxSize}
-            className="mx-auto"
-            alt=""
-            loading="lazy"
-          />
-        )}
         {img?.imgUrl && (
           <Image
             src={img.imgUrl}
@@ -92,7 +79,7 @@ const ImageUploader = memo(
                 <GrRevert className="w-5 h-5 text-sky-700" />
               </div>
             )}
-            <div className="cursor-pointer" onClick={() => handleDeleteImage()}>
+            <div className="cursor-pointer" onClick={onDelete}>
               <GrTrash className="w-5 h-5 text-red-700" />
             </div>
           </div>

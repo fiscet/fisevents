@@ -1,6 +1,12 @@
 'use client';
 
-import React, { createContext, useState, useCallback, ReactNode } from 'react';
+import React, {
+  createContext,
+  useState,
+  useCallback,
+  ReactNode,
+  useEffect
+} from 'react';
 import type { Notification } from '@/types/custom.types';
 import NotificationBar from './NotificationBar';
 
@@ -9,7 +15,7 @@ type NotificationContextType = {
   hideNotification: () => void;
 };
 
-const inintialState: Notification = {
+const initialState: Notification = {
   title: '',
   message: '',
   type: 'none'
@@ -26,7 +32,7 @@ export function NotificationProvider({
   children: ReactNode;
   className?: string;
 }) {
-  const [notification, setNotification] = useState<Notification>(inintialState);
+  const [notification, setNotification] = useState<Notification>(initialState);
 
   const showNotification = useCallback(
     ({ title, message, type }: Notification) => {
@@ -36,8 +42,20 @@ export function NotificationProvider({
   );
 
   const hideNotification = useCallback(() => {
-    setNotification(inintialState);
+    setNotification(initialState);
   }, []);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
+    if (notification.type !== 'none') {
+      timeout = setTimeout(() => {
+        hideNotification();
+      }, 5000);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [hideNotification, notification]);
 
   return (
     <NotificationContext.Provider

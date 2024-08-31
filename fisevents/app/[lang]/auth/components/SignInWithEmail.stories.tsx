@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
+import dictionary from '@/dictionaries/en.json';
 import SignInWithEmail, { SignInWithEmailProps } from './SignInWithEmail';
 
 const meta = {
@@ -13,14 +14,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    dictionary: {
-      title: 'Sign in with email',
-      email: 'Email',
-      ok_title: 'Success',
-      ok_text: 'You have signed in successfully',
-      err_title: 'Error',
-      err_text: 'Something went wrong'
-    },
+    dictionary: dictionary.auth.login_with_email,
     onSignIn:  fn()
   }
 };

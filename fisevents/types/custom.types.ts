@@ -1,5 +1,8 @@
 import { DefaultSession } from "next-auth";
 
+export const NOTIFICATION_TYPES = ['success', 'error', 'info', 'warning', 'none'] as const;
+export const EVENT_FILTERS = ['all', 'active', 'published'] as const;
+
 export interface FDefaultSession extends DefaultSession {
   user?: {
     uid?: string | null;
@@ -13,8 +16,6 @@ export type FileImageType = {
   file: File;
   imgUrl: string;
 };
-
-export const NOTIFICATION_TYPES = ['success', 'error', 'info', 'warning', 'none'] as const;
 
 export type Notification = {
   title?: string;
