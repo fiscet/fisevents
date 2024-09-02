@@ -2,8 +2,13 @@ import { Occurrence } from '@/types/sanity.types';
 import { getEventList, getEventSingle, updateEvent } from '../actions';
 import { sanityClient } from '../sanity';
 import { OccurrenceList, OccurrenceSingle } from '@/types/sanity.extended.types';
+import { revalidateTag } from 'next/cache';
 
 jest.mock('../sanity');
+
+jest.mock('next/cache', () => ({
+  revalidateTag: jest.fn(),
+}));
 
 describe('Actions', () => {
   afterEach(() => {
@@ -118,8 +123,7 @@ describe('Actions', () => {
       expect(sanityClient.patch).toHaveBeenCalledWith(id);
       expect(sanityClient.patch(id).set).toHaveBeenCalledWith(data);
       expect(sanityClient.patch(id).commit).toHaveBeenCalled();
-      // Call revalidateTag mock after your import is adjusted for unit tests.
-      // expect(revalidateTag).toHaveBeenCalledWith('eventSingle');
+      expect(revalidateTag).toHaveBeenCalledWith('eventSingle');
       expect(result).toEqual(mockData);
     });
   });
