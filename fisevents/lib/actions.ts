@@ -7,7 +7,7 @@ import { Occurrence } from "@/types/sanity.types";
 import { revalidateTag } from "next/cache";
 
 export const getEventList = async ({ createdBy, active = true }: { createdBy: string; active?: boolean; }) => {
-  return await sanityClient.fetch<OccurrenceList[]>(eventListQuery, { createdBy, active });
+  return await sanityClient.fetch<OccurrenceList[]>(eventListQuery, { createdBy, active }, { next: { tags: ['eventList'] } });
 };
 
 export const getEventSingle = async ({ createdBy, slug }: { createdBy: string; slug: string; }) => {
@@ -21,6 +21,14 @@ export const updateEvent = async ({ id, data }: { id: string; data: Partial<Occu
     .commit();
 
   revalidateTag('eventSingle');
+
+  return res;
+};
+
+export const createEvent = async ({ data }: { data: Occurrence; }) => {
+  const res = await sanityClient.create(data);
+
+  revalidateTag('eventList');
 
   return res;
 };

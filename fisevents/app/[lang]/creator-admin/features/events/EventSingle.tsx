@@ -87,7 +87,11 @@ export default function EventSingle({
               name="maxSubscribers"
               label={dictionary.labels.maxSubscribers}
               formComponent={Input}
-              formComponentProps={{ type: 'number' }}
+              formComponentProps={{
+                type: 'number',
+                onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
+                  form.setValue('maxSubscribers', Number(event.target.value))
+              }}
               formComponentClassName="w-20 text-center"
               description={dictionary.descriptions.maxSubscribers}
               forceNumber

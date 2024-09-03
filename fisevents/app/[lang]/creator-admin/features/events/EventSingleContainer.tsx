@@ -6,7 +6,7 @@ import { OccurrenceSingle } from '@/types/sanity.extended.types';
 import { FileImageType } from '@/types/custom.types';
 import { Occurrence } from '@/types/sanity.types';
 import { toUserIsoString } from '@/lib/utils';
-import { updateEvent } from '@/lib/actions';
+import { createEvent, updateEvent } from '@/lib/actions';
 import {
   EventFormSchemaType,
   useEventSingleForm
@@ -14,6 +14,7 @@ import {
 import ImageUploader from '../../components/ImageUploader';
 import EventSingle from './EventSingle';
 import Processing from '@/components/Processing';
+import { useSession } from 'next-auth/react';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
@@ -38,6 +39,10 @@ export default function EventSingleContainer({
   const [isSaving, setIsSaving] = useState(false);
 
   const { form } = useEventSingleForm({ eventSingleData, dictionary });
+
+  const session = useSession();
+
+  const isNewEvent = !eventSingleData;
 
   const handleRestoreImage = () => {
     setNewImg({
@@ -102,10 +107,20 @@ export default function EventSingleContainer({
 
     insValues.basicPrice = Number(insValues.basicPrice);
 
-    await updateEvent({
-      id: eventSingleData!._id!,
-      data: insValues as Partial<Occurrence>
-    });
+    if (isNewEvent) {
+      insValues.createdByUser = {
+        _type: 'reference',
+        _ref: session.data!.user!.uid as string
+      };
+      insValues._type = 'occurrence';
+
+      await createEvent({ data: insValues as Occurrence });
+    } else {
+      await updateEvent({
+        id: eventSingleData!._id!,
+        data: insValues as Partial<Occurrence>
+      });
+    }
 
     if (imgRes?.id) {
       setNewImg({

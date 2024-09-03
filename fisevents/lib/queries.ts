@@ -5,7 +5,6 @@ export const eventListQuery = groq`*[_type == "occurrence" && createdByUser._ref
   _id,
   title,
   slug,
-  'eventTypeCode': eventType->code,
   startDate,
   endDate,
   publicationStartDate,
@@ -18,7 +17,6 @@ export const eventSingleQuery = groq`*[_type == "occurrence" && createdByUser._r
   title,
   slug,
   description,
-  "eventTypeCode": eventType->code,
   "pageImage": {
     "url": mainImage.asset->url,
     "dimensions": mainImage.asset->metadata.dimensions
