@@ -35,8 +35,9 @@ export default function EventFormField({
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem className="relative">
+        <FormItem className="relative mb-1">
           <FormLabel>{label}</FormLabel>
+          {description && <FormDescription>{description}</FormDescription>}
           <FormControl>
             <FormComp
               {...field}
@@ -45,9 +46,7 @@ export default function EventFormField({
               {...formComponentProps}
             />
           </FormControl>
-
           <div className="absolute whitespace-nowrap">
-            {description && <FormDescription>{description}</FormDescription>}
             <FormMessage />
           </div>
         </FormItem>

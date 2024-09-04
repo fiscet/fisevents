@@ -1,15 +1,15 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { ReactNode, Suspense } from 'react';
 import { getDictionary } from '@/lib/i18n.utils';
+import { EventFormSchemaType } from './hooks/useEventSingleForm';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
 import EventFormField from './components/EventFormField';
 import SaveButton from '../../components/SaveButton';
-import { EventFormSchemaType } from './hooks/useEventSingleForm';
-import dynamic from 'next/dynamic';
 import EventFormActive from './components/EventFormActive';
 import EventFormSlug from './components/EventFormSlug';
 
@@ -97,7 +97,7 @@ export default function EventSingle({
               forceNumber
             />
 
-            <div className="flex gap-1">
+            <div className="flex">
               <EventFormField
                 form={form}
                 name="basicPrice"

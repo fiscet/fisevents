@@ -26,7 +26,7 @@ export const updateEvent = async ({ id, data }: { id: string; data: Partial<Occu
 };
 
 export const createEvent = async ({ data }: { data: Occurrence; }) => {
-  const res = await sanityClient.create(data);
+  const res = await sanityClient.create<Occurrence>(data);
 
   revalidateTag('eventList');
 

@@ -15,6 +15,8 @@ import ImageUploader from '../../components/ImageUploader';
 import EventSingle from './EventSingle';
 import Processing from '@/components/Processing';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { CreatorAdminRoutes } from '@/lib/routes';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
@@ -42,7 +44,11 @@ export default function EventSingleContainer({
 
   const session = useSession();
 
+  const router = useRouter();
+
   const isNewEvent = !eventSingleData;
+
+  const title = eventSingleData?.title ?? dictionary.labels.new_event;
 
   const handleRestoreImage = () => {
     setNewImg({
@@ -77,7 +83,9 @@ export default function EventSingleContainer({
   async function onSubmit(values: EventFormSchemaType) {
     setIsSaving(true);
 
-    const { eventTypeCode, ...restValues } = values;
+    console.log(values);
+
+    const { ...restValues } = values;
 
     const insValues = { ...restValues } as Partial<Occurrence>;
 
@@ -114,7 +122,13 @@ export default function EventSingleContainer({
       };
       insValues._type = 'occurrence';
 
-      await createEvent({ data: insValues as Occurrence });
+      const res = await createEvent({ data: insValues as Occurrence });
+
+      if (res.slug?.current) {
+        router.push(
+          `/${CreatorAdminRoutes.getItem('event')}/${res.slug.current}`
+        );
+      }
     } else {
       await updateEvent({
         id: eventSingleData!._id!,
@@ -148,7 +162,7 @@ export default function EventSingleContainer({
     <>
       {isSaving && <Processing text={dictionary.saving} />}
       <EventSingle
-        title={eventSingleData?.title}
+        title={title}
         dictionary={dictionary}
         form={form}
         imageUploader={MyImageUploader}

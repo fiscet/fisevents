@@ -47,7 +47,7 @@ const ImageUploader = memo(
           width: boxSize,
           height: boxSize
         }}
-        className={`relative mx-auto bg-slate-50 border`}
+        className={`relative mx-auto bg-slate-50 border overflow-hidden`}
       >
         {img?.imgUrl && (
           <Image

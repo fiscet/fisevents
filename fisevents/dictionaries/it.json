@@ -50,7 +50,9 @@
       },
       "validation": {
         "title": "Il titolo deve essere di almeno 5 caratteri.",
-        "publicationStartDate": "La data di pubblicazione deve essere antecedente alla data di inizio dell'evento",
+        "slug": "Slug deve contenere almeno 5 caratteri.",
+        "publicationStartDateAndStartDate": "La data di pubblicazione deve essere antecedente alla data di inizio dell'evento",
+        "publicationStartDateAndNow": "La data di pubblicazione deve iniziare almeno da oggi",
         "startDate": "La data di inizio deve essere antecedente alla data di fine dell'evento"
       }
     },

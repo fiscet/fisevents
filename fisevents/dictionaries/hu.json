@@ -50,7 +50,9 @@
       },
       "validation": {
         "title": "A címnek legalább 5 karakter hosszúságúnak kell lennie.",
-        "publicationStartDate": "A közzététel dátumának korábbinak kell lennie, mint az esemény kezdete",
+        "slug": "Slug-nek legalább 5 karakter hosszúságúnak kell lennie.",
+        "publicationStartDateAndStartDate": "A közzététel dátumának korábbinak kell lennie, mint az esemény kezdete",
+        "publicationStartDateAndNow": "A közzététel dátumának legalább a mai naptól kell kezdődnie",
         "startDate": "A kezdési dátumnak korábbinak kell lennie, mint a befejezési dátum"
       }
     },

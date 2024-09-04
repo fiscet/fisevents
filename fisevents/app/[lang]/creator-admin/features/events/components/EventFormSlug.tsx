@@ -35,13 +35,13 @@ export default function EventFormSlug({
         control={form.control}
         name="slug.current"
         render={({ field }) => (
-          <FormItem className="relative">
+          <FormItem className="relative flex-grow mb-1">
             <FormLabel>{label}</FormLabel>
+            {description && <FormDescription>{description}</FormDescription>}
             <FormControl>
               <Input {...field} />
             </FormControl>
             <div className="absolute whitespace-nowrap">
-              {description && <FormDescription>{description}</FormDescription>}
               <FormMessage />
             </div>
           </FormItem>

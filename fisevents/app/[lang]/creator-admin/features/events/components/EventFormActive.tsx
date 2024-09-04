@@ -23,7 +23,7 @@ export default function EventFormActive({
       control={form.control}
       name="active"
       render={({ field }) => (
-        <FormItem className="flex flex-row gap-2 items-center justify-between">
+        <FormItem className="flex flex-row gap-2 items-center justify-between mb-5">
           <FormControl>
             <Switch checked={field.value} onCheckedChange={field.onChange} />
           </FormControl>
