@@ -3,9 +3,22 @@
 import { sanityClient } from "./sanity";
 import { eventListQuery, eventSingleQuery } from "./queries";
 import { OccurrenceList, OccurrenceSingle } from "@/types/sanity.extended.types";
-import { Occurrence } from "@/types/sanity.types";
+import { Occurrence, User } from "@/types/sanity.types";
 import { revalidateTag } from "next/cache";
 
+/** USERS */
+export const updateUser = async ({ id, data }: { id: string; data: Partial<User>; }) => {
+  const res = await sanityClient
+    .patch(id)
+    .set(data)
+    .commit();
+
+  revalidateTag('user');
+
+  return res;
+};
+
+/** EVENTS */
 export const getEventList = async ({ createdBy, active = true }: { createdBy: string; active?: boolean; }) => {
   return await sanityClient.fetch<OccurrenceList[]>(eventListQuery, { createdBy, active }, { next: { tags: ['eventList'] } });
 };

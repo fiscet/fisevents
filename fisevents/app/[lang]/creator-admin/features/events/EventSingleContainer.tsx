@@ -20,9 +20,7 @@ import { CreatorAdminRoutes } from '@/lib/routes';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
-  dictionary: Awaited<
-    ReturnType<typeof getDictionary>
-  >['creator_admin']['events'];
+  dictionary: Awaited<ReturnType<typeof getDictionary>>['creator_admin'];
 };
 
 export default function EventSingleContainer({
@@ -40,7 +38,10 @@ export default function EventSingleContainer({
 
   const [isSaving, setIsSaving] = useState(false);
 
-  const { form } = useEventSingleForm({ eventSingleData, dictionary });
+  const { form } = useEventSingleForm({
+    eventSingleData,
+    dictionary: dictionary.events
+  });
 
   const session = useSession();
 
@@ -48,7 +49,7 @@ export default function EventSingleContainer({
 
   const isNewEvent = !eventSingleData;
 
-  const title = eventSingleData?.title ?? dictionary.labels.new_event;
+  const title = eventSingleData?.title ?? dictionary.events.labels.new_event;
 
   const handleRestoreImage = () => {
     setNewImg({
@@ -82,8 +83,6 @@ export default function EventSingleContainer({
 
   async function onSubmit(values: EventFormSchemaType) {
     setIsSaving(true);
-
-    console.log(values);
 
     const { ...restValues } = values;
 
@@ -163,7 +162,7 @@ export default function EventSingleContainer({
       {isSaving && <Processing text={dictionary.saving} />}
       <EventSingle
         title={title}
-        dictionary={dictionary}
+        dictionary={dictionary.events}
         form={form}
         imageUploader={MyImageUploader}
         onSubmit={onSubmit}

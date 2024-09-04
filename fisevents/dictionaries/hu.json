@@ -17,8 +17,24 @@
     }
   },
   "creator_admin": {
+    "saving": "Mentés",
+    "account": {
+      "labels": {
+        "name": "Name",
+        "email": "Email",
+        "imageUrl": "Image URL",
+        "save": "Save"
+      },
+      "descriptions": {
+        "name": "Your name",
+        "email": "Your email",
+        "image": "Your image"
+      },
+      "validation": {
+        "name": "Name must be at least 5 characters."
+      }
+    },
     "events": {
-      "saving": "Mentés",
       "labels": {
         "is_published": "Közzétéve",
         "title": "Esemény neve",

@@ -12,13 +12,13 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     label: 'Account',
-    href: '/creator-admin/account'
+    href: '/creator-admin/user-account'
   }
 };
 
 export const Active: Story = {
   args: {
-    label: 'Account',
+    label: 'User Account',
     href: ''
   }
 };

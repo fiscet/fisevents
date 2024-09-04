@@ -17,8 +17,24 @@
     }
   },
   "creator_admin": {
+    "saving": "Salvataggio",
+    "account": {
+      "labels": {
+        "name": "Name",
+        "email": "Email",
+        "imageUrl": "Image URL",
+        "save": "Save"
+      },
+      "descriptions": {
+        "name": "Your name",
+        "email": "Your email",
+        "image": "Your image"
+      },
+      "validation": {
+        "name": "Name must be at least 5 characters."
+      }
+    },
     "events": {
-      "saving": "Salvataggio",
       "labels": {
         "is_published": "Pubblicato",
         "title": "Nome dell'evento",

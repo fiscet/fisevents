@@ -3,26 +3,21 @@ import { getEventSingle } from '@/lib/actions';
 import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
 import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
 import EventSingle from '../../features/events/EventSingleContainer';
 
-export default async function eventSinglePage({
+export default async function EventSinglePage({
   params: { lang, slug }
 }: {
   params: { lang: Locale; slug?: string[] };
 }) {
   const session = await getServerSession(authOptions);
 
-  if (!session) {
-    return redirect('/auth');
-  }
-
   const dictionary = await getDictionary(lang);
 
   const eventSingleData =
-    slug && slug.length > 0
+    slug && slug.length > 0 && session?.user
       ? await getEventSingle({
-          createdBy: session.user!.uid as string,
+          createdBy: session.user.uid as string,
           slug: slug[0]
         })
       : undefined;
@@ -30,7 +25,7 @@ export default async function eventSinglePage({
   return (
     <EventSingle
       eventSingleData={eventSingleData}
-      dictionary={dictionary.creator_admin.events}
+      dictionary={dictionary.creator_admin}
     />
   );
 }

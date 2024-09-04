@@ -8,7 +8,7 @@ import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
-import EventFormField from './components/EventFormField';
+import DefaultFormField from '../../components/FormField';
 import SaveButton from '../../components/SaveButton';
 import EventFormActive from './components/EventFormActive';
 import EventFormSlug from './components/EventFormSlug';
@@ -52,7 +52,7 @@ export default function EventSingle({
             onSubmit={!isExpired ? form.handleSubmit(onSubmit) : null}
             className="space-y-8"
           >
-            <EventFormField
+            <DefaultFormField
               form={form}
               name="title"
               label={dictionary.labels.title}
@@ -74,7 +74,7 @@ export default function EventSingle({
                 onChange={(text) => form.setValue('description', text)}
               />
             </Suspense>
-            <EventFormField
+            <DefaultFormField
               form={form}
               name="location"
               label={dictionary.labels.location}
@@ -82,7 +82,7 @@ export default function EventSingle({
               formComponentProps={{ rows: 3 }}
               description={dictionary.descriptions.location}
             />
-            <EventFormField
+            <DefaultFormField
               form={form}
               name="maxSubscribers"
               label={dictionary.labels.maxSubscribers}
@@ -98,7 +98,7 @@ export default function EventSingle({
             />
 
             <div className="flex">
-              <EventFormField
+              <DefaultFormField
                 form={form}
                 name="basicPrice"
                 label={dictionary.labels.basicPrice}
@@ -107,7 +107,7 @@ export default function EventSingle({
                 formComponentClassName="w-20 text-right"
                 forceNumber
               />
-              <EventFormField
+              <DefaultFormField
                 form={form}
                 name="currency"
                 label={dictionary.labels.currency}
@@ -117,7 +117,7 @@ export default function EventSingle({
               />
             </div>
             <div className="flex flex-col md:flex-row md:items-end gap-20">
-              <EventFormField
+              <DefaultFormField
                 form={form}
                 name="publicationStartDate"
                 label={dictionary.labels.publicationStartDate}
@@ -138,7 +138,7 @@ export default function EventSingle({
               </div>
             </div>
             <div className="flex flex-col md:flex-row gap-1">
-              <EventFormField
+              <DefaultFormField
                 form={form}
                 name="startDate"
                 label={dictionary.labels.startDate}
@@ -149,7 +149,7 @@ export default function EventSingle({
                 }}
                 formComponentClassName="w-[205px]"
               />
-              <EventFormField
+              <DefaultFormField
                 form={form}
                 name="endDate"
                 label={dictionary.labels.endDate}
