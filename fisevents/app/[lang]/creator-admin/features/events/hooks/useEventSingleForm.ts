@@ -1,3 +1,5 @@
+'use client';
+
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -20,7 +22,6 @@ export const formSchemaObj = z
       _type: z.literal('slug')
     }),
     description: z.string(),
-    eventTypeCode: z.enum(['SINGLE', 'MULTIPLE']),
     location: z.string().optional(),
     maxSubscribers: z.number().optional(),
     basicPrice: z.string().optional(),
@@ -47,7 +48,20 @@ export function useEventSingleForm({ eventSingleData, dictionary }: useEventSing
         return tsPublicationStartDate < tsStartDate;
       },
       {
-        message: dictionary.validation.publicationStartDate,
+        message: dictionary.validation.publicationStartDateAndStartDate,
+        path: ['publicationStartDate']
+      }
+    )
+    .refine(
+      (data) => {
+        const { publicationStartDate } = data;
+
+        const tsPublicationStartDate = Date.parse(publicationStartDate);
+
+        return tsPublicationStartDate >= Date.now();
+      },
+      {
+        message: dictionary.validation.publicationStartDateAndNow,
         path: ['publicationStartDate']
       }
     )
@@ -70,6 +84,12 @@ export function useEventSingleForm({ eventSingleData, dictionary }: useEventSing
         message: dictionary.validation.title,
         path: ['title']
       }
+    ).refine((data) =>
+      data.slug.current.length > 5
+      , {
+        message: dictionary.validation.slug,
+        path: ['slug.current']
+      }
     );
 
   const today = new Date();
@@ -84,8 +104,6 @@ export function useEventSingleForm({ eventSingleData, dictionary }: useEventSing
         _type: 'slug'
       },
       description: eventSingleData?.description ?? '',
-      eventTypeCode:
-        (eventSingleData?.eventTypeCode as 'SINGLE' | 'MULTIPLE') ?? 'SINGLE',
       location: eventSingleData?.location ?? '',
       maxSubscribers: eventSingleData?.maxSubscribers ?? 0,
       basicPrice:

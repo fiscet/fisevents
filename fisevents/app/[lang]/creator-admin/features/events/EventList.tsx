@@ -122,7 +122,7 @@ export default function EventList({
   };
 
   const handleOpenSingleEvent = (id: string) => {
-    router.push(`./${CreatorAdminRoutes.getItem('event')}/${id}`);
+    router.push(`/${CreatorAdminRoutes.getItem('event')}/${id}`);
   };
 
   return (
@@ -142,7 +142,9 @@ export default function EventList({
         }
         rightElements={
           <Button asChild>
-            <Link href="/auth">{dictionary.labels.new_event}</Link>
+            <Link href={CreatorAdminRoutes.getItem('event')}>
+              {dictionary.labels.new_event}
+            </Link>
           </Button>
         }
       />

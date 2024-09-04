@@ -1,11 +1,10 @@
 import { groq } from "next-sanity";
 
 /** EVENT */
-export const eventListQuery = groq`*[_type == "occurrence" && createdByUser._ref == $createdBy && active == $active ] {
+export const eventListQuery = groq`*[_type == "occurrence" && createdByUser._ref == $createdBy && active == $active ]|order(publicationStartDate desc) {
   _id,
   title,
   slug,
-  'eventTypeCode': eventType->code,
   startDate,
   endDate,
   publicationStartDate,
@@ -18,7 +17,6 @@ export const eventSingleQuery = groq`*[_type == "occurrence" && createdByUser._r
   title,
   slug,
   description,
-  "eventTypeCode": eventType->code,
   "pageImage": {
     "url": mainImage.asset->url,
     "dimensions": mainImage.asset->metadata.dimensions

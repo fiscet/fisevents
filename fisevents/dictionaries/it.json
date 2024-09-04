@@ -17,8 +17,24 @@
     }
   },
   "creator_admin": {
+    "saving": "Salvataggio",
+    "account": {
+      "labels": {
+        "name": "Name",
+        "email": "Email",
+        "imageUrl": "Image URL",
+        "save": "Save"
+      },
+      "descriptions": {
+        "name": "Your name",
+        "email": "Your email",
+        "image": "Your image"
+      },
+      "validation": {
+        "name": "Name must be at least 5 characters."
+      }
+    },
     "events": {
-      "saving": "Salvataggio",
       "labels": {
         "is_published": "Pubblicato",
         "title": "Nome dell'evento",
@@ -50,7 +66,9 @@
       },
       "validation": {
         "title": "Il titolo deve essere di almeno 5 caratteri.",
-        "publicationStartDate": "La data di pubblicazione deve essere antecedente alla data di inizio dell'evento",
+        "slug": "Slug deve contenere almeno 5 caratteri.",
+        "publicationStartDateAndStartDate": "La data di pubblicazione deve essere antecedente alla data di inizio dell'evento",
+        "publicationStartDateAndNow": "La data di pubblicazione deve iniziare almeno da oggi",
         "startDate": "La data di inizio deve essere antecedente alla data di fine dell'evento"
       }
     },

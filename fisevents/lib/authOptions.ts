@@ -38,6 +38,13 @@ export const authOptions = {
         session.user!.image = token.picture;
       }
       return session;
+    },
+    jwt({ token, trigger, session }) {
+      if (trigger === "update" && session?.name) {
+        token.name = session.name;
+        token.image = session.image;
+      }
+      return token;
     }
   },
 } satisfies NextAuthOptions;

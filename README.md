@@ -13,6 +13,6 @@ Support for small professionals who work by appointment (cooking workshops, Yoga
 I chose a monorepo because I can automatically and easily generate the frontend types from the Sanity schema
 
 **Sanity studio**
-this package is meant to run locally as you can use the Studio offered by Sanity.io itself
+This package is intended for the super-admin only as each tenant will manage their own events in the creator-admin section of the front-end.
 
 The two main folders contain their own readme file for specific info

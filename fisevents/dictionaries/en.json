@@ -17,8 +17,24 @@
     }
   },
   "creator_admin": {
+    "saving": "Saving",
+    "account": {
+      "labels": {
+        "name": "Name",
+        "email": "Email",
+        "imageUrl": "Image URL",
+        "save": "Save"
+      },
+      "descriptions": {
+        "name": "Your name",
+        "email": "Your email",
+        "image": "Your image"
+      },
+      "validation": {
+        "name": "Name must be at least 5 characters."
+      }
+    },
     "events": {
-      "saving": "Saving",
       "labels": {
         "is_published": "Published",
         "title": "Event name",
@@ -49,8 +65,10 @@
         "publicationStartDate": "When the event will be visible online and users will be able to register"
       },
       "validation": {
-        "title": "Title must be at least 5 characters.",
-        "publicationStartDate": "The publication date must be before the event start date",
+        "title": "Title must contain at least 5 characters.",
+        "slug": "Slug must contain at least 5 characters.",
+        "publicationStartDateAndStartDate": "The publication date must be before the event start date",
+        "publicationStartDateAndNow": "The publication date must start at least from today",
         "startDate": "The start date must be before the event end date"
       }
     },

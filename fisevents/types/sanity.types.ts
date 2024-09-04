@@ -112,6 +112,17 @@ export type EventAttendant = {
   phone?: string;
 };
 
+export type EventType = {
+  _id: string;
+  _type: "eventType";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  code?: string;
+  description?: BlockContent;
+  active?: boolean;
+};
+
 export type Occurrence = {
   _id: string;
   _type: "occurrence";
@@ -130,12 +141,6 @@ export type Occurrence = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     _type: "image";
-  };
-  eventType?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "eventType";
   };
   description?: string;
   location?: string;
@@ -159,17 +164,6 @@ export type Occurrence = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "user";
   };
-};
-
-export type EventType = {
-  _id: string;
-  _type: "eventType";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  code?: string;
-  description?: BlockContent;
-  active?: boolean;
 };
 
 export type SanityImageCrop = {
@@ -279,5 +273,5 @@ export type User = {
   emailVerified?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | BlockContent | EventAttendant | Occurrence | EventType | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug | VerificationToken | Account | User;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | BlockContent | EventAttendant | EventType | Occurrence | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug | VerificationToken | Account | User;
 export declare const internalGroqTypeReferenceTo: unique symbol;

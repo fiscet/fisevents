@@ -6,7 +6,7 @@ import { OccurrenceSingle } from '@/types/sanity.extended.types';
 import { FileImageType } from '@/types/custom.types';
 import { Occurrence } from '@/types/sanity.types';
 import { toUserIsoString } from '@/lib/utils';
-import { updateEvent } from '@/lib/actions';
+import { createEvent, updateEvent } from '@/lib/actions';
 import {
   EventFormSchemaType,
   useEventSingleForm
@@ -14,12 +14,13 @@ import {
 import ImageUploader from '../../components/ImageUploader';
 import EventSingle from './EventSingle';
 import Processing from '@/components/Processing';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { CreatorAdminRoutes } from '@/lib/routes';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
-  dictionary: Awaited<
-    ReturnType<typeof getDictionary>
-  >['creator_admin']['events'];
+  dictionary: Awaited<ReturnType<typeof getDictionary>>['creator_admin'];
 };
 
 export default function EventSingleContainer({
@@ -37,7 +38,18 @@ export default function EventSingleContainer({
 
   const [isSaving, setIsSaving] = useState(false);
 
-  const { form } = useEventSingleForm({ eventSingleData, dictionary });
+  const { form } = useEventSingleForm({
+    eventSingleData,
+    dictionary: dictionary.events
+  });
+
+  const session = useSession();
+
+  const router = useRouter();
+
+  const isNewEvent = !eventSingleData;
+
+  const title = eventSingleData?.title ?? dictionary.events.labels.new_event;
 
   const handleRestoreImage = () => {
     setNewImg({
@@ -72,7 +84,7 @@ export default function EventSingleContainer({
   async function onSubmit(values: EventFormSchemaType) {
     setIsSaving(true);
 
-    const { eventTypeCode, ...restValues } = values;
+    const { ...restValues } = values;
 
     const insValues = { ...restValues } as Partial<Occurrence>;
 
@@ -102,10 +114,26 @@ export default function EventSingleContainer({
 
     insValues.basicPrice = Number(insValues.basicPrice);
 
-    await updateEvent({
-      id: eventSingleData!._id!,
-      data: insValues as Partial<Occurrence>
-    });
+    if (isNewEvent) {
+      insValues.createdByUser = {
+        _type: 'reference',
+        _ref: session.data!.user!.uid as string
+      };
+      insValues._type = 'occurrence';
+
+      const res = await createEvent({ data: insValues as Occurrence });
+
+      if (res.slug?.current) {
+        router.push(
+          `/${CreatorAdminRoutes.getItem('event')}/${res.slug.current}`
+        );
+      }
+    } else {
+      await updateEvent({
+        id: eventSingleData!._id!,
+        data: insValues as Partial<Occurrence>
+      });
+    }
 
     if (imgRes?.id) {
       setNewImg({
@@ -133,8 +161,8 @@ export default function EventSingleContainer({
     <>
       {isSaving && <Processing text={dictionary.saving} />}
       <EventSingle
-        title={eventSingleData?.title}
-        dictionary={dictionary}
+        title={title}
+        dictionary={dictionary.events}
         form={form}
         imageUploader={MyImageUploader}
         onSubmit={onSubmit}

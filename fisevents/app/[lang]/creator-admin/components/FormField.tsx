@@ -9,7 +9,7 @@ import {
 import { ElementType } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 
-type EventFormFieldProps = {
+type DefaultFormFieldProps = {
   form: UseFormReturn<any>;
   name: string;
   label: string;
@@ -20,7 +20,7 @@ type EventFormFieldProps = {
   forceNumber?: boolean;
 };
 
-export default function EventFormField({
+export default function DefaultFormField({
   form,
   name,
   label,
@@ -29,14 +29,15 @@ export default function EventFormField({
   formComponentProps,
   description,
   forceNumber
-}: EventFormFieldProps) {
+}: DefaultFormFieldProps) {
   return (
     <FormField
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem className="relative">
+        <FormItem className="relative mb-1">
           <FormLabel>{label}</FormLabel>
+          {description && <FormDescription>{description}</FormDescription>}
           <FormControl>
             <FormComp
               {...field}
@@ -45,9 +46,7 @@ export default function EventFormField({
               {...formComponentProps}
             />
           </FormControl>
-
           <div className="absolute whitespace-nowrap">
-            {description && <FormDescription>{description}</FormDescription>}
             <FormMessage />
           </div>
         </FormItem>

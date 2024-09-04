@@ -29,13 +29,13 @@ export default defineType({
       name: 'mainImage',
       type: 'image'
     }),
-    defineField({
-      title: 'Event Type',
-      name: 'eventType',
-      type: 'reference',
-      to: { type: 'eventType' },
-      validation: (rule) => rule.required(),
-    }),
+    // defineField({
+    //   title: 'Event Type',
+    //   name: 'eventType',
+    //   type: 'reference',
+    //   to: { type: 'eventType' },
+    //   validation: (rule) => rule.required(),
+    // }),
     defineField({
       title: 'Description',
       name: 'description',

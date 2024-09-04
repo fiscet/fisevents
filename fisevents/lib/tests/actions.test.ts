@@ -2,8 +2,13 @@ import { Occurrence } from '@/types/sanity.types';
 import { getEventList, getEventSingle, updateEvent } from '../actions';
 import { sanityClient } from '../sanity';
 import { OccurrenceList, OccurrenceSingle } from '@/types/sanity.extended.types';
+import { revalidateTag } from 'next/cache';
 
 jest.mock('../sanity');
+
+jest.mock('next/cache', () => ({
+  revalidateTag: jest.fn(),
+}));
 
 describe('Actions', () => {
   afterEach(() => {
@@ -13,7 +18,6 @@ describe('Actions', () => {
   describe('getEventList', () => {
     it('should fetch event list', async () => {
       const mockData: OccurrenceList[] = [{
-        "eventTypeCode": "SINGLE",
         "startDate": "2024-08-14T15:37:00+02:00",
         "endDate": "2024-08-15T04:31:00+02:00",
         "publicationStartDate": "2024-08-13T14:30:00+02:00",
@@ -33,7 +37,6 @@ describe('Actions', () => {
           "current": "the-standard-lorem-ipsum",
           "_type": "slug"
         },
-        "eventTypeCode": "SINGLE",
         "startDate": "2024-08-09T13:31:00.000Z",
         "endDate": "2024-08-17T13:31:00.000Z",
         "publicationStartDate": "2024-08-08T13:31:00.000Z"
@@ -66,7 +69,6 @@ describe('Actions', () => {
       const mockData: OccurrenceSingle = {
         "location": "Anywhere you want bis",
         "description": "History, Purpose and Usage\nLorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book. It usually begins with:\n\n“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”\n\nThe purpose of lorem ipsum is to create a natural looking block of text (sentence, paragraph, page, etc.) that doesn't distract from the layout. A practice not without controversy, laying out pages with meaningless filler text can be very useful when the focus is meant to be on design, not content.",
-        "eventTypeCode": "SINGLE",
         "pageImage": {
           "url": "https://cdn.sanity.io/images/htvid2fj/production/03ed75e362de0db0ff6d0b28334adc058670b8ea-512x512.png",
           "dimensions": {
@@ -118,8 +120,7 @@ describe('Actions', () => {
       expect(sanityClient.patch).toHaveBeenCalledWith(id);
       expect(sanityClient.patch(id).set).toHaveBeenCalledWith(data);
       expect(sanityClient.patch(id).commit).toHaveBeenCalled();
-      // Call revalidateTag mock after your import is adjusted for unit tests.
-      // expect(revalidateTag).toHaveBeenCalledWith('eventSingle');
+      expect(revalidateTag).toHaveBeenCalledWith('eventSingle');
       expect(result).toEqual(mockData);
     });
   });
