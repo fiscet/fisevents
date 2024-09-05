@@ -13,7 +13,6 @@ import ImageUploader from '../../components/ImageUploader';
 import UserAccount from './UserAccount';
 import Processing from '@/components/Processing';
 import { useSession } from 'next-auth/react';
-import { Session } from 'next-auth';
 
 export type UserAccountContainerProps = {
   session: FDefaultSession;
@@ -105,23 +104,21 @@ export default function UserAccountContainer({
     setIsSaving(false);
   }
 
-  const MyImageUploader = (
-    <ImageUploader
-      initImageUrl={initImageUrl}
-      img={newImg}
-      setImg={setNewImg}
-      onRestore={handleRestoreImage}
-      onDelete={handleDeleteImage}
-    />
-  );
-
   return (
     <>
       {isSaving && <Processing text={dictionary.saving} />}
       <UserAccount
         dictionary={dictionary.account}
         form={form}
-        imageUploader={MyImageUploader}
+        imageUploaderRender={() => (
+          <ImageUploader
+            initImageUrl={initImageUrl}
+            img={newImg}
+            setImg={setNewImg}
+            onRestore={handleRestoreImage}
+            onDelete={handleDeleteImage}
+          />
+        )}
         onSubmit={onSubmit}
       />
     </>

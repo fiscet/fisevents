@@ -10,7 +10,7 @@ import PublishableIcon from './components/PublishableIcon';
 import NumAttendants from './components/NumAttendants';
 import EventListFilter from './components/EventListFilter';
 import { CreatorAdminRoutes } from '@/lib/routes';
-import EventListBar from './components/EventListBar';
+import UtilityBar from '../../components/UtilityBar';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
@@ -21,7 +21,7 @@ function getColumns(
 ) {
   const columns = [
     {
-      name: dictionary.labels.is_published,
+      name: dictionary.is_published,
       cell: (row) => {
         const isPublished =
           Date.parse(row.publicationStartDate!) <= Date.now() &&
@@ -34,7 +34,7 @@ function getColumns(
       hide: 640
     },
     {
-      name: dictionary.labels.title,
+      name: dictionary.title,
       selector: (row) => row.title,
       cell: (row) => (
         <div>
@@ -49,7 +49,7 @@ function getColumns(
       sortable: true
     },
     {
-      name: dictionary.labels.active,
+      name: dictionary.active,
       selector: (row) => row.active,
       cell: (row) => <PublishableIcon isPublishable={!!row.active} />,
       center: 'true',
@@ -57,7 +57,7 @@ function getColumns(
       hide: 640
     },
     {
-      name: dictionary.labels.numAttendants,
+      name: dictionary.numAttendants,
       selector: (row) => row.numAttendants,
       cell: (row) => <NumAttendants num={row.numAttendants} />,
       width: '120px',
@@ -65,7 +65,7 @@ function getColumns(
       hide: 640
     },
     {
-      name: dictionary.labels.publicationStartDate,
+      name: dictionary.publicationStartDate,
       selector: (row) => row.publicationStartDate,
       format: (row) =>
         new Date(row.publicationStartDate as string).toLocaleString(),
@@ -73,14 +73,14 @@ function getColumns(
       sortable: true
     },
     {
-      name: dictionary.labels.startDate,
+      name: dictionary.startDate,
       selector: (row) => row.startDate,
       format: (row) => new Date(row.startDate as string).toLocaleString(),
       hide: 'md',
       sortable: true
     },
     {
-      name: dictionary.labels.endDate,
+      name: dictionary.endDate,
       selector: (row) => row.endDate,
       format: (row) => new Date(row.endDate as string).toLocaleString(),
       hide: 'md',
@@ -127,15 +127,15 @@ export default function EventList({
 
   return (
     <div>
-      <EventListBar
+      <UtilityBar
         leftElements={
           <EventListFilter
-            title={dictionary.labels.filters}
+            title={dictionary.filters}
             filter={filter}
             filterText={{
-              all: dictionary.labels.all,
-              active: dictionary.labels.active,
-              published: dictionary.labels.published
+              all: dictionary.all,
+              active: dictionary.active,
+              published: dictionary.published
             }}
             setFilter={setFilter}
           />
@@ -143,7 +143,7 @@ export default function EventList({
         rightElements={
           <Button asChild>
             <Link href={CreatorAdminRoutes.getItem('event')}>
-              {dictionary.labels.new_event}
+              {dictionary.new_event}
             </Link>
           </Button>
         }

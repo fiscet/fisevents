@@ -16,6 +16,7 @@ export type useEventSingleFormProps = {
 
 export const formSchemaObj = z
   .object({
+    _id: z.string(),
     title: z.string(),
     slug: z.object({
       current: z.string(),
@@ -54,7 +55,9 @@ export function useEventSingleForm({ eventSingleData, dictionary }: useEventSing
     )
     .refine(
       (data) => {
-        const { publicationStartDate } = data;
+        const { _id, publicationStartDate } = data;
+
+        if (_id) return true;
 
         const tsPublicationStartDate = Date.parse(publicationStartDate);
 
@@ -98,6 +101,7 @@ export function useEventSingleForm({ eventSingleData, dictionary }: useEventSing
   const form = useForm<EventFormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      _id: eventSingleData?._id ?? '',
       title: eventSingleData?.title ?? '',
       slug: {
         current: eventSingleData?.slug?.current ?? slugify(eventSingleData?.title ?? ''),

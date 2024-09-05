@@ -19,43 +19,43 @@
   "creator_admin": {
     "saving": "Salvataggio",
     "account": {
-      "labels": {
-        "name": "Name",
-        "email": "Email",
-        "imageUrl": "Image URL",
-        "save": "Save"
-      },
+      "name": "Nome",
+      "email": "Email",
+      "imageUrl": "URL della foto",
+      "save": "Salva",
+      "back": "Torna agli eventi",
       "descriptions": {
-        "name": "Your name",
-        "email": "Your email",
-        "image": "Your image"
+        "name": "Il tuo nome completo",
+        "email": "La tua email",
+        "image": "La tua foto"
       },
       "validation": {
-        "name": "Name must be at least 5 characters."
+        "name": "Il nome deve essere di almeno 5 caratteri!"
       }
     },
     "events": {
-      "labels": {
-        "is_published": "Pubblicato",
-        "title": "Nome dell'evento",
-        "slug": "Slug",
-        "publicationStartDate": "Pubblicato dal",
-        "startDate": "Data di inizio",
-        "endDate": "Data di fine",
-        "numAttendants": "Partecipanti",
-        "description": "Descrizione",
-        "location": "Luogo",
-        "maxSubscribers": "Numero massimo di partecipanti",
-        "basicPrice": "Prezzo pieno",
-        "currency": "Valuta",
-        "active": "Pubblicabile",
-        "not_active": "Non pubblicabile",
-        "save": "Salva",
-        "filters": "Filtra per stato",
-        "all": "Tutti",
-        "published": "Pubblicato",
-        "new_event": "Nuovo Evento"
-      },
+      "event": "Evento",
+      "subscribers": "Partecipanti",
+      "is_published": "Pubblicato",
+      "title": "Nome dell'evento",
+      "slug": "Slug",
+      "publicationStartDate": "Pubblicato dal",
+      "startDate": "Data di inizio",
+      "endDate": "Data di fine",
+      "numAttendants": "Partecipanti",
+      "description": "Descrizione",
+      "location": "Luogo",
+      "maxSubscribers": "Numero massimo di partecipanti",
+      "basicPrice": "Prezzo pieno",
+      "currency": "Valuta",
+      "active": "Pubblicabile",
+      "not_active": "Non pubblicabile",
+      "save": "Salva",
+      "filters": "Filtra per stato",
+      "all": "Tutti",
+      "published": "Pubblicato",
+      "new_event": "Nuovo Evento",
+      "back": "Torna agli eventi",
       "descriptions": {
         "title": "Questo è il nome pubblico del tuo evento.",
         "slug": "Questo è l'URL del tuo evento. Sarà visibile nella barra degli indirizzi del tuo browser.",

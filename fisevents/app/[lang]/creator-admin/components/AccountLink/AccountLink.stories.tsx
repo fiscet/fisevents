@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import AccountLink, { AccountLinkProps } from './AccountLink';
+import { CreatorAdminRoutes } from '@/lib/routes';
 
 const meta = {
   component: AccountLink,
@@ -12,7 +13,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     label: 'Account',
-    href: '/creator-admin/user-account'
+    href: CreatorAdminRoutes.getItem('user-account')
   }
 };
 
