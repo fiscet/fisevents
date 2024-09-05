@@ -92,10 +92,7 @@ export default defineType({
       type: 'array',
       of: [
         {
-          type: 'reference',
-          to: [
-            { type: 'eventAttendant' }
-          ]
+          type: 'eventAttendant'
         }
       ]
     }),
@@ -110,6 +107,16 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
+      startDate: 'startDate',
+      mainImage: 'mainImage'
+    },
+    prepare({ title, startDate, mainImage }) {
+      return {
+        title: title,
+        subtitle: new Date(startDate).toLocaleString(),
+        media: mainImage// YYYY-MM-DD --> YYYY
+      };
     }
+
   }
 });

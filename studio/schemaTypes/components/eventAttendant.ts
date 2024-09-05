@@ -4,7 +4,7 @@ import { GrUserFemale } from "react-icons/gr";
 export default defineType({
   title: "Event Attendants",
   name: "eventAttendant",
-  type: "document",
+  type: "object",
   icon: GrUserFemale,
   fields: [
     defineField({
@@ -27,6 +27,12 @@ export default defineType({
       title: "Phone",
       name: "phone",
       type: "string"
+    }),
+    defineField({
+      title: "Subcribition Date",
+      name: "subcribitionDate",
+      type: "datetime",
+      initialValue: (new Date()).toISOString()
     })
   ]
 });
