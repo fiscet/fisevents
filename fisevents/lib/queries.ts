@@ -29,8 +29,5 @@ export const eventSingleQuery = groq`*[_type == "occurrence" && createdByUser._r
   endDate,
   publicationStartDate,
   active,
-  "subcribers": attendants[]->{
-      fullName, 
-      email
-    }
+  attendants
 }`;

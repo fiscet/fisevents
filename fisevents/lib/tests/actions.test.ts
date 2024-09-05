@@ -124,4 +124,5 @@ describe('Actions', () => {
       expect(result).toEqual(mockData);
     });
   });
+
 });

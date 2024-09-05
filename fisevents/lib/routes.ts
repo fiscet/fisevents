@@ -38,6 +38,9 @@ FRoute.prototype.valueOf = function () {
   return this.getBase();
 };
 
-export const CreatorAdminRoutes = new FRoute({ base: 'creator-admin' }, [{ key: 'event', slug: 'event', parentKey: 'base' }]);
+export const CreatorAdminRoutes = new FRoute({ base: 'creator-admin' }, [
+  { key: 'event', slug: 'event', parentKey: 'base' },
+  { key: 'user-account', slug: 'user-account', parentKey: 'base' }
+]);
 
 

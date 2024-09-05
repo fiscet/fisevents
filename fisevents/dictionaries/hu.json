@@ -19,12 +19,11 @@
   "creator_admin": {
     "saving": "Mentés",
     "account": {
-      "labels": {
-        "name": "Name",
-        "email": "Email",
-        "imageUrl": "Image URL",
-        "save": "Save"
-      },
+      "name": "Name",
+      "email": "Email",
+      "imageUrl": "Image URL",
+      "save": "Save",
+      "back": "Back to events",
       "descriptions": {
         "name": "Your name",
         "email": "Your email",
@@ -35,27 +34,28 @@
       }
     },
     "events": {
-      "labels": {
-        "is_published": "Közzétéve",
-        "title": "Esemény neve",
-        "slug": "Slug",
-        "publicationStartDate": "Közzétéve ettől",
-        "startDate": "Kezdés dátuma",
-        "endDate": "Befejezés dátuma",
-        "numAttendants": "Résztvevők",
-        "description": "Leírás",
-        "location": "Helyszín",
-        "maxSubscribers": "Maximális résztvevők száma",
-        "basicPrice": "Teljes ár",
-        "currency": "Valuta",
-        "active": "Közzétehető",
-        "not_active": "Nem közzétehető",
-        "save": "Mentés",
-        "filters": "Szűrés állapot szerint",
-        "all": "Összes",
-        "published": "Közzétéve",
-        "new_event": "Új esemény"
-      },
+      "event": "Esemény",
+      "attendants": "Résztvevők",
+      "is_published": "Közzétéve",
+      "title": "Esemény neve",
+      "slug": "Slug",
+      "publicationStartDate": "Közzétéve ettől",
+      "startDate": "Kezdés dátuma",
+      "endDate": "Befejezés dátuma",
+      "numAttendants": "Résztvevők",
+      "description": "Leírás",
+      "location": "Helyszín",
+      "maxSubscribers": "Maximális résztvevők száma",
+      "basicPrice": "Teljes ár",
+      "currency": "Valuta",
+      "active": "Közzétehető",
+      "not_active": "Nem közzétehető",
+      "save": "Mentés",
+      "filters": "Szűrés állapot szerint",
+      "all": "Összes",
+      "published": "Közzétéve",
+      "new_event": "Új esemény",
+      "back": "Vissza az eseményekhez",
       "descriptions": {
         "title": "Ez az esemény nyilvános megjelenítési neve.",
         "slug": "Ez az esemény URL-je. Látható lesz a böngésző címsorában.",
@@ -70,6 +70,24 @@
         "publicationStartDateAndStartDate": "A közzététel dátumának korábbinak kell lennie, mint az esemény kezdete",
         "publicationStartDateAndNow": "A közzététel dátumának legalább a mai naptól kell kezdődnie",
         "startDate": "A kezdési dátumnak korábbinak kell lennie, mint a befejezési dátum"
+      }
+    },
+    "attendants": {
+      "attendants": "Résztvevők",
+      "new_attendant": "Új résztvevő",
+      "fullname": "Teljes név",
+      "email": "E-mail",
+      "phone": "Telefon",
+      "subcribitionDate": "Feliratkozott dátuma",
+      "save": "Mentés",
+      "descriptions": {
+        "fullname": "A résztvevő teljes neve",
+        "email": "A résztvevő e-mail címe",
+        "phone": "A résztvevő telefonszáma"
+      },
+      "validation": {
+        "name": "A névnek legalább 5 karakterből kell állnia.",
+        "email": "Az e-mail címnek érvényesnek kell lennie."
       }
     },
     "notifications": {

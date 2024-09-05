@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
 import Logo from './Logo';
 
 const meta = {
@@ -10,4 +9,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {   }
+};
+
+export const Linked: Story = {
+  args: { linkTo: '/creator-admin' }
+};

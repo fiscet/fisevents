@@ -2,21 +2,26 @@
 
 import { useState } from 'react';
 import { getDictionary } from '@/lib/i18n.utils';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { toUserIsoString } from '@/lib/utils';
+import { createEvent, updateEvent } from '@/lib/actions';
 import { OccurrenceSingle } from '@/types/sanity.extended.types';
 import { FileImageType } from '@/types/custom.types';
 import { Occurrence } from '@/types/sanity.types';
-import { toUserIsoString } from '@/lib/utils';
-import { createEvent, updateEvent } from '@/lib/actions';
+import { CreatorAdminRoutes } from '@/lib/routes';
 import {
   EventFormSchemaType,
   useEventSingleForm
 } from './hooks/useEventSingleForm';
 import ImageUploader from '../../components/ImageUploader';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import EventSingle from './EventSingle';
 import Processing from '@/components/Processing';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { CreatorAdminRoutes } from '@/lib/routes';
+import UtilityBar from '../../components/UtilityBar';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import EventAttentantList from './EventAttentantList';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
@@ -49,7 +54,7 @@ export default function EventSingleContainer({
 
   const isNewEvent = !eventSingleData;
 
-  const title = eventSingleData?.title ?? dictionary.events.labels.new_event;
+  const title = eventSingleData?.title ?? dictionary.events.new_event;
 
   const handleRestoreImage = () => {
     setNewImg({
@@ -147,26 +152,58 @@ export default function EventSingleContainer({
     setIsSaving(false);
   }
 
-  const MyImageUploader = (
-    <ImageUploader
-      initImageUrl={initImageUrl}
-      img={newImg}
-      setImg={setNewImg}
-      onRestore={handleRestoreImage}
-      onDelete={handleDeleteImage}
-    />
-  );
-
   return (
     <>
       {isSaving && <Processing text={dictionary.saving} />}
-      <EventSingle
-        title={title}
-        dictionary={dictionary.events}
-        form={form}
-        imageUploader={MyImageUploader}
-        onSubmit={onSubmit}
-      />
+      <Tabs defaultValue="event">
+        <UtilityBar
+          leftElements={
+            <Button asChild>
+              <Link href={`/${CreatorAdminRoutes.getBase()}`}>
+                &larr; {dictionary.events.back}
+              </Link>
+            </Button>
+          }
+          rightElements={
+            eventSingleData?.attendants?.length && (
+              <TabsList>
+                <TabsTrigger value="event">
+                  {dictionary.events.event}
+                </TabsTrigger>
+                <TabsTrigger value="attendants">
+                  {dictionary.events.attendants}
+                </TabsTrigger>
+              </TabsList>
+            )
+          }
+        />
+        <TabsContent value="event">
+          <EventSingle
+            title={title}
+            dictionary={dictionary.events}
+            form={form}
+            imageUploaderRender={() => (
+              <ImageUploader
+                initImageUrl={initImageUrl}
+                img={newImg}
+                setImg={setNewImg}
+                onRestore={handleRestoreImage}
+                onDelete={handleDeleteImage}
+              />
+            )}
+            onSubmit={onSubmit}
+          />
+        </TabsContent>
+        <TabsContent value="attendants">
+          <EventAttentantList
+            attendants={eventSingleData?.attendants}
+            eventDescription={`${eventSingleData?.title} - ${new Date(
+              eventSingleData?.startDate!
+            ).toLocaleDateString()}`}
+            dictionary={dictionary.attendants}
+          />
+        </TabsContent>
+      </Tabs>
     </>
   );
 }

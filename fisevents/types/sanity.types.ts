@@ -68,6 +68,14 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type EventAttendant = {
+  _type: "eventAttendant";
+  fullName?: string;
+  email?: string;
+  phone?: string;
+  subcribitionDate?: string;
+};
+
 export type BlockContent = Array<{
   children?: Array<{
     marks?: Array<string>;
@@ -100,17 +108,6 @@ export type BlockContent = Array<{
   _type: "image";
   _key: string;
 }>;
-
-export type EventAttendant = {
-  _id: string;
-  _type: "eventAttendant";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  fullName?: string;
-  email?: string;
-  phone?: string;
-};
 
 export type EventType = {
   _id: string;
@@ -152,12 +149,8 @@ export type Occurrence = {
   publicationStartDate?: string;
   active?: boolean;
   attendants?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
     _key: string;
-    [internalGroqTypeReferenceTo]?: "eventAttendant";
-  }>;
+  } & EventAttendant>;
   createdByUser?: {
     _ref: string;
     _type: "reference";
@@ -223,12 +216,6 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type Slug = {
-  _type: "slug";
-  current?: string;
-  source?: string;
-};
-
 export type VerificationToken = {
   _id: string;
   _type: "verificationToken";
@@ -273,5 +260,20 @@ export type User = {
   emailVerified?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | BlockContent | EventAttendant | EventType | Occurrence | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug | VerificationToken | Account | User;
+export type MediaTag = {
+  _id: string;
+  _type: "media.tag";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: Slug;
+};
+
+export type Slug = {
+  _type: "slug";
+  current?: string;
+  source?: string;
+};
+
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventAttendant | BlockContent | EventType | Occurrence | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | VerificationToken | Account | User | MediaTag | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;

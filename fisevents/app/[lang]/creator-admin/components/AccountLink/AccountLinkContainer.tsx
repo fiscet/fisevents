@@ -12,9 +12,9 @@ export default function AccountLinkContainer({
   label
 }: AccountLinkContainerProps) {
   const pathname = usePathname();
-  const href = pathname?.endsWith('user-account')
-    ? ''
-    : `/${CreatorAdminRoutes.getBase()}/user-account`;
+  const linkTo = CreatorAdminRoutes.getItem('user-account');
+
+  const href = pathname?.endsWith(linkTo) ? '' : `/${linkTo}`;
 
   return <AccountLink label={label} href={href} />;
 }

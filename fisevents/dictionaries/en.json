@@ -19,12 +19,11 @@
   "creator_admin": {
     "saving": "Saving",
     "account": {
-      "labels": {
-        "name": "Name",
-        "email": "Email",
-        "imageUrl": "Image URL",
-        "save": "Save"
-      },
+      "name": "Name",
+      "email": "Email",
+      "imageUrl": "Image URL",
+      "save": "Save",
+      "back": "Back to events",
       "descriptions": {
         "name": "Your name",
         "email": "Your email",
@@ -35,27 +34,28 @@
       }
     },
     "events": {
-      "labels": {
-        "is_published": "Published",
-        "title": "Event name",
-        "slug": "Slug",
-        "publicationStartDate": "Published from",
-        "startDate": "Start date",
-        "endDate": "End date",
-        "numAttendants": "Attendants",
-        "description": "Description",
-        "location": "Location",
-        "maxSubscribers": "Max number of participants",
-        "basicPrice": "Full Price",
-        "currency": "Currency",
-        "active": "Publishable",
-        "not_active": "Unpublishable",
-        "save": "Save",
-        "filters": "Filter by status",
-        "all": "All",
-        "published": "Published",
-        "new_event": "New Event"
-      },
+      "event": "Event",
+      "attendants": "Subscribers",
+      "is_published": "Published",
+      "title": "Event name",
+      "slug": "Slug",
+      "publicationStartDate": "Published from",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "numAttendants": "Attendants",
+      "description": "Description",
+      "location": "Location",
+      "maxSubscribers": "Max number of participants",
+      "basicPrice": "Full Price",
+      "currency": "Currency",
+      "active": "Publishable",
+      "not_active": "Unpublishable",
+      "save": "Save",
+      "filters": "Filter by status",
+      "all": "All",
+      "published": "Published",
+      "new_event": "New Event",
+      "back": "Back to events",
       "descriptions": {
         "title": "This is your event public display name.",
         "slug": "This is the URL of your event. It will be visible in the address bar of your browser.",
@@ -70,6 +70,24 @@
         "publicationStartDateAndStartDate": "The publication date must be before the event start date",
         "publicationStartDateAndNow": "The publication date must start at least from today",
         "startDate": "The start date must be before the event end date"
+      }
+    },
+    "attendants": {
+      "attendants": "Attendants",
+      "new_attendant": "New attendant",
+      "fullname": "Full name",
+      "email": "Email",
+      "phone": "Phone",
+      "subcribitionDate": "Subcribed on",
+      "save": "Save",
+      "descriptions": {
+        "fullname": "Your attendant's full name",
+        "email": "Your attendant's email",
+        "phone": "Your attendant's phone"
+      },
+      "validation": {
+        "name": "Name must be at least 5 characters.",
+        "email": "Email must be valid"
       }
     },
     "notifications": {

@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { getDictionary } from '@/lib/i18n.utils';
 import { UserAccountFormSchemaType } from './hooks/useUserAccountForm';
 import { Form } from '@/components/ui/form';
@@ -8,24 +8,40 @@ import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import DefaultFormField from '../../components/FormField';
 import SaveButton from '../../components/SaveButton';
+import UtilityBar from '../../components/UtilityBar';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { CreatorAdminRoutes } from '@/lib/routes';
+import { ImageUploaderProps } from '../../components/ImageUploader';
 
 export type UserAccountProps = {
   form: any;
   dictionary: Awaited<
     ReturnType<typeof getDictionary>
   >['creator_admin']['account'];
-  imageUploader: ReactNode;
+  imageUploaderRender: () => ReactElement<ImageUploaderProps>;
   onSubmit: (values: UserAccountFormSchemaType) => void;
 };
 
 export default function UserAccount({
   form,
   dictionary,
-  imageUploader: ImageUploader,
+  imageUploaderRender,
   onSubmit
 }: UserAccountProps) {
+  const imageUploader = imageUploaderRender();
+
   return (
     <>
+      <UtilityBar
+        leftElements={
+          <Button asChild>
+            <Link href={`/${CreatorAdminRoutes.getBase()}`}>
+              &larr; {dictionary.back}
+            </Link>
+          </Button>
+        }
+      />
       <h1 className="text-2xl font-bold text-center mt-5">
         {form.getValues('name')}
       </h1>
@@ -37,15 +53,16 @@ export default function UserAccount({
             <DefaultFormField
               form={form}
               name="name"
-              label={dictionary.labels.name}
+              label={dictionary.name}
               formComponent={Input}
               description={dictionary.descriptions.name}
             />
 
-            {ImageUploader}
+            {imageUploader}
+
             <Separator className="my-5" />
             <div className="flex justify-center">
-              <SaveButton className="w-full" text={dictionary.labels.save} />
+              <SaveButton className="w-full" text={dictionary.save} />
             </div>
           </form>
         </Form>
