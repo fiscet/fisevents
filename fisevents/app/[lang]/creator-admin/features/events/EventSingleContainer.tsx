@@ -21,6 +21,7 @@ import Processing from '@/components/Processing';
 import UtilityBar from '../../components/UtilityBar';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import EventAttentantList from './EventAttentantList';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
@@ -164,13 +165,13 @@ export default function EventSingleContainer({
             </Button>
           }
           rightElements={
-            eventSingleData?.subcribers?.length && (
+            eventSingleData?.attendants?.length && (
               <TabsList>
                 <TabsTrigger value="event">
                   {dictionary.events.event}
                 </TabsTrigger>
-                <TabsTrigger value="subscribers">
-                  {dictionary.events.subscribers}
+                <TabsTrigger value="attendants">
+                  {dictionary.events.attendants}
                 </TabsTrigger>
               </TabsList>
             )
@@ -193,8 +194,14 @@ export default function EventSingleContainer({
             onSubmit={onSubmit}
           />
         </TabsContent>
-        <TabsContent value="subscribers">
-          {JSON.stringify(eventSingleData?.subcribers)}
+        <TabsContent value="attendants">
+          <EventAttentantList
+            attendants={eventSingleData?.attendants}
+            eventDescription={`${eventSingleData?.title} - ${new Date(
+              eventSingleData?.startDate!
+            ).toLocaleDateString()}`}
+            dictionary={dictionary.attendants}
+          />
         </TabsContent>
       </Tabs>
     </>

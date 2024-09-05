@@ -35,7 +35,7 @@
     },
     "events": {
       "event": "Evento",
-      "subscribers": "Partecipanti",
+      "attendants": "Partecipanti",
       "is_published": "Pubblicato",
       "title": "Nome dell'evento",
       "slug": "Slug",
@@ -55,7 +55,7 @@
       "all": "Tutti",
       "published": "Pubblicato",
       "new_event": "Nuovo Evento",
-      "back": "Torna agli eventi",
+      "back": "Tutti gli eventi",
       "descriptions": {
         "title": "Questo è il nome pubblico del tuo evento.",
         "slug": "Questo è l'URL del tuo evento. Sarà visibile nella barra degli indirizzi del tuo browser.",
@@ -70,6 +70,24 @@
         "publicationStartDateAndStartDate": "La data di pubblicazione deve essere antecedente alla data di inizio dell'evento",
         "publicationStartDateAndNow": "La data di pubblicazione deve iniziare almeno da oggi",
         "startDate": "La data di inizio deve essere antecedente alla data di fine dell'evento"
+      }
+    },
+    "attendants": {
+      "attendants": "Partecipanti",
+      "new_attendant": "Nuovo partecipante",
+      "fullname": "Nome completo",
+      "email": "Email",
+      "phone": "Telefono",
+      "subcribitionDate": "Iscritto il",
+      "save": "Salva",
+      "descriptions": {
+        "fullname": "Nome completo del partecipante",
+        "email": "Email del partecipante",
+        "phone": "Telefono del partecipante"
+      },
+      "validation": {
+        "name": "Il nome deve contenere almeno 5 caratteri.",
+        "email": "L'email deve essere valida."
       }
     },
     "notifications": {

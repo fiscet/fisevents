@@ -35,7 +35,7 @@
     },
     "events": {
       "event": "Event",
-      "subscribers": "Subscribers",
+      "attendants": "Subscribers",
       "is_published": "Published",
       "title": "Event name",
       "slug": "Slug",
@@ -70,6 +70,24 @@
         "publicationStartDateAndStartDate": "The publication date must be before the event start date",
         "publicationStartDateAndNow": "The publication date must start at least from today",
         "startDate": "The start date must be before the event end date"
+      }
+    },
+    "attendants": {
+      "attendants": "Attendants",
+      "new_attendant": "New attendant",
+      "fullname": "Full name",
+      "email": "Email",
+      "phone": "Phone",
+      "subcribitionDate": "Subcribed on",
+      "save": "Save",
+      "descriptions": {
+        "fullname": "Your attendant's full name",
+        "email": "Your attendant's email",
+        "phone": "Your attendant's phone"
+      },
+      "validation": {
+        "name": "Name must be at least 5 characters.",
+        "email": "Email must be valid"
       }
     },
     "notifications": {

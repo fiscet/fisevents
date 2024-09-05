@@ -35,7 +35,7 @@
     },
     "events": {
       "event": "Esemény",
-      "subscribers": "Résztvevők",
+      "attendants": "Résztvevők",
       "is_published": "Közzétéve",
       "title": "Esemény neve",
       "slug": "Slug",
@@ -70,6 +70,24 @@
         "publicationStartDateAndStartDate": "A közzététel dátumának korábbinak kell lennie, mint az esemény kezdete",
         "publicationStartDateAndNow": "A közzététel dátumának legalább a mai naptól kell kezdődnie",
         "startDate": "A kezdési dátumnak korábbinak kell lennie, mint a befejezési dátum"
+      }
+    },
+    "attendants": {
+      "attendants": "Résztvevők",
+      "new_attendant": "Új résztvevő",
+      "fullname": "Teljes név",
+      "email": "E-mail",
+      "phone": "Telefon",
+      "subcribitionDate": "Feliratkozott dátuma",
+      "save": "Mentés",
+      "descriptions": {
+        "fullname": "A résztvevő teljes neve",
+        "email": "A résztvevő e-mail címe",
+        "phone": "A résztvevő telefonszáma"
+      },
+      "validation": {
+        "name": "A névnek legalább 5 karakterből kell állnia.",
+        "email": "Az e-mail címnek érvényesnek kell lennie."
       }
     },
     "notifications": {
