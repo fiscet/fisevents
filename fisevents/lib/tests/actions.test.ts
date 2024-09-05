@@ -48,7 +48,7 @@ describe('Actions', () => {
       const active = true;
       const result = await getEventList({ createdBy, active });
 
-      expect(sanityClient.fetch).toHaveBeenCalledWith(expect.anything(), { createdBy, active });
+      expect(sanityClient.fetch).toHaveBeenCalledWith(expect.anything(), { createdBy, active }, { next: { tags: ['eventList'] } });
       expect(result).toEqual(mockData);
     });
 
@@ -59,7 +59,7 @@ describe('Actions', () => {
       const createdBy = 'user1';
       const result = await getEventList({ createdBy });
 
-      expect(sanityClient.fetch).toHaveBeenCalledWith(expect.anything(), { createdBy, active: true });
+      expect(sanityClient.fetch).toHaveBeenCalledWith(expect.anything(), { createdBy, active: true }, { next: { tags: ['eventList'] } });
       expect(result).toEqual(mockData);
     });
   });

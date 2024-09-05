@@ -1,5 +1,5 @@
 // utils.test.ts
-import { cn, pickerDateToIsoString, toUserIsoString } from './utils';
+import { cn, pickerDateToIsoString, toUserIsoString, slugify } from '../utils';
 
 // Mocking clsx and tailwind-merge
 jest.mock('clsx', () => ({
@@ -58,4 +58,42 @@ describe('Utils', () => {
       expect(result).toBe(expectedIsoString);
     });
   });
+
+  describe('slugify', () => {
+    it('converts a single string to a slug', () => {
+      expect(slugify('Hello World')).toBe('hello-world');
+    });
+
+    it('converts multiple string arguments to a slug', () => {
+      expect(slugify('Hello', 'World')).toBe('hello-world');
+    });
+
+    it('converts a string with numbers to a slug', () => {
+      expect(slugify('Hello World 123')).toBe('hello-world-123');
+    });
+
+    it('removes special characters from a string', () => {
+      expect(slugify('Hello World!')).toBe('hello-world');
+      expect(slugify('Hello World?')).toBe('hello-world');
+      expect(slugify('Hello World:')).toBe('hello-world');
+    });
+
+    it('converts accented characters to their base form', () => {
+      expect(slugify('Crème Brûlée')).toBe('creme-brulee');
+      expect(slugify('Café au lait')).toBe('cafe-au-lait');
+    });
+
+    it('handles an empty string', () => {
+      expect(slugify('')).toBe('');
+    });
+
+    it('handles a string with only special characters', () => {
+      expect(slugify('!@#$%^&*()')).toBe('');
+    });
+
+    it('converts a number to a string', () => {
+      expect(slugify(123)).toBe('123');
+    });
+  });
+
 });
