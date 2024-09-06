@@ -18,6 +18,10 @@ const nextConfig = {
         port: '3000'
       }
     ]
+  },
+  experimental: {
+    optimizePackageImports: ['react-icons'],
+    serverComponentsExternalPackages: ['react-data-table-component']
   }
 };
 
