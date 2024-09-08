@@ -3,8 +3,12 @@
 import { useState } from 'react';
 import { getDictionary } from '@/lib/i18n.utils';
 import { FileImageType } from '@/types/custom.types';
-import { User } from '@/types/sanity.types';
-import { updateUser } from '@/lib/actions';
+import { Organization } from '@/types/sanity.types';
+import {
+  createOrganization,
+  updateOrganization,
+  updateUser
+} from '@/lib/actions';
 import ImageUploader from '../../components/ImageUploader';
 import { useSession } from 'next-auth/react';
 import { CurrentOrganization } from '@/types/sanity.extended.types';
@@ -25,7 +29,7 @@ export default function OrganizationAccountContainer({
   dictionary,
   onSaving
 }: OrganizationAccountContainerProps) {
-  const { data: sessionUserData, update: updateSession } = useSession();
+  const { data: sessionUserData } = useSession();
 
   const [initImageUrl, setInitImageUrl] = useState(organizationData.imageUrl);
 
@@ -75,8 +79,7 @@ export default function OrganizationAccountContainer({
 
     const { imageUrl, ...restValues } = values;
 
-    const insValues = { ...restValues } as Partial<User>;
-    const newSession = { ...sessionUserData!.user, name: insValues.name };
+    const insValues = { ...restValues } as Partial<Organization>;
 
     let imgRes: { status: string; id?: string; url?: string; error?: any };
 
@@ -84,8 +87,13 @@ export default function OrganizationAccountContainer({
       imgRes = await uploadImage();
 
       if (imgRes.id) {
-        insValues.image = imgRes.url;
-        newSession.image = imgRes.url;
+        insValues.image = {
+          _type: 'image',
+          asset: {
+            _type: 'reference',
+            _ref: imgRes.id
+          }
+        };
 
         setNewImg({
           file: {} as File,
@@ -96,12 +104,22 @@ export default function OrganizationAccountContainer({
       }
     }
 
-    await updateUser({
-      id: organizationData._id!,
-      data: insValues as Partial<User>
-    });
+    if (organizationData._id) {
+      await updateOrganization({
+        id: organizationData._id!,
+        data: insValues
+      });
+    } else {
+      insValues._type = 'organization';
+      const res = await createOrganization({ data: insValues as Organization });
 
-    await updateSession(newSession);
+      if (res._id) {
+        await updateUser({
+          id: sessionUserData!.user!.uid,
+          data: { organization: { _type: 'reference', _ref: res._id } }
+        });
+      }
+    }
 
     onSaving && onSaving(false);
   }

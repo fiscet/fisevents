@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/authOptions';
 import { getOrganization, getUser } from '@/lib/actions';
 import ProfileContainer from '../features/user-account/ProfileContainer';
-import { Organization } from '@/types/sanity.types';
+import { CurrentOrganization } from '@/types/sanity.extended.types';
 
 export default async function AccountPage({
   params: { lang }
@@ -24,7 +24,7 @@ export default async function AccountPage({
     ? await getOrganization({
         organizationId: userData.curOrganization._id
       })
-    : ({} as Organization);
+    : ({} as CurrentOrganization);
 
   console.log(userData);
 

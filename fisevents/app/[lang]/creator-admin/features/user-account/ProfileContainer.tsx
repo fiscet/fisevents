@@ -2,29 +2,22 @@
 
 import { useState } from 'react';
 import { getDictionary } from '@/lib/i18n.utils';
-import { FileImageType } from '@/types/custom.types';
-import { Organization, User } from '@/types/sanity.types';
-import { updateUser } from '@/lib/actions';
-import {
-  UserAccountFormSchemaType,
-  useUserAccountForm
-} from './hooks/useUserAccountForm';
-import ImageUploader from '../../components/ImageUploader';
 import UserAccountContainer from './UserAccountContainer';
 import Processing from '@/components/Processing';
-import { useSession } from 'next-auth/react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import UtilityBar from '../../components/UtilityBar';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { CreatorAdminRoutes } from '@/lib/routes';
-import OrganizationAccount from './OrganizationAccount';
-import { OrganizationFormSchemaType } from './hooks/useOrganizationForm';
-import { CurrentUser } from '@/types/sanity.extended.types';
+import {
+  CurrentOrganization,
+  CurrentUser
+} from '@/types/sanity.extended.types';
+import OrganizationAccountContainer from './OrganizationAccountContainer';
 
 export type ProfileContainerProps = {
   userData: CurrentUser;
-  organizationData: Organization;
+  organizationData: CurrentOrganization;
   dictionary: Awaited<ReturnType<typeof getDictionary>>['creator_admin'];
 };
 
@@ -38,7 +31,7 @@ export default function ProfileContainer({
   return (
     <>
       {isSaving && <Processing text={dictionary.common.saving} />}
-      <Tabs defaultValue="event">
+      <Tabs defaultValue="user">
         <UtilityBar
           leftElements={
             <Button asChild>
@@ -66,19 +59,11 @@ export default function ProfileContainer({
           />
         </TabsContent>
         <TabsContent value="organization">
-          {/* <OrganizationAccount
-            dictionary={{ ...dictionary.organization, ...dictionary.common }}
-            form={form}
-            imageUploaderRender={() => (
-              <ImageUploader
-                initImageUrl={initImageUrl}
-                img={newImg}
-                setImg={setNewImg}
-                onRestore={handleRestoreImage}
-                onDelete={handleDeleteImage}
-              />
-            )}
-            onSubmit={handleUserAccountSubmit} /> */}
+          <OrganizationAccountContainer
+            organizationData={organizationData}
+            dictionary={dictionary}
+            onSaving={setIsSaving}
+          />
         </TabsContent>
       </Tabs>
     </>

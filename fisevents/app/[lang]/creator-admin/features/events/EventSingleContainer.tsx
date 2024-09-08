@@ -154,7 +154,7 @@ export default function EventSingleContainer({
 
   return (
     <>
-      {isSaving && <Processing text={dictionary.saving} />}
+      {isSaving && <Processing text={dictionary.common.saving} />}
       <Tabs defaultValue="event">
         <UtilityBar
           leftElements={
