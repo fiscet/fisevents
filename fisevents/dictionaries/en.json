@@ -17,8 +17,13 @@
     }
   },
   "creator_admin": {
-    "saving": "Saving",
+    "common": {
+      "saving": "Saving",
+      "save": "Save",
+      "back": "Back"
+      },
     "account": {
+      "userAccount": "User account",
       "name": "Name",
       "email": "Email",
       "imageUrl": "Image URL",
@@ -31,6 +36,20 @@
       },
       "validation": {
         "name": "Name must be at least 5 characters."
+      }
+    },
+    "organization": {
+      "organization": "Organization",
+      "companyName": "Company name",
+      "www": "Website",
+      "image": "Image",
+      "descriptions": {
+        "companyName": "Your company name",
+        "www": "Your company website",
+        "image": "Your company logo"
+      },
+      "validation": {
+        "companyName": "Company name must be at least 5 characters."
       }
     },
     "events": {

@@ -5,38 +5,38 @@ import { getDictionary } from '@/lib/i18n.utils';
 import { FileImageType } from '@/types/custom.types';
 import { User } from '@/types/sanity.types';
 import { updateUser } from '@/lib/actions';
-import {
-  UserAccountFormSchemaType,
-  useUserAccountForm
-} from './hooks/useUserAccountForm';
 import ImageUploader from '../../components/ImageUploader';
-import UserAccount from './UserAccount';
 import { useSession } from 'next-auth/react';
-import { CurrentUser } from '@/types/sanity.extended.types';
+import { CurrentOrganization } from '@/types/sanity.extended.types';
+import {
+  OrganizationFormSchemaType,
+  useOrganizationForm
+} from './hooks/useOrganizationForm';
+import OrganizatioAccount from './OrganizationAccount';
 
-export type UserAccountContainerProps = {
-  userData: CurrentUser;
+export type OrganizationAccountContainerProps = {
+  organizationData: CurrentOrganization;
   dictionary: Awaited<ReturnType<typeof getDictionary>>['creator_admin'];
   onSaving?: (key: boolean) => void;
 };
 
-export default function UserAccountContainer({
-  userData,
+export default function OrganizationAccountContainer({
+  organizationData,
   dictionary,
   onSaving
-}: UserAccountContainerProps) {
+}: OrganizationAccountContainerProps) {
   const { data: sessionUserData, update: updateSession } = useSession();
 
-  const [initImageUrl, setInitImageUrl] = useState(userData.image);
+  const [initImageUrl, setInitImageUrl] = useState(organizationData.imageUrl);
 
   const [newImg, setNewImg] = useState<FileImageType>({
     file: {} as File,
-    imgUrl: userData.image ?? ''
+    imgUrl: organizationData.imageUrl ?? ''
   });
 
-  const { form } = useUserAccountForm({
-    userData,
-    dictionary: dictionary.account
+  const { form } = useOrganizationForm({
+    organizationData: organizationData,
+    dictionary: dictionary.organization
   });
 
   const handleRestoreImage = () => {
@@ -70,7 +70,7 @@ export default function UserAccountContainer({
     };
   };
 
-  async function handleUserAccountSubmit(values: UserAccountFormSchemaType) {
+  async function handleSubmit(values: OrganizationFormSchemaType) {
     onSaving && onSaving(true);
 
     const { imageUrl, ...restValues } = values;
@@ -80,7 +80,7 @@ export default function UserAccountContainer({
 
     let imgRes: { status: string; id?: string; url?: string; error?: any };
 
-    if (newImg.imgUrl != userData.image) {
+    if (newImg.imgUrl != organizationData.imageUrl) {
       imgRes = await uploadImage();
 
       if (imgRes.id) {
@@ -97,7 +97,7 @@ export default function UserAccountContainer({
     }
 
     await updateUser({
-      id: userData._id!,
+      id: organizationData._id!,
       data: insValues as Partial<User>
     });
 
@@ -107,8 +107,8 @@ export default function UserAccountContainer({
   }
 
   return (
-    <UserAccount
-      dictionary={{ ...dictionary.account, ...dictionary.common }}
+    <OrganizatioAccount
+      dictionary={{ ...dictionary.organization, ...dictionary.common }}
       form={form}
       imageUploaderRender={() => (
         <ImageUploader
@@ -119,7 +119,7 @@ export default function UserAccountContainer({
           onDelete={handleDeleteImage}
         />
       )}
-      onSubmit={handleUserAccountSubmit}
+      onSubmit={handleSubmit}
     />
   );
 }

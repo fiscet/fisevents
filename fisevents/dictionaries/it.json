@@ -17,8 +17,13 @@
     }
   },
   "creator_admin": {
-    "saving": "Salvataggio",
+    "common": {
+      "saving": "Salvataggio in corso",
+      "save": "Salva",
+      "back": "Torna"
+    },
     "account": {
+      "userAccount": "Account utente",
       "name": "Nome",
       "email": "Email",
       "imageUrl": "URL della foto",
@@ -31,6 +36,20 @@
       },
       "validation": {
         "name": "Il nome deve essere di almeno 5 caratteri!"
+      }
+    },
+    "organization": {
+      "organization": "Azienda",
+      "companyName": "Nome dell'azienda",
+      "www": "Sito web",
+      "image": "Immagine",
+      "descriptions": {
+        "companyName": "Il nome dell'azienda",
+        "www": "Il sito web dell'azienda",
+        "image": "Il logo dell'azienda"
+      },
+      "validation": {
+        "companyName": "Il nome dell'azienda deve essere di almeno 5 caratteri."
       }
     },
     "events": {

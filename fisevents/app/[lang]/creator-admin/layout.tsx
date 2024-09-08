@@ -34,7 +34,10 @@ export default async function AdminLayout({
           <Logo linkTo={`/${CreatorAdminRoutes.getBase()}`} />
           <section className="flex justify-end items-center gap-x-3 mt-6 md:mt-0">
             <div>
-              <AccountLink label={dictionary.auth.account} />
+              <AccountLink
+                label={dictionary.auth.account}
+                pictureUrl={session?.user?.image ?? ''}
+              />
             </div>
             <div>
               <LogoutLink dictionary={dictionary.auth} />

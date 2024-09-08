@@ -4,13 +4,10 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { getDictionary } from '@/lib/i18n.utils';
-import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
-import { Session } from 'next-auth';
-import { FDefaultSession } from '@/types/custom.types';
+import { CurrentUser } from '@/types/sanity.extended.types';
 
 export type useUserAccountFormProps = {
-  session: FDefaultSession;
+  userData: CurrentUser;
   dictionary: Awaited<
     ReturnType<typeof getDictionary>
   >['creator_admin']['account'];
@@ -25,9 +22,7 @@ export const formSchemaObj = z
 
 export type UserAccountFormSchemaType = z.infer<typeof formSchemaObj>;
 
-export function useUserAccountForm({ session, dictionary }: useUserAccountFormProps) {
-
-  const [authSession, setAuthSession] = useState<Session>();
+export function useUserAccountForm({ userData, dictionary }: useUserAccountFormProps) {
 
   const formSchema = z
     .object(formSchemaObj.shape)
@@ -47,9 +42,9 @@ export function useUserAccountForm({ session, dictionary }: useUserAccountFormPr
   const form = useForm<UserAccountFormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: session?.user?.name ?? '',
-      email: session?.user?.email ?? '',
-      imageUrl: session?.user?.image ?? ''
+      name: userData.name,
+      email: userData.email,
+      imageUrl: userData.image
     }
   });
 
