@@ -37,13 +37,27 @@ export default defineType({
       name: 'organization',
       type: 'reference',
       to: { type: 'organization' }
-    })
-  ],
+    }),
+    defineField({
+      title: 'Roles',
+      name: 'roles',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: {
+        list: [
+          { value: 'admin', title: 'Admin' },
+          { value: 'editor', title: 'Editor' },
+          { value: 'user', title: 'User' }
+        ],
+        layout: 'list'
+      },
+      initialValue: ['admin']
+    })],
   preview: {
     select: {
       name: 'name',
       email: 'email',
-      companyName: 'organization.companyName',
+      companyName: 'organization.companyName'
     },
     prepare({ name, email, companyName }) {
       const organization = companyName ? ` - ${companyName}` : '';
