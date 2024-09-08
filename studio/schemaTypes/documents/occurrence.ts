@@ -114,9 +114,8 @@ export default defineType({
       return {
         title: title,
         subtitle: new Date(startDate).toLocaleString(),
-        media: mainImage// YYYY-MM-DD --> YYYY
+        media: mainImage
       };
     }
-
   }
 });

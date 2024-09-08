@@ -159,6 +159,78 @@ export type Occurrence = {
   };
 };
 
+export type VerificationToken = {
+  _id: string;
+  _type: "verificationToken";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  identifier?: string;
+  token?: string;
+  expires?: string;
+};
+
+export type Account = {
+  _id: string;
+  _type: "account";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  providerType?: string;
+  providerId?: string;
+  providerAccountId?: string;
+  refreshToken?: string;
+  accessToken?: string;
+  accessTokenExpires?: number;
+  user?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "user";
+  };
+};
+
+export type User = {
+  _id: string;
+  _type: "user";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  email?: string;
+  image?: string;
+  password?: string;
+  emailVerified?: string;
+  organization?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "organization";
+  };
+  roles?: Array<string>;
+};
+
+export type Organization = {
+  _id: string;
+  _type: "organization";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  companyName?: string;
+  www?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
 export type SanityImageCrop = {
   _type: "sanity.imageCrop";
   top?: number;
@@ -216,50 +288,6 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type VerificationToken = {
-  _id: string;
-  _type: "verificationToken";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  identifier?: string;
-  token?: string;
-  expires?: string;
-};
-
-export type Account = {
-  _id: string;
-  _type: "account";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  providerType?: string;
-  providerId?: string;
-  providerAccountId?: string;
-  refreshToken?: string;
-  accessToken?: string;
-  accessTokenExpires?: number;
-  user?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "user";
-  };
-};
-
-export type User = {
-  _id: string;
-  _type: "user";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  email?: string;
-  image?: string;
-  password?: string;
-  emailVerified?: string;
-};
-
 export type MediaTag = {
   _id: string;
   _type: "media.tag";
@@ -275,5 +303,5 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventAttendant | BlockContent | EventType | Occurrence | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | VerificationToken | Account | User | MediaTag | Slug;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventAttendant | BlockContent | EventType | Occurrence | VerificationToken | Account | User | Organization | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MediaTag | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;

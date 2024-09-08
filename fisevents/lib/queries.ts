@@ -1,6 +1,28 @@
 import { groq } from "next-sanity";
 
-/** EVENT */
+
+/** USERS and ORGANIZATIONS */
+export const userQuery = groq`*[_type == "user" && _id == $userId][0] {
+  _id,
+  name,
+  email,
+  image,
+  roles,
+  "curOrganization": organization->{
+    _id,
+    companyName
+  }
+}`;
+
+export const organizationQuery = groq`*[_type == "organization" && _id == $organizationId][0] {
+  _id,
+  companyName,
+  www,
+  image
+}`;
+
+
+/** EVENTS */
 export const eventListQuery = groq`*[_type == "occurrence" && createdByUser._ref == $createdBy && active == $active ]|order(publicationStartDate desc) {
   _id,
   title,

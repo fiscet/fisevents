@@ -17,20 +17,39 @@
     }
   },
   "creator_admin": {
-    "saving": "Mentés",
+    "common": {
+      "saving": "Mentés",
+      "save": "Mentés",
+      "back": "Vissza"
+    },
     "account": {
-      "name": "Name",
+      "userAccount": "Felhasználói fiók",
+      "name": "Név",
       "email": "Email",
-      "imageUrl": "Image URL",
-      "save": "Save",
-      "back": "Back to events",
+      "imageUrl": "Kép URL",
+      "save": "Mentés",
+      "back": "Vissza az eseményekhez",
       "descriptions": {
-        "name": "Your name",
-        "email": "Your email",
-        "image": "Your image"
+        "name": "Az ön neve",
+        "email": "Az ön emailje",
+        "image": "Az ön képe"
       },
       "validation": {
-        "name": "Name must be at least 5 characters."
+        "name": "A névnek legalább 5 karakter hosszúnak kell lennie."
+      }
+    },
+    "organization": {
+      "organization": "Szervezet",
+      "companyName": "Vállalat neve",
+      "www": "Weboldal",
+      "image": "Kép",
+      "descriptions": {
+        "companyName": "Az ön vállalatának a neve",
+        "www": "Az ön vállalatának weboldala",
+        "image": "Az ön vállalatának logója"
+      },
+      "validation": {
+        "companyName": "A vállalat nevének legalább 5 karakter hosszúnak kell lennie."
       }
     },
     "events": {

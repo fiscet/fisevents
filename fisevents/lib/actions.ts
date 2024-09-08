@@ -1,12 +1,16 @@
 'use server';
 
 import { sanityClient } from "./sanity";
-import { eventListQuery, eventSingleQuery } from "./queries";
-import { OccurrenceList, OccurrenceSingle } from "@/types/sanity.extended.types";
-import { Occurrence, User } from "@/types/sanity.types";
+import { eventListQuery, eventSingleQuery, organizationQuery, userQuery } from "./queries";
+import { CurrentOrganization, CurrentUser, OccurrenceList, OccurrenceSingle } from "@/types/sanity.extended.types";
+import { Occurrence, Organization, User } from "@/types/sanity.types";
 import { revalidateTag } from "next/cache";
 
 /** USERS */
+export const getUser = async ({ userId }: { userId: string; }) => {
+  return await sanityClient.fetch<CurrentUser>(userQuery, { userId }, { next: { tags: ['user'] } });
+};
+
 export const updateUser = async ({ id, data }: { id: string; data: Partial<User>; }) => {
   const res = await sanityClient
     .patch(id)
@@ -14,6 +18,27 @@ export const updateUser = async ({ id, data }: { id: string; data: Partial<User>
     .commit();
 
   revalidateTag('user');
+
+  return res;
+};
+
+/** ORGANIZATIONS */
+export const getOrganization = async ({ organizationId }: { organizationId: string; }) => {
+  return await sanityClient.fetch<CurrentOrganization>(organizationQuery, { organizationId }, { next: { tags: ['organization'] } });
+};
+
+export const createOrganization = async ({ data }: { data: Organization; }) => {
+  const res = await sanityClient.create<Organization>(data);
+
+  revalidateTag('organization');
+
+  return res;
+};
+
+export const updateOrganization = async ({ id, data }: { id: string; data: Partial<Organization>; }) => {
+  const res = await sanityClient.patch(id).set(data).commit();
+
+  revalidateTag('organization');
 
   return res;
 };
@@ -28,10 +53,7 @@ export const getEventSingle = async ({ createdBy, slug }: { createdBy: string; s
 };
 
 export const updateEvent = async ({ id, data }: { id: string; data: Partial<Occurrence>; }) => {
-  const res = await sanityClient
-    .patch(id)
-    .set(data)
-    .commit();
+  const res = await sanityClient.patch(id).set(data).commit();
 
   revalidateTag('eventSingle');
 
