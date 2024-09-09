@@ -20,7 +20,9 @@
     "common": {
       "saving": "Salvataggio in corso",
       "save": "Salva",
-      "back": "Torna"
+      "back": "Torna indietro",
+      "error": "Errore",  
+      "error_text": "Qualcosa è andato storto"
     },
     "account": {
       "userAccount": "Account utente",

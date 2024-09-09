@@ -20,7 +20,9 @@
     "common": {
       "saving": "Saving",
       "save": "Save",
-      "back": "Back"
+      "back": "Back",
+      "error": "Error",
+      "error_text": "Something went wrong"
       },
     "account": {
       "userAccount": "User account",

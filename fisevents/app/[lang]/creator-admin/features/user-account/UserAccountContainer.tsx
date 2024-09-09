@@ -13,6 +13,8 @@ import ImageUploader from '../../components/ImageUploader';
 import UserAccount from './UserAccount';
 import { useSession } from 'next-auth/react';
 import { CurrentUser } from '@/types/sanity.extended.types';
+import { useUploadImage } from '@/hooks/useUploadImage';
+import { useNotification } from '@/components/Notification/useNotification';
 
 export type UserAccountContainerProps = {
   userData: CurrentUser;
@@ -26,6 +28,7 @@ export default function UserAccountContainer({
   onSaving
 }: UserAccountContainerProps) {
   const { data: sessionUserData, update: updateSession } = useSession();
+  const { showNotification } = useNotification();
 
   const [initImageUrl, setInitImageUrl] = useState(userData.image);
 
@@ -38,6 +41,8 @@ export default function UserAccountContainer({
     userData,
     dictionary: dictionary.account
   });
+
+  const uploadImage = useUploadImage(newImg);
 
   const handleRestoreImage = () => {
     setNewImg({
@@ -53,23 +58,6 @@ export default function UserAccountContainer({
     });
   };
 
-  const uploadImage = async () => {
-    const formData = new FormData();
-    formData.append('file', newImg.file);
-
-    const response = await fetch('/api/uploadImage', {
-      method: 'POST',
-      body: formData
-    });
-
-    return (await response.json()) as {
-      status: string;
-      id?: string;
-      url?: string;
-      error?: any;
-    };
-  };
-
   async function handleUserAccountSubmit(values: UserAccountFormSchemaType) {
     onSaving && onSaving(true);
 
@@ -78,32 +66,41 @@ export default function UserAccountContainer({
     const insValues = { ...restValues } as Partial<User>;
     const newSession = { ...sessionUserData!.user, name: insValues.name };
 
-    let imgRes: { status: string; id?: string; url?: string; error?: any };
+    try {
+      if (newImg.imgUrl && newImg.imgUrl != userData.image) {
+        const imgRes = await uploadImage();
 
-    if (newImg.imgUrl != userData.image) {
-      imgRes = await uploadImage();
+        if (imgRes.id) {
+          insValues.image = imgRes.url;
+          newSession.image = imgRes.url;
 
-      if (imgRes.id) {
-        insValues.image = imgRes.url;
-        newSession.image = imgRes.url;
+          setNewImg({
+            file: {} as File,
+            imgUrl: imgRes!.url!
+          });
 
-        setNewImg({
-          file: {} as File,
-          imgUrl: imgRes!.url!
-        });
-
-        setInitImageUrl(imgRes!.url!);
+          setInitImageUrl(imgRes!.url!);
+        }
       }
+      if (!newImg.imgUrl) {
+        insValues.image = {} as typeof insValues.image;
+      }
+
+      await updateUser({
+        id: userData._id!,
+        data: insValues as Partial<User>
+      });
+
+      await updateSession(newSession);
+    } catch (error) {
+      showNotification({
+        title: dictionary.common.error,
+        message: dictionary.common.error_text,
+        type: 'error'
+      });
+    } finally {
+      onSaving && onSaving(false);
     }
-
-    await updateUser({
-      id: userData._id!,
-      data: insValues as Partial<User>
-    });
-
-    await updateSession(newSession);
-
-    onSaving && onSaving(false);
   }
 
   return (

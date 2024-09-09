@@ -22,6 +22,8 @@ import UtilityBar from '../../components/UtilityBar';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import EventAttentantList from './EventAttentantList';
+import { useUploadImage } from '@/hooks/useUploadImage';
+import { useNotification } from '@/components/Notification/useNotification';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
@@ -52,9 +54,13 @@ export default function EventSingleContainer({
 
   const router = useRouter();
 
+  const uploadImage = useUploadImage(newImg);
+
   const isNewEvent = !eventSingleData;
 
   const title = eventSingleData?.title ?? dictionary.events.new_event;
+
+  const { showNotification } = useNotification();
 
   const handleRestoreImage = () => {
     setNewImg({
@@ -68,22 +74,6 @@ export default function EventSingleContainer({
       file: {} as File,
       imgUrl: ''
     });
-  };
-
-  const uploadImage = async () => {
-    const formData = new FormData();
-    formData.append('file', newImg.file);
-
-    const response = await fetch('/api/uploadImage', {
-      method: 'POST',
-      body: formData
-    });
-    return (await response.json()) as {
-      status: string;
-      id?: string;
-      url?: string;
-      error?: any;
-    };
   };
 
   async function onSubmit(values: EventFormSchemaType) {
@@ -101,55 +91,64 @@ export default function EventSingleContainer({
 
     let imgRes;
 
-    if (newImg.imgUrl != eventSingleData?.pageImage.url) {
-      imgRes = await uploadImage();
+    try {
+      if (newImg.imgUrl && newImg.imgUrl != eventSingleData?.pageImage.url) {
+        imgRes = await uploadImage();
 
-      if (imgRes.id) {
-        insValues.mainImage = {
-          _type: 'image',
-          asset: {
-            _type: 'reference',
-            _ref: imgRes.id
-          }
-        };
-      } else {
+        if (imgRes.id) {
+          insValues.mainImage = {
+            _type: 'image',
+            asset: {
+              _type: 'reference',
+              _ref: imgRes.id
+            }
+          };
+        }
+      }
+      if (!newImg.imgUrl) {
         insValues.mainImage = {} as typeof insValues.mainImage;
       }
-    }
 
-    insValues.basicPrice = Number(insValues.basicPrice);
+      insValues.basicPrice = Number(insValues.basicPrice);
 
-    if (isNewEvent) {
-      insValues.createdByUser = {
-        _type: 'reference',
-        _ref: session.data!.user!.uid as string
-      };
-      insValues._type = 'occurrence';
+      if (isNewEvent) {
+        insValues.createdByUser = {
+          _type: 'reference',
+          _ref: session.data!.user!.uid as string
+        };
+        insValues._type = 'occurrence';
 
-      const res = await createEvent({ data: insValues as Occurrence });
+        const res = await createEvent({ data: insValues as Occurrence });
 
-      if (res.slug?.current) {
-        router.push(
-          `/${CreatorAdminRoutes.getItem('event')}/${res.slug.current}`
-        );
+        if (res.slug?.current) {
+          router.push(
+            `/${CreatorAdminRoutes.getItem('event')}/${res.slug.current}`
+          );
+        }
+      } else {
+        await updateEvent({
+          id: eventSingleData!._id!,
+          data: insValues as Partial<Occurrence>
+        });
       }
-    } else {
-      await updateEvent({
-        id: eventSingleData!._id!,
-        data: insValues as Partial<Occurrence>
+
+      if (imgRes?.id) {
+        setNewImg({
+          file: {} as File,
+          imgUrl: imgRes!.url!
+        });
+
+        setInitImageUrl(imgRes!.url!);
+      }
+    } catch (error) {
+      showNotification({
+        title: dictionary.common.error,
+        message: dictionary.common.error_text,
+        type: 'error'
       });
+    } finally {
+      setIsSaving(false);
     }
-
-    if (imgRes?.id) {
-      setNewImg({
-        file: {} as File,
-        imgUrl: imgRes!.url!
-      });
-
-      setInitImageUrl(imgRes!.url!);
-    }
-
-    setIsSaving(false);
   }
 
   return (
