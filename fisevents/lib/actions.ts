@@ -29,7 +29,6 @@ export const getOrganization = async ({ organizationId }: { organizationId: stri
 
 export const createOrganization = async ({ data }: { data: Organization; }) => {
   const res = await sanityClient.create<Organization>(data);
-
   revalidateTag('organization');
 
   return res;

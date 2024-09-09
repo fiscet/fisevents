@@ -20,7 +20,9 @@
     "common": {
       "saving": "Mentés",
       "save": "Mentés",
-      "back": "Vissza"
+      "back": "Vissza",
+      "error": "Hiba",
+      "error_text": "Valami hiba történt"
     },
     "account": {
       "userAccount": "Felhasználói fiók",

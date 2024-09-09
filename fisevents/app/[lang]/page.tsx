@@ -5,6 +5,15 @@ import { authOptions } from '@/lib/authOptions';
 import Link from 'next/link';
 import LogoutLink from './creator-admin/components/LogoutLink/LogoutLinkContainer';
 import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card';
+
 import { CreatorAdminRoutes } from '@/lib/routes';
 
 export default async function MainPage({
@@ -16,23 +25,43 @@ export default async function MainPage({
   const dictionary = await getDictionary(lang);
 
   return (
-    <div className="p-10">
-      <h1>Hello :-)</h1>
-      {session ? (
-        <div>
-          <h2>Logged IN</h2>
-          <Link href={`/${CreatorAdminRoutes.getBase()}`}>Creator Admin</Link>
-          <div>OR</div>
-          <LogoutLink dictionary={dictionary.auth} />
-        </div>
-      ) : (
-        <div>
-          <h2>Please Login</h2>
-          <Button asChild>
-            <Link href="/auth">Login here</Link>
-          </Button>
-        </div>
-      )}
+    <div className="w-full h-screen flex items-center justify-center p-10">
+      <Card>
+        <CardHeader>
+          <CardTitle>Hello :-)</CardTitle>
+          <CardDescription>
+            This page will be a landing page for the app
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {session ? (
+            <div>
+              <h2>You are logged IN as {session.user?.name}</h2>
+
+              <div className="my-4 text-orange-600">
+                <Link href={`/${CreatorAdminRoutes.getBase()}`}>
+                  Click here for the Creator Admin Panel
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <h2>You are NOT logged IN</h2>
+            </div>
+          )}
+        </CardContent>
+        <CardFooter>
+          <div className="w-full flex justify-end">
+            {session ? (
+              <LogoutLink dictionary={dictionary.auth} />
+            ) : (
+              <Button asChild>
+                <Link href="/auth">Login here</Link>
+              </Button>
+            )}
+          </div>
+        </CardFooter>
+      </Card>
     </div>
   );
 }

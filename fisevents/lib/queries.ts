@@ -18,7 +18,8 @@ export const organizationQuery = groq`*[_type == "organization" && _id == $organ
   _id,
   companyName,
   www,
-  image
+  image,
+  "imageUrl": image.asset->url
 }`;
 
 
