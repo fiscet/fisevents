@@ -19,7 +19,7 @@ import { useNotification } from '@/components/Notification/useNotification';
 export type UserAccountContainerProps = {
   userData: CurrentUser;
   dictionary: Awaited<ReturnType<typeof getDictionary>>['creator_admin'];
-  onSaving?: (key: boolean) => void;
+  onSaving?: (isSaving: boolean) => void;
 };
 
 export default function UserAccountContainer({
@@ -31,7 +31,6 @@ export default function UserAccountContainer({
   const { showNotification } = useNotification();
 
   const [initImageUrl, setInitImageUrl] = useState(userData.image);
-
   const [newImg, setNewImg] = useState<FileImageType>({
     file: {} as File,
     imgUrl: userData.image ?? ''
@@ -41,56 +40,35 @@ export default function UserAccountContainer({
     userData,
     dictionary: dictionary.account
   });
-
   const uploadImage = useUploadImage(newImg);
 
-  const handleRestoreImage = () => {
-    setNewImg({
-      file: {} as File,
-      imgUrl: initImageUrl ?? ''
-    });
-  };
+  const handleRestoreImage = () =>
+    setNewImg({ file: {} as File, imgUrl: initImageUrl ?? '' });
+  const handleDeleteImage = () => setNewImg({ file: {} as File, imgUrl: '' });
 
-  const handleDeleteImage = () => {
-    setNewImg({
-      file: {} as File,
-      imgUrl: ''
-    });
-  };
-
-  async function handleUserAccountSubmit(values: UserAccountFormSchemaType) {
-    onSaving && onSaving(true);
+  const handleUserAccountSubmit = async (values: UserAccountFormSchemaType) => {
+    onSaving?.(true);
 
     const { imageUrl, ...restValues } = values;
-
     const insValues = { ...restValues } as Partial<User>;
     const newSession = { ...sessionUserData!.user, name: insValues.name };
 
     try {
-      if (newImg.imgUrl && newImg.imgUrl != userData.image) {
+      if (newImg.imgUrl && newImg.imgUrl !== userData.image) {
         const imgRes = await uploadImage();
-
         if (imgRes.id) {
           insValues.image = imgRes.url;
           newSession.image = imgRes.url;
-
-          setNewImg({
-            file: {} as File,
-            imgUrl: imgRes!.url!
-          });
-
+          setNewImg({ file: {} as File, imgUrl: imgRes!.url! });
           setInitImageUrl(imgRes!.url!);
         }
       }
+
       if (!newImg.imgUrl) {
-        insValues.image = {} as typeof insValues.image;
+        insValues.image = undefined;
       }
 
-      await updateUser({
-        id: userData._id!,
-        data: insValues as Partial<User>
-      });
-
+      await updateUser({ id: userData._id!, data: insValues });
       await updateSession(newSession);
     } catch (error) {
       showNotification({
@@ -99,9 +77,9 @@ export default function UserAccountContainer({
         type: 'error'
       });
     } finally {
-      onSaving && onSaving(false);
+      onSaving?.(false);
     }
-  }
+  };
 
   return (
     <UserAccount
