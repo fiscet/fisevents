@@ -1,5 +1,5 @@
 import { Occurrence } from '@/types/sanity.types';
-import { getEventList, getEventSingle, updateEvent } from '../actions';
+import { getEventList, getEventSingleById, updateEvent } from '../actions';
 import { sanityClient } from '../sanity';
 import { OccurrenceList, OccurrenceSingle } from '@/types/sanity.extended.types';
 import { revalidateTag } from 'next/cache';
@@ -98,7 +98,7 @@ describe('Actions', () => {
 
       const createdBy = 'user1';
       const slug = 'event-1';
-      const result = await getEventSingle({ createdBy, slug });
+      const result = await getEventSingleById({ createdBy, slug });
 
       expect(sanityClient.fetch).toHaveBeenCalledWith(expect.anything(), { createdBy, slug }, { next: { tags: ['eventSingle'] } });
       expect(result).toEqual(mockData);
