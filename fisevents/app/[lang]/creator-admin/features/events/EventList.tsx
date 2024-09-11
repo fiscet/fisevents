@@ -164,7 +164,7 @@ export default function EventList({
             }
           }
         }}
-        onRowClicked={(row) => handleOpenSingleEvent(row.slug?.current!)}
+        onRowClicked={(row) => handleOpenSingleEvent(row._id!)}
       />
     </div>
   );

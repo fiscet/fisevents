@@ -35,7 +35,7 @@ export const eventListQuery = groq`*[_type == "occurrence" && createdByUser._ref
   active
 }`;
 
-export const eventSingleQuery = groq`*[_type == "occurrence" && createdByUser._ref == $createdBy && slug.current == $slug ][0] {
+export const eventSingleByIdQuery = groq`*[_type == "occurrence" && createdByUser._ref == $createdBy && _id == $id ][0] {
   _id,
   title,
   slug,

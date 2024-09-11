@@ -18,7 +18,7 @@ import EventAttentantList from './EventAttentantList';
 import { useUploadImage } from '@/hooks/useUploadImage';
 import { useNotification } from '@/components/Notification/useNotification';
 import { useImageHandlers } from '@/hooks/useImageHandlers';
-import { useSubmitHandler } from './hooks/useSubmitHandlers';
+import { useSubmitHandler } from './hooks/useSubmitHandler';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;

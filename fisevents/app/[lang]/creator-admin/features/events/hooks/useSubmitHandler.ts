@@ -3,7 +3,6 @@ import { useUploadImage } from "@/hooks/useUploadImage";
 import { FileImageType } from "@/types/custom.types";
 import { OccurrenceSingle } from "@/types/sanity.extended.types";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import { EventFormSchemaType } from "./useEventSingleForm";
 import { Occurrence } from "@/types/sanity.types";
 import { toUserIsoString } from "@/lib/utils";
@@ -66,7 +65,7 @@ export const useSubmitHandler = (
         const res = await createEvent({ data: insValues as Occurrence });
 
         if (res.slug?.current) {
-          router.push(`/${CreatorAdminRoutes.getItem('event')}/${res.slug.current}`);
+          router.push(`/${CreatorAdminRoutes.getItem('event')}/${res._id}`);
         }
       } else {
         await updateEvent({
