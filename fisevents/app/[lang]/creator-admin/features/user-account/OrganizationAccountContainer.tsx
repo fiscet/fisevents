@@ -3,19 +3,21 @@
 import { getDictionary } from '@/lib/i18n.utils';
 import { useOrganizationForm } from './hooks/useOrganizationForm';
 import { useImageHandlers } from '@/hooks/useImageHandlers';
-import { useSubmitHandler } from './hooks/useSubmitHandler';
+import { useOrganizationSubmitHandler } from './hooks/useOrganizationSubmitHandler';
 import { CurrentOrganization } from '@/types/sanity.extended.types';
 import ImageUploader from '../../components/ImageUploader';
 import OrganizatioAccount from './OrganizationAccount';
 
 export type OrganizationAccountContainerProps = {
   organizationData: CurrentOrganization;
+  currentUserId: string;
   dictionary: Awaited<ReturnType<typeof getDictionary>>['creator_admin'];
   onSaving?: (key: boolean) => void;
 };
 
 export default function OrganizationAccountContainer({
   organizationData,
+  currentUserId,
   dictionary,
   onSaving
 }: OrganizationAccountContainerProps) {
@@ -33,8 +35,9 @@ export default function OrganizationAccountContainer({
     dictionary: dictionary.organization
   });
 
-  const handleSubmit = useSubmitHandler(
+  const handleSubmit = useOrganizationSubmitHandler(
     organizationData,
+    currentUserId,
     dictionary,
     newImg,
     setNewImg,

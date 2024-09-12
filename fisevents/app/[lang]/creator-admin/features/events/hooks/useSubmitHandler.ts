@@ -39,6 +39,10 @@ export const useSubmitHandler = (
       if (newImg.imgUrl && newImg.imgUrl !== eventSingleData?.pageImage.url) {
         imgRes = await uploadImage();
 
+        if (imgRes.error) {
+          throw new Error(imgRes.error);
+        }
+
         if (imgRes.id) {
           insValues.mainImage = {
             _type: 'image',
@@ -64,7 +68,7 @@ export const useSubmitHandler = (
 
         const res = await createEvent({ data: insValues as Occurrence });
 
-        if (res.slug?.current) {
+        if (res._id) {
           router.push(`/${CreatorAdminRoutes.getItem('event')}/${res._id}`);
         }
       } else {
@@ -81,10 +85,21 @@ export const useSubmitHandler = (
         });
         setInitImageUrl(imgRes.url);
       }
-    } catch (error) {
+    } catch (error: unknown) {
+      let errorMessage = dictionary.common.error_text;
+      if (typeof error === 'object' && error !== null && 'response' in error) {
+        const responseError = error as { response?: { data?: { message?: string; }; }; };
+        if (responseError.response?.data?.message) {
+          // updateEvent or createEvent
+          errorMessage = responseError.response.data.message;
+        }
+      } else if (error instanceof Error) {
+        // uploadImage
+        errorMessage = error.message;
+      }
       showNotification({
         title: dictionary.common.error,
-        message: dictionary.common.error_text,
+        message: errorMessage,
         type: 'error'
       });
     } finally {

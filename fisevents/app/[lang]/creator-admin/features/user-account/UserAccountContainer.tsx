@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { getDictionary } from '@/lib/i18n.utils';
-import { FileImageType } from '@/types/custom.types';
 import { User } from '@/types/sanity.types';
+import { FileImageType } from '@/types/custom.types';
 import { updateUser } from '@/lib/actions';
 import {
   UserAccountFormSchemaType,
@@ -56,6 +56,9 @@ export default function UserAccountContainer({
     try {
       if (newImg.imgUrl && newImg.imgUrl !== userData.image) {
         const imgRes = await uploadImage();
+        if (imgRes.error) {
+          throw new Error(imgRes.error);
+        }
         if (imgRes.id) {
           insValues.image = imgRes.url;
           newSession.image = imgRes.url;
@@ -71,9 +74,22 @@ export default function UserAccountContainer({
       await updateUser({ id: userData._id!, data: insValues });
       await updateSession(newSession);
     } catch (error) {
+      let errorMessage = dictionary.common.error_text;
+      if (typeof error === 'object' && error !== null && 'response' in error) {
+        const responseError = error as {
+          response?: { data?: { message?: string } };
+        };
+        if (responseError.response?.data?.message) {
+          // updateUser
+          errorMessage = responseError.response.data.message;
+        }
+      } else if (error instanceof Error) {
+        // uploadImage
+        errorMessage = error.message;
+      }
       showNotification({
         title: dictionary.common.error,
-        message: dictionary.common.error_text,
+        message: errorMessage,
         type: 'error'
       });
     } finally {

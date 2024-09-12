@@ -4,16 +4,15 @@ import { useState } from 'react';
 import { getDictionary } from '@/lib/i18n.utils';
 import UserAccountContainer from './UserAccountContainer';
 import Processing from '@/components/Processing';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent } from '@/components/ui/tabs';
 import UtilityBar from '../../components/UtilityBar';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-import { CreatorAdminRoutes } from '@/lib/routes';
 import {
   CurrentOrganization,
   CurrentUser
 } from '@/types/sanity.extended.types';
 import OrganizationAccountContainer from './OrganizationAccountContainer';
+import ProfileTabs from './components/ProfileTabs';
+import GoToEventList from '../../components/GoToEventList';
 
 export type ProfileContainerProps = {
   userData: CurrentUser;
@@ -33,22 +32,12 @@ export default function ProfileContainer({
       {isSaving && <Processing text={dictionary.common.saving} />}
       <Tabs defaultValue="user">
         <UtilityBar
-          leftElements={
-            <Button asChild>
-              <Link href={`/${CreatorAdminRoutes.getBase()}`}>
-                &larr; {dictionary.common.back}
-              </Link>
-            </Button>
-          }
+          leftElements={<GoToEventList backText={dictionary.common.back} />}
           rightElements={
-            <TabsList>
-              <TabsTrigger value="user">
-                {dictionary.account.userAccount}
-              </TabsTrigger>
-              <TabsTrigger value="organization">
-                {dictionary.organization.organization}
-              </TabsTrigger>
-            </TabsList>
+            <ProfileTabs
+              userAccountText={dictionary.account.userAccount}
+              organizationText={dictionary.organization.organization}
+            />
           }
         />
         <TabsContent value="user">
@@ -61,6 +50,7 @@ export default function ProfileContainer({
         <TabsContent value="organization">
           <OrganizationAccountContainer
             organizationData={organizationData}
+            currentUserId={userData._id!}
             dictionary={dictionary}
             onSaving={setIsSaving}
           />
