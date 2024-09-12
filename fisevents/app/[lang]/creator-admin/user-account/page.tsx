@@ -26,8 +26,6 @@ export default async function AccountPage({
       })
     : ({} as CurrentOrganization);
 
-  console.log(userData);
-
   return (
     <ProfileContainer
       dictionary={dictionary.creator_admin}
