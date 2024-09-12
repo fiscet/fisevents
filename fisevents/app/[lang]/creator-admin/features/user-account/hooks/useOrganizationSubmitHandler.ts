@@ -4,33 +4,35 @@ import { useNotification } from "@/components/Notification/useNotification";
 import { useUploadImage } from "@/hooks/useUploadImage";
 import { FileImageType } from "@/types/custom.types";
 import { CurrentOrganization } from "@/types/sanity.extended.types";
-import { useSession } from "next-auth/react";
 import { OrganizationFormSchemaType } from "./useOrganizationForm";
 import { Organization } from "@/types/sanity.types";
 import { createOrganization, updateOrganization, updateUser } from "@/lib/actions";
 
-export const useSubmitHandler = (
+export const useOrganizationSubmitHandler = (
   organizationData: CurrentOrganization,
+  currentUserId: string,
   dictionary: any,
   newImg: FileImageType,
   setNewImg: React.Dispatch<React.SetStateAction<FileImageType>>,
   setInitImageUrl: React.Dispatch<React.SetStateAction<string | undefined>>,
-  onSaving?: (key: boolean) => void
+  onSaving?: (isSaving: boolean) => void
 ) => {
-  const { data: sessionUserData } = useSession();
   const uploadImage = useUploadImage(newImg);
   const { showNotification } = useNotification();
 
   return async (values: OrganizationFormSchemaType) => {
-    onSaving && onSaving(true);
+    onSaving?.(true);
 
     const { imageUrl, ...restValues } = values;
     const insValues = { ...restValues } as Partial<Organization>;
 
     try {
-      if (newImg.imgUrl && newImg.imgUrl != organizationData.imageUrl) {
+      if (newImg.imgUrl && newImg.imgUrl !== organizationData.imageUrl) {
         const imgRes = await uploadImage();
-        if (imgRes && imgRes.id) {
+        if (imgRes.error) {
+          throw new Error(imgRes.error);
+        }
+        if (imgRes.id) {
           insValues.image = {
             _type: 'image',
             asset: {
@@ -59,19 +61,30 @@ export const useSubmitHandler = (
         const res = await createOrganization({ data: insValues as Organization });
         if (res._id) {
           await updateUser({
-            id: sessionUserData?.user?.uid ?? '',
+            id: currentUserId,
             data: { organization: { _type: 'reference', _ref: res._id } }
           });
         }
       }
-    } catch (error) {
+    } catch (error: unknown) {
+      let errorMessage = dictionary.common.error_text;
+      if (typeof error === 'object' && error !== null && 'response' in error) {
+        const responseError = error as { response?: { data?: { message?: string; }; }; };
+        if (responseError.response?.data?.message) {
+          // updateOrganization or createOrganization
+          errorMessage = responseError.response.data.message;
+        }
+      } else if (error instanceof Error) {
+        // uploadImage
+        errorMessage = error.message;
+      }
       showNotification({
         title: dictionary.common.error,
-        message: dictionary.common.error_text,
+        message: errorMessage,
         type: 'error'
       });
     } finally {
-      onSaving && onSaving(false);
+      onSaving?.(false);
     }
   };
 };

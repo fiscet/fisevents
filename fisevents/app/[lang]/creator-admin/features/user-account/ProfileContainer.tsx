@@ -50,6 +50,7 @@ export default function ProfileContainer({
         <TabsContent value="organization">
           <OrganizationAccountContainer
             organizationData={organizationData}
+            currentUserId={userData._id!}
             dictionary={dictionary}
             onSaving={setIsSaving}
           />
