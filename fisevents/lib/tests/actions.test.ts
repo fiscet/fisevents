@@ -97,10 +97,10 @@ describe('Actions', () => {
       (sanityClient.fetch as jest.Mock).mockResolvedValue(mockData);
 
       const createdBy = 'user1';
-      const slug = 'event-1';
-      const result = await getEventSingleById({ createdBy, slug });
+      const id = '13b54393-fe75-42cf-a301-c7ccf57c497c';
+      const result = await getEventSingleById({ createdBy, id });
 
-      expect(sanityClient.fetch).toHaveBeenCalledWith(expect.anything(), { createdBy, slug }, { next: { tags: ['eventSingle'] } });
+      expect(sanityClient.fetch).toHaveBeenCalledWith(expect.anything(), { createdBy, id }, { next: { tags: [`eventSingle:${id}`] } });
       expect(result).toEqual(mockData);
     });
   });
@@ -120,7 +120,7 @@ describe('Actions', () => {
       expect(sanityClient.patch).toHaveBeenCalledWith(id);
       expect(sanityClient.patch(id).set).toHaveBeenCalledWith(data);
       expect(sanityClient.patch(id).commit).toHaveBeenCalled();
-      expect(revalidateTag).toHaveBeenCalledWith('eventSingle');
+      expect(revalidateTag).toHaveBeenCalledWith(`eventSingle:${id}`);
       expect(result).toEqual(mockData);
     });
   });
