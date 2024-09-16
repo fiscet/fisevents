@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { TransitionStartFunction, useState } from 'react';
 import { getDictionary } from '@/lib/i18n.utils';
 import { User } from '@/types/sanity.types';
 import { FileImageType } from '@/types/custom.types';
@@ -19,13 +19,13 @@ import { useNotification } from '@/components/Notification/useNotification';
 export type UserAccountContainerProps = {
   userData: CurrentUser;
   dictionary: Awaited<ReturnType<typeof getDictionary>>['creator_admin'];
-  onSaving?: (isSaving: boolean) => void;
+  startProcessing: TransitionStartFunction;
 };
 
 export default function UserAccountContainer({
   userData,
   dictionary,
-  onSaving
+  startProcessing
 }: UserAccountContainerProps) {
   const { data: sessionUserData, update: updateSession } = useSession();
   const { showNotification } = useNotification();
@@ -47,54 +47,56 @@ export default function UserAccountContainer({
   const handleDeleteImage = () => setNewImg({ file: {} as File, imgUrl: '' });
 
   const handleUserAccountSubmit = async (values: UserAccountFormSchemaType) => {
-    onSaving?.(true);
+    startProcessing(async () => {
+      const { imageUrl, ...restValues } = values;
+      const insValues = { ...restValues } as Partial<User>;
+      const newSession = { ...sessionUserData!.user, name: insValues.name };
 
-    const { imageUrl, ...restValues } = values;
-    const insValues = { ...restValues } as Partial<User>;
-    const newSession = { ...sessionUserData!.user, name: insValues.name };
-
-    try {
-      if (newImg.imgUrl && newImg.imgUrl !== userData.image) {
-        const imgRes = await uploadImage();
-        if (imgRes.error) {
-          throw new Error(imgRes.error);
+      try {
+        if (newImg.imgUrl && newImg.imgUrl !== userData.image) {
+          const imgRes = await uploadImage();
+          if (imgRes.error) {
+            throw new Error(imgRes.error);
+          }
+          if (imgRes.id) {
+            insValues.image = imgRes.url;
+            newSession.image = imgRes.url;
+            setNewImg({ file: {} as File, imgUrl: imgRes!.url! });
+            setInitImageUrl(imgRes!.url!);
+          }
         }
-        if (imgRes.id) {
-          insValues.image = imgRes.url;
-          newSession.image = imgRes.url;
-          setNewImg({ file: {} as File, imgUrl: imgRes!.url! });
-          setInitImageUrl(imgRes!.url!);
-        }
-      }
 
-      if (!newImg.imgUrl) {
-        insValues.image = undefined;
-      }
-
-      await updateUser({ id: userData._id!, data: insValues });
-      await updateSession(newSession);
-    } catch (error) {
-      let errorMessage = dictionary.common.error_text;
-      if (typeof error === 'object' && error !== null && 'response' in error) {
-        const responseError = error as {
-          response?: { data?: { message?: string } };
-        };
-        if (responseError.response?.data?.message) {
-          // updateUser
-          errorMessage = responseError.response.data.message;
+        if (!newImg.imgUrl) {
+          insValues.image = undefined;
         }
-      } else if (error instanceof Error) {
-        // uploadImage
-        errorMessage = error.message;
+
+        await updateUser({ id: userData._id!, data: insValues });
+        await updateSession(newSession);
+      } catch (error) {
+        let errorMessage = dictionary.common.error_text;
+        if (
+          typeof error === 'object' &&
+          error !== null &&
+          'response' in error
+        ) {
+          const responseError = error as {
+            response?: { data?: { message?: string } };
+          };
+          if (responseError.response?.data?.message) {
+            // updateUser
+            errorMessage = responseError.response.data.message;
+          }
+        } else if (error instanceof Error) {
+          // uploadImage
+          errorMessage = error.message;
+        }
+        showNotification({
+          title: dictionary.common.error,
+          message: errorMessage,
+          type: 'error'
+        });
       }
-      showNotification({
-        title: dictionary.common.error,
-        message: errorMessage,
-        type: 'error'
-      });
-    } finally {
-      onSaving?.(false);
-    }
+    });
   };
 
   return (

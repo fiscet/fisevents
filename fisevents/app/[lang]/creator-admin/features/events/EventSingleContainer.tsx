@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useTransition } from 'react';
 import { getDictionary } from '@/lib/i18n.utils';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -40,7 +40,7 @@ export default function EventSingleContainer({
     setInitImageUrl
   } = useImageHandlers(eventSingleData?.pageImage.url);
 
-  const [isSaving, setIsSaving] = useState(false);
+  const [isSaving, startProcessing] = useTransition();
 
   const { form } = useEventSingleForm({
     eventSingleData,
@@ -55,7 +55,7 @@ export default function EventSingleContainer({
     newImg,
     setNewImg,
     setInitImageUrl,
-    setIsSaving,
+    startProcessing,
     session,
     router,
     uploadImage,

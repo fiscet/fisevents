@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useTransition } from 'react';
 import { getDictionary } from '@/lib/i18n.utils';
 import UserAccountContainer from './UserAccountContainer';
 import Processing from '@/components/Processing';
@@ -25,7 +25,7 @@ export default function ProfileContainer({
   organizationData,
   dictionary
 }: ProfileContainerProps) {
-  const [isSaving, setIsSaving] = useState(false);
+  const [isSaving, startProcessing] = useTransition();
 
   return (
     <>
@@ -44,7 +44,7 @@ export default function ProfileContainer({
           <UserAccountContainer
             userData={userData}
             dictionary={dictionary}
-            onSaving={setIsSaving}
+            startProcessing={startProcessing}
           />
         </TabsContent>
         <TabsContent value="organization">
@@ -52,7 +52,7 @@ export default function ProfileContainer({
             organizationData={organizationData}
             currentUserId={userData._id!}
             dictionary={dictionary}
-            onSaving={setIsSaving}
+            startProcessing={startProcessing}
           />
         </TabsContent>
       </Tabs>
