@@ -11,7 +11,7 @@ import { Separator } from '@/components/ui/separator';
 import DefaultFormField from '../../components/FormField';
 import SaveButton from '../../components/SaveButton';
 import EventFormActive from './components/EventFormActive';
-import EventFormSlug from './components/EventFormSlug';
+import FormSlug from '../../components/FormSlug';
 import { ImageUploaderProps } from '../../components/ImageUploader';
 
 const EditorComp = dynamic(
@@ -61,11 +61,11 @@ export default function EventSingle({
             formComponent={Input}
             description={dictionary.descriptions.title}
           />
-          <EventFormSlug
+          <FormSlug
             form={form}
             label={dictionary.slug}
             description={dictionary.descriptions.slug}
-            eventTitle={form.getValues('title')}
+            sourceItem={form.getValues('title')}
           />
 
           {imageUploader}

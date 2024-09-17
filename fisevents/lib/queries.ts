@@ -17,11 +17,13 @@ export const userQuery = groq`*[_type == "user" && _id == $userId][0] {
 export const organizationQuery = groq`*[_type == "organization" && _id == $organizationId][0] {
   _id,
   companyName,
+  slug,
   www,
   image,
   "imageUrl": image.asset->url
 }`;
 
+export const organizationCountBySlugQuery = groq`count(*[_type == "organization" && slug.current == $slug])`;
 
 /** EVENTS */
 export const eventListQuery = groq`*[_type == "occurrence" && createdByUser._ref == $createdBy && active == $active ]|order(publicationStartDate desc) {

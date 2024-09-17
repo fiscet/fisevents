@@ -22,7 +22,8 @@
       "save": "Salva",
       "back": "Torna indietro",
       "error": "Errore",  
-      "error_text": "Qualcosa è andato storto"
+      "error_text": "Qualcosa è andato storto",
+      "error_slug_exists": "Slug già esistente"
     },
     "account": {
       "userAccount": "Account utente",
@@ -43,15 +44,18 @@
     "organization": {
       "organization": "Azienda",
       "companyName": "Nome dell'azienda",
+      "slug": "Slug",
       "www": "Sito web",
       "image": "Immagine",
       "descriptions": {
         "companyName": "Il nome dell'azienda",
+        "slug": "Questo è l'URL dell'azienda. Sarà visibile nella barra degli indirizzi del tuo browser.",
         "www": "Il sito web dell'azienda",
         "image": "Il logo dell'azienda"
       },
       "validation": {
-        "companyName": "Il nome dell'azienda deve essere di almeno 5 caratteri."
+        "companyName": "Il nome dell'azienda deve essere di almeno 5 caratteri.",
+        "slug": "Slug deve contenere almeno 5 caratteri."
       }
     },
     "events": {

@@ -6,7 +6,7 @@ import { FileImageType } from "@/types/custom.types";
 import { CurrentOrganization } from "@/types/sanity.extended.types";
 import { OrganizationFormSchemaType } from "./useOrganizationForm";
 import { Organization } from "@/types/sanity.types";
-import { createOrganization, updateOrganization, updateUser } from "@/lib/actions";
+import { createOrganization, getOrganizationCountBySlug, updateOrganization, updateUser } from "@/lib/actions";
 import { TransitionStartFunction } from "react";
 
 export const useOrganizationSubmitHandler = (
@@ -52,6 +52,12 @@ export const useOrganizationSubmitHandler = (
           insValues.image = {} as typeof insValues.image;
         }
 
+        const organizationCount = await getOrganizationCountBySlug({ slug: insValues.slug!.current! });
+
+        if (organizationData.slug?.current !== insValues.slug?.current && organizationCount > 0) {
+          throw new Error(dictionary.common.error_slug_exists);
+        }
+
         if (organizationData._id) {
           await updateOrganization({
             id: organizationData._id,
@@ -59,7 +65,9 @@ export const useOrganizationSubmitHandler = (
           });
         } else {
           insValues._type = 'organization';
+
           const res = await createOrganization({ data: insValues as Organization });
+
           if (res._id) {
             await updateUser({
               id: currentUserId,
@@ -69,6 +77,7 @@ export const useOrganizationSubmitHandler = (
         }
       } catch (error: unknown) {
         let errorMessage = dictionary.common.error_text;
+
         if (typeof error === 'object' && error !== null && 'response' in error) {
           const responseError = error as { response?: { data?: { message?: string; }; }; };
           if (responseError.response?.data?.message) {

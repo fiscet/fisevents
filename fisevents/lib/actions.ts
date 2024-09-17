@@ -1,7 +1,7 @@
 'use server';
 
 import { sanityClient } from "./sanity";
-import { eventListQuery, eventSingleByIdQuery, organizationQuery, userQuery } from "./queries";
+import { eventListQuery, eventSingleByIdQuery, organizationCountBySlugQuery, organizationQuery, userQuery } from "./queries";
 import { CurrentOrganization, CurrentUser, OccurrenceList, OccurrenceSingle } from "@/types/sanity.extended.types";
 import { Occurrence, Organization, User } from "@/types/sanity.types";
 import { revalidateTag } from "next/cache";
@@ -25,6 +25,10 @@ export const updateUser = async ({ id, data }: { id: string; data: Partial<User>
 /** ORGANIZATIONS */
 export const getOrganization = async ({ organizationId }: { organizationId: string; }) => {
   return await sanityClient.fetch<CurrentOrganization>(organizationQuery, { organizationId }, { next: { tags: [`organization:${organizationId}`] } });
+};
+
+export const getOrganizationCountBySlug = async ({ slug }: { slug: string; }) => {
+  return await sanityClient.fetch<number>(organizationCountBySlugQuery, { slug }, { next: { tags: [`organizationCountBySlug:${slug}`] } });
 };
 
 export const createOrganization = async ({ data }: { data: Organization; }) => {

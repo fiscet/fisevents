@@ -22,7 +22,8 @@
       "save": "Mentés",
       "back": "Vissza",
       "error": "Hiba",
-      "error_text": "Valami hiba történt"
+      "error_text": "Valami hiba történt",
+      "error_slug_exists": "Slug már létezik"
     },
     "account": {
       "userAccount": "Felhasználói fiók",
@@ -43,15 +44,18 @@
     "organization": {
       "organization": "Szervezet",
       "companyName": "Vállalat neve",
+      "slug": "Slug",
       "www": "Weboldal",
       "image": "Kép",
       "descriptions": {
         "companyName": "Az ön vállalatának a neve",
+        "slug": "Ez az URL az ön vállalatának. Látható lesz a böngésző címsorában.",
         "www": "Az ön vállalatának weboldala",
         "image": "Az ön vállalatának logója"
       },
       "validation": {
-        "companyName": "A vállalat nevének legalább 5 karakter hosszúnak kell lennie."
+        "companyName": "A vállalat nevének legalább 5 karakter hosszúnak kell lennie.",
+        "slug": "Slug-nek legalább 5 karakter hosszúnak kell lennie."
       }
     },
     "events": {

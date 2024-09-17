@@ -11,21 +11,21 @@ import { MdOutlineGeneratingTokens } from 'react-icons/md';
 import { UseFormReturn } from 'react-hook-form';
 import { slugify } from '@/lib/utils';
 
-export type EventFormSlugProps = {
+export type FormSlugProps = {
   form: UseFormReturn<any>;
   label: string;
   description?: string;
-  eventTitle: string;
+  sourceItem: string;
 };
 
-export default function EventFormSlug({
+export default function FormSlug({
   form,
   label,
   description,
-  eventTitle
-}: EventFormSlugProps) {
+  sourceItem
+}: FormSlugProps) {
   const handleSetSlug = () => {
-    const slug = slugify(eventTitle);
+    const slug = slugify(sourceItem);
     form.setValue('slug.current', slug);
   };
 
