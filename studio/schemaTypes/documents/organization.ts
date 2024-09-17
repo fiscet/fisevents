@@ -15,7 +15,13 @@ export default defineType({
     defineField({
       title: 'Slug',
       name: 'slug',
-      type: 'slug'
+      type: 'slug',
+      options: {
+        source: 'companyName',
+        maxLength: 96,
+        isUnique: (value, context) => context.defaultIsUnique(value, context),
+      },
+      validation: (rule) => rule.required(),
     }),
     defineField({
       title: 'Website',
