@@ -13,6 +13,11 @@ export default defineType({
       type: 'string'
     }),
     defineField({
+      title: 'Slug',
+      name: 'slug',
+      type: 'slug'
+    }),
+    defineField({
       title: 'Website',
       name: 'www',
       type: 'url'
