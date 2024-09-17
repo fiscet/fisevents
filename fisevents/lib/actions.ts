@@ -1,7 +1,7 @@
 'use server';
 
 import { sanityClient } from "./sanity";
-import { eventListQuery, eventSingleByIdQuery, organizationCountBySlugQuery, organizationQuery, userQuery } from "./queries";
+import { eventListQuery, eventSingleByIdQuery, eventSingleBySlugQuery, organizationCountBySlugQuery, organizationQuery, userQuery } from "./queries";
 import { CurrentOrganization, CurrentUser, OccurrenceList, OccurrenceSingle } from "@/types/sanity.extended.types";
 import { Occurrence, Organization, User } from "@/types/sanity.types";
 import { revalidateTag } from "next/cache";
@@ -52,6 +52,10 @@ export const getEventList = async ({ createdBy, active = true }: { createdBy: st
 
 export const getEventSingleById = async ({ createdBy, id }: { createdBy: string; id: string; }) => {
   return await sanityClient.fetch<OccurrenceSingle>(eventSingleByIdQuery, { createdBy, id }, { next: { tags: [`eventSingle:${id}`] } });
+};
+
+export const getEventSingleBySlug = async ({ slug }: { slug: string; }) => {
+  return await sanityClient.fetch<OccurrenceSingle>(eventSingleBySlugQuery, { eventSlug: slug }, { next: { tags: [`eventSingleBySlug:${slug}`] } });
 };
 
 export const updateEvent = async ({ id, data }: { id: string; data: Partial<Occurrence>; }) => {
