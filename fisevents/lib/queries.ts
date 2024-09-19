@@ -17,11 +17,13 @@ export const userQuery = groq`*[_type == "user" && _id == $userId][0] {
 export const organizationQuery = groq`*[_type == "organization" && _id == $organizationId][0] {
   _id,
   companyName,
+  slug,
   www,
   image,
   "imageUrl": image.asset->url
 }`;
 
+export const organizationCountBySlugQuery = groq`count(*[_type == "organization" && slug.current == $slug && active == true])`;
 
 /** EVENTS */
 export const eventListQuery = groq`*[_type == "occurrence" && createdByUser._ref == $createdBy && active == $active ]|order(publicationStartDate desc) {
@@ -53,4 +55,21 @@ export const eventSingleByIdQuery = groq`*[_type == "occurrence" && createdByUse
   publicationStartDate,
   active,
   attendants
+}`;
+
+export const eventSingleBySlugQuery = groq`*[_type == "occurrence" && slug.current == $eventSlug && active == true && publicationStartDate <= now()][0] {
+  _id,
+  title,
+  slug,
+  description,
+  "pageImage": {
+    "url": mainImage.asset->url,
+    "dimensions": mainImage.asset->metadata.dimensions
+  },
+  location,
+  "remainingPlaces": maxSubscribers-count(attendants),
+  "price": coalesce(string(basicPrice), "") + " " + coalesce(currency, "EUR"),
+  startDate,
+  endDate,
+  "organizationSlug":*[_type == "organization" && _id == ^.createdByUser->organization->_id][0].slug.current,
 }`;

@@ -217,6 +217,7 @@ export type Organization = {
   _updatedAt: string;
   _rev: string;
   companyName?: string;
+  slug?: Slug;
   www?: string;
   image?: {
     asset?: {

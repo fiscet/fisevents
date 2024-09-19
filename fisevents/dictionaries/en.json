@@ -22,7 +22,8 @@
       "save": "Save",
       "back": "Back",
       "error": "Error",
-      "error_text": "Something went wrong"
+      "error_text": "Something went wrong",
+      "error_slug_exists": "Slug already exists"
       },
     "account": {
       "userAccount": "User account",
@@ -43,15 +44,18 @@
     "organization": {
       "organization": "Organization",
       "companyName": "Company name",
+      "slug": "Slug",
       "www": "Website",
       "image": "Image",
       "descriptions": {
         "companyName": "Your company name",
+        "slug": "This is the URL of your Organization. It will be visible in the address bar of your browser.",
         "www": "Your company website",
         "image": "Your company logo"
       },
       "validation": {
-        "companyName": "Company name must be at least 5 characters."
+        "companyName": "Company name must be at least 5 characters.",
+        "slug": "Slug must contain at least 5 characters."
       }
     },
     "events": {

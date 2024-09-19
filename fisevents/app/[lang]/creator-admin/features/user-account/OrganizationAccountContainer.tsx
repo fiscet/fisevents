@@ -7,19 +7,20 @@ import { useOrganizationSubmitHandler } from './hooks/useOrganizationSubmitHandl
 import { CurrentOrganization } from '@/types/sanity.extended.types';
 import ImageUploader from '../../components/ImageUploader';
 import OrganizatioAccount from './OrganizationAccount';
+import { TransitionStartFunction } from 'react';
 
 export type OrganizationAccountContainerProps = {
   organizationData: CurrentOrganization;
   currentUserId: string;
   dictionary: Awaited<ReturnType<typeof getDictionary>>['creator_admin'];
-  onSaving?: (key: boolean) => void;
+  startProcessing: TransitionStartFunction;
 };
 
 export default function OrganizationAccountContainer({
   organizationData,
   currentUserId,
   dictionary,
-  onSaving
+  startProcessing
 }: OrganizationAccountContainerProps) {
   const {
     initImageUrl,
@@ -42,7 +43,7 @@ export default function OrganizationAccountContainer({
     newImg,
     setNewImg,
     setInitImageUrl,
-    onSaving
+    startProcessing
   );
 
   return (

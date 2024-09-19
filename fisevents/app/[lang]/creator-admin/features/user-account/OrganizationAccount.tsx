@@ -9,6 +9,7 @@ import { Separator } from '@/components/ui/separator';
 import DefaultFormField from '../../components/FormField';
 import SaveButton from '../../components/SaveButton';
 import { ImageUploaderProps } from '../../components/ImageUploader';
+import FormSlug from '../../components/FormSlug';
 
 export type OrganizatioAccountProps = {
   form: any;
@@ -45,7 +46,12 @@ export default function OrganizatioAccount({
               formComponent={Input}
               description={dictionary.descriptions.companyName}
             />
-
+            <FormSlug
+              form={form}
+              label={dictionary.slug}
+              description={dictionary.descriptions.slug}
+              sourceItem={form.getValues('companyName')}
+            />
             <DefaultFormField
               form={form}
               name="www"

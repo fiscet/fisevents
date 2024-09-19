@@ -1,7 +1,7 @@
 'use server';
 
 import { sanityClient } from "./sanity";
-import { eventListQuery, eventSingleByIdQuery, organizationQuery, userQuery } from "./queries";
+import { eventListQuery, eventSingleByIdQuery, eventSingleBySlugQuery, organizationCountBySlugQuery, organizationQuery, userQuery } from "./queries";
 import { CurrentOrganization, CurrentUser, OccurrenceList, OccurrenceSingle } from "@/types/sanity.extended.types";
 import { Occurrence, Organization, User } from "@/types/sanity.types";
 import { revalidateTag } from "next/cache";
@@ -24,12 +24,15 @@ export const updateUser = async ({ id, data }: { id: string; data: Partial<User>
 
 /** ORGANIZATIONS */
 export const getOrganization = async ({ organizationId }: { organizationId: string; }) => {
-  return await sanityClient.fetch<CurrentOrganization>(organizationQuery, { organizationId }, { next: { tags: ['organization'] } });
+  return await sanityClient.fetch<CurrentOrganization>(organizationQuery, { organizationId }, { next: { tags: [`organization:${organizationId}`] } });
+};
+
+export const getOrganizationCountBySlug = async ({ slug }: { slug: string; }) => {
+  return await sanityClient.fetch<number>(organizationCountBySlugQuery, { slug }, { next: { tags: [`organizationCountBySlug:${slug}`] } });
 };
 
 export const createOrganization = async ({ data }: { data: Organization; }) => {
   const res = await sanityClient.create<Organization>(data);
-  revalidateTag('organization');
 
   return res;
 };
@@ -37,7 +40,7 @@ export const createOrganization = async ({ data }: { data: Organization; }) => {
 export const updateOrganization = async ({ id, data }: { id: string; data: Partial<Organization>; }) => {
   const res = await sanityClient.patch(id).set(data).commit();
 
-  revalidateTag('organization');
+  revalidateTag(`organization:${id}`);
 
   return res;
 };
@@ -48,13 +51,17 @@ export const getEventList = async ({ createdBy, active = true }: { createdBy: st
 };
 
 export const getEventSingleById = async ({ createdBy, id }: { createdBy: string; id: string; }) => {
-  return await sanityClient.fetch<OccurrenceSingle>(eventSingleByIdQuery, { createdBy, id }, { next: { tags: ['eventSingle'] } });
+  return await sanityClient.fetch<OccurrenceSingle>(eventSingleByIdQuery, { createdBy, id }, { next: { tags: [`eventSingle:${id}`] } });
+};
+
+export const getEventSingleBySlug = async ({ slug }: { slug: string; }) => {
+  return await sanityClient.fetch<OccurrenceSingle>(eventSingleBySlugQuery, { eventSlug: slug }, { next: { tags: [`eventSingleBySlug:${slug}`] } });
 };
 
 export const updateEvent = async ({ id, data }: { id: string; data: Partial<Occurrence>; }) => {
   const res = await sanityClient.patch(id).set(data).commit();
 
-  revalidateTag('eventSingle');
+  revalidateTag(`eventSingle:${id}`);
 
   return res;
 };

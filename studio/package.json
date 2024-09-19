@@ -8,6 +8,8 @@
     "dev": "sanity dev",
     "start": "sanity start",
     "build": "sanity build",
+    "predev": "npm run gen-types",
+    "prebuild": "npm run gen-types",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy",
     "gen-types": "sanity schema extract --path ../fisevents/types/sanity.schema.json && sanity typegen generate"

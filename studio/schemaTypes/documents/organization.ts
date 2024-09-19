@@ -13,6 +13,17 @@ export default defineType({
       type: 'string'
     }),
     defineField({
+      title: 'Slug',
+      name: 'slug',
+      type: 'slug',
+      options: {
+        source: 'companyName',
+        maxLength: 96,
+        isUnique: (value, context) => context.defaultIsUnique(value, context),
+      },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       title: 'Website',
       name: 'www',
       type: 'url'
