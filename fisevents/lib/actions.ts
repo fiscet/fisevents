@@ -1,8 +1,8 @@
 'use server';
 
 import { sanityClient } from "./sanity";
-import { eventListQuery, eventSingleByIdQuery, eventSingleBySlugQuery, organizationCountBySlugQuery, organizationQuery, userQuery } from "./queries";
-import { CurrentOrganization, CurrentUser, OccurrenceList, OccurrenceSingle } from "@/types/sanity.extended.types";
+import { eventListQuery, eventSingleByIdQuery, eventSingleBySlugQuery, organizationBySlugQuery, organizationCountBySlugQuery, organizationQuery, userQuery } from "./queries";
+import { CurrentOrganization, CurrentUser, OccurrenceList, OccurrenceSingle, PublicOccurrenceSingle } from "@/types/sanity.extended.types";
 import { Occurrence, Organization, User } from "@/types/sanity.types";
 import { revalidateTag } from "next/cache";
 
@@ -25,6 +25,10 @@ export const updateUser = async ({ id, data }: { id: string; data: Partial<User>
 /** ORGANIZATIONS */
 export const getOrganization = async ({ organizationId }: { organizationId: string; }) => {
   return await sanityClient.fetch<CurrentOrganization>(organizationQuery, { organizationId }, { next: { tags: [`organization:${organizationId}`] } });
+};
+
+export const getOrganizationBySlug = async ({ organizationSlug }: { organizationSlug: string; }) => {
+  return await sanityClient.fetch<CurrentOrganization>(organizationBySlugQuery, { organizationSlug }, { next: { tags: [`organizationBySlug:${organizationSlug}`] } });
 };
 
 export const getOrganizationCountBySlug = async ({ slug }: { slug: string; }) => {
@@ -55,7 +59,7 @@ export const getEventSingleById = async ({ createdBy, id }: { createdBy: string;
 };
 
 export const getEventSingleBySlug = async ({ slug }: { slug: string; }) => {
-  return await sanityClient.fetch<OccurrenceSingle>(eventSingleBySlugQuery, { eventSlug: slug }, { next: { tags: [`eventSingleBySlug:${slug}`] } });
+  return await sanityClient.fetch<PublicOccurrenceSingle>(eventSingleBySlugQuery, { eventSlug: slug }, { next: { tags: [`eventSingleBySlug:${slug}`] } });
 };
 
 export const updateEvent = async ({ id, data }: { id: string; data: Partial<Occurrence>; }) => {

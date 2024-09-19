@@ -119,5 +119,11 @@
       "action_required": "Action required!",
       "missing_user_name": "Please complete your profile"
     }
+  },
+  "public": {
+    "event_not_found": "Event not found",
+    "from_date": "From",
+    "to_date": "To",
+    "places_left": "Places left"
   }
 }
