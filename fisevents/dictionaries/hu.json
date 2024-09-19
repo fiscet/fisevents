@@ -119,5 +119,11 @@
       "action_required": "Intézkedés szükséges!",
       "missing_user_name": "Kérjük, töltse ki a profilját"
     }
+  },
+  "public": {
+    "event_not_found": "Esemény nem található",
+    "from_date": "Kezdet",  
+    "to_date": "Befejezés",
+    "places_left": "Szabad helyek"
   }
 }

@@ -16,3 +16,12 @@ export type OccurrenceSingle = Partial<Occurrence> & {
   pageImage: Pick<SanityImageAsset, 'url'> & Pick<SanityImageMetadata, 'dimensions'>;
   subcribers: Pick<EventAttendant, 'fullName' | 'email'>[];
 };
+
+
+export type PublicOccurrenceSingle = Partial<Occurrence> & {
+  pageImage: Pick<SanityImageAsset, 'url'> & Pick<SanityImageMetadata, 'dimensions'>;
+  remainingPlaces: number;
+  price: string;
+  organizationSlug: string;
+};
+
