@@ -1,6 +1,5 @@
 import { defineQuery } from "next-sanity";
 
-
 /** USERS and ORGANIZATIONS */
 export const userQuery = defineQuery(`*[_type == "user" && _id == $userId][0] {
   _id,
@@ -63,7 +62,14 @@ export const eventSingleByIdQuery = defineQuery(`*[_type == "occurrence" && crea
   attendants
 }`);
 
-export const eventSingleBySlugQuery = defineQuery(`*[_type == "occurrence" && slug.current == $eventSlug && active == true && publicationStartDate <= now()][0] {
+export const eventSingleBySlugQuery = defineQuery(`
+*[
+  _type == "occurrence" && 
+  slug.current == $eventSlug && 
+  active == true && 
+  publicationStartDate <= now() && 
+  endDate >= now()
+  ][0] {
   _id,
   title,
   description,

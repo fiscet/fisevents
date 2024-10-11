@@ -124,6 +124,18 @@
     "event_not_found": "Event not found",
     "from_date": "From",
     "to_date": "To",
-    "places_left": "Places left"
+    "places_left": "Places left",
+    "fullname": "Full name",
+    "email": "Email",
+    "phone": "Phone",
+    "descriptions": {
+      "fullname": "Your name and family name",
+      "email": "Your preferred email to manage your participation",
+      "phone": "Your phone number, for any last minute communications"
+    },
+    "validation": {
+      "fullName": "Name must be at least 5 characters.",
+      "email": "Email must be valid"
+    }
   }
 }

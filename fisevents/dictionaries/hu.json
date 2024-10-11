@@ -124,6 +124,18 @@
     "event_not_found": "Esemény nem található",
     "from_date": "Kezdet",  
     "to_date": "Befejezés",
-    "places_left": "Szabad helyek"
+    "places_left": "Szabad helyek",
+    "fullname": "Teljes név",
+    "email": "E-mail",
+    "phone": "Telefon",
+    "descriptions": {
+      "fullname": "A személyes neve és vezetéknév",
+      "email": "A személyes e-mail címe, hogy kezelje a részvételét", 
+      "phone": "A személyes telefonszám, ha bármelyik újabb kommunikáció szükséges"
+    },
+    "validation": {   
+      "fullName": "A névnek legalább 5 karakter hosszúnak kell lennie.",
+      "email": "Az e-mail címnek érvényesnek kell lennie."
+    }
   }
 }

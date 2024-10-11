@@ -6,7 +6,7 @@ import { OrganizationFormSchemaType } from './hooks/useOrganizationForm';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import DefaultFormField from '../../components/FormField';
+import DefaultFormField from '@/components/ui/FormField';
 import SaveButton from '../../components/SaveButton';
 import { ImageUploaderProps } from '../../components/ImageUploader';
 import FormSlug from '../../components/FormSlug';
