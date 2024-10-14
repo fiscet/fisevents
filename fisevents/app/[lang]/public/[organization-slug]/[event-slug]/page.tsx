@@ -4,20 +4,26 @@ import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
 import EventNotFound from '../../components/EventNotFound';
 import PublicEvent from '../../components/PublicEvent';
-import EventAttendantForm from '../../components/EventAttendantForm';
-import { EventAttendant } from '@/types/sanity.types';
+import EventAttendantForm from '../../features/EventAttendantContainer';
+import { NotificationProvider } from '@/components/Notification/NotificationContext';
 
 export default async function PublicEventPage({
-  params: { lang, organizationSlug, eventSlug }
+  params: {
+    lang,
+    ['organization-slug']: organizationSlug,
+    ['event-slug']: eventSlug
+  }
 }: {
-  params: { lang: Locale; organizationSlug: string; eventSlug: string };
+  params: {
+    lang: Locale;
+    ['organization-slug']: string;
+    ['event-slug']: string;
+  };
 }) {
   const organizationData = await getOrganizationBySlug({ organizationSlug });
   const eventData = await getEventSingleBySlug({ slug: eventSlug });
 
   const dictionary = await getDictionary(lang);
-
-  console.log('eventData', eventData);
 
   return (
     <div>
@@ -33,7 +39,12 @@ export default async function PublicEventPage({
       {eventData && organizationSlug === eventData.organizationSlug ? (
         <>
           <PublicEvent eventData={eventData} lang={lang} />
-          <EventAttendantForm dictionary={dictionary.public} />
+          <NotificationProvider className="mt-0 md:mt-0">
+            <EventAttendantForm
+              eventId={eventData._id!}
+              dictionary={dictionary.public}
+            />
+          </NotificationProvider>
         </>
       ) : (
         <EventNotFound message={dictionary.public.event_not_found} />

@@ -84,3 +84,11 @@ export const eventSingleBySlugQuery = defineQuery(`
   endDate,
   "organizationSlug":*[_type == "organization" && _id == ^.createdByUser->organization->_id][0].slug.current,
 }`);
+
+export const eventSingleHasAttendantQuery = defineQuery(`
+*[
+  _type == "occurrence" && 
+  _id == $eventId 
+  ][0] {
+  "hasAttendant":count(attendants[email match $email]) > 0
+}`);

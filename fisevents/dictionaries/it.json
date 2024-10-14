@@ -137,6 +137,11 @@
       "fullName": "Il nome deve essere di almeno 5 caratteri.",
       "email": "L'email deve essere valida"
     },
-    "subscribe_button": "Iscriviti"
+    "subscribe_title": "Iscriviti all'evento",
+    "subscribe_button": "Iscriviti",
+    "error": "Errore",  
+    "error_already_subscribed": "Sei già iscritto a quest'evento",
+    "success": "Successo",
+    "success_subscribed": "L'iscrizione a quest'evento è avvenuta con successo"
   }
 }

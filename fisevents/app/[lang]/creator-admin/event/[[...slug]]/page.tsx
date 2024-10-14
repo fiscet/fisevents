@@ -3,7 +3,7 @@ import { getEventSingleById } from '@/lib/actions';
 import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
 import { getServerSession } from 'next-auth';
-import EventSingle from '../../features/events/EventSingleContainer';
+import EventSingle from '../features/EventSingleContainer';
 
 export default async function EventSinglePage({
   params: { lang, slug }

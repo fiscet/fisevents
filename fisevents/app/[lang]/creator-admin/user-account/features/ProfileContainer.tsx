@@ -11,7 +11,7 @@ import {
   CurrentUser
 } from '@/types/sanity.extended.types';
 import OrganizationAccountContainer from './OrganizationAccountContainer';
-import ProfileTabs from './components/ProfileTabs';
+import ProfileTabs from '../components/ProfileTabs';
 import GoToEventList from '../../components/GoToEventList';
 
 export type ProfileContainerProps = {

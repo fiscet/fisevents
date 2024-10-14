@@ -2,7 +2,7 @@
 
 import { ReactElement } from 'react';
 import { getDictionary } from '@/lib/i18n.utils';
-import { OrganizationFormSchemaType } from './hooks/useOrganizationForm';
+import { OrganizationFormSchemaType } from '../hooks/useOrganizationForm';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';

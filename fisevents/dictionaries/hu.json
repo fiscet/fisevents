@@ -137,6 +137,11 @@
       "fullName": "A névnek legalább 5 karakter hosszúnak kell lennie.",
       "email": "Az e-mail címnek érvényesnek kell lennie."
     },
-    "subscribe_button": "Részvétel"
+    "subscribe_title": "Részvétel",
+    "subscribe_button": "Részvétel",
+    "error": "Hiba",
+    "error_already_subscribed": "Már résztvevő ezen a részvételben",
+    "success": "Sikeres",
+    "success_subscribed": "Sikeresen résztvevő ezen a részvételben"
   }
 }

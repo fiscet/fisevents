@@ -74,6 +74,7 @@ export type EventAttendant = {
   email?: string;
   phone?: string;
   subcribitionDate?: string;
+  uuid?: string;
 };
 
 export type BlockContent = Array<{

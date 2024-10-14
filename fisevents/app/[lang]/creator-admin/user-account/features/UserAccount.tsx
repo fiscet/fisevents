@@ -2,7 +2,7 @@
 
 import { ReactElement } from 'react';
 import { getDictionary } from '@/lib/i18n.utils';
-import { UserAccountFormSchemaType } from './hooks/useUserAccountForm';
+import { UserAccountFormSchemaType } from '../hooks/useUserAccountForm';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
