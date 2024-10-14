@@ -7,26 +7,44 @@ import {
   useEventAttendantForm
 } from '../hooks/useEventAttendantForm';
 import { Input } from '@/components/ui/input';
-import DefaultFormField from '@/components/ui/FormField';
+import DefaultFormField from '@/components/FormField';
+import { EventAttendant } from '@/types/sanity.types';
+import SaveButton from '../../creator-admin/components/SaveButton';
 
 export type EventAttendantFormProps = {
   dictionary: Awaited<ReturnType<typeof getDictionary>>['public'];
-  onSubmit: (values: AttendantFormSchemaType) => void;
+  onSubmit?: (values: AttendantFormSchemaType) => void;
 };
 
 export default function EventAttendantForm({
   dictionary,
   onSubmit
 }: EventAttendantFormProps) {
-  const { form } = useEventAttendantForm({ dictionary });
+  const eventAttendantData = {
+    fullName: sessionStorage.getItem('fullName') ?? '',
+    email: sessionStorage.getItem('email') ?? '',
+    phone: sessionStorage.getItem('phone') ?? ''
+  };
+
+  const { form } = useEventAttendantForm({
+    eventAttendantData,
+    dictionary
+  });
+
+  function handleAttendandSubmit(data: Partial<EventAttendant>) {
+    console.log('handleAttendandSubmit', data);
+  }
 
   return (
-    <div>
+    <div className="pb-10">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form
+          onSubmit={form.handleSubmit(handleAttendandSubmit)}
+          className="space-y-8"
+        >
           <DefaultFormField
             form={form}
-            name="fullname"
+            name="fullName"
             label={dictionary.fullname}
             formComponent={Input}
             description={dictionary.descriptions.fullname}
@@ -36,7 +54,6 @@ export default function EventAttendantForm({
             name="email"
             label={dictionary.email}
             formComponent={Input}
-            formComponentProps={{ type: 'email' }}
             description={dictionary.descriptions.email}
           />
           <DefaultFormField
@@ -46,6 +63,9 @@ export default function EventAttendantForm({
             formComponent={Input}
             description={dictionary.descriptions.phone}
           />
+          <div className="flex justify-center">
+            <SaveButton className="w-full" text={dictionary.subscribe_button} />{' '}
+          </div>
         </form>
       </Form>
     </div>

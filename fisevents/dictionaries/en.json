@@ -136,6 +136,7 @@
     "validation": {
       "fullName": "Name must be at least 5 characters.",
       "email": "Email must be valid"
-    }
+    },
+    "subscribe_button": "Subscribe"
   }
 }

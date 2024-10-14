@@ -17,28 +17,23 @@ export default async function PublicEventPage({
 
   const dictionary = await getDictionary(lang);
 
-  const handleAttendandSubmit = (data: Partial<EventAttendant>) => {
-    console.log('handleAttendandSubmit', data);
-  };
-
   console.log('eventData', eventData);
 
   return (
     <div>
-      <Image
-        src={organizationData.imageUrl ?? '/img/logo.png'}
-        alt="Logo"
-        width="320"
-        height="320"
-        className="mx-auto"
-      />
+      {organizationData && (
+        <Image
+          src={organizationData.imageUrl ?? '/img/logo.png'}
+          alt="Logo"
+          width="320"
+          height="320"
+          className="mx-auto"
+        />
+      )}
       {eventData && organizationSlug === eventData.organizationSlug ? (
         <>
           <PublicEvent eventData={eventData} lang={lang} />
-          <EventAttendantForm
-            dictionary={dictionary.public}
-            onSubmit={handleAttendandSubmit}
-          />
+          <EventAttendantForm dictionary={dictionary.public} />
         </>
       ) : (
         <EventNotFound message={dictionary.public.event_not_found} />

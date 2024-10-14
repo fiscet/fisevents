@@ -8,7 +8,7 @@ import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
-import DefaultFormField from '@/components/ui/FormField';
+import DefaultFormField from '@/components/FormField';
 import SaveButton from '../../components/SaveButton';
 import EventFormActive from './components/EventFormActive';
 import FormSlug from '../../components/FormSlug';

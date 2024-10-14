@@ -6,7 +6,7 @@ import { UserAccountFormSchemaType } from './hooks/useUserAccountForm';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import DefaultFormField from '@/components/ui/FormField';
+import DefaultFormField from '@/components/FormField';
 import SaveButton from '../../components/SaveButton';
 import { ImageUploaderProps } from '../../components/ImageUploader';
 
