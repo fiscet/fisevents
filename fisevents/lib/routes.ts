@@ -43,4 +43,6 @@ export const CreatorAdminRoutes = new FRoute({ base: 'creator-admin' }, [
   { key: 'user-account', slug: 'user-account', parentKey: 'base' }
 ]);
 
-
+export const PublicRoutes = new FRoute({ base: 'public' }, [
+  { key: 'unsuscribe', slug: 'unsuscribe', parentKey: 'base' }
+]);

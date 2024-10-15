@@ -9,7 +9,8 @@ export const userQuery = defineQuery(`*[_type == "user" && _id == $userId][0] {
   roles,
   "curOrganization": organization->{
     _id,
-    companyName
+    companyName,
+    "companySlug": slug.current
   }
 }`);
 

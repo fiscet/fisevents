@@ -1,6 +1,7 @@
 'use client';
 
 import { Locale } from "@/lib/i18n";
+import { PublicRoutes } from "@/lib/routes";
 
 export type SubscribeEmailProps = {
   eventId: string;
@@ -24,7 +25,9 @@ export function useSubscribeEmail(
   const generateUnsubscribeLink = (lang: Locale, uuid: string, email: string): string => {
     if (typeof window !== 'undefined') {
       const host = window.location.protocol + '//' + window.location.host;
-      return `${host}/${lang}/public/unsuscribe?eventId=${eventId}&eventAttendantEmail=${email}&eventAttendantUuid=${uuid}`;
+      const publicSlug = PublicRoutes.getBase();
+
+      return `${host}/${lang}/${publicSlug}/unsuscribe?eventId=${eventId}&eventAttendantEmail=${email}&eventAttendantUuid=${uuid}`;
     }
     return '';
   };

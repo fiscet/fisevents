@@ -81,6 +81,7 @@
       "published": "Közzétéve",
       "new_event": "Új esemény",
       "back": "Vissza az eseményekhez",
+      "public_url": "Nyilvános URL",
       "descriptions": {
         "title": "Ez az esemény nyilvános megjelenítési neve.",
         "slug": "Ez az esemény URL-je. Látható lesz a böngésző címsorában.",

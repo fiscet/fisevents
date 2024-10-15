@@ -27,7 +27,8 @@ export default async function PublicEventPage({
   const emailDictionary = await getEmailDictionary(lang);
 
   const showForm =
-    eventData.remainingPlaces == null || eventData.remainingPlaces > 0;
+    !!eventData &&
+    (eventData.remainingPlaces == null || eventData.remainingPlaces > 0);
 
   return (
     <div>
