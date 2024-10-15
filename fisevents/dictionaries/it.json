@@ -81,6 +81,7 @@
       "published": "Pubblicato",
       "new_event": "Nuovo Evento",
       "back": "Tutti gli eventi",
+      "public_url": "URL pubblico",
       "descriptions": {
         "title": "Questo è il nome pubblico del tuo evento.",
         "slug": "Questo è l'URL del tuo evento. Sarà visibile nella barra degli indirizzi del tuo browser.",

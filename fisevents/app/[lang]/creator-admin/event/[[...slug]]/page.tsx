@@ -1,5 +1,5 @@
 import { authOptions } from '@/lib/authOptions';
-import { getEventSingleById } from '@/lib/actions';
+import { getEventSingleById, getUser } from '@/lib/actions';
 import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
 import { getServerSession } from 'next-auth';
@@ -14,6 +14,8 @@ export default async function EventSinglePage({
 
   const dictionary = await getDictionary(lang);
 
+  const userData = await getUser({ userId: session!.user!.uid! });
+
   const eventSingleData =
     slug && slug.length > 0 && session?.user
       ? await getEventSingleById({
@@ -25,6 +27,7 @@ export default async function EventSinglePage({
   return (
     <EventSingle
       eventSingleData={eventSingleData}
+      companySlug={userData.curOrganization!.companySlug!}
       dictionary={dictionary.creator_admin}
     />
   );

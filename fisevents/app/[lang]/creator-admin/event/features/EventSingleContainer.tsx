@@ -17,14 +17,21 @@ import { useNotification } from '@/components/Notification/useNotification';
 import { useImageHandlers } from '@/hooks/useImageHandlers';
 import { useSubmitHandler } from '../hooks/useSubmitHandler';
 import GoToEventList from '../../components/GoToEventList';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import IconText from '@/app/[lang]/public/components/IconText';
+import { MdOutlineOpenInNew } from 'react-icons/md';
+import { PublicRoutes } from '@/lib/routes';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
+  companySlug: string;
   dictionary: Awaited<ReturnType<typeof getDictionary>>['creator_admin'];
 };
 
 export default function EventSingleContainer({
   eventSingleData,
+  companySlug,
   dictionary
 }: EventSingleContainerProps) {
   const session = useSession();
@@ -39,6 +46,12 @@ export default function EventSingleContainer({
     handleDeleteImage,
     setInitImageUrl
   } = useImageHandlers(eventSingleData?.pageImage.url);
+
+  const host = window.location.protocol + '//' + window.location.host;
+  const publicSlug = PublicRoutes.getBase();
+  const publicLink = eventSingleData?.slug?.current
+    ? `${host}/${publicSlug}/${companySlug}/${eventSingleData?.slug?.current}`
+    : '';
 
   const [isSaving, startProcessing] = useTransition();
 
@@ -68,6 +81,13 @@ export default function EventSingleContainer({
       <Tabs defaultValue="event">
         <UtilityBar
           leftElements={<GoToEventList backText={dictionary.common.back} />}
+          centerElements={
+            <div className="flex items-center text-cyan-700">
+              <Link href={publicLink} target="_blank">
+                {publicLink}
+              </Link>
+            </div>
+          }
           rightElements={
             !!eventSingleData?.attendants?.length && (
               <TabsList>
