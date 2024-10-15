@@ -1,85 +1,84 @@
 'use client';
 
-import React, { useCallback, useMemo } from 'react';
-import { getDictionary } from '@/lib/i18n.utils';
+import React, { useState, useTransition } from 'react';
+import { getDictionary, getEmailDictionary } from '@/lib/i18n.utils';
 import { useEventAttendantForm } from '../hooks/useEventAttendantForm';
+import { useManageSubscription } from '../hooks/useManageSubscription';
+import { useSubscribeEmail } from '../hooks/useSubscribeEmail';
 import { EventAttendant } from '@/types/sanity.types';
-import { addEventAttendant, getEventSingleHasAttendant } from '@/lib/actions';
-import { useNotification } from '@/components/Notification/useNotification';
 import EventAttendantForm from './EventAttendantForm';
+import Processing from '@/components/Processing';
+import { Locale } from '@/lib/i18n';
 
 export type EventAttendantContainerProps = {
+  lang: Locale;
   eventId: string;
+  companyName: string;
+  eventTitle: string;
   dictionary: Awaited<ReturnType<typeof getDictionary>>['public'];
+  emailDictionary: Awaited<
+    ReturnType<typeof getEmailDictionary>
+  >['event_attendant']['subscription'];
 };
 
 export default function EventAttendantContainer({
+  lang,
   eventId,
-  dictionary
+  companyName,
+  eventTitle,
+  dictionary,
+  emailDictionary
 }: EventAttendantContainerProps) {
-  const eventAttendantData = useMemo<Partial<EventAttendant>>(
-    () => ({
-      fullName: '',
-      email: '',
-      phone: ''
-    }),
-    []
-  );
+  const [isSaving, startProcessing] = useTransition();
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const eventAttendantData: Partial<EventAttendant> = {
+    fullName: '',
+    email: '',
+    phone: ''
+  };
 
   const { form } = useEventAttendantForm({
     eventAttendantData,
     dictionary
   });
 
-  const { showNotification } = useNotification();
+  const {
+    generateUnsubscribeLink,
+    prepareEmailSubject,
+    prepareEmailBodyTxt,
+    prepareEmailBodyHtml
+  } = useSubscribeEmail({ eventId, companyName, eventTitle, emailDictionary });
 
-  const handleAttendandSubmit = useCallback(
-    async (data: Partial<EventAttendant>) => {
-      const res = await getEventSingleHasAttendant({
-        eventId,
-        email: data.email || ''
-      });
-
-      if (res.hasAttendant) {
-        showNotification({
-          title: dictionary.error,
-          message: dictionary.error_already_subscribed,
-          type: 'error'
-        });
-        return;
-      }
-
-      try {
-        const upd = await addEventAttendant({
-          eventId: eventId,
-          eventAttendant: data
-        });
-
-        if (upd) {
-          showNotification({
-            title: dictionary.success,
-            message: dictionary.success_subscribed,
-            type: 'success'
-          });
-        }
-      } catch (e) {
-        const message = e instanceof Error ? e.message : dictionary.error;
-
-        showNotification({
-          title: dictionary.error,
-          message: message,
-          type: 'error'
-        });
-      }
-    },
-    []
-  );
+  const handleAttendandSubmit = useManageSubscription({
+    eventId,
+    startProcessing,
+    dictionary,
+    setIsSubscribed,
+    prepareEmailContent: (addAttendantRes) => {
+      const unsubscribeLink = generateUnsubscribeLink(
+        lang,
+        addAttendantRes.uuid!,
+        addAttendantRes.email!
+      );
+      return {
+        subject: prepareEmailSubject(),
+        text: prepareEmailBodyTxt(addAttendantRes.fullName!, unsubscribeLink),
+        html: prepareEmailBodyHtml(addAttendantRes.fullName!, unsubscribeLink)
+      };
+    }
+  });
 
   return (
-    <EventAttendantForm
-      form={form}
-      dictionary={dictionary}
-      onSubmit={handleAttendandSubmit}
-    />
+    <>
+      {isSaving && <Processing text={dictionary.subscribing} />}
+      {!isSubscribed && (
+        <EventAttendantForm
+          form={form}
+          dictionary={dictionary}
+          onSubmit={handleAttendandSubmit}
+        />
+      )}
+    </>
   );
 }

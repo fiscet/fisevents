@@ -139,6 +139,7 @@
     },
     "subscribe_title": "Részvétel",
     "subscribe_button": "Részvétel",
+    "subscribing": "Részvétel",
     "error": "Hiba",
     "error_already_subscribed": "Már résztvevő ezen a részvételben",
     "success": "Sikeres",

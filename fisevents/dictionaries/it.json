@@ -139,6 +139,7 @@
     },
     "subscribe_title": "Iscriviti all'evento",
     "subscribe_button": "Iscriviti",
+    "subscribing": "Iscrizione in corso",
     "error": "Errore",  
     "error_already_subscribed": "Sei già iscritto a quest'evento",
     "success": "Successo",

@@ -1,0 +1,9 @@
+{
+  "event_attendant": {
+    "subscription": {
+      "subject": "%event_title% - subscription successful",
+      "body_txt": "Hello %attendant_name%,\n\nYou have been successfully subscribed to this event.\n\nThank you for your support.\n\nIf you want to unsubscribe click this link %unsubscribe_link%\n\nBest regards,\n\n%company_name%",
+      "body_html": "<h1>Hello %attendant_name%,</h1><p>You have been successfully subscribed to this event.</p><p>Thank you for your support.</p><p>If you want to unsubscribe click this link <a href=\"%unsubscribe_link%\">%unsubscribe_link%</a></p><p>Best regards,</p><p>%company_name%</p>"
+    }
+  }
+}

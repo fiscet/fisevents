@@ -139,6 +139,7 @@
     },
     "subscribe_title": "Subscribe to our event",
     "subscribe_button": "Subscribe",
+    "subscribing": "Subscribing",
     "error": "Error",
     "error_already_subscribed": "You are already subscribed to this event",
     "success": "Success",

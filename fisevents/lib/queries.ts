@@ -85,10 +85,18 @@ export const eventSingleBySlugQuery = defineQuery(`
   "organizationSlug":*[_type == "organization" && _id == ^.createdByUser->organization->_id][0].slug.current,
 }`);
 
-export const eventSingleHasAttendantQuery = defineQuery(`
+export const eventSingleHasAttendantByEmailQuery = defineQuery(`
 *[
   _type == "occurrence" && 
   _id == $eventId 
   ][0] {
   "hasAttendant":count(attendants[email match $email]) > 0
+}`);
+
+export const eventSingleHasAttendantByUuidQuery = defineQuery(`
+*[
+  _type == "occurrence" && 
+  _id == $eventId 
+  ][0] {
+  "hasAttendant":count(attendants[uuid match $uuid]) > 0
 }`);
