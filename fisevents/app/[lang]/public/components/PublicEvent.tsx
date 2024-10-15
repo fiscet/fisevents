@@ -33,11 +33,17 @@ export default async function PublicEvent({
         lang={lang}
       />
       <Separator className="my-4" />
-      <IconText Icon={FaMapLocationDot}>{eventData.location!}</IconText>
+      <IconText Icon={FaMapLocationDot}>{eventData.location}</IconText>
       <Separator className="my-4" />
       <IconText Icon={FaRegMoneyBill1}>{eventData.price}</IconText>
       <Separator className="my-4" />
-      <IconText Icon={MdOutlineEmojiPeople}>
+      <IconText
+        Icon={MdOutlineEmojiPeople}
+        containerClassName={
+          eventData.remainingPlaces <= 0 ? 'text-red-600' : ''
+        }
+        iconClassName={eventData.remainingPlaces <= 0 ? 'text-red-600' : ''}
+      >
         {eventData.remainingPlaces} {dictionary.public.places_left}
       </IconText>
       <Separator className="my-4" />

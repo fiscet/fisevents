@@ -2,62 +2,48 @@
 
 import { ReactElement } from 'react';
 import { getDictionary } from '@/lib/i18n.utils';
-import { OrganizationFormSchemaType } from './hooks/useOrganizationForm';
+import { UserAccountFormSchemaType } from '../hooks/useUserAccountForm';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import DefaultFormField from '../../components/FormField';
+import DefaultFormField from '@/components/FormField';
 import SaveButton from '../../components/SaveButton';
 import { ImageUploaderProps } from '../../components/ImageUploader';
-import FormSlug from '../../components/FormSlug';
 
-export type OrganizatioAccountProps = {
+export type UserAccountProps = {
   form: any;
   dictionary: Awaited<
     ReturnType<typeof getDictionary>
-  >['creator_admin']['organization'] &
+  >['creator_admin']['account'] &
     Awaited<ReturnType<typeof getDictionary>>['creator_admin']['common'];
   imageUploaderRender: () => ReactElement<ImageUploaderProps>;
-  onSubmit: (values: OrganizationFormSchemaType) => void;
+  onSubmit: (values: UserAccountFormSchemaType) => void;
 };
 
-export default function OrganizatioAccount({
+export default function UserAccount({
   form,
   dictionary,
   imageUploaderRender,
   onSubmit
-}: OrganizatioAccountProps) {
+}: UserAccountProps) {
   const imageUploader = imageUploaderRender();
 
   return (
     <div className="px-1 max-w-[650px] mx-auto mt-5 mb-10">
       <h1 className="text-2xl font-bold text-center mt-5">
-        {form.getValues('companyName')}
+        {form.getValues('name')}
       </h1>
-      <div className="text-center py-2">{form.getValues('www')}</div>
+      <div className="text-center py-2">{form.getValues('email')}</div>
       <Separator className="my-5" />
       <div className="px-1 max-w-[650px] mx-auto mt-5 mb-10">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <DefaultFormField
               form={form}
-              name="companyName"
-              label={dictionary.companyName}
+              name="name"
+              label={dictionary.name}
               formComponent={Input}
-              description={dictionary.descriptions.companyName}
-            />
-            <FormSlug
-              form={form}
-              label={dictionary.slug}
-              description={dictionary.descriptions.slug}
-              sourceItem={form.getValues('companyName')}
-            />
-            <DefaultFormField
-              form={form}
-              name="www"
-              label={dictionary.www}
-              formComponent={Input}
-              description={dictionary.descriptions.www}
+              description={dictionary.descriptions.name}
             />
 
             {imageUploader}

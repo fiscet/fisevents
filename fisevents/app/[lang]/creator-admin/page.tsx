@@ -6,7 +6,7 @@ import { getDictionary } from '@/lib/i18n.utils';
 import { authOptions } from '@/lib/authOptions';
 import { getEventList } from '@/lib/actions';
 
-const EventList = dynamic(() => import('./features/events/EventList'), {
+const EventList = dynamic(() => import('./event/features/EventList'), {
   ssr: false
 });
 

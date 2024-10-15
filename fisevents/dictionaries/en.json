@@ -124,6 +124,25 @@
     "event_not_found": "Event not found",
     "from_date": "From",
     "to_date": "To",
-    "places_left": "Places left"
+    "places_left": "Places left",
+    "fullname": "Full name",
+    "email": "Email",
+    "phone": "Phone",
+    "descriptions": {
+      "fullname": "Your name and family name",
+      "email": "Your preferred email to manage your participation",
+      "phone": "Your phone number, for any last minute communications"
+    },
+    "validation": {
+      "fullName": "Name must be at least 5 characters.",
+      "email": "Email must be valid"
+    },
+    "subscribe_title": "Subscribe to our event",
+    "subscribe_button": "Subscribe",
+    "subscribing": "Subscribing",
+    "error": "Error",
+    "error_already_subscribed": "You are already subscribed to this event",
+    "success": "Success",
+    "success_subscribed": "You have been successfully subscribed to this event"
   }
 }

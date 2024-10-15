@@ -124,6 +124,25 @@
     "event_not_found": "Evento non trovato",
     "from_date": "Da",
     "to_date": "A",
-    "places_left": "Posti rimasti"
+    "places_left": "Posti rimasti",
+    "fullname": "Nome completo",
+    "email": "Email",
+    "phone": "Telefono",
+    "descriptions": {
+      "fullname": "Il tuo nome e cognome",
+      "email": "Il tuo email preferito per gestire la tua partecipazione",
+      "phone": "Il tuo numero di telefono, per qualsiasi comunicazione dell'ultimo secondo"
+    },
+    "validation": {
+      "fullName": "Il nome deve essere di almeno 5 caratteri.",
+      "email": "L'email deve essere valida"
+    },
+    "subscribe_title": "Iscriviti all'evento",
+    "subscribe_button": "Iscriviti",
+    "subscribing": "Iscrizione in corso",
+    "error": "Errore",  
+    "error_already_subscribed": "Sei già iscritto a quest'evento",
+    "success": "Successo",
+    "success_subscribed": "L'iscrizione a quest'evento è avvenuta con successo"
   }
 }

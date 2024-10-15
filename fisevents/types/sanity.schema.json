@@ -365,6 +365,13 @@
             "type": "string"
           },
           "optional": true
+        },
+        "uuid": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          },
+          "optional": true
         }
       }
     }

@@ -1,5 +1,7 @@
 import { defineField, defineType } from 'sanity';
 import { GrUserFemale } from "react-icons/gr";
+import { v4 as uuidv4 } from 'uuid';
+import { nanoid } from 'nanoid';
 
 export default defineType({
   title: "Event Attendants",
@@ -33,6 +35,12 @@ export default defineType({
       name: "subcribitionDate",
       type: "datetime",
       initialValue: (new Date()).toISOString()
-    })
+    }),
+    defineField({
+      name: "uuid",
+      type: "string",
+      readOnly: true,
+      initialValue: () => nanoid(8)
+    }),
   ]
 });

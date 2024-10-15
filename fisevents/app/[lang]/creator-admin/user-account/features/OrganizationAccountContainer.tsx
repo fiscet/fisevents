@@ -1,9 +1,9 @@
 'use client';
 
 import { getDictionary } from '@/lib/i18n.utils';
-import { useOrganizationForm } from './hooks/useOrganizationForm';
+import { useOrganizationForm } from '../hooks/useOrganizationForm';
 import { useImageHandlers } from '@/hooks/useImageHandlers';
-import { useOrganizationSubmitHandler } from './hooks/useOrganizationSubmitHandler';
+import { useOrganizationSubmitHandler } from '../hooks/useOrganizationSubmitHandler';
 import { CurrentOrganization } from '@/types/sanity.extended.types';
 import ImageUploader from '../../components/ImageUploader';
 import OrganizatioAccount from './OrganizationAccount';

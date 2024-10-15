@@ -3,14 +3,14 @@
 import dynamic from 'next/dynamic';
 import { ReactElement, ReactNode, Suspense } from 'react';
 import { getDictionary } from '@/lib/i18n.utils';
-import { EventFormSchemaType } from './hooks/useEventSingleForm';
+import { EventFormSchemaType } from '../hooks/useEventSingleForm';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
-import DefaultFormField from '../../components/FormField';
+import DefaultFormField from '@/components/FormField';
 import SaveButton from '../../components/SaveButton';
-import EventFormActive from './components/EventFormActive';
+import EventFormActive from '../components/EventFormActive';
 import FormSlug from '../../components/FormSlug';
 import { ImageUploaderProps } from '../../components/ImageUploader';
 

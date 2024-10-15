@@ -5,7 +5,7 @@ import { getDictionary } from '@/lib/i18n.utils';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { OccurrenceSingle } from '@/types/sanity.extended.types';
-import { useEventSingleForm } from './hooks/useEventSingleForm';
+import { useEventSingleForm } from '../hooks/useEventSingleForm';
 import ImageUploader from '../../components/ImageUploader';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import EventSingle from './EventSingle';
@@ -15,7 +15,7 @@ import EventAttentantList from './EventAttentantList';
 import { useUploadImage } from '@/hooks/useUploadImage';
 import { useNotification } from '@/components/Notification/useNotification';
 import { useImageHandlers } from '@/hooks/useImageHandlers';
-import { useSubmitHandler } from './hooks/useSubmitHandler';
+import { useSubmitHandler } from '../hooks/useSubmitHandler';
 import GoToEventList from '../../components/GoToEventList';
 
 export type EventSingleContainerProps = {

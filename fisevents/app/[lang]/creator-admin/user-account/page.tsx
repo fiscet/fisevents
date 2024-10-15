@@ -3,7 +3,7 @@ import { getDictionary } from '@/lib/i18n.utils';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/authOptions';
 import { getOrganization, getUser } from '@/lib/actions';
-import ProfileContainer from '../features/user-account/ProfileContainer';
+import ProfileContainer from './features/ProfileContainer';
 import { CurrentOrganization } from '@/types/sanity.extended.types';
 
 export default async function AccountPage({

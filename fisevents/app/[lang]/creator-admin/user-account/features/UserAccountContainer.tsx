@@ -8,7 +8,7 @@ import { updateUser } from '@/lib/actions';
 import {
   UserAccountFormSchemaType,
   useUserAccountForm
-} from './hooks/useUserAccountForm';
+} from '../hooks/useUserAccountForm';
 import ImageUploader from '../../components/ImageUploader';
 import UserAccount from './UserAccount';
 import { useSession } from 'next-auth/react';
