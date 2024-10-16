@@ -50,6 +50,7 @@ export default async function PublicEventPage({
               <EventAttendantForm
                 lang={lang}
                 eventId={eventData._id!}
+                eventSlug={eventSlug}
                 companyName={organizationData.companyName!}
                 eventTitle={eventData.title!}
                 dictionary={dictionary.public}

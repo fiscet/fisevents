@@ -21,7 +21,7 @@
       "saving": "Salvataggio in corso",
       "save": "Salva",
       "back": "Torna indietro",
-      "error": "Errore",  
+      "error": "Errore",
       "error_text": "Qualcosa è andato storto",
       "error_slug_exists": "Slug già esistente"
     },
@@ -141,9 +141,17 @@
     "subscribe_title": "Iscriviti all'evento",
     "subscribe_button": "Iscriviti",
     "subscribing": "Iscrizione in corso",
-    "error": "Errore",  
+    "error": "Errore",
     "error_already_subscribed": "Sei già iscritto a quest'evento",
     "success": "Successo",
-    "success_subscribed": "L'iscrizione a quest'evento è avvenuta con successo"
+    "success_subscribed": "L'iscrizione a quest'evento è avvenuta con successo",
+    "unsuscribe_title": "Disiscriviti dall'evento",
+    "unsuscribe_button": "Disiscriviti",
+    "unsuscribe_confirm": "Sei sicuro di voler disiscriverti da quest'evento?",
+    "unsuscribe_confirm_yes": "Sì, voglio disiscrivermi da quest'evento",
+    "unsuscribe_success": "La disiscrizione è avvenuta con successo",
+    "unsuscribe_error": "Qualcosa è andato storto",
+    "unsuscribe_error_already_unsubscribed": "Sei già disiscritto",
+    "unsubscribing": "Disiscrizione in corso"
   }
 }
