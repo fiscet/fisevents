@@ -231,10 +231,12 @@ export const addEventAttendant = async ({
 
 export const removeEventAttendant = async ({
   eventId,
-  eventAttendantUuid
+  eventAttendantUuid,
+  alreadyUnsubscribedText = 'Attendant not subscribed'
 }: {
   eventId: string;
   eventAttendantUuid: string;
+  alreadyUnsubscribedText?: string;
 }) => {
   const checkRes = await getEventSingleHasAttendantByUuid({
     eventId,
@@ -242,7 +244,7 @@ export const removeEventAttendant = async ({
   });
 
   if (!checkRes.hasAttendant) {
-    throw new Error('Attendant not subscribed');
+    throw new Error(alreadyUnsubscribedText);
   }
 
   const res = await sanityClient

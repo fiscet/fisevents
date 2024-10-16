@@ -13,6 +13,7 @@ import { Locale } from '@/lib/i18n';
 export type EventAttendantContainerProps = {
   lang: Locale;
   eventId: string;
+  eventSlug: string;
   companyName: string;
   eventTitle: string;
   dictionary: Awaited<ReturnType<typeof getDictionary>>['public'];
@@ -24,6 +25,7 @@ export type EventAttendantContainerProps = {
 export default function EventAttendantContainer({
   lang,
   eventId,
+  eventSlug,
   companyName,
   eventTitle,
   dictionary,
@@ -58,6 +60,7 @@ export default function EventAttendantContainer({
     prepareEmailContent: (addAttendantRes) => {
       const unsubscribeLink = generateUnsubscribeLink(
         lang,
+        eventSlug,
         addAttendantRes.uuid!,
         addAttendantRes.email!
       );

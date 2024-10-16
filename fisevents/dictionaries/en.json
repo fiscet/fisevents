@@ -144,6 +144,14 @@
     "error": "Error",
     "error_already_subscribed": "You are already subscribed to this event",
     "success": "Success",
-    "success_subscribed": "You have been successfully subscribed to this event"
+    "success_subscribed": "You have been successfully subscribed to this event",
+    "unsuscribe_title": "Unsubscribe from our event",
+    "unsuscribe_button": "Unsubscribe",
+    "unsuscribe_confirm": "Are you sure you want to unsubscribe from this event?",
+    "unsuscribe_confirm_yes": "Yes, I want to unsubscribe",
+    "unsuscribe_success": "You have been successfully unsubscribed",
+    "unsuscribe_error": "Something went wrong",
+    "unsuscribe_error_already_unsubscribed": "You are already unsubscribed",
+    "unsubscribing": "Unsubscribing"
   }
 }

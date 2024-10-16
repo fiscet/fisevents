@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { PublicRoutes } from "./routes";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -49,4 +50,13 @@ export const slugify = (...args: (string | number)[]): string => {
     .replace(/[^a-z0-9 ]/g, '')
     .trim()
     .replace(/\s+/g, '-');
+};
+
+export const getPublicEventLink = (eventSlug: string, companySlug: string) => {
+  if (typeof window === 'undefined') return '';
+
+  const host = window.location.protocol + '//' + window.location.host;
+  const publicSlug = PublicRoutes.getBase();
+
+  return `${host}/${publicSlug}/${companySlug}/${eventSlug}`;
 };

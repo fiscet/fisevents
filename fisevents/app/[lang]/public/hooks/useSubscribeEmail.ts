@@ -22,12 +22,12 @@ export function useSubscribeEmail(
     emailDictionary
   }: SubscribeEmailProps
 ) {
-  const generateUnsubscribeLink = (lang: Locale, uuid: string, email: string): string => {
+  const generateUnsubscribeLink = (lang: Locale, eventSlug: string, uuid: string, email: string): string => {
     if (typeof window !== 'undefined') {
       const host = window.location.protocol + '//' + window.location.host;
       const publicSlug = PublicRoutes.getBase();
 
-      return `${host}/${lang}/${publicSlug}/unsuscribe?eventId=${eventId}&eventAttendantEmail=${email}&eventAttendantUuid=${uuid}`;
+      return `${host}/${lang}/${publicSlug}/unsuscribe?eventId=${eventId}&eventSlug=${eventSlug}&eventAttendantEmail=${email}&eventAttendantUuid=${uuid}`;
     }
     return '';
   };

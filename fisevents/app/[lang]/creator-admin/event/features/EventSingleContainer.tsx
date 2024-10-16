@@ -22,6 +22,7 @@ import { Button } from '@/components/ui/button';
 import IconText from '@/app/[lang]/public/components/IconText';
 import { MdOutlineOpenInNew } from 'react-icons/md';
 import { PublicRoutes } from '@/lib/routes';
+import { getPublicEventLink } from '@/lib/utils';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
@@ -47,11 +48,10 @@ export default function EventSingleContainer({
     setInitImageUrl
   } = useImageHandlers(eventSingleData?.pageImage.url);
 
-  const host = window.location.protocol + '//' + window.location.host;
-  const publicSlug = PublicRoutes.getBase();
-  const publicLink = eventSingleData?.slug?.current
-    ? `${host}/${publicSlug}/${companySlug}/${eventSingleData?.slug?.current}`
-    : '';
+  const publicLink = getPublicEventLink(
+    eventSingleData?.slug!.current!,
+    companySlug
+  );
 
   const [isSaving, startProcessing] = useTransition();
 
