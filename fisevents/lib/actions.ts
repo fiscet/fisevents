@@ -1,12 +1,13 @@
 'use server';
 
-import { sanityClient } from './sanity';
+import { sanityClient } from './sanity.cli';
 import {
   eventListQuery,
   eventSingleByIdQuery,
   eventSingleBySlugQuery,
   eventSingleHasAttendantByEmailQuery,
   eventSingleHasAttendantByUuidQuery,
+  eventIdQuery,
   organizationBySlugQuery,
   organizationCountBySlugQuery,
   organizationQuery,
@@ -110,6 +111,19 @@ export const updateOrganization = async ({
 };
 
 /** EVENTS */
+export const getEventIdList = async ({
+  active = true
+}: {
+  active?: boolean;
+}) => {
+  return await sanityClient.fetch<{ _id: string; }[]>(
+    eventIdQuery,
+    { active },
+    { next: { tags: ['eventSlugList'] } }
+  );
+};
+
+
 export const getEventList = async ({
   createdBy,
   active = true

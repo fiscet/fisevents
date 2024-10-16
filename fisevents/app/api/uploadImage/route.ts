@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { sanityClient } from "@/lib/sanity";
+import { sanityClient } from "@/lib/sanity.cli";
 
 type StatusResponseType = { status: "success" | "fail"; };
 type SuccessResponseType = StatusResponseType & { id: string; url: string; };

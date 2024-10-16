@@ -82,6 +82,7 @@
       "new_event": "New Event",
       "back": "Back to events",
       "public_url": "Public URL",
+      "details": "Details",
       "descriptions": {
         "title": "This is your event public display name.",
         "slug": "This is the URL of your event. It will be visible in the address bar of your browser.",

@@ -1,6 +1,6 @@
 import { Occurrence } from '@/types/sanity.types';
 import { getEventList, getEventSingleById, updateEvent } from '../actions';
-import { sanityClient } from '../sanity';
+import { sanityClient } from '../sanity.cli';
 import { OccurrenceList, OccurrenceSingle } from '@/types/sanity.extended.types';
 import { revalidateTag } from 'next/cache';
 
