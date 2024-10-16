@@ -1,4 +1,4 @@
-import { defineQuery } from "next-sanity";
+import { defineQuery } from 'next-sanity';
 
 /** USERS and ORGANIZATIONS */
 export const userQuery = defineQuery(`*[_type == "user" && _id == $userId][0] {
@@ -29,9 +29,15 @@ export const organizationBySlugQuery = defineQuery(`*[_type == "organization" &&
   "imageUrl": image.asset->url
 }`);
 
-export const organizationCountBySlugQuery = defineQuery(`count(*[_type == "organization" && slug.current == $slug && active == true])`);
+export const organizationCountBySlugQuery = defineQuery(
+  `count(*[_type == "organization" && slug.current == $slug && active == true])`
+);
 
 /** EVENTS */
+export const eventIdQuery = defineQuery(`*[_type == "occurrence" && active == $active && publicationStartDate <= now() && endDate >= now()]|order(publicationStartDate desc) {
+ _id
+}`);
+
 export const eventListQuery = defineQuery(`*[_type == "occurrence" && createdByUser._ref == $createdBy && active == $active ]|order(publicationStartDate desc) {
   _id,
   title,

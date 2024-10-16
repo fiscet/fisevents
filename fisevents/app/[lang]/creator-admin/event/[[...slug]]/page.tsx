@@ -1,9 +1,23 @@
 import { authOptions } from '@/lib/authOptions';
-import { getEventSingleById, getUser } from '@/lib/actions';
+import { getEventSingleById, getEventIdList, getUser } from '@/lib/actions';
 import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
 import { getServerSession } from 'next-auth';
 import EventSingle from '../features/EventSingleContainer';
+
+export async function generateStaticParams() {
+  const slugData = await getEventIdList({
+    active: true
+  });
+
+  if (!slugData.length) {
+    return []; // Return an empty array if there are no events
+  }
+
+  return slugData.map((id) => ({
+    slug: [id._id]
+  }));
+}
 
 export default async function EventSinglePage({
   params: { lang, slug }

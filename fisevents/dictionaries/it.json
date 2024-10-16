@@ -82,6 +82,7 @@
       "new_event": "Nuovo Evento",
       "back": "Tutti gli eventi",
       "public_url": "URL pubblico",
+      "details": "Dettagli",
       "descriptions": {
         "title": "Questo è il nome pubblico del tuo evento.",
         "slug": "Questo è l'URL del tuo evento. Sarà visibile nella barra degli indirizzi del tuo browser.",
@@ -125,7 +126,7 @@
     "event_not_found": "Evento non trovato",
     "from_date": "Da",
     "to_date": "A",
-    "places_left": "Posti rimasti",
+    "places_left": "Posti rimanenti",
     "fullname": "Nome completo",
     "email": "Email",
     "phone": "Telefono",

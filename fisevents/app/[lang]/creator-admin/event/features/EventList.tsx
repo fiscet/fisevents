@@ -12,6 +12,7 @@ import EventListFilter from '../components/EventListFilter';
 import { CreatorAdminRoutes } from '@/lib/routes';
 import UtilityBar from '../../components/UtilityBar';
 import { Button } from '@/components/ui/button';
+import { GiOpenChest } from 'react-icons/gi';
 import Link from 'next/link';
 
 function getColumns(
@@ -85,6 +86,19 @@ function getColumns(
       format: (row) => new Date(row.endDate as string).toLocaleString(),
       hide: 'md',
       sortable: true
+    },
+    {
+      name: dictionary.details,
+      cell: (row) => {
+        return (
+          <div className="flex gap-2 items-center">
+            <Link href={`/${CreatorAdminRoutes.getItem('event')}/${row._id}`}>
+              <GiOpenChest className="w-5 h-5 text-sky-700" />
+            </Link>
+          </div>
+        );
+      },
+      center: 'true'
     }
   ] as TableColumn<OccurrenceList>[];
 
