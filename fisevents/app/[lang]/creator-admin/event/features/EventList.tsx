@@ -93,7 +93,7 @@ function getColumns(
         return (
           <div className="flex gap-2 items-center">
             <Link href={`/${CreatorAdminRoutes.getItem('event')}/${row._id}`}>
-              <GiOpenChest className="w-5 h-5 text-sky-700" />
+              <GiOpenChest className="w-5 h-5 text-cyan-700" />
             </Link>
           </div>
         );

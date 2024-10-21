@@ -14,7 +14,7 @@ export default function EventListFilter({
   setFilter
 }: EventListFilterProps) {
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex flex-col md:flex-row gap-2 items-center">
       <div className="text-sm font-medium text-gray-900">{title}</div>
       <div className="flex gap-2 items-center">
         <div

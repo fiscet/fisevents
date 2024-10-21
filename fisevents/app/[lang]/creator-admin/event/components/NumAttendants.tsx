@@ -4,7 +4,7 @@ import { FaCreativeCommonsZero } from 'react-icons/fa';
 export default function NumAttendants({ num }: { num?: number }) {
   if (num) {
     return (
-      <div className="flex sm:flex-col gap-1 sm:gap-0 items-center text-sky-700">
+      <div className="flex sm:flex-col gap-1 sm:gap-0 items-center text-cyan-700">
         <FaPeopleLine className="w-5 h-5" />
         <span>{num}</span>
       </div>

@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { getDictionary } from '@/lib/i18n.utils';
 import { authOptions } from '@/lib/authOptions';
-import { getEventIdList, getEventList } from '@/lib/actions';
+import { getEventList } from '@/lib/actions';
 
 const EventList = dynamic(() => import('./event/features/EventList'), {
   ssr: false
