@@ -1,11 +1,8 @@
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/authOptions';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Locale } from '@/lib/i18n';
 import Logo from '@/components/Logo';
-import AccountLink from './components/AccountLink';
-import LogoutLink from './components/LogoutLink/LogoutLinkContainer';
 import { getDictionary } from '@/lib/i18n.utils';
 import DotBg from './components/DotBg';
 import PageWrapper from './components/PageWrapper';
@@ -44,12 +41,10 @@ export default async function AdminLayout({
           </div>
         </header>
         <NotificationProvider>
-          <DotBg className="h-screen mb-10 md:mt-2 overflow-hidden">
-            <ScrollArea className="h-full">
-              <PageWrapper dictionary={dictionary.creator_admin.notifications}>
-                {children}
-              </PageWrapper>
-            </ScrollArea>
+          <DotBg className="mb-10 md:mt-2">
+            <PageWrapper dictionary={dictionary.creator_admin.notifications}>
+              {children}
+            </PageWrapper>
           </DotBg>
         </NotificationProvider>
       </div>
