@@ -76,7 +76,7 @@ const ImageUploader = memo(
             </label>
             {initImageUrl != img?.imgUrl && (
               <div className="cursor-pointer" onClick={onRestore}>
-                <GrRevert className="w-5 h-5 text-sky-700" />
+                <GrRevert className="w-5 h-5 text-cyan-700" />
               </div>
             )}
             <div className="cursor-pointer" onClick={onDelete}>
