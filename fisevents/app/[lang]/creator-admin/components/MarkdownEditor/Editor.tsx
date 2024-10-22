@@ -16,6 +16,7 @@ import {
   CreateLink,
   InsertTable
 } from '@mdxeditor/editor';
+import '@mdxeditor/editor/style.css';
 import './Editor.css';
 import { FC } from 'react';
 import { Separator } from '@radix-ui/react-separator';
