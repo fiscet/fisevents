@@ -27,7 +27,7 @@ export default async function AdminLayout({
 
   return (
     <div className="w-full min-h-fit h-screen flex flex-col bg-[url('/img/main-bg.jpg')] bg-contain bg-fixed">
-      <div className="container min-h-fit h-screen bg-slate-50 flex flex-col mx-auto p-4 border-x-2 border-orange-200 shadow-2xl z-20">
+      <div className="container bg-white min-h-fit h-screen flex flex-col mx-auto p-4 border-x-2 border-orange-200 shadow-2xl z-20">
         <header className="md:grid md:grid-cols-3">
           <div className="flex justify-between">
             <LocaleSwitcher curLang={lang} />
@@ -41,11 +41,11 @@ export default async function AdminLayout({
           </div>
         </header>
         <NotificationProvider>
-          <DotBg className="mb-10 md:mt-2">
+          <div className="mb-10 md:mt-2">
             <PageWrapper dictionary={dictionary.creator_admin.notifications}>
               {children}
             </PageWrapper>
-          </DotBg>
+          </div>
         </NotificationProvider>
       </div>
     </div>
