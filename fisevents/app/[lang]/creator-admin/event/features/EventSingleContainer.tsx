@@ -18,10 +18,6 @@ import { useImageHandlers } from '@/hooks/useImageHandlers';
 import { useSubmitHandler } from '../hooks/useSubmitHandler';
 import GoToEventList from '../../components/GoToEventList';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import IconText from '@/app/[lang]/public/components/IconText';
-import { MdOutlineOpenInNew } from 'react-icons/md';
-import { PublicRoutes } from '@/lib/routes';
 import { getPublicEventLink } from '@/lib/utils';
 
 export type EventSingleContainerProps = {
@@ -83,9 +79,11 @@ export default function EventSingleContainer({
           leftElements={<GoToEventList backText={dictionary.common.back} />}
           centerElements={
             <div className="flex items-center text-cyan-700">
-              <Link href={publicLink} target="_blank">
-                {publicLink}
-              </Link>
+              {publicLink && (
+                <Link href={publicLink} target="_blank">
+                  {publicLink}
+                </Link>
+              )}
             </div>
           }
           rightElements={

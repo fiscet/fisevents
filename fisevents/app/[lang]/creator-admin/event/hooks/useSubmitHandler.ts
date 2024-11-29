@@ -9,7 +9,6 @@ import { toUserIsoString } from "@/lib/utils";
 import { createEvent, updateEvent } from "@/lib/actions";
 import { CreatorAdminRoutes } from "@/lib/routes";
 import { Dispatch, SetStateAction, TransitionStartFunction } from "react";
-import handleCreate from "@/lib/tests/handleMutation";
 
 export const useSubmitHandler = (
   eventSingleData: OccurrenceSingle | undefined,
@@ -90,6 +89,11 @@ export const useSubmitHandler = (
           });
           setInitImageUrl(imgRes.url);
         }
+        showNotification({
+          title: dictionary.common.success,
+          message: dictionary.common.success_text,
+          type: 'success'
+        });
       } catch (error: unknown) {
         let errorMessage = dictionary.common.error_text;
         if (typeof error === 'object' && error !== null && 'response' in error) {

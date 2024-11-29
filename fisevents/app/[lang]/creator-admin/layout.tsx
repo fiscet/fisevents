@@ -4,7 +4,6 @@ import { authOptions } from '@/lib/authOptions';
 import { Locale } from '@/lib/i18n';
 import Logo from '@/components/Logo';
 import { getDictionary } from '@/lib/i18n.utils';
-import DotBg from './components/DotBg';
 import PageWrapper from './components/PageWrapper';
 import { NotificationProvider } from '@/components/Notification/NotificationContext';
 import { CreatorAdminRoutes } from '@/lib/routes';

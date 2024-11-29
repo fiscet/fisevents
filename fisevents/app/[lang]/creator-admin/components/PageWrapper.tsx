@@ -1,7 +1,7 @@
 'use client';
 
-import { SessionProvider } from 'next-auth/react';
-import { ReactNode, Suspense } from 'react';
+import { SessionProvider, useSession } from 'next-auth/react';
+import { ReactNode, Suspense, useEffect } from 'react';
 import Loading from '../loading';
 import GlobalChecks from './GlobalChecks';
 import { getDictionary } from '@/lib/i18n.utils';

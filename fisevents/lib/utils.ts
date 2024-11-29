@@ -54,6 +54,7 @@ export const slugify = (...args: (string | number)[]): string => {
 
 export const getPublicEventLink = (eventSlug: string, companySlug: string) => {
   if (typeof window === 'undefined') return '';
+  if (!eventSlug || !companySlug || eventSlug.length === 0 || companySlug.length === 0) return '';
 
   const host = window.location.protocol + '//' + window.location.host;
   const publicSlug = PublicRoutes.getBase();

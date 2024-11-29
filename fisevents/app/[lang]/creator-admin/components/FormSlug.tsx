@@ -25,8 +25,16 @@ export default function FormSlug({
   sourceItem
 }: FormSlugProps) {
   const handleSetSlug = () => {
-    const slug = slugify(sourceItem);
-    form.setValue('slug.current', slug);
+    if (sourceItem) {
+      const slug = slugify(sourceItem);
+      form.setValue('slug.current', slug);
+    }
+  };
+
+  const handleSetSlugOnFocus = () => {
+    if (!form.getValues('slug.current')) {
+      handleSetSlug();
+    }
   };
 
   return (
@@ -39,7 +47,7 @@ export default function FormSlug({
             <FormLabel>{label}</FormLabel>
             {description && <FormDescription>{description}</FormDescription>}
             <FormControl>
-              <Input {...field} />
+              <Input {...field} onFocus={handleSetSlugOnFocus} />
             </FormControl>
             <div className="absolute whitespace-nowrap">
               <FormMessage />

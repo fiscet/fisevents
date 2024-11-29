@@ -21,6 +21,8 @@
       "saving": "Mentés",
       "save": "Mentés",
       "back": "Vissza",
+      "success": "Sikerült",
+      "success_text": "A módosítások sikeresen mentve",
       "error": "Hiba",
       "error_text": "Valami hiba történt",
       "error_slug_exists": "Slug már létezik"
@@ -119,7 +121,8 @@
     },
     "notifications": {
       "action_required": "Intézkedés szükséges!",
-      "missing_user_name": "Kérjük, töltse ki a profilját"
+      "missing_user_name": "Kérjük, töltse ki a profilját",
+      "missing_company_data": "Kérjük, töltse ki a vállalata profilját"
     }
   },
   "public": {

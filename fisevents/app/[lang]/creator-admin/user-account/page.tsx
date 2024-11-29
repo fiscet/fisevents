@@ -9,7 +9,7 @@ import { CurrentOrganization } from '@/types/sanity.extended.types';
 export default async function AccountPage({
   params: { lang }
 }: {
-  params: { lang: Locale; slug?: string[] };
+  params: { lang: Locale };
 }) {
   const session = await getServerSession(authOptions);
 

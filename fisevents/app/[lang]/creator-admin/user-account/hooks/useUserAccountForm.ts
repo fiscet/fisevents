@@ -42,9 +42,9 @@ export function useUserAccountForm({ userData, dictionary }: useUserAccountFormP
   const form = useForm<UserAccountFormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: userData.name,
-      email: userData.email,
-      imageUrl: userData.image
+      name: userData.name ?? '',
+      email: userData.email ?? '',
+      imageUrl: userData.image ?? ''
     }
   });
 
