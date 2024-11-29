@@ -9,6 +9,7 @@ import { toUserIsoString } from "@/lib/utils";
 import { createEvent, updateEvent } from "@/lib/actions";
 import { CreatorAdminRoutes } from "@/lib/routes";
 import { Dispatch, SetStateAction, TransitionStartFunction } from "react";
+import handleCreate from "@/lib/tests/handleMutation";
 
 export const useSubmitHandler = (
   eventSingleData: OccurrenceSingle | undefined,
@@ -67,7 +68,10 @@ export const useSubmitHandler = (
           };
           insValues._type = 'occurrence';
 
-          const res = await createEvent({ data: insValues as Occurrence });
+          delete insValues._id;
+
+          const res = await handleCreate<Partial<Occurrence>>(insValues);
+          // const res = await createEvent({ data: insValues as Occurrence });
 
           if (res._id) {
             router.push(`/${CreatorAdminRoutes.getItem('event')}/${res._id}`);
