@@ -70,8 +70,8 @@ export const useSubmitHandler = (
 
           delete insValues._id;
 
-          const res = await handleCreate<Partial<Occurrence>>(insValues);
-          // const res = await createEvent({ data: insValues as Occurrence });
+          // const res = await handleCreate<Partial<Occurrence>>(insValues);
+          const res = await createEvent({ data: insValues as Occurrence });
 
           if (res._id) {
             router.push(`/${CreatorAdminRoutes.getItem('event')}/${res._id}`);
