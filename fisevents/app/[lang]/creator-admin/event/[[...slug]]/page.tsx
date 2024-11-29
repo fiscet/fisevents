@@ -30,6 +30,10 @@ export default async function EventSinglePage({
 
   const userData = await getUser({ userId: session!.user!.uid! });
 
+  if (!userData.curOrganization?.companySlug) {
+    return <></>;
+  }
+
   const eventSingleData =
     slug && slug.length > 0 && session?.user
       ? await getEventSingleById({

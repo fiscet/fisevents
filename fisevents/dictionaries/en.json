@@ -22,6 +22,8 @@
       "save": "Save",
       "back": "Back",
       "error": "Error",
+      "success": "Success",
+      "success_text": "Changes saved successfully",
       "error_text": "Something went wrong",
       "error_slug_exists": "Slug already exists"
       },
@@ -119,7 +121,8 @@
     },
     "notifications": {
       "action_required": "Action required!",
-      "missing_user_name": "Please complete your profile"
+      "missing_user_name": "Please complete your personal profile",
+      "missing_company_data": "Please complete your company profile"
     }
   },
   "public": {

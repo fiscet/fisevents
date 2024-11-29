@@ -21,6 +21,8 @@
       "saving": "Salvataggio in corso",
       "save": "Salva",
       "back": "Torna indietro",
+      "success": "Successo",
+      "success_text": "Le modifiche sono state salvate con successo",
       "error": "Errore",
       "error_text": "Qualcosa è andato storto",
       "error_slug_exists": "Slug già esistente"
@@ -119,7 +121,8 @@
     },
     "notifications": {
       "action_required": "Azione richiesta!",
-      "missing_user_name": "Per favore completa il tuo profilo"
+      "missing_user_name": "Per favore completa il tuo profilo personale",
+      "missing_company_data": "Per favore completa il tuo profilo aziendale"
     }
   },
   "public": {

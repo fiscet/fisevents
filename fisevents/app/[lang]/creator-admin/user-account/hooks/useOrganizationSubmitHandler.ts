@@ -66,6 +66,8 @@ export const useOrganizationSubmitHandler = (
         } else {
           insValues._type = 'organization';
 
+          delete insValues._id;
+
           const res = await createOrganization({ data: insValues as Organization });
 
           if (res._id) {
@@ -75,6 +77,13 @@ export const useOrganizationSubmitHandler = (
             });
           }
         }
+
+        showNotification({
+          title: dictionary.common.success,
+          message: dictionary.common.success_text,
+          type: 'success'
+        });
+
       } catch (error: unknown) {
         let errorMessage = dictionary.common.error_text;
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useTransition } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { getDictionary } from '@/lib/i18n.utils';
 import UserAccountContainer from './UserAccountContainer';
 import Processing from '@/components/Processing';
@@ -27,10 +28,20 @@ export default function ProfileContainer({
 }: ProfileContainerProps) {
   const [isSaving, startProcessing] = useTransition();
 
+  const allowedTabs = ['user', 'organization'] as const;
+
+  const searchParams = useSearchParams();
+  const tab = searchParams.get('tab');
+
+  const tabSel =
+    tab && allowedTabs.includes(tab as typeof allowedTabs[number])
+      ? tab
+      : 'user';
+
   return (
     <>
       {isSaving && <Processing text={dictionary.common.saving} />}
-      <Tabs defaultValue="user">
+      <Tabs defaultValue={tabSel}>
         <UtilityBar
           leftElements={<GoToEventList backText={dictionary.common.back} />}
           rightElements={

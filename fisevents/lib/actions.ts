@@ -93,6 +93,8 @@ export const getOrganizationCountBySlug = async ({
 export const createOrganization = async ({ data }: { data: Organization; }) => {
   const res = await sanityClient.create<Organization>(data);
 
+  revalidateTag('user');
+
   return res;
 };
 
@@ -106,6 +108,7 @@ export const updateOrganization = async ({
   const res = await sanityClient.patch(id).set(data).commit();
 
   revalidateTag(`organization:${id}`);
+  revalidateTag('user');
 
   return res;
 };

@@ -52,12 +52,12 @@ export function useOrganizationForm({ organizationData, dictionary }: useOrganiz
   const form = useForm<OrganizationFormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      companyName: organizationData.companyName,
+      companyName: organizationData.companyName ?? '',
       slug: {
         current: organizationData?.slug?.current ?? slugify(organizationData?.companyName ?? ''),
         _type: 'slug'
       },
-      www: organizationData.www,
+      www: organizationData.www ?? '',
     }
   });
 
