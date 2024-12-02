@@ -128,7 +128,7 @@ export default function EventSingle({
               formComponentProps={{
                 type: 'datetime-local',
                 disabled: isExpired,
-                min: new Date().toISOString().split('T')[0]
+                min: new Date().toISOString().split('T')[0] + 'T00:00'
               }}
               formComponentClassName="w-[205px]"
             />
@@ -149,7 +149,7 @@ export default function EventSingle({
               formComponentProps={{
                 type: 'datetime-local',
                 disabled: isExpired,
-                min: new Date().toISOString().split('T')[0]
+                min: new Date().toISOString().split('T')[0] + 'T00:00'
               }}
               formComponentClassName="w-[205px]"
             />
@@ -161,7 +161,7 @@ export default function EventSingle({
               formComponentProps={{
                 type: 'datetime-local',
                 disabled: isExpired,
-                min: new Date().toISOString().split('T')[0]
+                min: new Date().toISOString().split('T')[0] + 'T00:00'
               }}
               formComponentClassName="w-[205px]"
             />
