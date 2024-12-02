@@ -46,7 +46,7 @@ export function useEventSingleForm({ eventSingleData, dictionary }: useEventSing
         const tsPublicationStartDate = Date.parse(publicationStartDate);
         const tsStartDate = Date.parse(startDate);
 
-        return tsPublicationStartDate < tsStartDate;
+        return tsPublicationStartDate <= tsStartDate;
       },
       {
         message: dictionary.validation.publicationStartDateAndStartDate,
@@ -75,7 +75,7 @@ export function useEventSingleForm({ eventSingleData, dictionary }: useEventSing
         const tsStartDate = Date.parse(startDate);
         const tsEndDate = Date.parse(endDate);
 
-        return tsStartDate < tsEndDate;
+        return tsStartDate <= tsEndDate;
       },
       {
         message: dictionary.validation.startDate,
