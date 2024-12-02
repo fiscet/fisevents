@@ -26,7 +26,7 @@ export default async function AdminLayout({
 
   return (
     <div className="w-full min-h-fit h-screen flex flex-col bg-[url('/img/main-bg.jpg')] bg-contain bg-fixed">
-      <div className="container bg-white min-h-fit h-screen flex flex-col mx-auto p-4 border-x-2 border-orange-200 shadow-2xl z-20">
+      <div className="container bg-white min-h-fit h-screen flex flex-col mx-auto p-1 md:p-4 border-x-2 border-orange-200 z-20">
         <header className="md:grid md:grid-cols-3">
           <div className="flex justify-between">
             <LocaleSwitcher curLang={lang} />

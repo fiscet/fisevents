@@ -78,13 +78,13 @@ export default function EventSingleContainer({
         <UtilityBar
           leftElements={<GoToEventList backText={dictionary.common.back} />}
           centerElements={
-            <div className="flex items-center text-cyan-700">
-              {publicLink && (
+            publicLink && (
+              <div className="w-[350px] md:w-5/6 my-2 mx-auto p-3 justify-self-start bg-slate-50 border-slate-200 text-cyan-700 whitespace-nowrap overflow-x-scroll">
                 <Link href={publicLink} target="_blank">
                   {publicLink}
                 </Link>
-              )}
-            </div>
+              </div>
+            )
           }
           rightElements={
             !!eventSingleData?.attendants?.length && (
