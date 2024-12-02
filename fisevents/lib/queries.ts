@@ -85,7 +85,7 @@ export const eventSingleBySlugQuery = defineQuery(`
     "dimensions": mainImage.asset->metadata.dimensions
   },
   location,
-  "remainingPlaces": maxSubscribers-count(attendants),
+  "remainingPlaces": maxSubscribers-(coalesce(count(attendants), 0)),
   "price": coalesce(string(basicPrice), "") + " " + coalesce(currency, "-"),
   startDate,
   endDate,
