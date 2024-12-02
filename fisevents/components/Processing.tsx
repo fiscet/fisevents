@@ -6,7 +6,9 @@ export default function Processing({ text }: { text?: string }) {
       {/* <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-white"></div> */}
       <div className="flex flex-col items-center">
         <Spinner />
-        {text && <div className="text-red-200 text-4xl">{text}</div>}
+        {text && (
+          <div className="text-red-200 text-2xl md:text-4xl">{text}</div>
+        )}
       </div>
     </div>
   );
