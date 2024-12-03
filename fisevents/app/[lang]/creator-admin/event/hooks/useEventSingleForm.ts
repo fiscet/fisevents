@@ -120,7 +120,7 @@ export function useEventSingleForm({ eventSingleData, dictionary }: useEventSing
         pickerDateToIsoString(eventSingleData?.startDate) ?? todayString,
       endDate:
         pickerDateToIsoString(eventSingleData?.endDate) ??
-        pickerDateToIsoString(new Date(today.setDate(today.getDate() + 1))),
+        pickerDateToIsoString(new Date(today.setDate(today.getDate() + 7))),
       active: eventSingleData?.active ?? true
     }
   });

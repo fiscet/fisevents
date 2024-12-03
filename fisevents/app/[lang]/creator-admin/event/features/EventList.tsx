@@ -15,6 +15,10 @@ import { Button } from '@/components/ui/button';
 import { GiOpenChest } from 'react-icons/gi';
 import Link from 'next/link';
 
+const isPublished = (publicationStartDate: string, endDate: string) =>
+  Date.parse(publicationStartDate) <= Date.now() &&
+  Date.parse(endDate) > Date.now();
+
 function getColumns(
   dictionary: Awaited<
     ReturnType<typeof getDictionary>
@@ -24,11 +28,12 @@ function getColumns(
     {
       name: dictionary.is_published,
       cell: (row) => {
-        const isPublished =
-          Date.parse(row.publicationStartDate!) <= Date.now() &&
-          Date.parse(row.endDate!) > Date.now();
-
-        return <PublishedIcon isPublished={isPublished} inset="4px" />;
+        return (
+          <PublishedIcon
+            isPublished={isPublished(row.publicationStartDate!, row.endDate!)}
+            inset="4px"
+          />
+        );
       },
       width: '120px',
       center: 'true',
@@ -41,7 +46,10 @@ function getColumns(
         <div>
           <div className="pt-1">{row.title}</div>
           <div className="flex gap-3 py-2 sm:hidden">
-            <PublishedIcon isPublished={true} inset="4px" />
+            <PublishedIcon
+              isPublished={isPublished(row.publicationStartDate!, row.endDate!)}
+              inset="4px"
+            />
             <NumAttendants num={row.numAttendants} />
             <PublishableIcon isPublishable={!!row.active} />
           </div>
