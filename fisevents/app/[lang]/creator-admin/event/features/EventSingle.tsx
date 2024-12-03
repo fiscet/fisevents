@@ -41,7 +41,12 @@ export default function EventSingle({
   const endDate = form.getValues('endDate');
   const description = form.getValues('description');
 
-  const isExpired = endDate && Date.parse(endDate) < Date.now();
+  let isExpired = false;
+
+  if (endDate) {
+    const today = new Date().toISOString().split('T')[0] + '00:00';
+    isExpired = Date.parse(endDate) < Date.parse(today);
+  }
 
   const imageUploader = imageUploaderRender();
 
@@ -118,7 +123,7 @@ export default function EventSingle({
               formComponentClassName="w-20"
             />
           </div>
-          <div className="flex flex-col md:flex-row md:items-end gap-20">
+          <div className="flex flex-col md:flex-row md:items-end gap-2 md:gap-20">
             <DefaultFormField
               form={form}
               name="publicationStartDate"
@@ -158,7 +163,8 @@ export default function EventSingle({
               formComponent={Input}
               formComponentProps={{
                 type: 'datetime-local',
-                disabled: isExpired
+                disabled: isExpired,
+                min: new Date().toISOString().substring(0, 16)
               }}
               formComponentClassName="w-[205px]"
             />

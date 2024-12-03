@@ -72,7 +72,7 @@ export function NotificationBar({
 
   return (
     <div
-      className={cn('fixed top z-50 mt-6 md:mt-4', className)}
+      className={cn('sticky top-4 md:top-8 z-50', className)}
       data-testid="notification-bar"
     >
       <div className={cn('py-2 px-4 rounded-md shadow-sm', mainClasses)}>
@@ -80,7 +80,7 @@ export function NotificationBar({
           <Icon />
           <div className="grow text-center">
             <div className="text-lg font-bold">{title || '&nbsp;'}</div>
-            <div className="text-sm">{message || '&nbsp;'}</div>
+            <div className="text-sm px-2">{message || '&nbsp;'}</div>
           </div>
           {allowClose && (
             <IoClose
