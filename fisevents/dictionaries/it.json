@@ -85,6 +85,7 @@
       "back": "Tutti gli eventi",
       "public_url": "URL pubblico",
       "details": "Dettagli",
+      "public_link": "Link pubblico: copia/incollalo nel tuo sito web o social media",
       "descriptions": {
         "title": "Questo è il nome pubblico del tuo evento.",
         "slug": "Questo è l'URL del tuo evento. Sarà visibile nella barra degli indirizzi del tuo browser.",

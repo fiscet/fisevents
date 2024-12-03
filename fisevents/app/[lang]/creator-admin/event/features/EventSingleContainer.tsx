@@ -71,6 +71,10 @@ export default function EventSingleContainer({
     showNotification
   );
 
+  if ('clipboard' in navigator) {
+    console.log('feferfegetherthr');
+  }
+
   return (
     <>
       {isSaving && <Processing text={dictionary.common.saving} />}
@@ -79,10 +83,15 @@ export default function EventSingleContainer({
           leftElements={<GoToEventList backText={dictionary.common.back} />}
           centerElements={
             publicLink && (
-              <div className="w-[350px] md:w-5/6 my-2 mx-auto p-3 justify-self-start bg-slate-50 border-slate-200 text-cyan-700 whitespace-nowrap overflow-x-scroll">
-                <Link href={publicLink} target="_blank">
-                  {publicLink}
-                </Link>
+              <div className="w-full flex flex-col justify-center items-center">
+                <div className="w-full my-2 p-3 justify-self-start bg-slate-50 border-slate-200 text-cyan-700 whitespace-nowrap overflow-x-scroll">
+                  <Link href={publicLink} target="_blank">
+                    {publicLink}
+                  </Link>
+                </div>
+                <div className="text-gray-900 text-sm">
+                  {dictionary.events.public_link}
+                </div>
               </div>
             )
           }

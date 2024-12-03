@@ -85,6 +85,7 @@
       "back": "Vissza az eseményekhez",
       "public_url": "Nyilvános URL",
       "details": "Részletek",
+      "public_link": "Nyilvános link: másolja/illessze be a weboldalon vagy a közösségi médiaban",
       "descriptions": {
         "title": "Ez az esemény nyilvános megjelenítési neve.",
         "slug": "Ez az esemény URL-je. Látható lesz a böngésző címsorában.",
