@@ -25,7 +25,10 @@
       "success": "Success",
       "success_text": "Changes saved successfully",
       "error_text": "Something went wrong",
-      "error_slug_exists": "Slug already exists"
+      "error_slug_exists": "Slug already exists",
+      "copy": "Copy",
+      "copied": "Copied",
+      "copy_error": "Copy error"
       },
     "account": {
       "userAccount": "User account",

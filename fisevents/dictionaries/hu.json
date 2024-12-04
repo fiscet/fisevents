@@ -25,7 +25,10 @@
       "success_text": "A módosítások sikeresen mentve",
       "error": "Hiba",
       "error_text": "Valami hiba történt",
-      "error_slug_exists": "Slug már létezik"
+      "error_slug_exists": "Slug már létezik",
+      "copy": "Másolás",
+      "copied": "Másolva",
+      "copy_error": "Másolási hiba"
     },
     "account": {
       "userAccount": "Felhasználói fiók",

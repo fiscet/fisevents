@@ -25,7 +25,10 @@
       "success_text": "Le modifiche sono state salvate con successo",
       "error": "Errore",
       "error_text": "Qualcosa è andato storto",
-      "error_slug_exists": "Slug già esistente"
+      "error_slug_exists": "Slug già esistente",
+      "copy": "Copia",
+      "copied": "Copiato",
+      "copy_error": "Errore di copia"
     },
     "account": {
       "userAccount": "Account utente",
