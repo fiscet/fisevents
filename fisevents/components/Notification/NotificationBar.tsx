@@ -19,9 +19,9 @@ type NotificationStyleType = {
 
 const notificationStyles: NotificationStyleType = {
   success: {
-    mainClasses: 'bg-green-600 text-white',
+    mainClasses: 'bg-teal-600 text-white',
     Icon: () => (
-      <IoCheckmark className="h-6 w-6 bg-white text-green-600 rounded-full p-1" />
+      <IoCheckmark className="h-6 w-6 bg-white text-teal-600 rounded-full p-1" />
     ),
     allowClose: true
   },

@@ -19,6 +19,7 @@ import { useSubmitHandler } from '../hooks/useSubmitHandler';
 import GoToEventList from '../../components/GoToEventList';
 import Link from 'next/link';
 import { getPublicEventLink } from '@/lib/utils';
+import AddToSite from '../../components/AddToSite';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
@@ -71,6 +72,10 @@ export default function EventSingleContainer({
     showNotification
   );
 
+  if ('clipboard' in navigator) {
+    console.log('feferfegetherthr');
+  }
+
   return (
     <>
       {isSaving && <Processing text={dictionary.common.saving} />}
@@ -79,11 +84,12 @@ export default function EventSingleContainer({
           leftElements={<GoToEventList backText={dictionary.common.back} />}
           centerElements={
             publicLink && (
-              <div className="w-[350px] md:w-5/6 my-2 mx-auto p-3 justify-self-start bg-slate-50 border-slate-200 text-cyan-700 whitespace-nowrap overflow-x-scroll">
-                <Link href={publicLink} target="_blank">
-                  {publicLink}
-                </Link>
-              </div>
+              <AddToSite
+                publicLink={publicLink}
+                copyText={dictionary.common.copy}
+                copySuccessText={dictionary.common.copied}
+                copyErrorText={dictionary.common.copy_error}
+              />
             )
           }
           rightElements={
