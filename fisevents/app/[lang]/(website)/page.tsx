@@ -3,7 +3,7 @@ import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
 import { authOptions } from '@/lib/authOptions';
 import Link from 'next/link';
-import LogoutLink from './creator-admin/components/LogoutLink/LogoutLinkContainer';
+import LogoutLink from '../creator-admin/components/LogoutLink/LogoutLinkContainer';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/card';
 
 import { CreatorAdminRoutes } from '@/lib/routes';
+import { NavBar } from './components/NavBar';
 
 export default async function MainPage({
   params: { lang }
@@ -26,6 +27,11 @@ export default async function MainPage({
 
   return (
     <div className="w-full h-screen flex items-center justify-center p-10">
+      <NavBar
+        dictionary={dictionary.auth}
+        lang={lang}
+        isLoggedIn={!!session?.user?.email}
+      />
       <Card>
         <CardHeader>
           <CardTitle>Hello :-)</CardTitle>
