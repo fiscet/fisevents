@@ -1,20 +1,23 @@
 'use client';
 
-import Logo, { LogoProps } from '@/components/Logo';
-import Link from 'next/link';
-import LogoutLink from '../../creator-admin/components/LogoutLink';
-import { Button } from '@/components/ui/button';
-import { Locale } from '@/lib/i18n';
 import { useState } from 'react';
-import { getDictionary } from '@/lib/i18n.utils';
+import { signOut } from 'next-auth/react';
 import { useCurrentBreakpoint } from '@/hooks/useCurrentBreakpoint';
+import { Locale } from '@/lib/i18n';
+import { CreatorAdminRoutes } from '@/lib/routes';
+import { getDictionary } from '@/lib/i18n.utils';
+import { Button } from '@/components/ui/button';
+import Logo, { LogoProps } from '@/components/Logo';
 import { TiThMenu } from 'react-icons/ti';
 import { GrClose } from 'react-icons/gr';
+import Link from 'next/link';
+import LocaleSwitcher from '@/components/LocaleSwitcher';
+import LogoutLink from '../../creator-admin/components/LogoutLink/LogoutLink';
 
 export type NavBarProps = {
   lang: Locale;
   isLoggedIn: boolean;
-  dictionary: Awaited<ReturnType<typeof getDictionary>>['auth'];
+  dictionary: Awaited<ReturnType<typeof getDictionary>>;
 };
 
 export function NavBar({ lang, isLoggedIn, dictionary }: NavBarProps) {
@@ -39,53 +42,62 @@ export function NavBar({ lang, isLoggedIn, dictionary }: NavBarProps) {
 
         {/* Desktop menu */}
         <div className="hidden md:flex items-center gap-10">
-          <Link className="text-lg" href="#">
-            Features
+          <Link className="text-lg" href="#features">
+            {dictionary.website.navbar.features}
           </Link>
           <Link className="text-lg" href="#pricing">
-            Pricing
-          </Link>
-          <Link className="text-lg" href="#">
-            About
+            {dictionary.website.navbar.pricing}
           </Link>
           {isLoggedIn ? (
             <>
-              <Link className="text-lg text-orange-600" href="#">
+              <Link
+                className="text-lg text-orange-600"
+                href={`/${lang}/${CreatorAdminRoutes.getBase()}`}
+              >
                 Admin
               </Link>
-              <LogoutLink dictionary={dictionary} />
+              <LogoutLink label={dictionary.auth.logout} onSignOut={signOut} />
             </>
           ) : (
             <Button asChild>
-              <Link href="/auth">Login here</Link>
+              <Link href="/auth">{dictionary.auth.login}</Link>
             </Button>
           )}
+          <div>
+            <LocaleSwitcher curLang={lang} />
+          </div>
         </div>
 
         {/* Mobile menu */}
         {isMenuOpen && (
           <div className="absolute top-full right-0 left-0 bg-background/95 mt-6 p-4 shadow-lg md:hidden flex flex-col gap-4">
-            <Link className="text-lg" href="#">
-              Features
+            <Link className="text-lg" href="#features">
+              {dictionary.website.navbar.features}
             </Link>
             <Link className="text-lg" href="#pricing">
-              Pricing
-            </Link>
-            <Link className="text-lg" href="#">
-              About
+              {dictionary.website.navbar.pricing}
             </Link>
             {isLoggedIn ? (
               <>
-                <Link className="text-lg text-orange-600" href="#">
-                  Admin
+                <Link
+                  className="text-lg text-orange-600"
+                  href={`/${lang}/${CreatorAdminRoutes.getBase()}`}
+                >
+                  {dictionary.website.navbar.admin}
                 </Link>
-                <LogoutLink dictionary={dictionary} />
+                <LogoutLink
+                  label={dictionary.auth.logout}
+                  onSignOut={signOut}
+                />
               </>
             ) : (
               <Button asChild className="w-full">
-                <Link href="/auth">Login here</Link>
+                <Link href="/auth"> {dictionary.auth.login}</Link>
               </Button>
             )}
+            <div>
+              <LocaleSwitcher curLang={lang} />
+            </div>
           </div>
         )}
       </nav>

@@ -1,6 +1,13 @@
 {
+  "website": {
+    "navbar": {
+      "features": "Funkciók",
+      "pricing": "Árazás",
+      "admin": "Adminisztráció"
+    }
+  },
   "auth": {
-    "login": "Bejelentkezés",
+    "login": "Bejelentkezés ide",
     "logout": "Kilépés az alkalmazásból",
     "account": "Fiók kezelése",
     "login_with_email": {
