@@ -24,7 +24,7 @@ export default async function AuthPage({
   const session = await getServerSession(authOptions);
 
   if (session) {
-    return redirect(`/${CreatorAdminRoutes}`);
+    return redirect(`/${CreatorAdminRoutes.getBase()}`);
   }
 
   const dictionary = await getDictionary(lang);

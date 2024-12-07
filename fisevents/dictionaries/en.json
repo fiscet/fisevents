@@ -1,6 +1,13 @@
 {
+  "website": {
+    "navbar": {
+      "features": "Features",
+      "pricing": "Pricing",
+      "admin": "Admin"
+    }
+  },
   "auth": {
-    "login": "Login",
+    "login": "Login here",
     "logout": "Logout",
     "account": "Manage your Account",
     "login_with_email": {

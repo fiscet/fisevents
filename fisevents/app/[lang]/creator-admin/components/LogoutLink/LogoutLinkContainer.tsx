@@ -1,15 +1,14 @@
 'use client';
 
-import { getDictionary } from '@/lib/i18n.utils';
 import { signOut } from 'next-auth/react';
 import LogoutLink from './LogoutLink';
 
 export type LogoutLinkContainerProps = {
-  dictionary: Awaited<ReturnType<typeof getDictionary>>['auth'];
+  label: string;
 };
 
 export default function LogoutLinkContainer({
-  dictionary
+  label
 }: LogoutLinkContainerProps) {
-  return <LogoutLink label={dictionary.logout} onSignOut={signOut} />;
+  return <LogoutLink label={label} onSignOut={signOut} />;
 }

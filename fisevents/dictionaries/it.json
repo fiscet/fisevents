@@ -1,6 +1,13 @@
 {
+  "website": {
+    "navbar": {
+      "features": "Funzionalità",
+      "pricing": "Prezzi",
+      "admin": "Amministrazione"
+    }
+  },
   "auth": {
-    "login": "Accedi",
+    "login": "Accedi qui",
     "logout": "Esci dall'applicazione",
     "account": "Gestisci il tuo Account",
     "login_with_email": {
