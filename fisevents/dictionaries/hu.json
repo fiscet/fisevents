@@ -4,6 +4,53 @@
       "features": "Funkciók",
       "pricing": "Árazás",
       "admin": "Adminisztráció"
+    },
+    "home": {
+      "payoff": "Elengedi és kezelje a saját eseményeidet!",
+      "subtitle": "Az esemény kezelésének egyszerűsítése",    
+      "main_text": "A gyümölat, tanulás, vagy tanulási események között, a FisEvents lehetővé teszi a saját események létrehozását, megosztását és kezelését egyszerű és gyorsan. Kezdje elnevezés nélkül!",
+      "features": {
+        "title": "Funkciók",
+        "list": {
+          "login": {
+            "title": "Egyszerű bejelentkezési hivatkozás",
+            "text": "Létrehozhat és megoszthat egy egyedi linket a felhasználók számára, hogy regisztrálhassanak a saját eseményre a könnyű és gyors módon."
+          },
+          "events": {
+            "title": "Testreszabható esemény részletei",
+            "text": "Adjon meg egy címet, leírást, képet, helyet és legfeljebb résztvevőt, árát és pénznemet a saját esemény részleteinek beállításához."
+          },
+          "date_management": {
+            "title": "Szabad dátumkezelés",
+            "text": "Állítsa be kezdés- és befejezési dátumokat a közzététel és kezelje a saját események idővonalait egyszerűen és gyorsan."
+          },
+          "start_free": {
+            "title": "Első 3 események ingyenes kezdése",
+            "text": "Közzététel az első három eseményeket ingyenesen. Csak 5€ fizetheti a kezdéshez."
+          }
+        }
+      },
+      "pricing": {
+        "title": "Árazás",
+        "list": {
+          "starter": {
+            "title": "Kezdő terv",
+            "text": "Ezzel a kezdő tervvel jól kezelheti a FisEvents-et.",
+            "features": [
+              "Legfeljebb 3 esemény közzététele",
+              "Minden alapvető funkció beépítve"
+            ]
+          },
+          "hero": {
+            "title": "Fejlődési terv",
+            "text": "Normál esemény szervezők számára.",
+            "features": [
+              "Korlátlan számú események közzététele",
+              "Minden alapvető funkció beépítve"
+            ]
+          }
+        }        
+      }
     }
   },
   "auth": {

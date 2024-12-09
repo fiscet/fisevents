@@ -4,6 +4,54 @@
       "features": "Features",
       "pricing": "Pricing",
       "admin": "Admin"
+    },
+    "home": {
+      "payoff": "Effortlessly publish and manage your events!",
+      "subtitle": "Simplify Event Management",
+      "main_text": "From cooking workshops to meetings, FisEvents lets you create, share, and manage one-time events seamlessly. Get started for free!",
+      "features": {
+        "title": "Features",
+        "list": {
+          "login": {
+            "title": "Easy Registration Link",
+            "text": "Generate and share a unique link for users to register for your event with ease."
+          },
+          "events": {
+            "title": "Customizable Event Details",
+            "text": "Add a title, description, image, location, and set maximum participants, price, and currency."
+          },
+          "date_management": {
+            "title": "Flexible Date Management",
+            "text": "Set start and end dates for publication and manage eventtimelines effortlessly."
+          },
+          "start_free": {
+            "title": "Free for First 3 Events",
+            "text": "Publish your first three events for free. Pay only 5€ per eventafter that."
+          }
+        }
+      },
+      "pricing": {
+        "title": "Pricing",
+        "list": {
+          "starter": {
+            "title": "Starter Plan",
+            "text": "Perfect for trying out FisEvents.",
+            "features": [
+              "Publish up to 3 events",
+              "All core features included"
+            ]
+          },
+          "hero": {
+            "title": "Hero user Plan",
+            "text": "For regular event organizers.",
+            "features": [
+              "Publish unlimited events",
+              "All core features included"
+            ]
+          }
+        }
+          
+      }
     }
   },
   "auth": {
@@ -36,7 +84,7 @@
       "copy": "Copy",
       "copied": "Copied",
       "copy_error": "Copy error"
-      },
+    },
     "account": {
       "userAccount": "User account",
       "name": "Name",

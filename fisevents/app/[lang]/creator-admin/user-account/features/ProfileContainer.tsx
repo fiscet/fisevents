@@ -14,6 +14,7 @@ import {
 import OrganizationAccountContainer from './OrganizationAccountContainer';
 import ProfileTabs from '../components/ProfileTabs';
 import GoToEventList from '../../components/GoToEventList';
+import { useCurrentLang } from '@/hooks/useCurrentLang';
 
 export type ProfileContainerProps = {
   userData: CurrentUser;
@@ -27,6 +28,7 @@ export default function ProfileContainer({
   dictionary
 }: ProfileContainerProps) {
   const [isSaving, startProcessing] = useTransition();
+  const curLang = useCurrentLang();
 
   const allowedTabs = ['user', 'organization'] as const;
 
@@ -43,7 +45,9 @@ export default function ProfileContainer({
       {isSaving && <Processing text={dictionary.common.saving} />}
       <Tabs defaultValue={tabSel}>
         <UtilityBar
-          leftElements={<GoToEventList backText={dictionary.common.back} />}
+          leftElements={
+            <GoToEventList backText={dictionary.common.back} lang={curLang} />
+          }
           rightElements={
             <ProfileTabs
               userAccountText={dictionary.account.userAccount}
