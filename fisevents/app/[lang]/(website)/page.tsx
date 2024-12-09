@@ -30,17 +30,18 @@ export default async function MainPage({
       <div className="">
         <div className="container mx-auto px-4 py-6">
           <p className="text-center italic text-xl text-gray-600">
-            <q>Effortlessly publish and manage your events!</q>
+            <q>{dictionary.website.home.payoff}</q>
           </p>
         </div>
       </div>
 
       <main className="container mx-auto px-4 py-10 flex-grow">
         <section className="text-center mb-12">
-          <h2 className="text-2xl font-bold mb-4">Simplify Event Management</h2>
+          <h2 className="text-2xl font-bold mb-4">
+            {dictionary.website.home.subtitle}
+          </h2>
           <p className="text-gray-600 mb-6">
-            From cooking workshops to meetings, FisEvents lets you create,
-            share, and manage one-time events seamlessly. Get started for free!
+            {dictionary.website.home.main_text}
           </p>
           <Image
             src="/img/hp-fisevents.jpg"
@@ -53,14 +54,15 @@ export default async function MainPage({
 
         <section id="features" className="mb-16">
           <h3 className="text-2xl font-semibold text-orange-600 text-center mb-8">
-            Features
+            {dictionary.website.home.features.title}
           </h3>
           <div className="grid grid-cols-1 text-center gap-8">
             <div>
-              <h4 className="font-semibold text-lg">Easy Registration Link</h4>
+              <h4 className="font-semibold text-lg">
+                {dictionary.website.home.features.list.login.title}
+              </h4>
               <p className="text-gray-600 mb-2">
-                Generate and share a unique link for users to register for your
-                event with ease.
+                {dictionary.website.home.features.list.login.text}
               </p>
               <Image
                 src="/img/sh-login.jpg"
@@ -72,11 +74,10 @@ export default async function MainPage({
             </div>
             <div>
               <h4 className="font-semibold text-lg">
-                Customizable Event Details
+                {dictionary.website.home.features.list.events.title}
               </h4>
               <p className="text-gray-600 mb-2">
-                Add a title, description, image, location, and set maximum
-                participants, price, and currency.
+                {dictionary.website.home.features.list.events.text}
               </p>
               <Carousel>
                 <CarouselContent>
@@ -112,11 +113,10 @@ export default async function MainPage({
             <hr />
             <div>
               <h4 className="font-semibold text-lg">
-                Flexible Date Management
+                {dictionary.website.home.features.list.date_management.title}
               </h4>
               <p className="text-gray-600 mb-2">
-                Set start and end dates for publication and manage event
-                timelines effortlessly.
+                {dictionary.website.home.features.list.date_management.text}
               </p>
               <Image
                 src="/img/sh-event-3.jpg"
@@ -129,8 +129,7 @@ export default async function MainPage({
             <div>
               <h4 className="font-semibold text-lg">Free for First 3 Events</h4>
               <p className="text-gray-600">
-                Publish your first three events for free. Pay only 5€ per event
-                after that.
+                {dictionary.website.home.features.list.start_free.text}
               </p>
             </div>
           </div>
@@ -138,28 +137,40 @@ export default async function MainPage({
 
         <section id="pricing" className="bg-orange-50 py-10 rounded-md">
           <h3 className="text-2xl font-semibold text-orange-600 text-center mb-6">
-            Pricing
+            {dictionary.website.home.pricing.title}
           </h3>
           <div className="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-8">
             <div className="bg-white shadow-md rounded-lg p-6 text-center">
-              <h4 className="font-semibold text-lg mb-2">Starter Plan</h4>
+              <h4 className="font-semibold text-lg mb-2">
+                {dictionary.website.home.pricing.list.starter.title}
+              </h4>
               <p className="text-gray-600 mb-4">
-                Perfect for trying out FisEvents.
+                {dictionary.website.home.pricing.list.starter.text}
               </p>
               <ul className="text-sm text-gray-600 mb-4">
-                <li>• Publish up to 3 events</li>
-                <li>• All core features included</li>
+                <li>
+                  • {dictionary.website.home.pricing.list.starter.features[0]}
+                </li>
+                <li>
+                  • {dictionary.website.home.pricing.list.starter.features[1]}
+                </li>
               </ul>
               <span className="text-3xl font-bold text-gray-800">0€</span>
             </div>
             <div className="bg-white shadow-md rounded-lg p-6 text-center">
-              <h4 className="font-semibold text-lg mb-2">Hero user Plan</h4>
+              <h4 className="font-semibold text-lg mb-2">
+                {dictionary.website.home.pricing.list.hero.title}
+              </h4>
               <p className="text-gray-600 mb-4">
-                For regular event organizers.
+                {dictionary.website.home.pricing.list.hero.text}
               </p>
               <ul className="text-sm text-gray-600 mb-4">
-                <li>• Publish unlimited events</li>
-                <li>• All core features included</li>
+                <li>
+                  • {dictionary.website.home.pricing.list.hero.features[0]}
+                </li>
+                <li>
+                  • {dictionary.website.home.pricing.list.hero.features[1]}
+                </li>
               </ul>
               <span className="text-3xl font-bold text-gray-800">5€/event</span>
             </div>

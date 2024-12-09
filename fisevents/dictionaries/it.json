@@ -4,6 +4,53 @@
       "features": "Funzionalità",
       "pricing": "Prezzi",
       "admin": "Amministrazione"
+    },
+    "home": {
+      "payoff": "Pubblica e gestisci facilmente i tuoi eventi!",
+      "subtitle": "Semplifica la gestione degli eventi",    
+      "main_text": "Da workshop di cucina a riunioni, FisEvents ti consente di creare, condividere e gestire eventi singoli in modo semplice e veloce. Inizia gratuitamente!",
+      "features": {
+        "title": "Funzionalità",
+        "list": {
+          "login": {
+            "title": "Collegamento di registrazione semplice",
+            "text": "Genera e condividi un link unico per gli utenti per registrarsi per il tuo evento con facilità."
+          },
+          "events": {
+            "title": "Dettagli personalizzati dell'evento",
+            "text": "Aggiungi un titolo, una descrizione, un'immagine, una posizione e imposta i partecipanti massimi, il prezzo e la valuta."
+          },
+          "date_management": {
+            "title": "Gestione delle date flessibile",
+            "text": "Imposta le date di inizio e fine per la pubblicazione e gestisci le date delle tue eventi in modo semplice e veloce."
+          },
+          "start_free": {
+            "title": "Inizia gratuitamente per i primi 3 eventi",
+            "text": "Pubblica i tuoi primi tre eventi gratuitamente. Paga solo 5€ per ogni evento dopo."
+          }
+        }
+      },
+      "pricing": {
+        "title": "Prezzi",
+        "list": {
+          "starter": {
+            "title": "Piano di avvio",
+            "text": "Perfetto per provare FisEvents.",
+            "features": [
+              "Pubblica fino a 3 eventi",
+              "Tutte le funzionalità di base incluse"
+            ]
+          },
+          "hero": {
+            "title": "Piano utente di avvio",
+            "text": "Per organizzatori di eventi regolari.",
+            "features": [
+              "Pubblica eventi illimitati",
+              "Tutte le funzionalità di base incluse"
+            ]
+          }
+        }        
+      }
     }
   },
   "auth": {
