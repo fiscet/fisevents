@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { i18n, Locale } from '@/lib/i18n';
+import { useCurrentLang } from '@/hooks/useCurrentLang';
 
 export default function LocaleSwitcher({
   curLang = i18n.defaultLocale

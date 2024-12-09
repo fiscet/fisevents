@@ -17,9 +17,9 @@ import { useNotification } from '@/components/Notification/useNotification';
 import { useImageHandlers } from '@/hooks/useImageHandlers';
 import { useSubmitHandler } from '../hooks/useSubmitHandler';
 import GoToEventList from '../../components/GoToEventList';
-import Link from 'next/link';
 import { getPublicEventLink } from '@/lib/utils';
 import AddToSite from '../../components/AddToSite';
+import { useCurrentLang } from '@/hooks/useCurrentLang';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
@@ -35,6 +35,7 @@ export default function EventSingleContainer({
   const session = useSession();
   const router = useRouter();
   const { showNotification } = useNotification();
+  const curLang = useCurrentLang();
 
   const {
     initImageUrl,
@@ -72,16 +73,14 @@ export default function EventSingleContainer({
     showNotification
   );
 
-  if ('clipboard' in navigator) {
-    console.log('feferfegetherthr');
-  }
-
   return (
     <>
       {isSaving && <Processing text={dictionary.common.saving} />}
       <Tabs defaultValue="event">
         <UtilityBar
-          leftElements={<GoToEventList backText={dictionary.common.back} />}
+          leftElements={
+            <GoToEventList backText={dictionary.common.back} lang={curLang} />
+          }
           centerElements={
             publicLink && (
               <AddToSite

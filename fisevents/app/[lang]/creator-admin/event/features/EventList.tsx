@@ -14,12 +14,15 @@ import UtilityBar from '../../components/UtilityBar';
 import { Button } from '@/components/ui/button';
 import { GiOpenChest } from 'react-icons/gi';
 import Link from 'next/link';
+import { useCurrentLang } from '@/hooks/useCurrentLang';
+import { Locale } from '@/lib/i18n';
 
 const isPublished = (publicationStartDate: string, endDate: string) =>
   Date.parse(publicationStartDate) <= Date.now() &&
   Date.parse(endDate) > Date.now();
 
 function getColumns(
+  lang: Locale,
   dictionary: Awaited<
     ReturnType<typeof getDictionary>
   >['creator_admin']['events']
@@ -100,7 +103,11 @@ function getColumns(
       cell: (row) => {
         return (
           <div className="flex gap-2 items-center">
-            <Link href={`/${CreatorAdminRoutes.getItem('event')}/${row._id}`}>
+            <Link
+              href={`/${lang}/${CreatorAdminRoutes.getItem('event')}/${
+                row._id
+              }`}
+            >
               <GiOpenChest className="w-5 h-5 text-cyan-700" />
             </Link>
           </div>
@@ -125,6 +132,7 @@ export default function EventList({
   dictionary
 }: EventListProps) {
   const router = useRouter();
+  const curLang = useCurrentLang();
 
   const [filter, setFilter] = useState<'all' | 'active' | 'published'>('all');
 
@@ -144,7 +152,7 @@ export default function EventList({
   };
 
   const handleOpenSingleEvent = (id: string) => {
-    router.push(`/${CreatorAdminRoutes.getItem('event')}/${id}`);
+    router.push(`/${curLang}/${CreatorAdminRoutes.getItem('event')}/${id}`);
   };
 
   return (
@@ -171,7 +179,7 @@ export default function EventList({
         }
       />
       <DataTable
-        columns={getColumns(dictionary)}
+        columns={getColumns(curLang, dictionary)}
         data={filterEvents(eventListData)}
         pagination
         responsive

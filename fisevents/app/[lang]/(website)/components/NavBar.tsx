@@ -60,7 +60,7 @@ export function NavBar({ lang, isLoggedIn, dictionary }: NavBarProps) {
             </>
           ) : (
             <Button asChild>
-              <Link href="/auth">{dictionary.auth.login}</Link>
+              <Link href={`${lang}/auth`}> {dictionary.auth.login}</Link>
             </Button>
           )}
           <div>
@@ -92,7 +92,7 @@ export function NavBar({ lang, isLoggedIn, dictionary }: NavBarProps) {
               </>
             ) : (
               <Button asChild className="w-full">
-                <Link href="/auth"> {dictionary.auth.login}</Link>
+                <Link href={`${lang}/auth`}> {dictionary.auth.login}</Link>
               </Button>
             )}
             <div>

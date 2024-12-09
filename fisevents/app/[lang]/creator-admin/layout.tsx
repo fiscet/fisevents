@@ -34,7 +34,7 @@ export default async function AdminLayout({
               <AccountSection lang={lang} session={session} />
             </div>
           </div>
-          <Logo linkTo={`/${CreatorAdminRoutes.getBase()}`} />
+          <Logo linkTo={`/${lang}/${CreatorAdminRoutes.getBase()}`} />
           <div className="hidden md:block">
             <AccountSection lang={lang} session={session} />
           </div>
