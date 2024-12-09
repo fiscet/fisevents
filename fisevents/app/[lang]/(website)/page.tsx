@@ -4,13 +4,7 @@ import { getDictionary } from '@/lib/i18n.utils';
 import { authOptions } from '@/lib/authOptions';
 import { NavBar } from './components/NavBar';
 import Image from 'next/image';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious
-} from '@/components/ui/carousel';
+import HPCarousel from './components/HPCarousel';
 
 export default async function MainPage({
   params: { lang }
@@ -79,36 +73,7 @@ export default async function MainPage({
               <p className="text-gray-600 mb-2">
                 {dictionary.website.home.features.list.events.text}
               </p>
-              <Carousel>
-                <CarouselContent>
-                  <CarouselItem className="flex justify-center">
-                    <Image
-                      src="/img/sh-list.jpg"
-                      alt="Event list"
-                      width={1024}
-                      height={300}
-                    />
-                  </CarouselItem>
-                  <CarouselItem className="flex justify-center">
-                    <Image
-                      src="/img/sh-event-1.jpg"
-                      alt="Event details #1"
-                      width={1024}
-                      height={300}
-                    />
-                  </CarouselItem>
-                  <CarouselItem className="flex justify-center">
-                    <Image
-                      src="/img/sh-event-2.jpg"
-                      alt="Event details #2"
-                      width={1024}
-                      height={300}
-                    />
-                  </CarouselItem>
-                </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
-              </Carousel>
+              <HPCarousel />
             </div>
             <hr />
             <div>
