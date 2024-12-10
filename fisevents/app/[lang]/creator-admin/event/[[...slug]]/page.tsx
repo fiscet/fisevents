@@ -30,7 +30,7 @@ export default async function EventSinglePage({
 
   const userData = await getUser({ userId: session!.user!.uid! });
 
-  if (!userData.curOrganization?.companySlug) {
+  if (!userData.slug) {
     return <></>;
   }
 
@@ -45,7 +45,7 @@ export default async function EventSinglePage({
   return (
     <EventSingle
       eventSingleData={eventSingleData}
-      companySlug={userData.curOrganization!.companySlug!}
+      companySlug={userData.slug.current!}
       dictionary={dictionary.creator_admin}
     />
   );

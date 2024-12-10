@@ -93,7 +93,7 @@
       "companyName": "Vállalat neve",
       "slug": "Slug",
       "www": "Weboldal",
-      "logoUrl": "Logó URL",
+      "logo": "Logó",
       "save": "Mentés",
       "back": "Vissza az eseményekhez",
       "descriptions": {

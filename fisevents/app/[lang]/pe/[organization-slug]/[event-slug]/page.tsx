@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { getEventSingleBySlug, getOrganizationBySlug } from '@/lib/actions';
+import { getEventSingleBySlug } from '@/lib/actions';
 import { Locale } from '@/lib/i18n';
 import { getDictionary, getEmailDictionary } from '@/lib/i18n.utils';
 import EventNotFound from '../../components/EventNotFound';
@@ -20,7 +20,7 @@ export default async function PublicEventPage({
     ['event-slug']: string;
   };
 }) {
-  const organizationData = await getOrganizationBySlug({ organizationSlug });
+  // const userData = await getUserBySlug({ organizationSlug });
   const eventData = await getEventSingleBySlug({ slug: eventSlug });
 
   const dictionary = await getDictionary(lang);
@@ -30,15 +30,15 @@ export default async function PublicEventPage({
 
   return (
     <div>
-      {organizationData && (
+      {/* {userData && (
         <Image
-          src={organizationData.imageUrl ?? '/img/logo.png'}
+          src={userData.imageUrl ?? '/img/logo.png'}
           alt="Logo"
           width="320"
           height="320"
           className="mx-auto"
         />
-      )}
+      )} */}
       {eventData && organizationSlug === eventData.organizationSlug ? (
         <>
           <PublicEvent eventData={eventData} lang={lang} />
@@ -49,7 +49,7 @@ export default async function PublicEventPage({
                 lang={lang}
                 eventId={eventData._id!}
                 eventSlug={eventSlug}
-                companyName={organizationData.companyName!}
+                companyName="" //{userData.companyName!}
                 eventTitle={eventData.title!}
                 dictionary={dictionary.public}
                 emailDictionary={emailDictionary.event_attendant.subscription}
