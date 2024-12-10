@@ -14,7 +14,6 @@ import {
   userQuery
 } from './queries';
 import {
-  CurrentOrganization,
   CurrentUser,
   OccurrenceList,
   OccurrenceSingle,
@@ -23,7 +22,6 @@ import {
 import {
   EventAttendant,
   Occurrence,
-  Organization,
   User
 } from '@/types/sanity.types';
 import { revalidateTag } from 'next/cache';
@@ -48,66 +46,6 @@ export const updateUser = async ({
 }) => {
   const res = await sanityClient.patch(id).set(data).commit();
 
-  revalidateTag('user');
-
-  return res;
-};
-
-/** ORGANIZATIONS */
-export const getOrganization = async ({
-  organizationId
-}: {
-  organizationId: string;
-}) => {
-  return await sanityClient.fetch<CurrentOrganization>(
-    organizationQuery,
-    { organizationId },
-    { next: { tags: [`organization:${organizationId}`] } }
-  );
-};
-
-export const getOrganizationBySlug = async ({
-  organizationSlug
-}: {
-  organizationSlug: string;
-}) => {
-  return await sanityClient.fetch<CurrentOrganization>(
-    organizationBySlugQuery,
-    { organizationSlug },
-    { next: { tags: [`organizationBySlug:${organizationSlug}`] } }
-  );
-};
-
-export const getOrganizationCountBySlug = async ({
-  slug
-}: {
-  slug: string;
-}) => {
-  return await sanityClient.fetch<number>(
-    organizationCountBySlugQuery,
-    { slug },
-    { next: { tags: [`organizationCountBySlug:${slug}`] } }
-  );
-};
-
-export const createOrganization = async ({ data }: { data: Organization; }) => {
-  const res = await sanityClient.create<Organization>(data);
-
-  revalidateTag('user');
-
-  return res;
-};
-
-export const updateOrganization = async ({
-  id,
-  data
-}: {
-  id: string;
-  data: Partial<Organization>;
-}) => {
-  const res = await sanityClient.patch(id).set(data).commit();
-
-  revalidateTag(`organization:${id}`);
   revalidateTag('user');
 
   return res;

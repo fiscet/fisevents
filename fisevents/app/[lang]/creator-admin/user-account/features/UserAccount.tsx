@@ -29,8 +29,8 @@ export default function UserAccount({
   const imageUploader = imageUploaderRender();
 
   return (
-    <div className="px-1 max-w-[650px] mx-auto mt-5 mb-10">
-      <h1 className="text-2xl font-bold text-center mt-5">
+    <div className="px-1 max-w-[650px] mx-auto mb-10">
+      <h1 className="text-2xl font-bold text-center">
         {form.getValues('name')}
       </h1>
       <div className="text-center py-2">{form.getValues('email')}</div>
@@ -45,8 +45,23 @@ export default function UserAccount({
               formComponent={Input}
               description={dictionary.descriptions.name}
             />
+            <DefaultFormField
+              form={form}
+              name="companyName"
+              label={dictionary.companyName}
+              formComponent={Input}
+              description={dictionary.descriptions.companyName}
+            />
 
             {imageUploader}
+
+            <DefaultFormField
+              form={form}
+              name="www"
+              label={dictionary.www}
+              formComponent={Input}
+              description={dictionary.descriptions.www}
+            />
 
             <Separator className="my-5" />
             <div className="flex justify-center">

@@ -72,7 +72,7 @@ export function NotificationBar({
 
   return (
     <div
-      className={cn('sticky top-4 md:top-8 z-50', className)}
+      className={cn('sticky top-4 md:top-8 mt-2 z-50', className)}
       data-testid="notification-bar"
     >
       <div className={cn('py-2 px-4 rounded-md shadow-sm', mainClasses)}>

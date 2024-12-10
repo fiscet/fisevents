@@ -86,35 +86,28 @@
     },
     "account": {
       "userAccount": "Account utente",
-      "name": "Nome",
+      "name": "Il tuo nome completo",
       "email": "Email",
       "imageUrl": "URL della foto",
+      "organization": "Il nome della tua organizzazione",
+      "companyName": "Nome della società",
+      "slug": "Slug",
+      "www": "Sito web",
+      "logoUrl": "URL del logo",
       "save": "Salva",
       "back": "Torna agli eventi",
       "descriptions": {
-        "name": "Il tuo nome completo",
+        "name": "Il tuo nome completo e cognome",
         "email": "La tua email",
-        "image": "La tua foto"
-      },
-      "validation": {
-        "name": "Il nome deve essere di almeno 5 caratteri!"
-      }
-    },
-    "organization": {
-      "organization": "Azienda",
-      "companyName": "Nome dell'azienda",
-      "slug": "Slug",
-      "www": "Sito web",
-      "image": "Immagine",
-      "descriptions": {
-        "companyName": "Il nome dell'azienda",
+        "image": "La tua foto",
+        "companyName": "Il nome della tua organizzazione o attività",
         "slug": "Questo è l'URL dell'azienda. Sarà visibile nella barra degli indirizzi del tuo browser.",
-        "www": "Il sito web dell'azienda",
-        "image": "Il logo dell'azienda"
-      },
+        "www": "Hai un sito web o un profilo sociale? Scrivilo qui",
+        "logo": "Carica qui il tuo logo della tua azienda o organizzazione"
+      },  
       "validation": {
-        "companyName": "Il nome dell'azienda deve essere di almeno 5 caratteri.",
-        "slug": "Slug deve contenere almeno 5 caratteri."
+        "name": "Il nome deve essere di almeno 5 caratteri!",
+        "companyName": "Il nome della società deve essere di almeno 5 caratteri."
       }
     },
     "events": {

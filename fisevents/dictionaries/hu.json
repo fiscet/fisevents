@@ -86,18 +86,28 @@
     },
     "account": {
       "userAccount": "Felhasználói fiók",
-      "name": "Név",
+      "name": "Az ön neve és vezetéknév",
       "email": "Email",
       "imageUrl": "Kép URL",
+      "organization": "Az ön szervezet neve",
+      "companyName": "Vállalat neve",
+      "slug": "Slug",
+      "www": "Weboldal",
+      "logoUrl": "Logó URL",
       "save": "Mentés",
       "back": "Vissza az eseményekhez",
       "descriptions": {
-        "name": "Az ön neve",
+        "name": "Az ön személyes neve és vezetéknév",
         "email": "Az ön emailje",
-        "image": "Az ön képe"
+        "image": "Az ön képe",
+        "companyName": "Az ön vállalatának vagy szervezetének a neve",
+        "slug": "Ez az URL az ön vállalatának. Látható lesz a böngésző címsorában.",
+        "www": "Van weboldal vagy profil oldal? Írja be itt",
+        "logo": "Ide töltse fel a vállalat vagy szervezet logóját"
       },
       "validation": {
-        "name": "A névnek legalább 5 karakter hosszúnak kell lennie."
+        "name": "A névnek legalább 5 karakter hosszúnak kell lennie.",
+        "companyName": "A vállalat nevének legalább 5 karakter hosszúnak kell lennie."
       }
     },
     "organization": {

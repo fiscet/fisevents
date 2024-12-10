@@ -34,9 +34,30 @@ export default defineType({
       hidden: true,
     }),
     defineField({
-      name: 'organization',
-      type: 'reference',
-      to: { type: 'organization' }
+      title: 'Company name',
+      name: 'companyName',
+      type: 'string'
+    }),
+    defineField({
+      title: 'Slug',
+      name: 'slug',
+      type: 'slug',
+      options: {
+        source: 'companyName',
+        maxLength: 96,
+        isUnique: (value, context) => context.defaultIsUnique(value, context),
+      },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      title: 'Company logo',
+      name: 'logo',
+      type: 'image'
+    }),
+    defineField({
+      title: 'Website',
+      name: 'www',
+      type: 'url'
     }),
     defineField({
       title: 'Roles',
@@ -57,7 +78,7 @@ export default defineType({
     select: {
       name: 'name',
       email: 'email',
-      companyName: 'organization.companyName'
+      companyName: 'companyName'
     },
     prepare({ name, email, companyName }) {
       const organization = companyName ? ` - ${companyName}` : '';

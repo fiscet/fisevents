@@ -5,6 +5,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { getDictionary } from '@/lib/i18n.utils';
 import { CurrentUser } from '@/types/sanity.extended.types';
+import { slugify } from '@/lib/utils';
+import { use } from 'react';
 
 export type useUserAccountFormProps = {
   userData: CurrentUser;
@@ -17,7 +19,13 @@ export const formSchemaObj = z
   .object({
     name: z.string(),
     email: z.string(),
-    imageUrl: z.string(),
+    companyName: z.string(),
+    slug: z.object({
+      current: z.string(),
+      _type: z.literal('slug')
+    }),
+    www: z.string().optional(),
+    logoUrl: z.string().optional(),
   });
 
 export type UserAccountFormSchemaType = z.infer<typeof formSchemaObj>;
@@ -36,6 +44,16 @@ export function useUserAccountForm({ userData, dictionary }: useUserAccountFormP
         message: dictionary.validation.name,
         path: ['name']
       }
+    ).refine(
+      (data) => {
+        const { companyName } = data;
+
+        return companyName.length > 5;
+      },
+      {
+        message: dictionary.validation.companyName,
+        path: ['companyName']
+      }
     );
 
 
@@ -44,7 +62,13 @@ export function useUserAccountForm({ userData, dictionary }: useUserAccountFormP
     defaultValues: {
       name: userData.name ?? '',
       email: userData.email ?? '',
-      imageUrl: userData.image ?? ''
+      companyName: userData.companyName ?? userData.name,
+      slug: {
+        current: userData?.slug?.current ?? slugify(userData?.companyName ?? userData.name ?? ''),
+        _type: 'slug'
+      },
+      www: userData.www ?? '',
+      logoUrl: userData.logoUrl ?? ''
     }
   });
 

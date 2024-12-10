@@ -202,25 +202,9 @@ export type User = {
   image?: string;
   password?: string;
   emailVerified?: string;
-  organization?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "organization";
-  };
-  roles?: Array<string>;
-};
-
-export type Organization = {
-  _id: string;
-  _type: "organization";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
   companyName?: string;
   slug?: Slug;
-  www?: string;
-  image?: {
+  logo?: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -231,6 +215,8 @@ export type Organization = {
     crop?: SanityImageCrop;
     _type: "image";
   };
+  www?: string;
+  roles?: Array<string>;
 };
 
 export type SanityImageCrop = {
@@ -305,5 +291,5 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventAttendant | BlockContent | EventType | Occurrence | VerificationToken | Account | User | Organization | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MediaTag | Slug;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventAttendant | BlockContent | EventType | Occurrence | VerificationToken | Account | User | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MediaTag | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;

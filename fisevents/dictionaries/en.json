@@ -87,35 +87,28 @@
     },
     "account": {
       "userAccount": "User account",
-      "name": "Name",
+      "name": "Your name and family name",
       "email": "Email",
       "imageUrl": "Image URL",
-      "save": "Save",
-      "back": "Back to events",
-      "descriptions": {
-        "name": "Your name",
-        "email": "Your email",
-        "image": "Your image"
-      },
-      "validation": {
-        "name": "Name must be at least 5 characters."
-      }
-    },
-    "organization": {
-      "organization": "Organization",
+      "organization": "Your organization name",
       "companyName": "Company name",
       "slug": "Slug",
       "www": "Website",
-      "image": "Image",
+      "logoUrl": "Logo URL",
+      "save": "Save",
+      "back": "Back to events",
       "descriptions": {
-        "companyName": "Your company name",
+        "name": "Your personal name and family name",
+        "email": "Your email",
+        "image": "Your image",
+        "companyName": "Your company or organization name",
         "slug": "This is the URL of your Organization. It will be visible in the address bar of your browser.",
-        "www": "Your company website",
-        "image": "Your company logo"
+        "www": "Have you got a website or a sociale profile? Write it here",
+        "logo": "Upload here your company or organization logo"
       },
       "validation": {
-        "companyName": "Company name must be at least 5 characters.",
-        "slug": "Slug must contain at least 5 characters."
+        "name": "Name must be at least 5 characters.",
+        "companyName": "Company name must be at least 5 characters."
       }
     },
     "events": {
