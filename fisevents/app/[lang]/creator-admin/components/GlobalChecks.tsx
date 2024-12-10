@@ -26,37 +26,36 @@ export default function GlobalChecks({ dictionary }: GlobalChecksProps) {
 
     const redirectTo = CreatorAdminRoutes.getItem('user-account');
 
-    getUser({ userId: session.data?.user!.uid! })
-      .then((res) => {
-        if (!res.name) {
-          showNotification({
-            title: dictionary.action_required,
-            message: dictionary.missing_user_name,
-            type: 'error'
-          });
+    getUser({ userId: session.data?.user!.uid! }).then((res) => {
+      if (!res.name) {
+        showNotification({
+          title: dictionary.action_required,
+          message: dictionary.missing_user_name,
+          type: 'info'
+        });
 
-          if (!pathname?.endsWith(redirectTo)) {
-            router.push(`${redirectTo}?tab=user`);
-          }
-
-          return;
+        if (!pathname?.endsWith(redirectTo)) {
+          router.push(redirectTo);
         }
 
-        return res;
-      })
-      .then((data) => {
-        if (!data?._id) return;
-        if (!data.curOrganization?.companySlug) {
-          showNotification({
-            title: dictionary.action_required,
-            message: dictionary.missing_company_data,
-            type: 'error'
-          });
-          if (!pathname?.endsWith(redirectTo)) {
-            router.push(`${redirectTo}?tab=organization`);
-          }
+        return;
+      }
+      if (!res.companyName) {
+        showNotification({
+          title: dictionary.action_required,
+          message: dictionary.missing_company_data,
+          type: 'info'
+        });
+
+        if (!pathname?.endsWith(redirectTo)) {
+          router.push(redirectTo);
         }
-      });
+
+        return;
+      }
+
+      return res;
+    });
   }, [pathname, router, session.data?.user]);
 
   return <></>;

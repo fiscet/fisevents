@@ -1195,83 +1195,6 @@
         },
         "optional": true
       },
-      "organization": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "object",
-          "attributes": {
-            "_ref": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              }
-            },
-            "_type": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string",
-                "value": "reference"
-              }
-            },
-            "_weak": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "boolean"
-              },
-              "optional": true
-            }
-          },
-          "dereferencesTo": "organization"
-        },
-        "optional": true
-      },
-      "roles": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "array",
-          "of": {
-            "type": "string"
-          }
-        },
-        "optional": true
-      }
-    }
-  },
-  {
-    "name": "organization",
-    "type": "document",
-    "attributes": {
-      "_id": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        }
-      },
-      "_type": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string",
-          "value": "organization"
-        }
-      },
-      "_createdAt": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        }
-      },
-      "_updatedAt": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        }
-      },
-      "_rev": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        }
-      },
       "companyName": {
         "type": "objectAttribute",
         "value": {
@@ -1287,14 +1210,7 @@
         },
         "optional": true
       },
-      "www": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "image": {
+      "logo": {
         "type": "objectAttribute",
         "value": {
           "type": "object",
@@ -1352,6 +1268,23 @@
                 "value": "image"
               }
             }
+          }
+        },
+        "optional": true
+      },
+      "www": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "roles": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "string"
           }
         },
         "optional": true

@@ -6,8 +6,14 @@ import {
   FormLabel,
   FormMessage
 } from '@/components/ui/form';
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger
+} from '@/components/ui/hover-card';
 import { ElementType } from 'react';
 import { UseFormReturn } from 'react-hook-form';
+import { RiInformation2Fill } from 'react-icons/ri';
 
 type DefaultFormFieldProps = {
   form: UseFormReturn<any>;
@@ -36,8 +42,21 @@ export default function DefaultFormField({
       name={name}
       render={({ field }) => (
         <FormItem className="relative mb-1">
-          <FormLabel>{label}</FormLabel>
-          {description && <FormDescription>{description}</FormDescription>}
+          <div className="w-full flex align-center justify-between">
+            <FormLabel>{label}</FormLabel>
+            {description && (
+              <HoverCard>
+                <HoverCardTrigger>
+                  <RiInformation2Fill className="w-5 h-5 text-gray-600" />
+                </HoverCardTrigger>
+                <HoverCardContent className="w-80 bg-white shadow-lg">
+                  <div className="p-4">
+                    <p className="text-gray-600 mt-2">{description}</p>
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
+            )}
+          </div>
           <FormControl>
             <FormComp
               {...field}

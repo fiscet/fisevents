@@ -1,13 +1,7 @@
-import { EventAttendant, Occurrence, Organization, SanityImageAsset, SanityImageMetadata, User } from '@/types/sanity.types';
+import { EventAttendant, Occurrence, SanityImageAsset, SanityImageMetadata, User } from '@/types/sanity.types';
 
 export type CurrentUser = Partial<User> & {
-  curOrganization?: Partial<Organization> & {
-    companySlug: string;
-  };
-};
-
-export type CurrentOrganization = Partial<Organization> & {
-  imageUrl: Pick<SanityImageAsset, 'url'>['url'];
+  logoUrl: Pick<SanityImageAsset, 'url'>['url'];
 };
 
 export type OccurrenceList = Partial<Occurrence> & {

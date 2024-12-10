@@ -4,14 +4,13 @@ import { defineQuery } from 'next-sanity';
 export const userQuery = defineQuery(`*[_type == "user" && _id == $userId][0] {
   _id,
   name,
+  companyName,
+  slug,
   email,
-  image,
-  roles,
-  "curOrganization": organization->{
-    _id,
-    companyName,
-    "companySlug": slug.current
-  }
+  logo,
+  "logoUrl": logo.asset->url,
+  wwww,
+  roles
 }`);
 
 export const organizationQuery = defineQuery(`*[_type == "organization" && _id == $organizationId][0] {

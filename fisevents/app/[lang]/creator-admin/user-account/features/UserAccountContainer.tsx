@@ -1,6 +1,6 @@
 'use client';
 
-import { TransitionStartFunction, useState } from 'react';
+import { useTransition, useState } from 'react';
 import { getDictionary } from '@/lib/i18n.utils';
 import { User } from '@/types/sanity.types';
 import { FileImageType } from '@/types/custom.types';
@@ -15,25 +15,26 @@ import { useSession } from 'next-auth/react';
 import { CurrentUser } from '@/types/sanity.extended.types';
 import { useUploadImage } from '@/hooks/useUploadImage';
 import { useNotification } from '@/components/Notification/useNotification';
+import Processing from '@/components/Processing';
+import { slugify } from '@/lib/utils';
 
 export type UserAccountContainerProps = {
   userData: CurrentUser;
   dictionary: Awaited<ReturnType<typeof getDictionary>>['creator_admin'];
-  startProcessing: TransitionStartFunction;
 };
 
 export default function UserAccountContainer({
   userData,
-  dictionary,
-  startProcessing
+  dictionary
 }: UserAccountContainerProps) {
+  const [isSaving, startProcessing] = useTransition();
   const { data: sessionUserData, update: updateSession } = useSession();
   const { showNotification } = useNotification();
 
-  const [initImageUrl, setInitImageUrl] = useState(userData.image);
+  const [initImageUrl, setInitImageUrl] = useState(userData.logoUrl);
   const [newImg, setNewImg] = useState<FileImageType>({
     file: {} as File,
-    imgUrl: userData.image ?? ''
+    imgUrl: userData.logoUrl ?? ''
   });
 
   const { form } = useUserAccountForm({
@@ -48,26 +49,38 @@ export default function UserAccountContainer({
 
   const handleUserAccountSubmit = async (values: UserAccountFormSchemaType) => {
     startProcessing(async () => {
-      const { imageUrl, ...restValues } = values;
+      const { logoUrl, ...restValues } = values;
       const insValues = { ...restValues } as Partial<User>;
       const newSession = { ...sessionUserData!.user, name: insValues.name };
 
+      insValues.slug = {
+        _type: 'slug',
+        current: slugify(insValues.companyName ?? insValues.name ?? '')
+      };
+
       try {
-        if (newImg.imgUrl && newImg.imgUrl !== userData.image) {
+        if (newImg.imgUrl && newImg.imgUrl !== userData.logoUrl) {
           const imgRes = await uploadImage();
           if (imgRes.error) {
             throw new Error(imgRes.error);
           }
           if (imgRes.id) {
-            insValues.image = imgRes.url;
-            newSession.image = imgRes.url;
-            setNewImg({ file: {} as File, imgUrl: imgRes!.url! });
-            setInitImageUrl(imgRes!.url!);
+            insValues.logo = {
+              _type: 'image',
+              asset: {
+                _type: 'reference',
+                _ref: imgRes.id
+              }
+            };
+            setNewImg({
+              file: {} as File,
+              imgUrl: imgRes.url!
+            });
+            setInitImageUrl(imgRes.url);
           }
         }
-
         if (!newImg.imgUrl) {
-          insValues.image = undefined;
+          insValues.logo = {} as typeof insValues.logo;
         }
 
         await updateUser({ id: userData._id!, data: insValues });
@@ -100,19 +113,22 @@ export default function UserAccountContainer({
   };
 
   return (
-    <UserAccount
-      dictionary={{ ...dictionary.account, ...dictionary.common }}
-      form={form}
-      imageUploaderRender={() => (
-        <ImageUploader
-          initImageUrl={initImageUrl}
-          img={newImg}
-          setImg={setNewImg}
-          onRestore={handleRestoreImage}
-          onDelete={handleDeleteImage}
-        />
-      )}
-      onSubmit={handleUserAccountSubmit}
-    />
+    <>
+      {isSaving && <Processing text={dictionary.common.saving} />}
+      <UserAccount
+        dictionary={{ ...dictionary.account, ...dictionary.common }}
+        form={form}
+        imageUploaderRender={() => (
+          <ImageUploader
+            initImageUrl={initImageUrl}
+            img={newImg}
+            setImg={setNewImg}
+            onRestore={handleRestoreImage}
+            onDelete={handleDeleteImage}
+          />
+        )}
+        onSubmit={handleUserAccountSubmit}
+      />
+    </>
   );
 }

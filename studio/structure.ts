@@ -7,7 +7,7 @@ const groups = [
     name: 'Auth & Users',
     icon: FaHouseUser,
     menuGroups: [
-      ['user', 'organization'],
+      ['user'],
       ['account', 'verificationToken'],
     ]
   },
