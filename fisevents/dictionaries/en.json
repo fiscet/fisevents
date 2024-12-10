@@ -94,7 +94,7 @@
       "companyName": "Company name",
       "slug": "Slug",
       "www": "Website",
-      "logoUrl": "Logo URL",
+      "logo": "Logo",
       "save": "Save",
       "back": "Back to events",
       "descriptions": {

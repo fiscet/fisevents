@@ -6,8 +6,17 @@ import { GrCloudUpload } from 'react-icons/gr';
 import { GrRevert } from 'react-icons/gr';
 import { GrTrash } from 'react-icons/gr';
 import { FileImageType } from '@/types/custom.types';
+import { FormLabel } from '@/components/ui/form';
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger
+} from '@/components/ui/hover-card';
+import { RiInformation2Fill } from 'react-icons/ri';
 
 export type ImageUploaderProps = {
+  label?: string;
+  description?: string;
   boxSize?: number;
   initImageUrl?: string;
   img?: FileImageType;
@@ -18,6 +27,8 @@ export type ImageUploaderProps = {
 
 const ImageUploader = memo(
   function ImageUploader({
+    label,
+    description,
     boxSize = 320,
     initImageUrl,
     img,
@@ -40,47 +51,65 @@ const ImageUploader = memo(
     };
 
     return (
-      <div
-        style={{
-          maxWidth: boxSize,
-          maxHeight: boxSize,
-          width: boxSize,
-          height: boxSize
-        }}
-        className={`relative mx-auto bg-slate-50 border overflow-hidden`}
-      >
-        {img?.imgUrl && (
-          <Image
-            src={img.imgUrl}
-            width={boxSize}
-            height={boxSize}
-            className="mx-auto"
-            alt=""
-            loading="lazy"
-          />
-        )}
-        <div className="w-full h-16 absolute top inset-x-0 bottom-0">
-          <div className="bg-white opacity-60 w-full h-16 absolute top inset-x-0 bottom-0 z-10"></div>
-          <div className="w-full h-16 absolute px-7 flex justify-between items-center z-20 md:opacity-50 md:hover:opacity-100">
-            <label id="file_uploader" className="w-5 h-5 cursor-pointer">
-              <GrCloudUpload className="w-5 h-5" />
-              <input
-                className="w-0 h-0 opacity-0"
-                key={img?.imgUrl}
-                type="file"
-                name="upload"
-                onChange={(e) => handleFilePicker(e)}
-                accept="image/*"
-                id="file_uploader"
-              />
-            </label>
-            {initImageUrl != img?.imgUrl && (
-              <div className="cursor-pointer" onClick={onRestore}>
-                <GrRevert className="w-5 h-5 text-cyan-700" />
+      <div>
+        <div className="flex align-middle justify-between">
+          <FormLabel>{label}</FormLabel>
+          {description && (
+            <HoverCard>
+              <HoverCardTrigger>
+                <RiInformation2Fill className="w-5 h-5 text-gray-600" />
+              </HoverCardTrigger>
+              <HoverCardContent className="w-80 bg-white shadow-lg">
+                <div className="p-4">
+                  <p className="text-gray-600 mt-2">{description}</p>
+                </div>
+              </HoverCardContent>
+            </HoverCard>
+          )}
+        </div>
+
+        <div
+          style={{
+            maxWidth: boxSize,
+            maxHeight: boxSize,
+            width: boxSize,
+            height: boxSize
+          }}
+          className={`relative mx-auto bg-slate-50 border overflow-hidden`}
+        >
+          {img?.imgUrl && (
+            <Image
+              src={img.imgUrl}
+              width={boxSize}
+              height={boxSize}
+              className="mx-auto"
+              alt=""
+              loading="lazy"
+            />
+          )}
+          <div className="w-full h-16 absolute top inset-x-0 bottom-0">
+            <div className="bg-white opacity-60 w-full h-16 absolute top inset-x-0 bottom-0 z-10"></div>
+            <div className="w-full h-16 absolute px-7 flex justify-between items-center z-20 md:opacity-50 md:hover:opacity-100">
+              <label id="file_uploader" className="w-5 h-5 cursor-pointer">
+                <GrCloudUpload className="w-5 h-5" />
+                <input
+                  className="w-0 h-0 opacity-0"
+                  key={img?.imgUrl}
+                  type="file"
+                  name="upload"
+                  onChange={(e) => handleFilePicker(e)}
+                  accept="image/*"
+                  id="file_uploader"
+                />
+              </label>
+              {initImageUrl != img?.imgUrl && (
+                <div className="cursor-pointer" onClick={onRestore}>
+                  <GrRevert className="w-5 h-5 text-cyan-700" />
+                </div>
+              )}
+              <div className="cursor-pointer" onClick={onDelete}>
+                <GrTrash className="w-5 h-5 text-red-700" />
               </div>
-            )}
-            <div className="cursor-pointer" onClick={onDelete}>
-              <GrTrash className="w-5 h-5 text-red-700" />
             </div>
           </div>
         </div>

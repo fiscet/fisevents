@@ -10,6 +10,12 @@ import { Input } from '@/components/ui/input';
 import { MdOutlineGeneratingTokens } from 'react-icons/md';
 import { UseFormReturn } from 'react-hook-form';
 import { slugify } from '@/lib/utils';
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger
+} from '@/components/ui/hover-card';
+import { RiInformation2Fill } from 'react-icons/ri';
 
 export type FormSlugProps = {
   form: UseFormReturn<any>;
@@ -44,8 +50,21 @@ export default function FormSlug({
         name="slug.current"
         render={({ field }) => (
           <FormItem className="relative flex-grow mb-1">
-            <FormLabel>{label}</FormLabel>
-            {description && <FormDescription>{description}</FormDescription>}
+            <div className="w-full flex align-center justify-between">
+              <FormLabel>{label}</FormLabel>
+              {description && (
+                <HoverCard>
+                  <HoverCardTrigger>
+                    <RiInformation2Fill className="w-5 h-5 text-gray-600" />
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-80 bg-white shadow-lg">
+                    <div className="p-4">
+                      <p className="text-gray-600 mt-2">{description}</p>
+                    </div>
+                  </HoverCardContent>
+                </HoverCard>
+              )}
+            </div>
             <FormControl>
               <Input {...field} onFocus={handleSetSlugOnFocus} />
             </FormControl>

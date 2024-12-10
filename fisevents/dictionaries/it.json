@@ -93,7 +93,7 @@
       "companyName": "Nome della società",
       "slug": "Slug",
       "www": "Sito web",
-      "logoUrl": "URL del logo",
+      "logo": "Logo",
       "save": "Salva",
       "back": "Torna agli eventi",
       "descriptions": {

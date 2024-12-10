@@ -120,6 +120,8 @@ export default function UserAccountContainer({
         form={form}
         imageUploaderRender={() => (
           <ImageUploader
+            label={dictionary.account.logo}
+            description={dictionary.account.descriptions.logo}
             initImageUrl={initImageUrl}
             img={newImg}
             setImg={setNewImg}
