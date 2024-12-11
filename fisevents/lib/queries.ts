@@ -4,6 +4,7 @@ import { defineQuery } from 'next-sanity';
 export const userQuery = defineQuery(`*[_type == "user" && _id == $userId][0] {
   _id,
   name,
+  image,
   companyName,
   slug,
   email,

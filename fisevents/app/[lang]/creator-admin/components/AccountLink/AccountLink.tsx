@@ -16,6 +16,12 @@ export default function AccountLink({
   href,
   pictureUrl
 }: AccountLinkProps) {
+
+  const labelChunks = label.split(' ');
+
+  const firstChar = labelChunks[0].substring(0, 1).toUpperCase();
+  const secondChar = labelChunks[1].substring(0, 1).toUpperCase();
+
   return (
     <TooltipSimple label={label}>
       <Link href={href}>
@@ -26,7 +32,7 @@ export default function AccountLink({
           )}
         >
           <AvatarImage src={pictureUrl} />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback>{firstChar}{secondChar}</AvatarFallback>
         </Avatar>
       </Link>
     </TooltipSimple>
