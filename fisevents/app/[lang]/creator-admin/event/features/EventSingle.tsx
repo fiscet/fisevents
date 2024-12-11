@@ -1,8 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { ReactElement, ReactNode, Suspense } from 'react';
-import { getDictionary } from '@/lib/i18n.utils';
+import { ReactElement, Suspense } from 'react';
 import { EventFormSchemaType } from '../hooks/useEventSingleForm';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -13,6 +12,7 @@ import SaveButton from '../../components/SaveButton';
 import EventFormActive from '../components/EventFormActive';
 import FormSlug from '../../components/FormSlug';
 import { ImageUploaderProps } from '../../components/ImageUploader';
+import { useDictionary } from '@/app/contexts/DictionaryContext';
 
 const EditorComp = dynamic(
   () => import('../../components/MarkdownEditor/Editor'),
@@ -24,9 +24,6 @@ const EditorComp = dynamic(
 export type EventSingleProps = {
   title?: string;
   form: any;
-  dictionary: Awaited<
-    ReturnType<typeof getDictionary>
-  >['creator_admin']['events'];
   imageUploaderRender: () => ReactElement<ImageUploaderProps>;
   onSubmit: (values: EventFormSchemaType) => void;
 };
@@ -34,12 +31,14 @@ export type EventSingleProps = {
 export default function EventSingle({
   title,
   form,
-  dictionary,
   imageUploaderRender,
   onSubmit
 }: EventSingleProps) {
   const endDate = form.getValues('endDate');
   const description = form.getValues('description');
+
+  const { creator_admin: ca } = useDictionary();
+  const { events: d } = ca;
 
   let isExpired = false;
 
@@ -62,14 +61,14 @@ export default function EventSingle({
           <DefaultFormField
             form={form}
             name="title"
-            label={dictionary.title}
+            label={d.title}
             formComponent={Input}
-            description={dictionary.descriptions.title}
+            description={d.descriptions.title}
           />
           <FormSlug
             form={form}
-            label={dictionary.slug}
-            description={dictionary.descriptions.slug}
+            label={d.slug}
+            description={d.descriptions.slug}
             sourceItem={form.getValues('title')}
           />
 
@@ -84,15 +83,15 @@ export default function EventSingle({
           <DefaultFormField
             form={form}
             name="location"
-            label={dictionary.location}
+            label={d.location}
             formComponent={Textarea}
             formComponentProps={{ rows: 3 }}
-            description={dictionary.descriptions.location}
+            description={d.descriptions.location}
           />
           <DefaultFormField
             form={form}
             name="maxSubscribers"
-            label={dictionary.maxSubscribers}
+            label={d.maxSubscribers}
             formComponent={Input}
             formComponentProps={{
               type: 'number',
@@ -100,7 +99,7 @@ export default function EventSingle({
                 form.setValue('maxSubscribers', Number(event.target.value))
             }}
             formComponentClassName="w-20 text-center"
-            description={dictionary.descriptions.maxSubscribers}
+            description={d.descriptions.maxSubscribers}
             forceNumber
           />
 
@@ -108,7 +107,7 @@ export default function EventSingle({
             <DefaultFormField
               form={form}
               name="basicPrice"
-              label={dictionary.basicPrice}
+              label={d.basicPrice}
               formComponent={Input}
               formComponentProps={{ type: 'number' }}
               formComponentClassName="w-20 text-right"
@@ -117,7 +116,7 @@ export default function EventSingle({
             <DefaultFormField
               form={form}
               name="currency"
-              label={dictionary.currency}
+              label={d.currency}
               formComponent={Input}
               formComponentProps={{ maxLength: 3 }}
               formComponentClassName="w-20"
@@ -127,8 +126,8 @@ export default function EventSingle({
             <DefaultFormField
               form={form}
               name="publicationStartDate"
-              label={dictionary.publicationStartDate}
-              description={dictionary.descriptions.publicationStartDate}
+              label={d.publicationStartDate}
+              description={d.descriptions.publicationStartDate}
               formComponent={Input}
               formComponentProps={{
                 type: 'datetime-local',
@@ -139,8 +138,8 @@ export default function EventSingle({
             <div className="mb-2">
               <EventFormActive
                 form={form}
-                activeText={dictionary.active}
-                notActiveText={dictionary.not_active}
+                activeText={d.active}
+                notActiveText={d.not_active}
               />
             </div>
           </div>
@@ -148,7 +147,7 @@ export default function EventSingle({
             <DefaultFormField
               form={form}
               name="startDate"
-              label={dictionary.startDate}
+              label={d.startDate}
               formComponent={Input}
               formComponentProps={{
                 type: 'datetime-local',
@@ -159,7 +158,7 @@ export default function EventSingle({
             <DefaultFormField
               form={form}
               name="endDate"
-              label={dictionary.endDate}
+              label={d.endDate}
               formComponent={Input}
               formComponentProps={{
                 type: 'datetime-local',
@@ -173,7 +172,7 @@ export default function EventSingle({
           <Separator className="my-5" />
           {!isExpired && (
             <div className="flex justify-center">
-              <SaveButton className="w-full" text={dictionary.save} />
+              <SaveButton className="w-full" text={d.save} />
             </div>
           )}
         </form>

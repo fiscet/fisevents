@@ -16,6 +16,7 @@ import { GiOpenChest } from 'react-icons/gi';
 import Link from 'next/link';
 import { useCurrentLang } from '@/hooks/useCurrentLang';
 import { Locale } from '@/lib/i18n';
+import { useDictionary } from '@/app/contexts/DictionaryContext';
 
 const isPublished = (publicationStartDate: string, endDate: string) =>
   Date.parse(publicationStartDate) <= Date.now() &&
@@ -23,13 +24,13 @@ const isPublished = (publicationStartDate: string, endDate: string) =>
 
 function getColumns(
   lang: Locale,
-  dictionary: Awaited<
+  d: Awaited<
     ReturnType<typeof getDictionary>
   >['creator_admin']['events']
 ) {
   const columns = [
     {
-      name: dictionary.is_published,
+      name: d.is_published,
       cell: (row) => {
         return (
           <PublishedIcon
@@ -43,7 +44,7 @@ function getColumns(
       hide: 640
     },
     {
-      name: dictionary.title,
+      name: d.title,
       selector: (row) => row.title,
       cell: (row) => (
         <div>
@@ -61,7 +62,7 @@ function getColumns(
       sortable: true
     },
     {
-      name: dictionary.active,
+      name: d.active,
       selector: (row) => row.active,
       cell: (row) => <PublishableIcon isPublishable={!!row.active} />,
       center: 'true',
@@ -69,7 +70,7 @@ function getColumns(
       hide: 640
     },
     {
-      name: dictionary.numAttendants,
+      name: d.numAttendants,
       selector: (row) => row.numAttendants,
       cell: (row) => <NumAttendants num={row.numAttendants} />,
       width: '120px',
@@ -77,7 +78,7 @@ function getColumns(
       hide: 640
     },
     {
-      name: dictionary.publicationStartDate,
+      name: d.publicationStartDate,
       selector: (row) => row.publicationStartDate,
       format: (row) =>
         new Date(row.publicationStartDate as string).toLocaleString(),
@@ -85,28 +86,27 @@ function getColumns(
       sortable: true
     },
     {
-      name: dictionary.startDate,
+      name: d.startDate,
       selector: (row) => row.startDate,
       format: (row) => new Date(row.startDate as string).toLocaleString(),
       hide: 'md',
       sortable: true
     },
     {
-      name: dictionary.endDate,
+      name: d.endDate,
       selector: (row) => row.endDate,
       format: (row) => new Date(row.endDate as string).toLocaleString(),
       hide: 'md',
       sortable: true
     },
     {
-      name: dictionary.details,
+      name: d.details,
       cell: (row) => {
         return (
           <div className="flex gap-2 items-center">
             <Link
-              href={`/${lang}/${CreatorAdminRoutes.getItem('event')}/${
-                row._id
-              }`}
+              href={`/${lang}/${CreatorAdminRoutes.getItem('event')}/${row._id
+                }`}
             >
               <GiOpenChest className="w-5 h-5 text-cyan-700" />
             </Link>
@@ -122,17 +122,17 @@ function getColumns(
 
 export type EventListProps = {
   eventListData: OccurrenceList[];
-  dictionary: Awaited<
-    ReturnType<typeof getDictionary>
-  >['creator_admin']['events'];
+
 };
 
 export default function EventList({
-  eventListData,
-  dictionary
+  eventListData
 }: EventListProps) {
   const router = useRouter();
   const curLang = useCurrentLang();
+
+  const { creator_admin: ca } = useDictionary();
+  const { events: d } = ca;
 
   const [filter, setFilter] = useState<'all' | 'active' | 'published'>('all');
 
@@ -160,12 +160,12 @@ export default function EventList({
       <UtilityBar
         leftElements={
           <EventListFilter
-            title={dictionary.filters}
+            title={d.filters}
             filter={filter}
             filterText={{
-              all: dictionary.all,
-              active: dictionary.active,
-              published: dictionary.published
+              all: d.all,
+              active: d.active,
+              published: d.published
             }}
             setFilter={setFilter}
           />
@@ -173,13 +173,13 @@ export default function EventList({
         rightElements={
           <Button asChild>
             <Link href={CreatorAdminRoutes.getItem('event')}>
-              {dictionary.new_event}
+              {d.new_event}
             </Link>
           </Button>
         }
       />
       <DataTable
-        columns={getColumns(curLang, dictionary)}
+        columns={getColumns(curLang, d)}
         data={filterEvents(eventListData)}
         pagination
         responsive

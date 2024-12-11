@@ -5,16 +5,11 @@ import { addEventAttendant, getEventSingleHasAttendantById } from '@/lib/actions
 import { sendMail } from '@/lib/send-mail';
 import { EventAttendant } from '@/types/sanity.types';
 import { useNotification } from '@/components/Notification/useNotification';
+import { useDictionary } from '@/app/contexts/DictionaryContext';
 
 type ManageSubscriptionProps = {
   eventId: string;
   startProcessing: (callback: () => void) => void;
-  dictionary: {
-    error: string;
-    error_already_subscribed: string;
-    success: string;
-    success_subscribed: string;
-  };
   setIsSubscribed: (value: boolean) => void;
   prepareEmailContent: (addAttendantRes: Partial<EventAttendant>) => {
     subject: string;
@@ -26,11 +21,12 @@ type ManageSubscriptionProps = {
 export function useManageSubscription({
   eventId,
   startProcessing,
-  dictionary,
   setIsSubscribed,
   prepareEmailContent,
 }: ManageSubscriptionProps) {
   const { showNotification } = useNotification();
+
+  const { public: d } = useDictionary();
 
   return useCallback(
     async (data: Partial<EventAttendant>) => {
@@ -43,8 +39,8 @@ export function useManageSubscription({
 
           if (res.hasAttendant) {
             showNotification({
-              title: dictionary.error,
-              message: dictionary.error_already_subscribed,
+              title: d.error,
+              message: d.error_already_subscribed,
               type: 'error',
             });
             return;
@@ -57,8 +53,8 @@ export function useManageSubscription({
 
           if (addAttendantRes) {
             showNotification({
-              title: dictionary.success,
-              message: dictionary.success_subscribed,
+              title: d.success,
+              message: d.success_subscribed,
               type: 'success',
             });
 
@@ -75,16 +71,16 @@ export function useManageSubscription({
             }
           }
         } catch (e) {
-          const message = e instanceof Error ? e.message : dictionary.error;
+          const message = e instanceof Error ? e.message : d.error;
 
           showNotification({
-            title: dictionary.error,
+            title: d.error,
             message: message,
             type: 'error',
           });
         }
       });
     },
-    [eventId, startProcessing, dictionary, showNotification]
+    [eventId, startProcessing, d, showNotification]
   );
 }

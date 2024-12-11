@@ -9,10 +9,10 @@ import { toUserIsoString } from "@/lib/utils";
 import { createEvent, updateEvent } from "@/lib/actions";
 import { CreatorAdminRoutes } from "@/lib/routes";
 import { Dispatch, SetStateAction, TransitionStartFunction } from "react";
+import { useDictionary } from "@/app/contexts/DictionaryContext";
 
 export const useSubmitHandler = (
   eventSingleData: OccurrenceSingle | undefined,
-  dictionary: any,
   newImg: FileImageType,
   setNewImg: Dispatch<SetStateAction<FileImageType>>,
   setInitImageUrl: Dispatch<SetStateAction<string | undefined>>,
@@ -23,6 +23,9 @@ export const useSubmitHandler = (
   showNotification: ReturnType<typeof useNotification>['showNotification']
 ) => {
   const isNewEvent = !eventSingleData;
+
+  const { creator_admin: ca } = useDictionary();
+  const { common: d } = ca;
 
   return async (values: EventFormSchemaType) => {
     startProcessing(async () => {
@@ -90,12 +93,12 @@ export const useSubmitHandler = (
           setInitImageUrl(imgRes.url);
         }
         showNotification({
-          title: dictionary.common.success,
-          message: dictionary.common.success_text,
+          title: d.success,
+          message: d.success_text,
           type: 'success'
         });
       } catch (error: unknown) {
-        let errorMessage = dictionary.common.error_text;
+        let errorMessage = d.error_text;
         if (typeof error === 'object' && error !== null && 'response' in error) {
           const responseError = error as { response?: { data?: { message?: string; }; }; };
           if (responseError.response?.data?.message) {
@@ -107,7 +110,7 @@ export const useSubmitHandler = (
           errorMessage = error.message;
         }
         showNotification({
-          title: dictionary.common.error,
+          title: d.error,
           message: errorMessage,
           type: 'error'
         });

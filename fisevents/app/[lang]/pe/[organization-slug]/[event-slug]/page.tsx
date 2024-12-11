@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { getEventSingleBySlug } from '@/lib/actions';
 import { Locale } from '@/lib/i18n';
-import { getDictionary, getEmailDictionary } from '@/lib/i18n.utils';
+import { getEmailDictionary } from '@/lib/i18n.utils';
 import EventNotFound from '../../components/EventNotFound';
 import PublicEvent from '../../components/PublicEvent';
 import EventAttendantForm from '../../features/EventAttendantContainer';
@@ -23,7 +23,6 @@ export default async function PublicEventPage({
   // const userData = await getUserBySlug({ organizationSlug });
   const eventData = await getEventSingleBySlug({ slug: eventSlug });
 
-  const dictionary = await getDictionary(lang);
   const emailDictionary = await getEmailDictionary(lang);
 
   const showForm = !!eventData && eventData.remainingPlaces > 0;
@@ -51,14 +50,13 @@ export default async function PublicEventPage({
                 eventSlug={eventSlug}
                 companyName="" //{userData.companyName!}
                 eventTitle={eventData.title!}
-                dictionary={dictionary.public}
                 emailDictionary={emailDictionary.event_attendant.subscription}
               />
             </NotificationProvider>
           )}
         </>
       ) : (
-        <EventNotFound message={dictionary.public.event_not_found} />
+        <EventNotFound />
       )}
     </div>
   );

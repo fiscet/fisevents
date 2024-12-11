@@ -1,7 +1,6 @@
 'use client';
 
 import { useTransition, useState } from 'react';
-import { getDictionary } from '@/lib/i18n.utils';
 import { User } from '@/types/sanity.types';
 import { FileImageType } from '@/types/custom.types';
 import { updateUser } from '@/lib/actions';
@@ -17,19 +16,21 @@ import { useUploadImage } from '@/hooks/useUploadImage';
 import { useNotification } from '@/components/Notification/useNotification';
 import Processing from '@/components/Processing';
 import { slugify } from '@/lib/utils';
+import { useDictionary } from '@/app/contexts/DictionaryContext';
 
 export type UserAccountContainerProps = {
   userData: CurrentUser;
-  dictionary: Awaited<ReturnType<typeof getDictionary>>['creator_admin'];
 };
 
 export default function UserAccountContainer({
-  userData,
-  dictionary
+  userData
 }: UserAccountContainerProps) {
   const [isSaving, startProcessing] = useTransition();
   const { data: sessionUserData, update: updateSession } = useSession();
   const { showNotification } = useNotification();
+
+  const { creator_admin: ca } = useDictionary();
+  const { account: a, common: c } = ca;
 
   const [initImageUrl, setInitImageUrl] = useState(userData.logoUrl);
   const [newImg, setNewImg] = useState<FileImageType>({
@@ -38,8 +39,7 @@ export default function UserAccountContainer({
   });
 
   const { form } = useUserAccountForm({
-    userData,
-    dictionary: dictionary.account
+    userData
   });
   const uploadImage = useUploadImage(newImg);
 
@@ -86,7 +86,7 @@ export default function UserAccountContainer({
         await updateUser({ id: userData._id!, data: insValues });
         await updateSession(newSession);
       } catch (error) {
-        let errorMessage = dictionary.common.error_text;
+        let errorMessage = c.error_text;
         if (
           typeof error === 'object' &&
           error !== null &&
@@ -104,7 +104,7 @@ export default function UserAccountContainer({
           errorMessage = error.message;
         }
         showNotification({
-          title: dictionary.common.error,
+          title: c.error,
           message: errorMessage,
           type: 'error'
         });
@@ -114,14 +114,13 @@ export default function UserAccountContainer({
 
   return (
     <>
-      {isSaving && <Processing text={dictionary.common.saving} />}
+      {isSaving && <Processing text={c.saving} />}
       <UserAccount
-        dictionary={{ ...dictionary.account, ...dictionary.common }}
         form={form}
         imageUploaderRender={() => (
           <ImageUploader
-            label={dictionary.account.logo}
-            description={dictionary.account.descriptions.logo}
+            label={a.logo}
+            description={a.descriptions.logo}
             initImageUrl={initImageUrl}
             img={newImg}
             setImg={setNewImg}

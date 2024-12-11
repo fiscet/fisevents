@@ -9,6 +9,7 @@ import { NotificationProvider } from '@/components/Notification/NotificationCont
 import { CreatorAdminRoutes } from '@/lib/routes';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
 import AccountSection from './components/AccountSection';
+import { DictionaryProvider } from '@/app/contexts/DictionaryContext';
 
 export default async function AdminLayout({
   children,
@@ -27,25 +28,25 @@ export default async function AdminLayout({
   return (
     <div className="w-full min-h-fit h-screen flex flex-col bg-[url('/img/main-bg.jpg')] bg-contain bg-fixed">
       <div className="container bg-white min-h-fit h-screen flex flex-col mx-auto p-1 md:p-4 border-x-2 border-orange-200 z-20">
-        <header className="md:grid md:grid-cols-3">
-          <div className="flex justify-between">
-            <LocaleSwitcher curLang={lang} />
-            <div className="block md:hidden">
+        <DictionaryProvider dictionary={dictionary}>
+          <header className="md:grid md:grid-cols-3">
+            <div className="flex justify-between">
+              <LocaleSwitcher curLang={lang} />
+              <div className="block md:hidden">
+                <AccountSection lang={lang} session={session} />
+              </div>
+            </div>
+            <Logo linkTo={`/${lang}/${CreatorAdminRoutes.getBase()}`} />
+            <div className="hidden md:block">
               <AccountSection lang={lang} session={session} />
             </div>
-          </div>
-          <Logo linkTo={`/${lang}/${CreatorAdminRoutes.getBase()}`} />
-          <div className="hidden md:block">
-            <AccountSection lang={lang} session={session} />
-          </div>
-        </header>
-        <NotificationProvider>
-          <div className="mb-10 md:mt-2">
-            <PageWrapper dictionary={dictionary.creator_admin.notifications}>
-              {children}
-            </PageWrapper>
-          </div>
-        </NotificationProvider>
+          </header>
+          <NotificationProvider>
+            <div className="mb-10 md:mt-2">
+              <PageWrapper>{children}</PageWrapper>
+            </div>
+          </NotificationProvider>
+        </DictionaryProvider>
       </div>
     </div>
   );

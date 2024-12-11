@@ -9,22 +9,17 @@ import {
 import { TfiEmail } from 'react-icons/tfi';
 import { FaPhone } from 'react-icons/fa6';
 import { FcAlarmClock } from 'react-icons/fc';
-import { getDictionary } from '@/lib/i18n.utils';
 import { slugify } from '@/lib/utils';
 import { EventAttendant } from '@/types/sanity.types';
 
 export type EventAttentantCardsProps = {
   attendants?: EventAttendant[];
   eventDescription?: string;
-  dictionary: Awaited<
-    ReturnType<typeof getDictionary>
-  >['creator_admin']['attendants'];
 };
 
 export default function EventAttentantCards({
   attendants,
   eventDescription,
-  dictionary
 }: EventAttentantCardsProps) {
   return (
     <div className="md:hidden">

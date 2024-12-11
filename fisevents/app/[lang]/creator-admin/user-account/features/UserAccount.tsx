@@ -1,7 +1,6 @@
 'use client';
 
 import { ReactElement } from 'react';
-import { getDictionary } from '@/lib/i18n.utils';
 import { UserAccountFormSchemaType } from '../hooks/useUserAccountForm';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -9,24 +8,23 @@ import { Separator } from '@/components/ui/separator';
 import DefaultFormField from '@/components/FormField';
 import SaveButton from '../../components/SaveButton';
 import { ImageUploaderProps } from '../../components/ImageUploader';
+import { useDictionary } from '@/app/contexts/DictionaryContext';
 
 export type UserAccountProps = {
   form: any;
-  dictionary: Awaited<
-    ReturnType<typeof getDictionary>
-  >['creator_admin']['account'] &
-    Awaited<ReturnType<typeof getDictionary>>['creator_admin']['common'];
   imageUploaderRender: () => ReactElement<ImageUploaderProps>;
   onSubmit: (values: UserAccountFormSchemaType) => void;
 };
 
 export default function UserAccount({
   form,
-  dictionary,
   imageUploaderRender,
   onSubmit
 }: UserAccountProps) {
   const imageUploader = imageUploaderRender();
+
+  const { creator_admin: ca } = useDictionary();
+  const { account: a, common: c } = ca;
 
   return (
     <div className="px-1 max-w-[650px] mx-auto mb-10">
@@ -41,16 +39,16 @@ export default function UserAccount({
             <DefaultFormField
               form={form}
               name="name"
-              label={dictionary.name}
+              label={a.name}
               formComponent={Input}
-              description={dictionary.descriptions.name}
+              description={a.descriptions.name}
             />
             <DefaultFormField
               form={form}
               name="companyName"
-              label={dictionary.companyName}
+              label={a.companyName}
               formComponent={Input}
-              description={dictionary.descriptions.companyName}
+              description={a.descriptions.companyName}
             />
 
             {imageUploader}
@@ -58,14 +56,14 @@ export default function UserAccount({
             <DefaultFormField
               form={form}
               name="www"
-              label={dictionary.www}
+              label={a.www}
               formComponent={Input}
-              description={dictionary.descriptions.www}
+              description={a.descriptions.www}
             />
 
             <Separator className="my-5" />
             <div className="flex justify-center">
-              <SaveButton className="w-full" text={dictionary.save} />
+              <SaveButton className="w-full" text={c.save} />
             </div>
           </form>
         </Form>

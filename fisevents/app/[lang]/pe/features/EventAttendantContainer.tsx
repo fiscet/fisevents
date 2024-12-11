@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useTransition } from 'react';
-import { getDictionary, getEmailDictionary } from '@/lib/i18n.utils';
+import { getEmailDictionary } from '@/lib/i18n.utils';
 import { useEventAttendantForm } from '../hooks/useEventAttendantForm';
 import { useManageSubscription } from '../hooks/useManageSubscription';
 import { useSubscribeEmail } from '../hooks/useSubscribeEmail';
@@ -9,6 +9,7 @@ import { EventAttendant } from '@/types/sanity.types';
 import EventAttendantForm from './EventAttendantForm';
 import Processing from '@/components/Processing';
 import { Locale } from '@/lib/i18n';
+import { useDictionary } from '@/app/contexts/DictionaryContext';
 
 export type EventAttendantContainerProps = {
   lang: Locale;
@@ -16,7 +17,6 @@ export type EventAttendantContainerProps = {
   eventSlug: string;
   companyName: string;
   eventTitle: string;
-  dictionary: Awaited<ReturnType<typeof getDictionary>>['public'];
   emailDictionary: Awaited<
     ReturnType<typeof getEmailDictionary>
   >['event_attendant']['subscription'];
@@ -28,11 +28,12 @@ export default function EventAttendantContainer({
   eventSlug,
   companyName,
   eventTitle,
-  dictionary,
   emailDictionary
 }: EventAttendantContainerProps) {
   const [isSaving, startProcessing] = useTransition();
   const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const { public: d } = useDictionary();
 
   const eventAttendantData: Partial<EventAttendant> = {
     fullName: '',
@@ -41,8 +42,7 @@ export default function EventAttendantContainer({
   };
 
   const { form } = useEventAttendantForm({
-    eventAttendantData,
-    dictionary
+    eventAttendantData
   });
 
   const {
@@ -55,7 +55,6 @@ export default function EventAttendantContainer({
   const handleAttendandSubmit = useManageSubscription({
     eventId,
     startProcessing,
-    dictionary,
     setIsSubscribed,
     prepareEmailContent: (addAttendantRes) => {
       const unsubscribeLink = generateUnsubscribeLink(
@@ -74,11 +73,10 @@ export default function EventAttendantContainer({
 
   return (
     <>
-      {isSaving && <Processing text={dictionary.subscribing} />}
+      {isSaving && <Processing text={d.subscribing} />}
       {!isSubscribed && (
         <EventAttendantForm
           form={form}
-          dictionary={dictionary}
           onSubmit={handleAttendandSubmit}
         />
       )}

@@ -1,3 +1,4 @@
+import { useDictionary } from '@/app/contexts/DictionaryContext';
 import {
   Table,
   TableBody,
@@ -7,35 +8,33 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table';
-import { getDictionary } from '@/lib/i18n.utils';
 import { slugify } from '@/lib/utils';
 import { EventAttendant } from '@/types/sanity.types';
 
 export type EventAttentantTableProps = {
   attendants?: EventAttendant[];
   eventDescription?: string;
-  dictionary: Awaited<
-    ReturnType<typeof getDictionary>
-  >['creator_admin']['attendants'];
 };
 
 export default function EventAttentantTable({
   attendants,
-  eventDescription,
-  dictionary
+  eventDescription
 }: EventAttentantTableProps) {
+  const { creator_admin: ca } = useDictionary();
+  const {attendants: d} = ca;
+
   return (
     <Table className="hidden md:table">
       <TableCaption>
-        <h2 className="uppercase font-medium">{dictionary.attendants}</h2>
+        <h2 className="uppercase font-medium">{d.attendants}</h2>
         <h3 className="italic">{eventDescription}</h3>
       </TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">{dictionary.fullname}</TableHead>
-          <TableHead>{dictionary.email}</TableHead>
-          <TableHead>{dictionary.phone}</TableHead>
-          <TableHead>{dictionary.subcribitionDate}</TableHead>
+          <TableHead className="w-[100px]">{d.fullname}</TableHead>
+          <TableHead>{d.email}</TableHead>
+          <TableHead>{d.phone}</TableHead>
+          <TableHead>{d.subcribitionDate}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

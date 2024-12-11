@@ -1,13 +1,14 @@
 'use client';
 
 import { useTransition } from 'react';
-import { getDictionary } from '@/lib/i18n.utils';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { OccurrenceSingle } from '@/types/sanity.extended.types';
-import { useEventSingleForm } from '../hooks/useEventSingleForm';
-import ImageUploader from '../../components/ImageUploader';
+import { useEventSingleForm } from '../hooks/useEventSingleForm'; 
+import { useCurrentLang } from '@/hooks/useCurrentLang';
+import { useDictionary } from '@/app/contexts/DictionaryContext';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import ImageUploader from '../../components/ImageUploader';
 import EventSingle from './EventSingle';
 import Processing from '@/components/Processing';
 import UtilityBar from '../../components/UtilityBar';
@@ -19,23 +20,23 @@ import { useSubmitHandler } from '../hooks/useSubmitHandler';
 import GoToEventList from '../../components/GoToEventList';
 import { getPublicEventLink } from '@/lib/utils';
 import AddToSite from '../../components/AddToSite';
-import { useCurrentLang } from '@/hooks/useCurrentLang';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
   companySlug: string;
-  dictionary: Awaited<ReturnType<typeof getDictionary>>['creator_admin'];
 };
 
 export default function EventSingleContainer({
   eventSingleData,
-  companySlug,
-  dictionary
+  companySlug
 }: EventSingleContainerProps) {
   const session = useSession();
   const router = useRouter();
   const { showNotification } = useNotification();
   const curLang = useCurrentLang();
+
+  const { creator_admin: ca } = useDictionary();
+  const { events: d, common: c } = ca;
 
   const {
     initImageUrl,
@@ -54,15 +55,13 @@ export default function EventSingleContainer({
   const [isSaving, startProcessing] = useTransition();
 
   const { form } = useEventSingleForm({
-    eventSingleData,
-    dictionary: dictionary.events
+    eventSingleData
   });
 
   const uploadImage = useUploadImage(newImg);
 
   const onSubmit = useSubmitHandler(
     eventSingleData,
-    dictionary,
     newImg,
     setNewImg,
     setInitImageUrl,
@@ -75,19 +74,19 @@ export default function EventSingleContainer({
 
   return (
     <>
-      {isSaving && <Processing text={dictionary.common.saving} />}
+      {isSaving && <Processing text={c.saving} />}
       <Tabs defaultValue="event">
         <UtilityBar
           leftElements={
-            <GoToEventList backText={dictionary.common.back} lang={curLang} />
+            <GoToEventList backText={c.back} lang={curLang} />
           }
           centerElements={
             publicLink && (
               <AddToSite
                 publicLink={publicLink}
-                copyText={dictionary.common.copy}
-                copySuccessText={dictionary.common.copied}
-                copyErrorText={dictionary.common.copy_error}
+                copyText={c.copy}
+                copySuccessText={c.copied}
+                copyErrorText={c.copy_error}
               />
             )
           }
@@ -95,10 +94,10 @@ export default function EventSingleContainer({
             !!eventSingleData?.attendants?.length && (
               <TabsList>
                 <TabsTrigger value="event">
-                  {dictionary.events.event}
+                  {d.event}
                 </TabsTrigger>
                 <TabsTrigger value="attendants">
-                  {dictionary.events.attendants}
+                  {d.attendants}
                 </TabsTrigger>
               </TabsList>
             )
@@ -106,8 +105,7 @@ export default function EventSingleContainer({
         />
         <TabsContent value="event">
           <EventSingle
-            title={eventSingleData?.title ?? dictionary.events.new_event}
-            dictionary={dictionary.events}
+            title={eventSingleData?.title ?? d.new_event}
             form={form}
             imageUploaderRender={() => (
               <ImageUploader
@@ -127,7 +125,6 @@ export default function EventSingleContainer({
             eventDescription={`${eventSingleData?.title} - ${new Date(
               eventSingleData?.startDate!
             ).toLocaleDateString()}`}
-            dictionary={dictionary.attendants}
           />
         </TabsContent>
       </Tabs>
