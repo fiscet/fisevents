@@ -5,14 +5,11 @@ import { Notification } from '@/types/custom.types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { getDictionary } from '@/lib/i18n.utils';
 import { useState } from 'react';
 import Processing from '@/components/Processing';
+import { useDictionary } from '@/app/contexts/DictionaryContext';
 
 export type SignInWithEmailProps = {
-  dictionary: Awaited<
-    ReturnType<typeof getDictionary>
-  >['auth']['login_with_email'];
   onSignIn: (
     provider: string,
     { email, callbackUrl, redirect }: any
@@ -20,12 +17,13 @@ export type SignInWithEmailProps = {
 };
 
 export default function SignInWithEmail({
-  dictionary,
   onSignIn
 }: SignInWithEmailProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState<string | null>(null);
 
+  const { auth: da } = useDictionary();
+  const { login_with_email: d } = da;
   const { showNotification } = useNotification();
 
   function handleSubmit() {
@@ -40,8 +38,8 @@ export default function SignInWithEmail({
 
   async function signInWithEmail() {
     let notificationParams = {
-      title: dictionary.ok_title,
-      message: dictionary.ok_text,
+      title: d.ok_title,
+      message: d.ok_text,
       type: 'success'
     } as Notification;
 
@@ -49,8 +47,8 @@ export default function SignInWithEmail({
       setIsLoading(false);
 
       notificationParams = {
-        title: dictionary.err_title,
-        message: dictionary.empty_email_text,
+        title: d.err_title,
+        message: d.empty_email_text,
         type: 'error'
       };
 
@@ -69,8 +67,8 @@ export default function SignInWithEmail({
 
     if (!res?.ok) {
       notificationParams = {
-        title: dictionary.err_title,
-        message: dictionary.err_text,
+        title: d.err_title,
+        message: d.err_text,
         type: 'error'
       };
     }
@@ -84,7 +82,7 @@ export default function SignInWithEmail({
       {isLoading && <Processing />}
       <form action={handleSubmit}>
         <div className="flex flex-col gap-y-2">
-          <Label>{dictionary.email}</Label>
+          <Label>{d.email}</Label>
           <Input
             type="email"
             name="email"
@@ -94,7 +92,7 @@ export default function SignInWithEmail({
           />
         </div>
         <Button type="submit" className="mt-4 w-full">
-          {dictionary.title}
+          {d.title}
         </Button>
       </form>
     </>

@@ -4,22 +4,19 @@ import { signIn } from 'next-auth/react';
 import { Separator } from '@/components/ui/separator';
 import SignInWithEmail from './SignInWithEmail';
 import SignInWithGoogle from './SignInWithGoogle';
-import { getDictionary } from '@/lib/i18n.utils';
+import { useDictionary } from '@/app/contexts/DictionaryContext';
 
-export type SignInProvidersProps = {
-  dictionary: Awaited<ReturnType<typeof getDictionary>>['auth'];
-};
-
-export default function SignInProviders({ dictionary }: SignInProvidersProps) {
+export default function SignInProviders() {
+  const {auth: d} = useDictionary();
   return (
     <div className="flex flex-col gap-y-2">
       <SignInWithEmail
-        dictionary={dictionary.login_with_email}
+        dictionary={d.login_with_email}
         onSignIn={signIn}
       />
       <Separator className="my-4" />
       <SignInWithGoogle
-        dictionary={dictionary.login_with_google}
+        dictionary={d.login_with_google}
         onSignIn={signIn}
       />
     </div>

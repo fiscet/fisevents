@@ -3,12 +3,9 @@
 import { Button } from '@/components/ui/button';
 import GoogleLogo from './GoogleLogo';
 import { CreatorAdminRoutes } from '@/lib/routes';
-import { getDictionary } from '@/lib/i18n.utils';
+import { useDictionary } from '@/app/contexts/DictionaryContext';
 
 export type SignInWithGoogleProps = {
-  dictionary: Awaited<
-    ReturnType<typeof getDictionary>
-  >['auth']['login_with_google'];
   onSignIn: (
     provider: string,
     { email, callbackUrl, redirect }: any
@@ -16,9 +13,11 @@ export type SignInWithGoogleProps = {
 };
 
 export default function SignInWithGoogle({
-  dictionary,
   onSignIn
 }: SignInWithGoogleProps) {
+  const { auth: da } = useDictionary();
+  const { login_with_google: d } = da;
+
   return (
     <Button
       onClick={async () =>
@@ -33,7 +32,7 @@ export default function SignInWithGoogle({
       <span className="mr-2">
         <GoogleLogo />
       </span>
-      {dictionary.title}
+      {d.title}
     </Button>
   );
 }
