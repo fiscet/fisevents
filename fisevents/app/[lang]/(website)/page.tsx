@@ -17,7 +17,6 @@ export default async function MainPage({
   return (
     <div className="text-gray-800 pt-[115px] md:pt-[200px] flex flex-col min-h-screen">
       <NavBar
-        dictionary={dictionary}
         lang={lang}
         isLoggedIn={!!session?.user?.email}
       />

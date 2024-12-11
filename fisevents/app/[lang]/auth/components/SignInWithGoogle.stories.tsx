@@ -13,9 +13,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    dictionary: {
-      title: 'Sign in with Google',
-    },
     onSignIn:  fn()
   }
 };

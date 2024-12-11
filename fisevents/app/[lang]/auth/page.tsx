@@ -8,26 +8,18 @@ import {
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { Separator } from '@/components/ui/separator';
-import { getDictionary } from '@/lib/i18n.utils';
-import { Locale } from '@/lib/i18n';
 import Logo from '@/components/Logo';
 import { CreatorAdminRoutes } from '@/lib/routes';
 import SignInProviders from './components/SignInProviders';
 import { authOptions } from '@/lib/authOptions';
 import { NotificationProvider } from '@/components/Notification/NotificationContext';
 
-export default async function AuthPage({
-  params: { lang }
-}: {
-  params: { lang: Locale };
-}) {
+export default async function AuthPage() {
   const session = await getServerSession(authOptions);
 
   if (session) {
     return redirect(`/${CreatorAdminRoutes.getBase()}`);
   }
-
-  const dictionary = await getDictionary(lang);
 
   return (
     <Card className="w-80 drop-shadow-2xl">
@@ -41,7 +33,7 @@ export default async function AuthPage({
           <CardDescription>Choose your authentication method</CardDescription>
         </CardHeader>
         <CardContent>
-          <SignInProviders dictionary={dictionary.auth} />
+          <SignInProviders />
         </CardContent>
       </NotificationProvider>
     </Card>

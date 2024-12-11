@@ -3,16 +3,12 @@
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { getDictionary } from '@/lib/i18n.utils';
 import { CurrentUser } from '@/types/sanity.extended.types';
 import { slugify } from '@/lib/utils';
-import { use } from 'react';
+import { useDictionary } from '@/app/contexts/DictionaryContext';
 
 export type useUserAccountFormProps = {
   userData: CurrentUser;
-  dictionary: Awaited<
-    ReturnType<typeof getDictionary>
-  >['creator_admin']['account'];
 };
 
 export const formSchemaObj = z
@@ -30,7 +26,10 @@ export const formSchemaObj = z
 
 export type UserAccountFormSchemaType = z.infer<typeof formSchemaObj>;
 
-export function useUserAccountForm({ userData, dictionary }: useUserAccountFormProps) {
+export function useUserAccountForm({ userData }: useUserAccountFormProps) {
+
+  const { creator_admin: ca } = useDictionary();
+  const { account: d } = ca;
 
   const formSchema = z
     .object(formSchemaObj.shape)
@@ -41,7 +40,7 @@ export function useUserAccountForm({ userData, dictionary }: useUserAccountFormP
         return name.length > 5;
       },
       {
-        message: dictionary.validation.name,
+        message: d.validation.name,
         path: ['name']
       }
     ).refine(
@@ -51,7 +50,7 @@ export function useUserAccountForm({ userData, dictionary }: useUserAccountFormP
         return companyName.length > 5;
       },
       {
-        message: dictionary.validation.companyName,
+        message: d.validation.companyName,
         path: ['companyName']
       }
     );

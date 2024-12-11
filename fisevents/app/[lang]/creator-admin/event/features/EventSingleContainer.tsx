@@ -4,7 +4,9 @@ import { useTransition } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { OccurrenceSingle } from '@/types/sanity.extended.types';
-import { useEventSingleForm } from '../hooks/useEventSingleForm';
+import { useEventSingleForm } from '../hooks/useEventSingleForm'; 
+import { useCurrentLang } from '@/hooks/useCurrentLang';
+import { useDictionary } from '@/app/contexts/DictionaryContext';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ImageUploader from '../../components/ImageUploader';
 import EventSingle from './EventSingle';
@@ -18,8 +20,6 @@ import { useSubmitHandler } from '../hooks/useSubmitHandler';
 import GoToEventList from '../../components/GoToEventList';
 import { getPublicEventLink } from '@/lib/utils';
 import AddToSite from '../../components/AddToSite';
-import { useCurrentLang } from '@/hooks/useCurrentLang';
-import { useDictionary } from '@/app/contexts/DictionaryContext';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
@@ -35,7 +35,6 @@ export default function EventSingleContainer({
   const { showNotification } = useNotification();
   const curLang = useCurrentLang();
 
-  
   const { creator_admin: ca } = useDictionary();
   const { events: d, common: c } = ca;
 
@@ -56,15 +55,13 @@ export default function EventSingleContainer({
   const [isSaving, startProcessing] = useTransition();
 
   const { form } = useEventSingleForm({
-    eventSingleData,
-    dictionary: d
+    eventSingleData
   });
 
   const uploadImage = useUploadImage(newImg);
 
   const onSubmit = useSubmitHandler(
     eventSingleData,
-    d,
     newImg,
     setNewImg,
     setInitImageUrl,
