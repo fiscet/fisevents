@@ -2,21 +2,17 @@
 
 import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { getDictionary } from '@/lib/i18n.utils';
 import { useNotification } from '@/components/Notification/useNotification';
 import { CreatorAdminRoutes } from '@/lib/routes';
 import { usePathname, useRouter } from 'next/navigation';
 import { getUser } from '@/lib/actions';
+import { useDictionary } from '@/app/contexts/DictionaryContext';
 
-export type GlobalChecksProps = {
-  dictionary: Awaited<
-    ReturnType<typeof getDictionary>
-  >['creator_admin']['notifications'];
-};
-
-export default function GlobalChecks({ dictionary }: GlobalChecksProps) {
+export default function GlobalChecks() {
   const session = useSession();
   const { showNotification } = useNotification();
+  const { creator_admin } = useDictionary();
+  const d = creator_admin.notifications;
 
   const pathname = usePathname();
   const router = useRouter();
@@ -29,8 +25,8 @@ export default function GlobalChecks({ dictionary }: GlobalChecksProps) {
     getUser({ userId: session.data?.user!.uid! }).then((res) => {
       if (!res.name) {
         showNotification({
-          title: dictionary.action_required,
-          message: dictionary.missing_user_name,
+          title: d.action_required,
+          message: d.missing_user_name,
           type: 'info'
         });
 
@@ -42,8 +38,8 @@ export default function GlobalChecks({ dictionary }: GlobalChecksProps) {
       }
       if (!res.companyName) {
         showNotification({
-          title: dictionary.action_required,
-          message: dictionary.missing_company_data,
+          title: d.action_required,
+          message: d.missing_company_data,
           type: 'info'
         });
 

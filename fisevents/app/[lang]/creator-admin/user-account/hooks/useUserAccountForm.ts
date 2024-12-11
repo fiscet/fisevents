@@ -62,7 +62,7 @@ export function useUserAccountForm({ userData, dictionary }: useUserAccountFormP
     defaultValues: {
       name: userData.name ?? '',
       email: userData.email ?? '',
-      companyName: userData.companyName ?? userData.name,
+      companyName: userData.companyName ?? '',
       slug: {
         current: userData?.slug?.current ?? slugify(userData?.companyName ?? userData.name ?? ''),
         _type: 'slug'
