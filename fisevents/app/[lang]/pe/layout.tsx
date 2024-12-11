@@ -4,7 +4,7 @@ import { DictionaryProvider } from '@/app/contexts/DictionaryContext';
 import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
 
-export default async  function PublicLayout({
+export default async  function PeLayout({
   params: {lang},
   children
 }: {
