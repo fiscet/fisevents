@@ -9,6 +9,7 @@ import { Separator } from '@/components/ui/separator';
 import StartEndDates from './StartEndDates';
 import IconText from './IconText';
 import { getDictionary } from '@/lib/i18n.utils';
+import Image from 'next/image';
 
 export type PublicEventProps = {
   eventData: PublicOccurrenceSingle;
@@ -24,6 +25,15 @@ export default async function PublicEvent({
     <div className="flex flex-col">
       <h1 className="text-2xl font-bold text-center mt-5">{eventData.title}</h1>
       <div className="py-2">
+      <Image
+          src={eventData.pageImage.url ?? '/img/logo.png'}
+          alt={eventData.title + ' image'}
+          width="1024"
+          height="320"
+          className="mx-auto"
+        />
+      </div>
+      <div className="py-2">
         <Markdown remarkPlugins={[remarkGfm]}>{eventData.description}</Markdown>
       </div>
       <Separator className="my-4" />
@@ -37,16 +47,20 @@ export default async function PublicEvent({
       <Separator className="my-4" />
       <IconText Icon={FaRegMoneyBill1}>{eventData.price}</IconText>
       <Separator className="my-4" />
-      <IconText
-        Icon={MdOutlineEmojiPeople}
-        containerClassName={
-          eventData.remainingPlaces <= 0 ? 'text-red-600' : ''
-        }
-        iconClassName={eventData.remainingPlaces <= 0 ? 'text-red-600' : ''}
-      >
-        {eventData.remainingPlaces} {dictionary.public.places_left}
-      </IconText>
-      <Separator className="my-4" />
+      {eventData.maxSubscribers && eventData.maxSubscribers > 0 &&
+        <>
+          <IconText
+            Icon={MdOutlineEmojiPeople}
+            containerClassName={
+              eventData.remainingPlaces <= 0 ? 'text-red-600' : ''
+            }
+            iconClassName={eventData.remainingPlaces <= 0 ? 'text-red-600' : ''}
+          >
+            {eventData.remainingPlaces} {dictionary.public.places_left}
+          </IconText>
+          <Separator className="my-4" />
+        </>
+      }
     </div>
   );
 }

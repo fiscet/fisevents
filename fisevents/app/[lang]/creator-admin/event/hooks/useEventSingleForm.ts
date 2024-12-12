@@ -25,7 +25,7 @@ export const formSchemaObj = z
     maxSubscribers: z.number().optional(),
     basicPrice: z.string().optional(),
     currency: z.string().max(3).toUpperCase().optional(),
-    publicationStartDate: z.string(),
+    publicationStartDate: z.string().optional(),
     startDate: z.string(),
     endDate: z.string(),
     active: z.boolean()
@@ -44,6 +44,8 @@ export function useEventSingleForm({ eventSingleData }: useEventSingleFormProps)
       (data) => {
         const { publicationStartDate, startDate } = data;
 
+        if (!publicationStartDate) return true;
+
         const tsPublicationStartDate = Date.parse(publicationStartDate);
         const tsStartDate = Date.parse(startDate);
 
@@ -58,11 +60,13 @@ export function useEventSingleForm({ eventSingleData }: useEventSingleFormProps)
       (data) => {
         const { _id, publicationStartDate } = data;
 
-        if (_id) return true;
+        if (_id || !publicationStartDate) return true;
+
+        const minutesTollerance = 5;
 
         const tsPublicationStartDate = Date.parse(publicationStartDate);
 
-        return tsPublicationStartDate >= Date.now();
+        return tsPublicationStartDate >= Date.now() - minutesTollerance * 60 * 1000;
       },
       {
         message: d.validation.publicationStartDateAndNow,
@@ -88,12 +92,6 @@ export function useEventSingleForm({ eventSingleData }: useEventSingleFormProps)
         message: d.validation.title,
         path: ['title']
       }
-    ).refine((data) =>
-      data.slug.current.length > 5
-      , {
-        message: d.validation.slug,
-        path: ['slug.current']
-      }
     );
 
   const today = new Date();
@@ -110,18 +108,18 @@ export function useEventSingleForm({ eventSingleData }: useEventSingleFormProps)
       },
       description: eventSingleData?.description ?? '',
       location: eventSingleData?.location ?? '',
-      maxSubscribers: eventSingleData?.maxSubscribers ?? 0,
+      maxSubscribers: eventSingleData?.maxSubscribers ?? undefined,
       basicPrice:
         eventSingleData?.basicPrice?.toString().replace(',', '.') ?? '0',
       currency: eventSingleData?.currency ?? '',
       publicationStartDate:
         pickerDateToIsoString(eventSingleData?.publicationStartDate) ??
-        todayString,
+        undefined,
       startDate:
         pickerDateToIsoString(eventSingleData?.startDate) ?? todayString,
       endDate:
         pickerDateToIsoString(eventSingleData?.endDate) ??
-        pickerDateToIsoString(new Date(today.setDate(today.getDate() + 7))),
+        pickerDateToIsoString(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)),
       active: eventSingleData?.active ?? true
     }
   });

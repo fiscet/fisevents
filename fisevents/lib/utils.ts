@@ -62,3 +62,21 @@ export const getPublicEventLink = (eventSlug: string, companySlug: string) => {
 
   return `${host}/${publicSlug}/${companySlug}/${eventSlug}`;
 };
+
+export const checkIsValidUrl = (url: string) => {
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    return false;
+  }
+
+  const pattern = new RegExp(
+    '^(https?:\\/\\/)' + // protocol (required)
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+    '(\\#[-a-z\\d_]*)?$',
+    'i'
+  );    
+
+  return pattern.test(url);
+};

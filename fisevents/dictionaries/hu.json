@@ -79,7 +79,7 @@
       "success_text": "A módosítások sikeresen mentve",
       "error": "Hiba",
       "error_text": "Valami hiba történt",
-      "error_slug_exists": "Slug már létezik",
+      "goto_event_list": "Ugrás a listához",
       "copy": "Másolás",
       "copied": "Másolva",
       "copy_error": "Másolási hiba"
@@ -107,24 +107,8 @@
       },
       "validation": {
         "name": "A névnek legalább 5 karakter hosszúnak kell lennie.",
-        "companyName": "A vállalat nevének legalább 5 karakter hosszúnak kell lennie."
-      }
-    },
-    "organization": {
-      "organization": "Szervezet",
-      "companyName": "Vállalat neve",
-      "slug": "Slug",
-      "www": "Weboldal",
-      "image": "Kép",
-      "descriptions": {
-        "companyName": "Az ön vállalatának a neve",
-        "slug": "Ez az URL az ön vállalatának. Látható lesz a böngésző címsorában.",
-        "www": "Az ön vállalatának weboldala",
-        "image": "Az ön vállalatának logója"
-      },
-      "validation": {
         "companyName": "A vállalat nevének legalább 5 karakter hosszúnak kell lennie.",
-        "slug": "Slug-nek legalább 5 karakter hosszúnak kell lennie."
+        "www": "Írja be a weboldal URL-jét, amelyet a http:// vagy a https:// előtagja"
       }
     },
     "events": {
@@ -133,6 +117,7 @@
       "is_published": "Közzétéve",
       "title": "Esemény neve",
       "slug": "Slug",
+      "image": "Esemény kép",
       "publicationStartDate": "Közzétéve ettől",
       "startDate": "Kezdés dátuma",
       "endDate": "Befejezés dátuma",
@@ -148,7 +133,7 @@
       "filters": "Szűrés állapot szerint",
       "all": "Összes",
       "published": "Közzétéve",
-      "new_event": "Új esemény",
+      "new_event": "Új esemény létrehozása",
       "back": "Vissza az eseményekhez",
       "public_url": "Nyilvános URL",
       "details": "Részletek",
@@ -156,10 +141,11 @@
       "descriptions": {
         "title": "Ez az esemény nyilvános megjelenítési neve.",
         "slug": "Ez az esemény URL-je. Látható lesz a böngésző címsorában.",
+        "image": "Esemény kép",
         "description": "Adjon meg részleteket az eseményről a felhasználók számára, pl. kinek szól, milyen előnyöket kínál, mi a tanítási terv stb.",
         "location": "Hol lesz az esemény? Ha helyszín, kérjük, adjon útmutatót az odajutáshoz",
-        "maxSubscribers": "Ha korlátozott számú, adja meg a maximális számot, különben írjon 0-t",
-        "publicationStartDate": "Amikor az esemény online látható lesz, és a felhasználók regisztrálhatnak"
+        "maxSubscribers": "Ha korlátozott számú, adja meg a maximális számot",
+        "publicationStartDate": "Elhalasztja a rendezvényre való jelentkezés lehetőségét"
       },
       "validation": {
         "title": "A címnek legalább 5 karakter hosszúságúnak kell lennie.",

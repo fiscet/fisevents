@@ -6,6 +6,7 @@ import EventNotFound from '../../components/EventNotFound';
 import PublicEvent from '../../components/PublicEvent';
 import EventAttendantForm from '../../features/EventAttendantContainer';
 import { NotificationProvider } from '@/components/Notification/NotificationContext';
+import { revalidateTag } from 'next/cache';
 
 export default async function PublicEventPage({
   params: {
@@ -25,7 +26,9 @@ export default async function PublicEventPage({
 
   const emailDictionary = await getEmailDictionary(lang);
 
-  const showForm = !!eventData && eventData.remainingPlaces > 0;
+  const showForm = !!eventData && (!eventData.maxSubscribers || eventData.maxSubscribers && eventData.maxSubscribers >= 0 && eventData.remainingPlaces > 0) && Date.parse(eventData.endDate!) >= Date.now();
+
+  revalidateTag(`eventSingleBySlug:${eventSlug}`);
 
   return (
     <div>

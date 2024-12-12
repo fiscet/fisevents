@@ -7,12 +7,11 @@ import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
-import DefaultFormField from '@/components/FormField';
+import DefaultFormField from '@/components/FormField/FormField';
 import SaveButton from '../../components/SaveButton';
-import EventFormActive from '../components/EventFormActive';
-import FormSlug from '../../components/FormSlug';
 import { ImageUploaderProps } from '../../components/ImageUploader';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
+import FormFieldHeader from '@/components/FormField/FormFieldHeader';
 
 const EditorComp = dynamic(
   () => import('../../components/MarkdownEditor/Editor'),
@@ -65,21 +64,20 @@ export default function EventSingle({
             formComponent={Input}
             description={d.descriptions.title}
           />
-          <FormSlug
-            form={form}
-            label={d.slug}
-            description={d.descriptions.slug}
-            sourceItem={form.getValues('title')}
-          />
 
-          {imageUploader}
-
-          <Suspense fallback={null}>
-            <EditorComp
-              markdown={description}
-              onChange={(text) => form.setValue('description', text)}
-            />
-          </Suspense>
+          <div>
+            <FormFieldHeader label={d.image} description={d.descriptions.image} />
+            {imageUploader}
+          </div>
+          <div>
+            <Suspense fallback={null}>
+              <FormFieldHeader label={d.description} description={d.descriptions.description} />
+              <EditorComp
+                markdown={description}
+                onChange={(text) => form.setValue('description', text)}
+              />
+            </Suspense>
+          </div>
           <DefaultFormField
             form={form}
             name="location"
@@ -88,22 +86,7 @@ export default function EventSingle({
             formComponentProps={{ rows: 3 }}
             description={d.descriptions.location}
           />
-          <DefaultFormField
-            form={form}
-            name="maxSubscribers"
-            label={d.maxSubscribers}
-            formComponent={Input}
-            formComponentProps={{
-              type: 'number',
-              onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
-                form.setValue('maxSubscribers', Number(event.target.value))
-            }}
-            formComponentClassName="w-20 text-center"
-            description={d.descriptions.maxSubscribers}
-            forceNumber
-          />
-
-          <div className="flex">
+          <div className="flex gap-1">
             <DefaultFormField
               form={form}
               name="basicPrice"
@@ -122,27 +105,6 @@ export default function EventSingle({
               formComponentClassName="w-20"
             />
           </div>
-          <div className="flex flex-col md:flex-row md:items-end gap-2 md:gap-20">
-            <DefaultFormField
-              form={form}
-              name="publicationStartDate"
-              label={d.publicationStartDate}
-              description={d.descriptions.publicationStartDate}
-              formComponent={Input}
-              formComponentProps={{
-                type: 'datetime-local',
-                disabled: isExpired
-              }}
-              formComponentClassName="w-[205px]"
-            />
-            <div className="mb-2">
-              <EventFormActive
-                form={form}
-                activeText={d.active}
-                notActiveText={d.not_active}
-              />
-            </div>
-          </div>
           <div className="flex flex-col md:flex-row gap-1">
             <DefaultFormField
               form={form}
@@ -153,7 +115,7 @@ export default function EventSingle({
                 type: 'datetime-local',
                 disabled: isExpired
               }}
-              formComponentClassName="w-[205px]"
+              formComponentClassName="w-[215px]"
             />
             <DefaultFormField
               form={form}
@@ -165,7 +127,37 @@ export default function EventSingle({
                 disabled: isExpired,
                 min: new Date().toISOString().substring(0, 16)
               }}
-              formComponentClassName="w-[205px]"
+              formComponentClassName="w-[215px]"
+            />
+          </div>
+          <div className="bg-slate-50 px-3">
+            <DefaultFormField
+              form={form}
+              name="maxSubscribers"
+              label={d.maxSubscribers}
+              formComponent={Input}
+              formComponentProps={{
+                type: 'number',
+                onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
+                  form.setValue('maxSubscribers', Number(event.target.value))
+              }}
+              formComponentClassName="w-20 text-center"
+              description={d.descriptions.maxSubscribers}
+              forceNumber
+              isAccordion={true}
+            />
+            <DefaultFormField
+              form={form}
+              name="publicationStartDate"
+              label={d.publicationStartDate}
+              description={d.descriptions.publicationStartDate}
+              formComponent={Input}
+              formComponentProps={{
+                type: 'datetime-local',
+                disabled: isExpired
+              }}
+              formComponentClassName="w-[215px]"
+              isAccordion={true}
             />
           </div>
 

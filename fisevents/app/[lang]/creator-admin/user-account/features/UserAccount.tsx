@@ -1,17 +1,18 @@
 'use client';
 
-import { ReactElement } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { UserAccountFormSchemaType } from '../hooks/useUserAccountForm';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import DefaultFormField from '@/components/FormField';
+import DefaultFormField from '@/components/FormField/FormField';
 import SaveButton from '../../components/SaveButton';
 import { ImageUploaderProps } from '../../components/ImageUploader';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
+import { useForm } from 'react-hook-form';
 
 export type UserAccountProps = {
-  form: any;
+  form: ReturnType<typeof useForm<UserAccountFormSchemaType>>;
   imageUploaderRender: () => ReactElement<ImageUploaderProps>;
   onSubmit: (values: UserAccountFormSchemaType) => void;
 };
@@ -25,6 +26,13 @@ export default function UserAccount({
 
   const { creator_admin: ca } = useDictionary();
   const { account: a, common: c } = ca;
+
+  useEffect(() => {
+    if (!form.getValues('companyName')) {
+      form.setFocus('companyName');
+      form.trigger('companyName');
+    }
+  }, []);
 
   return (
     <div className="px-1 max-w-[650px] mx-auto mb-10">

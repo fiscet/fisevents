@@ -5,7 +5,7 @@ import { OccurrenceSingle } from "@/types/sanity.extended.types";
 import { useSession } from "next-auth/react";
 import { EventFormSchemaType } from "./useEventSingleForm";
 import { Occurrence } from "@/types/sanity.types";
-import { toUserIsoString } from "@/lib/utils";
+import { slugify, toUserIsoString } from "@/lib/utils";
 import { createEvent, updateEvent } from "@/lib/actions";
 import { CreatorAdminRoutes } from "@/lib/routes";
 import { Dispatch, SetStateAction, TransitionStartFunction } from "react";
@@ -33,9 +33,19 @@ export const useSubmitHandler = (
       const { ...restValues } = values;
       const insValues = { ...restValues } as Partial<Occurrence>;
 
-      insValues.publicationStartDate = toUserIsoString(new Date(values.publicationStartDate));
+      insValues.publicationStartDate = values.publicationStartDate ? toUserIsoString(new Date(values.publicationStartDate)) : undefined;
       insValues.startDate = toUserIsoString(new Date(values.startDate));
       insValues.endDate = toUserIsoString(new Date(values.endDate));
+
+      insValues.slug = {
+        _type: 'slug',
+        current: slugify(insValues.title!)
+      };
+
+      if(!values.maxSubscribers || values.maxSubscribers <= 0) {
+        insValues.maxSubscribers = undefined;
+        delete insValues.maxSubscribers;
+      }
 
       let imgRes;
 
