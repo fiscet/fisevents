@@ -7,11 +7,14 @@ import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
-import DefaultFormField from '@/components/FormField/FormField';
+import DefaultFormField from '@/components/FormField/DefaultFormField';
 import SaveButton from '../../components/SaveButton';
 import { ImageUploaderProps } from '../../components/ImageUploader';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 import FormFieldHeader from '@/components/FormField/FormFieldHeader';
+import FormSlug from '../../components/FormSlug';
+import { slugify } from '@/lib/utils';
+import { useForm } from 'react-hook-form';
 
 const EditorComp = dynamic(
   () => import('../../components/MarkdownEditor/Editor'),
@@ -22,7 +25,7 @@ const EditorComp = dynamic(
 
 export type EventSingleProps = {
   title?: string;
-  form: any;
+  form: ReturnType<typeof useForm<EventFormSchemaType>>;
   imageUploaderRender: () => ReactElement<ImageUploaderProps>;
   onSubmit: (values: EventFormSchemaType) => void;
 };
@@ -42,7 +45,7 @@ export default function EventSingle({
   let isExpired = false;
 
   if (endDate) {
-    const today = new Date().toISOString().split('T')[0] + '00:00';
+    const today = new Date().toISOString().split('T')[0] + 'T00:00';
     isExpired = Date.parse(endDate) < Date.parse(today);
   }
 
@@ -54,7 +57,7 @@ export default function EventSingle({
       <Separator className="my-5" />
       <Form {...form}>
         <form
-          onSubmit={!isExpired ? form.handleSubmit(onSubmit) : null}
+          onSubmit={!isExpired ? form.handleSubmit(onSubmit) : undefined}
           className="space-y-8"
         >
           <DefaultFormField
@@ -64,14 +67,25 @@ export default function EventSingle({
             formComponent={Input}
             description={d.descriptions.title}
           />
-
+          <FormSlug
+            form={form}
+            label={d.slug}
+            description={d.descriptions.slug}
+            sourceItem={form.getValues('title')}
+          />
           <div>
-            <FormFieldHeader label={d.image} description={d.descriptions.image} />
+            <FormFieldHeader
+              label={d.image}
+              description={d.descriptions.image}
+            />
             {imageUploader}
           </div>
           <div>
             <Suspense fallback={null}>
-              <FormFieldHeader label={d.description} description={d.descriptions.description} />
+              <FormFieldHeader
+                label={d.description}
+                description={d.descriptions.description}
+              />
               <EditorComp
                 markdown={description}
                 onChange={(text) => form.setValue('description', text)}

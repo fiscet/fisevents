@@ -12,8 +12,7 @@ import EventListFilter from '../components/EventListFilter';
 import { CreatorAdminRoutes } from '@/lib/routes';
 import UtilityBar from '../../components/UtilityBar';
 import { Button } from '@/components/ui/button';
-import { GiOpenChest } from 'react-icons/gi';
-import { FiChevronRight } from "react-icons/fi";
+import { FiChevronRight } from 'react-icons/fi';
 import Link from 'next/link';
 import { useCurrentLang } from '@/hooks/useCurrentLang';
 import { Locale } from '@/lib/i18n';
@@ -25,9 +24,7 @@ const isPublished = (publicationStartDate: string, endDate: string) =>
 
 function getColumns(
   lang: Locale,
-  d: Awaited<
-    ReturnType<typeof getDictionary>
-  >['creator_admin']['events']
+  d: Awaited<ReturnType<typeof getDictionary>>['creator_admin']['events']
 ) {
   const columns = [
     {
@@ -56,19 +53,10 @@ function getColumns(
               inset="4px"
             />
             <NumAttendants num={row.numAttendants} />
-            <PublishableIcon isPublishable={!!row.active} />
           </div>
         </div>
       ),
       sortable: true
-    },
-    {
-      name: d.active,
-      selector: (row) => row.active,
-      cell: (row) => <PublishableIcon isPublishable={!!row.active} />,
-      center: 'true',
-      sortable: true,
-      hide: 640
     },
     {
       name: d.numAttendants,
@@ -82,7 +70,9 @@ function getColumns(
       name: d.publicationStartDate,
       selector: (row) => row.publicationStartDate,
       format: (row) =>
-        new Date(row.publicationStartDate as string).toLocaleString(),
+        row.publicationStartDate
+          ? new Date(row.publicationStartDate as string).toLocaleString()
+          : '',
       hide: 'md',
       sortable: true
     },
@@ -106,8 +96,9 @@ function getColumns(
         return (
           <div className="flex gap-2 items-center">
             <Link
-              href={`/${lang}/${CreatorAdminRoutes.getItem('event')}/${row._id
-                }`}
+              href={`/${lang}/${CreatorAdminRoutes.getItem('event')}/${
+                row._id
+              }`}
             >
               <FiChevronRight className="w-5 h-5 text-cyan-700" />
             </Link>
@@ -123,19 +114,18 @@ function getColumns(
 
 export type EventListProps = {
   eventListData: OccurrenceList[];
-
 };
 
-export default function EventList({
-  eventListData
-}: EventListProps) {
+export default function EventList({ eventListData }: EventListProps) {
   const router = useRouter();
   const curLang = useCurrentLang();
 
   const { creator_admin: ca } = useDictionary();
   const { events: d } = ca;
 
-  const [filter, setFilter] = useState<'all' | 'active' | 'published'>('all');
+  const [filter, setFilter] = useState<'all' | 'published' | 'unpublished'>(
+    'all'
+  );
 
   const filterEvents = (events: OccurrenceList[]) => {
     if (filter === 'all') return events;
@@ -143,12 +133,12 @@ export default function EventList({
     const now = Date.now();
 
     return events.filter((event) => {
-      const isActive = event.active;
       const isPublished =
         Date.parse(event.publicationStartDate!) <= now &&
-        Date.parse(event.endDate!) > now;
+        Date.parse(event.endDate!) > now &&
+        event.active;
 
-      return filter === 'active' ? isActive : isPublished;
+      return filter === 'published' ? isPublished : !isPublished;
     });
   };
 
@@ -165,8 +155,8 @@ export default function EventList({
             filter={filter}
             filterText={{
               all: d.all,
-              active: d.active,
-              published: d.published
+              published: d.published,
+              unpublished: d.unpublished
             }}
             setFilter={setFilter}
           />

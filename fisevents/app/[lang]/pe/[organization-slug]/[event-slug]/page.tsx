@@ -21,12 +21,17 @@ export default async function PublicEventPage({
     ['event-slug']: string;
   };
 }) {
-  // const userData = await getUserBySlug({ organizationSlug });
   const eventData = await getEventSingleBySlug({ slug: eventSlug });
 
   const emailDictionary = await getEmailDictionary(lang);
 
-  const showForm = !!eventData && (!eventData.maxSubscribers || eventData.maxSubscribers && eventData.maxSubscribers >= 0 && eventData.remainingPlaces > 0) && Date.parse(eventData.endDate!) >= Date.now();
+  const showForm =
+    !!eventData &&
+    (!eventData.maxSubscribers ||
+      (eventData.maxSubscribers &&
+        eventData.maxSubscribers >= 0 &&
+        eventData.remainingPlaces > 0)) &&
+    Date.parse(eventData.endDate!) >= Date.now();
 
   revalidateTag(`eventSingleBySlug:${eventSlug}`);
 
@@ -51,7 +56,7 @@ export default async function PublicEventPage({
                 lang={lang}
                 eventId={eventData._id!}
                 eventSlug={eventSlug}
-                companyName="" //{userData.companyName!}
+                companyName={eventData.companyName!}
                 eventTitle={eventData.title!}
                 emailDictionary={emailDictionary.event_attendant.subscription}
               />

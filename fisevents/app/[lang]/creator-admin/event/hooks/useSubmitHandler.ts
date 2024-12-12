@@ -37,12 +37,14 @@ export const useSubmitHandler = (
       insValues.startDate = toUserIsoString(new Date(values.startDate));
       insValues.endDate = toUserIsoString(new Date(values.endDate));
 
-      insValues.slug = {
-        _type: 'slug',
-        current: slugify(insValues.title!)
-      };
+      if (!insValues.slug?.current) {
+        insValues.slug = {
+          _type: 'slug',
+          current: slugify(insValues.title!)
+        };
+      }
 
-      if(!values.maxSubscribers || values.maxSubscribers <= 0) {
+      if (!values.maxSubscribers || values.maxSubscribers <= 0) {
         insValues.maxSubscribers = undefined;
         delete insValues.maxSubscribers;
       }
@@ -82,7 +84,6 @@ export const useSubmitHandler = (
 
           delete insValues._id;
 
-          // const res = await handleCreate<Partial<Occurrence>>(insValues);
           const res = await createEvent({ data: insValues as Occurrence });
 
           if (res._id) {

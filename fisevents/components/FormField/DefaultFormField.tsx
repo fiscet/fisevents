@@ -1,7 +1,4 @@
-import {
-  FormField,
-  FormItem
-} from '@/components/ui/form';
+import { FormField, FormItem } from '@/components/ui/form';
 
 import { ElementType } from 'react';
 import { UseFormReturn } from 'react-hook-form';
@@ -42,13 +39,15 @@ export default function DefaultFormField({
             <AccordionComponent
               triggerComponent={
                 <FormFieldHeader label={label} description={description} />
-              }>
+              }
+            >
               <FormFieldControl
                 formComponent={formComponent}
                 formComponentClassName={formComponentClassName}
                 formComponentProps={formComponentProps}
                 forceNumber={forceNumber}
-                field={field} />
+                field={field}
+              />
             </AccordionComponent>
           </FormItem>
         )}
@@ -56,16 +55,18 @@ export default function DefaultFormField({
     );
   }
 
-  return <SimpleFormField
-    form={form}
-    name={name}
-    label={label}
-    formComponent={formComponent}
-    formComponentClassName={formComponentClassName}
-    formComponentProps={formComponentProps}
-    description={description}
-    forceNumber={forceNumber}
-  />;
+  return (
+    <SimpleFormField
+      form={form}
+      name={name}
+      label={label}
+      formComponent={formComponent}
+      formComponentClassName={formComponentClassName}
+      formComponentProps={formComponentProps}
+      description={description}
+      forceNumber={forceNumber}
+    />
+  );
 }
 
 function SimpleFormField({
@@ -90,10 +91,10 @@ function SimpleFormField({
             formComponentClassName={formComponentClassName}
             formComponentProps={formComponentProps}
             forceNumber={forceNumber}
-            field={field} />
+            field={field}
+          />
         </FormItem>
       )}
     />
   );
 }
-

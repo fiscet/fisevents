@@ -54,7 +54,7 @@
     }
   },
   "auth": {
-    "login": "Accedi qui",
+    "login": "Inizia da qui",
     "logout": "Esci dall'applicazione",
     "account": "Gestisci il tuo Account",
     "login_with_email": {
@@ -130,9 +130,10 @@
       "active": "Pubblicabile",
       "not_active": "Non pubblicabile",
       "save": "Salva",
-      "filters": "Filtra per stato",
+      "filters": "Vedi",
       "all": "Tutti",
-      "published": "Pubblicato",
+      "published": "Pubblicati",
+      "unpublished": "Non pubblicati",
       "new_event": "Crea un nuovo evento",
       "back": "Tutti gli eventi",
       "public_url": "URL pubblico",

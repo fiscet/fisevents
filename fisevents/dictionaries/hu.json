@@ -54,7 +54,7 @@
     }
   },
   "auth": {
-    "login": "Bejelentkezés ide",
+    "login": "Kezdje itt",
     "logout": "Kilépés az alkalmazásból",
     "account": "Fiók kezelése",
     "login_with_email": {
@@ -130,9 +130,10 @@
       "active": "Közzétehető",
       "not_active": "Nem közzétehető",
       "save": "Mentés",
-      "filters": "Szűrés állapot szerint",
+      "filters": "Nézet",
       "all": "Összes",
       "published": "Közzétéve",
+      "unpublished": "Nem közzétett",
       "new_event": "Új esemény létrehozása",
       "back": "Vissza az eseményekhez",
       "public_url": "Nyilvános URL",

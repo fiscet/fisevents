@@ -88,6 +88,7 @@ export const eventSingleBySlugQuery = defineQuery(`
   "price": coalesce(string(basicPrice), "") + " " + coalesce(currency, "-"),
   startDate,
   endDate,
+  "companyName":*[_type == "user" && _id == ^.createdByUser->_id][0].companyName,
   "organizationSlug":*[_type == "user" && _id == ^.createdByUser->_id][0].slug.current,
 }`);
 

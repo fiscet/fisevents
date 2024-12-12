@@ -115,13 +115,24 @@ export default function UserAccountContainer({
     });
   };
 
+  const { isDirty, isValid, isSubmitted } = form.formState;
+
+  const isBackVisible =
+    (!isDirty && isValid && !isSubmitted) ||
+    (isDirty && isValid && isSubmitted);
+
   return (
     <>
       {isSaving && <Processing text={c.saving} />}
       <UtilityBar
-        leftElements={form.formState.isValid && (
-          <GoToEventList variant='success' backText={c.goto_event_list} lang={curLang} />
-        )
+        leftElements={
+          isBackVisible && (
+            <GoToEventList
+              variant="success"
+              backText={c.goto_event_list}
+              lang={curLang}
+            />
+          )
         }
       />
       <UserAccount

@@ -18,6 +18,7 @@ export type PublicOccurrenceSingle = Partial<Occurrence> & {
   pageImage: Pick<SanityImageAsset, 'url'> & Pick<SanityImageMetadata, 'dimensions'>;
   remainingPlaces: number;
   price: string;
+  companyName: string;
   organizationSlug: string;
 };
 

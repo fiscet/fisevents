@@ -29,16 +29,6 @@ export default function EventListFilter({
         </div>
         <div
           className={`${
-            filter === 'active'
-              ? 'bg-gray-200 text-gray-900 border-gray-300 '
-              : 'border-gray-300 '
-          }rounded-md py-1 px-2 text-sm font-medium cursor-pointer`}
-          onClick={() => setFilter('active')}
-        >
-          {filterText.active}
-        </div>
-        <div
-          className={`${
             filter === 'published'
               ? 'bg-gray-200 text-gray-900 border-gray-300 '
               : 'border-gray-300 '
@@ -46,6 +36,16 @@ export default function EventListFilter({
           onClick={() => setFilter('published')}
         >
           {filterText.published}
+        </div>
+        <div
+          className={`${
+            filter === 'unpublished'
+              ? 'bg-gray-200 text-gray-900 border-gray-300 '
+              : 'border-gray-300 '
+          }rounded-md py-1 px-2 text-sm font-medium cursor-pointer`}
+          onClick={() => setFilter('unpublished')}
+        >
+          {filterText.unpublished}
         </div>
       </div>
     </div>

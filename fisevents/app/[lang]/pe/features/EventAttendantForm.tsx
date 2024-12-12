@@ -3,7 +3,7 @@
 import React from 'react';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import DefaultFormField from '@/components/FormField/FormField';
+import DefaultFormField from '@/components/FormField/DefaultFormField';
 import SaveButton from '../../creator-admin/components/SaveButton';
 import { AttendantFormSchemaType } from '../hooks/useEventAttendantForm';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
@@ -15,10 +15,7 @@ export type EventAttendantProps = {
 
 const MemoizedDefaultFormField = React.memo(DefaultFormField);
 
-const EventAttendantComponent = ({
-  form,
-  onSubmit
-}: EventAttendantProps) => {
+const EventAttendantComponent = ({ form, onSubmit }: EventAttendantProps) => {
   const { public: d } = useDictionary();
 
   return (
