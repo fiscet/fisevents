@@ -13,6 +13,7 @@ import { CreatorAdminRoutes } from '@/lib/routes';
 import UtilityBar from '../../components/UtilityBar';
 import { Button } from '@/components/ui/button';
 import { GiOpenChest } from 'react-icons/gi';
+import { FiChevronRight } from "react-icons/fi";
 import Link from 'next/link';
 import { useCurrentLang } from '@/hooks/useCurrentLang';
 import { Locale } from '@/lib/i18n';
@@ -108,7 +109,7 @@ function getColumns(
               href={`/${lang}/${CreatorAdminRoutes.getItem('event')}/${row._id
                 }`}
             >
-              <GiOpenChest className="w-5 h-5 text-cyan-700" />
+              <FiChevronRight className="w-5 h-5 text-cyan-700" />
             </Link>
           </div>
         );

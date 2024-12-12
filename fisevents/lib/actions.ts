@@ -8,9 +8,6 @@ import {
   eventSingleHasAttendantByEmailQuery,
   eventSingleHasAttendantByUuidQuery,
   eventIdQuery,
-  organizationBySlugQuery,
-  organizationCountBySlugQuery,
-  organizationQuery,
   userQuery
 } from './queries';
 import {

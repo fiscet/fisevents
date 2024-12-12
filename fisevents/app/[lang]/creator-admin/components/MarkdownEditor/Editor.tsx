@@ -37,7 +37,7 @@ const Editor: FC<EditorProps> = ({ markdown, editorRef, onChange }) => {
       onChange={onChange}
       ref={editorRef}
       markdown={markdown}
-      className="border"
+      className="border mt-2"
       plugins={[
         headingsPlugin(),
         quotePlugin(),

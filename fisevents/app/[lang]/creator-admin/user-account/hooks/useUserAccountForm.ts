@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { CurrentUser } from '@/types/sanity.extended.types';
-import { slugify } from '@/lib/utils';
+import { checkIsValidUrl, slugify } from '@/lib/utils';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 
 export type useUserAccountFormProps = {
@@ -27,7 +27,6 @@ export const formSchemaObj = z
 export type UserAccountFormSchemaType = z.infer<typeof formSchemaObj>;
 
 export function useUserAccountForm({ userData }: useUserAccountFormProps) {
-
   const { creator_admin: ca } = useDictionary();
   const { account: d } = ca;
 
@@ -53,8 +52,17 @@ export function useUserAccountForm({ userData }: useUserAccountFormProps) {
         message: d.validation.companyName,
         path: ['companyName']
       }
-    );
+    ).refine((data) => {
+      const { www } = data;
 
+      if(www && !checkIsValidUrl(www)) return false;
+
+      return true;
+    },
+    {
+      message: d.validation.www,
+      path: ['www']
+    });
 
   const form = useForm<UserAccountFormSchemaType>({
     resolver: zodResolver(formSchema),
@@ -68,7 +76,9 @@ export function useUserAccountForm({ userData }: useUserAccountFormProps) {
       },
       www: userData.www ?? '',
       logoUrl: userData.logoUrl ?? ''
-    }
+    },
+    mode: 'all',
+    shouldFocusError: true
   });
 
   return { form, formSchema };

@@ -73,9 +73,7 @@ export const eventSingleBySlugQuery = defineQuery(`
 *[
   _type == "occurrence" && 
   slug.current == $eventSlug && 
-  active == true && 
-  publicationStartDate <= now() && 
-  endDate >= now()
+  active == true
   ][0] {
   _id,
   title,
@@ -85,11 +83,12 @@ export const eventSingleBySlugQuery = defineQuery(`
     "dimensions": mainImage.asset->metadata.dimensions
   },
   location,
+  maxSubscribers,
   "remainingPlaces": maxSubscribers-(coalesce(count(attendants), 0)),
   "price": coalesce(string(basicPrice), "") + " " + coalesce(currency, "-"),
   startDate,
   endDate,
-  "organizationSlug":*[_type == "organization" && _id == ^.createdByUser->organization->_id][0].slug.current,
+  "organizationSlug":*[_type == "user" && _id == ^.createdByUser->_id][0].slug.current,
 }`);
 
 export const eventSingleHasAttendantByEmailQuery = defineQuery(`

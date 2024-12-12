@@ -1,5 +1,5 @@
 import { FaPeopleLine } from 'react-icons/fa6';
-import { FaCreativeCommonsZero } from 'react-icons/fa';
+import { BiMinus } from "react-icons/bi";
 
 export default function NumAttendants({ num }: { num?: number }) {
   if (num) {
@@ -11,5 +11,5 @@ export default function NumAttendants({ num }: { num?: number }) {
     );
   }
 
-  return <FaCreativeCommonsZero className="w-5 h-5 text-red-400" />;
+  return <BiMinus className="w-5 h-5 text-gray-600" />;
 }

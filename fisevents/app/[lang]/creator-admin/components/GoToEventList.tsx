@@ -7,14 +7,16 @@ import { Locale } from '@/lib/i18n';
 type UtilityBarLeftElementsProps = {
   backText: string;
   lang: Locale;
+  variant?: 'default' | 'success' | 'link' | 'destructive' | 'outline' | 'secondary' | 'ghost' ;
 };
 
 export default memo(function GoToEventList({
   backText,
-  lang
+  lang,
+  variant
 }: UtilityBarLeftElementsProps) {
   return (
-    <Button asChild>
+    <Button variant={variant} asChild>
       <Link href={`/${lang}/${CreatorAdminRoutes.getBase()}`}>
         &larr; {backText}
       </Link>

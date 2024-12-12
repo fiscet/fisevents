@@ -79,7 +79,7 @@
       "success_text": "Le modifiche sono state salvate con successo",
       "error": "Errore",
       "error_text": "Qualcosa è andato storto",
-      "error_slug_exists": "Slug già esistente",
+      "goto_event_list": "Vai alla lista degli eventi",
       "copy": "Copia",
       "copied": "Copiato",
       "copy_error": "Errore di copia"
@@ -107,7 +107,8 @@
       },  
       "validation": {
         "name": "Il nome deve essere di almeno 5 caratteri!",
-        "companyName": "Il nome della società deve essere di almeno 5 caratteri."
+        "companyName": "Il nome della società deve essere di almeno 5 caratteri.",
+        "www": "Scrivi l'URL del sito web che inizia con http:// o https://"
       }
     },
     "events": {
@@ -116,6 +117,7 @@
       "is_published": "Pubblicato",
       "title": "Nome dell'evento",
       "slug": "Slug",
+      "image": "Immagine dell'evento",
       "publicationStartDate": "Pubblicato dal",
       "startDate": "Data di inizio",
       "endDate": "Data di fine",
@@ -131,7 +133,7 @@
       "filters": "Filtra per stato",
       "all": "Tutti",
       "published": "Pubblicato",
-      "new_event": "Nuovo Evento",
+      "new_event": "Crea un nuovo evento",
       "back": "Tutti gli eventi",
       "public_url": "URL pubblico",
       "details": "Dettagli",
@@ -139,10 +141,11 @@
       "descriptions": {
         "title": "Questo è il nome pubblico del tuo evento.",
         "slug": "Questo è l'URL del tuo evento. Sarà visibile nella barra degli indirizzi del tuo browser.",
+        "image": "Immagine di sfondo dell'evento",
         "description": "Fornisci agli utenti i dettagli su questo evento, ad esempio a chi è rivolto, quali benefici offre, qual è il piano di insegnamento, ecc.",
         "location": "Dove si terrà l'evento? Se è una sede, fornisci indicazioni su come arrivarci",
-        "maxSubscribers": "Se è un numero limitato, indica il numero massimo, altrimenti scrivi 0",
-        "publicationStartDate": "Quando l'evento sarà visibile online e gli utenti potranno registrarsi"
+        "maxSubscribers": "Se è un numero limitato, indica il numero massimo, altrimenti lascialo vuoto",
+        "publicationStartDate": "Se vuoi ritardare la possibilità di iscriversi all'evento"
       },
       "validation": {
         "title": "Il titolo deve essere di almeno 5 caratteri.",

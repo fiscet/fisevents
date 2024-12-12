@@ -17,6 +17,9 @@ import { useNotification } from '@/components/Notification/useNotification';
 import Processing from '@/components/Processing';
 import { slugify } from '@/lib/utils';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
+import UtilityBar from '../../components/UtilityBar';
+import GoToEventList from '../../components/GoToEventList';
+import { useCurrentLang } from '@/hooks/useCurrentLang';
 
 export type UserAccountContainerProps = {
   userData: CurrentUser;
@@ -28,7 +31,7 @@ export default function UserAccountContainer({
   const [isSaving, startProcessing] = useTransition();
   const { data: sessionUserData, update: updateSession } = useSession();
   const { showNotification } = useNotification();
-
+  const curLang = useCurrentLang();
   const { creator_admin: ca } = useDictionary();
   const { account: a, common: c } = ca;
 
@@ -115,6 +118,12 @@ export default function UserAccountContainer({
   return (
     <>
       {isSaving && <Processing text={c.saving} />}
+      <UtilityBar
+        leftElements={form.formState.isValid && (
+          <GoToEventList variant='success' backText={c.goto_event_list} lang={curLang} />
+        )
+        }
+      />
       <UserAccount
         form={form}
         imageUploaderRender={() => (
