@@ -12,7 +12,7 @@ export default async function AccountSection({
   lang: Locale;
   session: FDefaultSession;
 }) {
-  const dictionary = await getDictionary(lang);
+  const d = await getDictionary(lang);
   const userData = await getUser({ userId: session.user!.uid! });
 
   return (
@@ -21,7 +21,7 @@ export default async function AccountSection({
         label={`${userData.name} - ${userData.companyName}`}
         pictureUrl={userData.logoUrl ?? userData.image ?? ''}
       />
-      <LogoutLinkContainer label={dictionary.auth.logout} />
+      <LogoutLinkContainer label={d.auth.logout} />
     </section>
   );
 }
