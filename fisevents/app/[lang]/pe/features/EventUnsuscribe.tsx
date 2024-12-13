@@ -12,14 +12,14 @@ import { useDictionary } from '@/app/contexts/DictionaryContext';
 export type EventUnsuscribeProps = {
   eventId: string;
   eventSlug: string;
-  companySlug: string;
+  organizationSlug: string;
   eventAttendantUuid: string;
 };
 
 export default function EventUnsuscribe({
   eventId,
   eventSlug,
-  companySlug,
+  organizationSlug,
   eventAttendantUuid
 }: EventUnsuscribeProps) {
   const [isSaving, startProcessing] = useTransition();
@@ -29,13 +29,12 @@ export default function EventUnsuscribe({
 
   const { showNotification } = useNotification();
 
-  const publicLink = getPublicEventLink(eventSlug, companySlug);
+  const publicLink = getPublicEventLink(eventSlug, organizationSlug);
 
   useEffect(() => {
     if (isConfirmed) {
       startProcessing(async () => {
-        const alreadyUnsubscribedText =
-          d.unsuscribe_error_already_unsubscribed;
+        const alreadyUnsubscribedText = d.unsuscribe_error_already_unsubscribed;
 
         removeEventAttendant({
           eventId,
@@ -50,8 +49,7 @@ export default function EventUnsuscribe({
             });
           })
           .catch((e) => {
-            const message =
-              e instanceof Error ? e.message : d.unsuscribe_error;
+            const message = e instanceof Error ? e.message : d.unsuscribe_error;
 
             showNotification({
               title: 'Error',

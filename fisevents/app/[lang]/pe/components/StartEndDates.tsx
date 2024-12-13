@@ -19,20 +19,34 @@ export default function StartEndDates({
   const isSameDay = endDateTmst - startDateTmst < 86400000;
 
   const preDate = isSameDay
-    ? new Date(endDateTmst).toLocaleDateString(lang)
+    ? new Date(endDateTmst).toLocaleDateString(lang, { dateStyle: 'short' })
     : '';
 
   const startDateText = isSameDay
-    ? new Date(startDateTmst).toLocaleTimeString(lang)
-    : new Date(startDateTmst).toLocaleString(lang);
+    ? new Date(startDateTmst).toLocaleTimeString(lang, {
+        timeStyle: 'short',
+        hour12: false
+      })
+    : new Date(startDateTmst).toLocaleString(lang, {
+        dateStyle: 'short',
+        timeStyle: 'short',
+        hour12: false
+      });
 
   const endDateText = isSameDay
-    ? new Date(endDateTmst).toLocaleTimeString(lang)
-    : new Date(endDateTmst).toLocaleString(lang);
+    ? new Date(endDateTmst).toLocaleTimeString(lang, {
+        timeStyle: 'short',
+        hour12: false
+      })
+    : new Date(endDateTmst).toLocaleString(lang, {
+        dateStyle: 'short',
+        timeStyle: 'short',
+        hour12: false
+      });
 
   return (
     <IconText Icon={MdDateRange}>
-      <span>{preDate}</span>
+      {preDate && <span>{preDate}</span>}
       <span className="text-emerald-600 font-bold">From</span>
       {startDateText}
       <span className="text-red-600 font-bold">To</span>

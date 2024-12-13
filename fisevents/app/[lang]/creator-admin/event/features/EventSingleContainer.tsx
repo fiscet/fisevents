@@ -4,7 +4,7 @@ import { useTransition } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { OccurrenceSingle } from '@/types/sanity.extended.types';
-import { useEventSingleForm } from '../hooks/useEventSingleForm'; 
+import { useEventSingleForm } from '../hooks/useEventSingleForm';
 import { useCurrentLang } from '@/hooks/useCurrentLang';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -23,12 +23,12 @@ import AddToSite from '../../components/AddToSite';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
-  companySlug: string;
+  organizationSlug: string;
 };
 
 export default function EventSingleContainer({
   eventSingleData,
-  companySlug
+  organizationSlug
 }: EventSingleContainerProps) {
   const session = useSession();
   const router = useRouter();
@@ -49,7 +49,7 @@ export default function EventSingleContainer({
 
   const publicLink = getPublicEventLink(
     eventSingleData?.slug!.current!,
-    companySlug
+    organizationSlug
   );
 
   const [isSaving, startProcessing] = useTransition();
@@ -78,7 +78,7 @@ export default function EventSingleContainer({
       <Tabs defaultValue="event">
         <UtilityBar
           leftElements={
-            <GoToEventList backText={c.back} lang={curLang} />
+            <GoToEventList label={c.goto_event_list} lang={curLang} />
           }
           centerElements={
             publicLink && (
@@ -93,12 +93,8 @@ export default function EventSingleContainer({
           rightElements={
             !!eventSingleData?.attendants?.length && (
               <TabsList>
-                <TabsTrigger value="event">
-                  {d.event}
-                </TabsTrigger>
-                <TabsTrigger value="attendants">
-                  {d.attendants}
-                </TabsTrigger>
+                <TabsTrigger value="event">{d.event}</TabsTrigger>
+                <TabsTrigger value="attendants">{d.attendants}</TabsTrigger>
               </TabsList>
             )
           }

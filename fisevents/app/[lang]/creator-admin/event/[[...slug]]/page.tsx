@@ -1,5 +1,5 @@
 import { authOptions } from '@/lib/authOptions';
-import { getEventSingleById, getEventIdList, getUser } from '@/lib/actions';
+import { getEventSingleById, getEventIdList, getUserById } from '@/lib/actions';
 import { getServerSession } from 'next-auth';
 import EventSingle from '../features/EventSingleContainer';
 
@@ -24,7 +24,7 @@ export default async function EventSinglePage({
 }) {
   const session = await getServerSession(authOptions);
 
-  const userData = await getUser({ userId: session!.user!.uid! });
+  const userData = await getUserById({ userId: session!.user!.uid! });
 
   if (!userData.slug) {
     return <></>;
@@ -33,15 +33,15 @@ export default async function EventSinglePage({
   const eventSingleData =
     slug && slug.length > 0 && session?.user
       ? await getEventSingleById({
-        createdBy: session.user.uid as string,
-        id: slug[0]
-      })
+          createdBy: session.user.uid as string,
+          id: slug[0]
+        })
       : undefined;
 
   return (
     <EventSingle
       eventSingleData={eventSingleData}
-      companySlug={userData.slug.current!}
+      organizationSlug={userData.slug.current!}
     />
   );
 }

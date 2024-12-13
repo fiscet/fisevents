@@ -18,7 +18,7 @@ import { useCurrentLang } from '@/hooks/useCurrentLang';
 import { Locale } from '@/lib/i18n';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 
-const isPublished = (publicationStartDate: string, endDate: string) =>
+const isOngoing = (publicationStartDate: string, endDate: string) =>
   Date.parse(publicationStartDate) <= Date.now() &&
   Date.parse(endDate) > Date.now();
 
@@ -28,11 +28,11 @@ function getColumns(
 ) {
   const columns = [
     {
-      name: d.is_published,
+      name: d.ongoing,
       cell: (row) => {
         return (
           <PublishedIcon
-            isPublished={isPublished(row.publicationStartDate!, row.endDate!)}
+            isOngoing={isOngoing(row.publicationStartDate!, row.endDate!)}
             inset="4px"
           />
         );
@@ -49,13 +49,14 @@ function getColumns(
           <div className="pt-1">{row.title}</div>
           <div className="flex gap-3 py-2 sm:hidden">
             <PublishedIcon
-              isPublished={isPublished(row.publicationStartDate!, row.endDate!)}
+              isOngoing={isOngoing(row.publicationStartDate!, row.endDate!)}
               inset="4px"
             />
             <NumAttendants num={row.numAttendants} />
           </div>
         </div>
       ),
+      width: '350px',
       sortable: true
     },
     {
@@ -133,12 +134,12 @@ export default function EventList({ eventListData }: EventListProps) {
     const now = Date.now();
 
     return events.filter((event) => {
-      const isPublished =
+      const isOngoing =
         Date.parse(event.publicationStartDate!) <= now &&
         Date.parse(event.endDate!) > now &&
         event.active;
 
-      return filter === 'published' ? isPublished : !isPublished;
+      return filter === 'published' ? isOngoing : !isOngoing;
     });
   };
 

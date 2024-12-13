@@ -129,7 +129,7 @@ export default function UserAccountContainer({
           isBackVisible && (
             <GoToEventList
               variant="success"
-              backText={c.goto_event_list}
+              label={c.goto_event_list}
               lang={curLang}
             />
           )

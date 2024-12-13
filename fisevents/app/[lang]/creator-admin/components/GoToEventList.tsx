@@ -5,13 +5,20 @@ import { CreatorAdminRoutes } from '@/lib/routes';
 import { Locale } from '@/lib/i18n';
 
 type UtilityBarLeftElementsProps = {
-  backText: string;
+  label: string;
   lang: Locale;
-  variant?: 'default' | 'success' | 'link' | 'destructive' | 'outline' | 'secondary' | 'ghost' ;
+  variant?:
+    | 'default'
+    | 'success'
+    | 'link'
+    | 'destructive'
+    | 'outline'
+    | 'secondary'
+    | 'ghost';
 };
 
 export default memo(function GoToEventList({
-  backText,
+  label: backText,
   lang,
   variant
 }: UtilityBarLeftElementsProps) {

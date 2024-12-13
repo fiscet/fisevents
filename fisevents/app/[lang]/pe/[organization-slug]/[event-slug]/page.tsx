@@ -1,5 +1,4 @@
-import Image from 'next/image';
-import { getEventSingleBySlug } from '@/lib/actions';
+import { getEventSingleBySlug, getUserBySlug } from '@/lib/actions';
 import { Locale } from '@/lib/i18n';
 import { getEmailDictionary } from '@/lib/i18n.utils';
 import EventNotFound from '../../components/EventNotFound';
@@ -22,6 +21,9 @@ export default async function PublicEventPage({
   };
 }) {
   const eventData = await getEventSingleBySlug({ slug: eventSlug });
+  const userData = await getUserBySlug({ slug: organizationSlug });
+
+  console.log(eventData);
 
   const emailDictionary = await getEmailDictionary(lang);
 
@@ -37,18 +39,9 @@ export default async function PublicEventPage({
 
   return (
     <div>
-      {/* {userData && (
-        <Image
-          src={userData.imageUrl ?? '/img/logo.png'}
-          alt="Logo"
-          width="320"
-          height="320"
-          className="mx-auto"
-        />
-      )} */}
       {eventData && organizationSlug === eventData.organizationSlug ? (
         <>
-          <PublicEvent eventData={eventData} lang={lang} />
+          <PublicEvent eventData={eventData} userData={userData} lang={lang} />
 
           {showForm && (
             <NotificationProvider className="mt-0 md:mt-0">
