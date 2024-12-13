@@ -42,12 +42,12 @@ export function NavBar({ lang, isLoggedIn }: NavBarProps) {
 
         {/* Desktop menu */}
         <div className="hidden md:flex items-center gap-10">
-          <Link className="text-lg" href="#features">
+          {/* <Link className="text-lg" href="/#features">
             {d.website.navbar.features}
           </Link>
-          <Link className="text-lg" href="#pricing">
+          <Link className="text-lg" href="/#pricing">
             {d.website.navbar.pricing}
-          </Link>
+          </Link> */}
           {isLoggedIn ? (
             <>
               <Link
@@ -60,7 +60,7 @@ export function NavBar({ lang, isLoggedIn }: NavBarProps) {
             </>
           ) : (
             <Button asChild>
-              <Link href={`${lang}/auth`}> {d.auth.login}</Link>
+              <Link href={`/${lang}/auth`}> {d.auth.login}</Link>
             </Button>
           )}
           <div>
@@ -71,12 +71,12 @@ export function NavBar({ lang, isLoggedIn }: NavBarProps) {
         {/* Mobile menu */}
         {isMenuOpen && (
           <div className="absolute top-full right-0 left-0 bg-background/95 mt-6 p-4 shadow-lg md:hidden flex flex-col gap-4">
-            <Link className="text-lg" href="#features">
+            {/* <Link className="text-lg" href="/#features">
               {d.website.navbar.features}
             </Link>
-            <Link className="text-lg" href="#pricing">
+            <Link className="text-lg" href="/#pricing">
               {d.website.navbar.pricing}
-            </Link>
+            </Link> */}
             {isLoggedIn ? (
               <>
                 <Link
@@ -85,14 +85,11 @@ export function NavBar({ lang, isLoggedIn }: NavBarProps) {
                 >
                   {d.website.navbar.admin}
                 </Link>
-                <LogoutLink
-                  label={d.auth.logout}
-                  onSignOut={signOut}
-                />
+                <LogoutLink label={d.auth.logout} onSignOut={signOut} />
               </>
             ) : (
               <Button asChild className="w-full">
-                <Link href={`${lang}/auth`}> {d.auth.login}</Link>
+                <Link href={`/${lang}/auth`}> {d.auth.login}</Link>
               </Button>
             )}
             <div>

@@ -12,7 +12,7 @@
       "features": {
         "title": "Features",
         "list": {
-          "login": {
+          "reg_link": {
             "title": "Easy Registration Link",
             "text": "Generate and share a unique link for users to register for your event with ease."
           },
@@ -25,8 +25,8 @@
             "text": "Set start and end dates for publication and manage eventtimelines effortlessly."
           },
           "start_free": {
-            "title": "Free for First 3 Events",
-            "text": "Publish your first three events for free. Pay only 5€ per eventafter that."
+            "title": "You can use it for free!",
+            "text": "Start publishing your event right away, without registering cards or anything else!"
           }
         }
       },
@@ -51,9 +51,15 @@
           }
         }
       }
+    },
+    "waiting_for_the_email": {
+      "title": "Check your email inbox",
+      "description": "We will send you a \"magic link\" to your email. Just click it or copy it to your browser."
     }
   },
   "auth": {
+    "title": "You are almost there ...",
+    "description": "Authenticate using your email or via Google",
     "login": "Start here",
     "logout": "Logout",
     "account": "Manage your Account",
@@ -63,8 +69,13 @@
       "ok_title": "Check your email",
       "ok_text": "A magic link has been sent to you",
       "err_title": "Wrong email",
-      "empty_email_text": "Please write a valid email",
-      "err_text": "Something went wrong sending the link to your email"
+      "err_text": "Something went wrong sending the link to your email",
+      "descriptions": {
+        "email": "We will send you a magic link to your email"
+      },
+      "validation": {
+        "email": "Please write a valid email"
+      }
     },
     "login_with_google": {
       "title": "Login with Google"

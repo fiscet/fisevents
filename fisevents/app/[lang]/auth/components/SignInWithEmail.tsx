@@ -1,13 +1,14 @@
 'use client';
 
+import { useState } from 'react';
 import { useNotification } from '@/components/Notification/useNotification';
+import { useDictionary } from '@/app/contexts/DictionaryContext';
 import { Notification } from '@/types/custom.types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useState } from 'react';
 import Processing from '@/components/Processing';
-import { useDictionary } from '@/app/contexts/DictionaryContext';
+import FormFieldHeader from '@/components/FormField/FormFieldHeader';
+import { WebsiteRoutes } from '@/lib/routes';
 
 export type SignInWithEmailProps = {
   onSignIn: (
@@ -16,9 +17,7 @@ export type SignInWithEmailProps = {
   ) => Promise<any>;
 };
 
-export default function SignInWithEmail({
-  onSignIn
-}: SignInWithEmailProps) {
+export default function SignInWithEmail({ onSignIn }: SignInWithEmailProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState<string | null>(null);
 
@@ -48,7 +47,7 @@ export default function SignInWithEmail({
 
       notificationParams = {
         title: d.err_title,
-        message: d.empty_email_text,
+        message: d.validation.email,
         type: 'error'
       };
 
@@ -57,9 +56,12 @@ export default function SignInWithEmail({
       return;
     }
 
+    const url = `${window.location.origin}/${WebsiteRoutes.getItem(
+      'waiting_for_the_email'
+    )}`;
+
     const res = await onSignIn('email', {
       email,
-      callbackUrl: window.location.origin,
       redirect: false
     });
 
@@ -75,6 +77,8 @@ export default function SignInWithEmail({
 
     showNotification(notificationParams);
     setIsLoading(false);
+
+    window.location.href = url;
   }
 
   return (
@@ -82,7 +86,11 @@ export default function SignInWithEmail({
       {isLoading && <Processing />}
       <form action={handleSubmit}>
         <div className="flex flex-col gap-y-2">
-          <Label>{d.email}</Label>
+          <FormFieldHeader
+            label={d.email}
+            description={d.descriptions.email}
+            inForm={false}
+          />
           <Input
             type="email"
             name="email"

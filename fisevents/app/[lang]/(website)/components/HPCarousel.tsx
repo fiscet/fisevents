@@ -16,6 +16,14 @@ export default function HPCarousel() {
       <CarouselContent>
         <CarouselItem className="flex justify-center">
           <Image
+            src="/img/sh-login.jpg"
+            alt="Login"
+            width={1024}
+            height={300}
+          />
+        </CarouselItem>
+        <CarouselItem className="flex justify-center">
+          <Image
             src="/img/sh-list.jpg"
             alt="Event list"
             width={1024}
@@ -34,6 +42,22 @@ export default function HPCarousel() {
           <Image
             src="/img/sh-event-2.jpg"
             alt="Event details #2"
+            width={1024}
+            height={300}
+          />
+        </CarouselItem>
+        <CarouselItem className="flex justify-center">
+          <Image
+            src="/img/sh-event-3.jpg"
+            alt="Event details #3"
+            width={1024}
+            height={300}
+          />
+        </CarouselItem>
+        <CarouselItem className="flex justify-center">
+          <Image
+            src="/img/sh-attendants.jpg"
+            alt="Event attendants"
             width={1024}
             height={300}
           />

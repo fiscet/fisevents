@@ -1,9 +1,9 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import GoogleLogo from './GoogleLogo';
-import { CreatorAdminRoutes } from '@/lib/routes';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
+import { Button } from '@/components/ui/button';
+import { CreatorAdminRoutes } from '@/lib/routes';
+import GoogleLogo from './GoogleLogo';
 
 export type SignInWithGoogleProps = {
   onSignIn: (
@@ -12,9 +12,7 @@ export type SignInWithGoogleProps = {
   ) => Promise<any>;
 };
 
-export default function SignInWithGoogle({
-  onSignIn
-}: SignInWithGoogleProps) {
+export default function SignInWithGoogle({ onSignIn }: SignInWithGoogleProps) {
   const { auth: da } = useDictionary();
   const { login_with_google: d } = da;
 

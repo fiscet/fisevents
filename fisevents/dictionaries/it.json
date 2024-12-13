@@ -12,7 +12,7 @@
       "features": {
         "title": "Funzionalità",
         "list": {
-          "login": {
+          "reg_link": {
             "title": "Collegamento di registrazione semplice",
             "text": "Genera e condividi un link unico per gli utenti per registrarsi per il tuo evento con facilità."
           },
@@ -25,8 +25,8 @@
             "text": "Imposta le date di inizio e fine per la pubblicazione e gestisci le date delle tue eventi in modo semplice e veloce."
           },
           "start_free": {
-            "title": "Inizia gratuitamente per i primi 3 eventi",
-            "text": "Pubblica i tuoi primi tre eventi gratuitamente. Paga solo 5€ per ogni evento dopo."
+            "title": "Puoi usarlo gratuitamente!",
+            "text": "Inizia a pubblicare il tuo evento subito, senza registrare carte o altro!"
           }
         }
       },
@@ -51,9 +51,15 @@
           }
         }        
       }
+    },
+    "waiting_for_the_email": {
+      "title": "Controlla la tua casella di posta", 
+      "description": "Ti invieremo un collegamento \"magico\" alla tua email. Clicca su di esso o copialo nel tuo browser."
     }
   },
   "auth": {
+    "title": "Ci sei quasi ...",
+    "description": "Autenticati utilizzando la tua email o via Google",
     "login": "Inizia da qui",
     "logout": "Esci dall'applicazione",
     "account": "Gestisci il tuo Account",
@@ -63,8 +69,13 @@
       "ok_title": "Controlla la tua email",
       "ok_text": "Un link magico è stato inviato a te",
       "err_title": "Email errata",
-      "empty_email_text": "Per favore inserisci un'email valida",
-      "err_text": "C'è stato un problema nell'invio del link alla tua email"
+      "err_text": "C'è stato un problema nell'invio del link alla tua email",
+      "descriptions": {
+        "email": "Riceverai un link nella tua email, ti basterà cliccarlo per entrare nell'applicazione"
+      },
+      "validation": {
+        "email": "Please write a valid email"
+      }
     },
     "login_with_google": {
       "title": "Accedi con Google"
