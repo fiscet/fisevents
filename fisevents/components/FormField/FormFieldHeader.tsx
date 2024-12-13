@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from '@/components/ui/form';
+import { FormLabel } from '@/components/ui/form';
 import {
   HoverCard,
   HoverCardContent,
@@ -12,10 +6,18 @@ import {
 } from '@/components/ui/hover-card';
 import { RiInformation2Fill } from 'react-icons/ri';
 
-export default function FormFieldHeader({ label, description }: { label: string, description?: string }) {
+export default function FormFieldHeader({
+  label,
+  description,
+  inForm = true
+}: {
+  label: string;
+  description?: string;
+  inForm?: boolean;
+}) {
   return (
     <div className="w-full flex align-center justify-between mr-2">
-      <FormLabel>{label}</FormLabel>
+      {inForm ? <FormLabel>{label}</FormLabel> : <label>{label}</label>}
       {description && (
         <HoverCard>
           <HoverCardTrigger>

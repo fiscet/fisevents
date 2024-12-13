@@ -46,3 +46,7 @@ export const CreatorAdminRoutes = new FRoute({ base: 'creator-admin' }, [
 export const PublicRoutes = new FRoute({ base: 'pe' }, [
   { key: 'unsuscribe', slug: 'unsuscribe', parentKey: 'base' }
 ]);
+
+export const WebsiteRoutes = new FRoute({ base: '' }, [
+  { key: 'waiting_for_the_email', slug: 'waiting-for-the-email', parentKey: 'base' }
+]);

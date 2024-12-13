@@ -12,7 +12,7 @@
       "features": {
         "title": "Funkciók",
         "list": {
-          "login": {
+          "reg_link": {
             "title": "Egyszerű bejelentkezési hivatkozás",
             "text": "Létrehozhat és megoszthat egy egyedi linket a felhasználók számára, hogy regisztrálhassanak a saját eseményre a könnyű és gyors módon."
           },
@@ -25,8 +25,8 @@
             "text": "Állítsa be kezdés- és befejezési dátumokat a közzététel és kezelje a saját események idővonalait egyszerűen és gyorsan."
           },
           "start_free": {
-            "title": "Első 3 események ingyenes kezdése",
-            "text": "Közzététel az első három eseményeket ingyenesen. Csak 5€ fizetheti a kezdéshez."
+            "title": "Ingyenes használatra!",
+            "text": "Kezdje először a saját esemény létrehozását, regisztrációs kártyák nélkül!"
           }
         }
       },
@@ -51,9 +51,15 @@
           }
         }        
       }
+    },
+    "waiting_for_the_email": {
+      "title": "Ellenőrizze az email-jét",
+      "description": "Elküldünk egy mágikus linket a felhasználók számára. Kattintson a hivatkozásra vagy másolja a böngésző címsorába."
     }
   },
   "auth": {
+    "title": "Most már itt vagy ...",
+    "description": "Hitelesítsen magának az email-címmel vagy Google-val",
     "login": "Kezdje itt",
     "logout": "Kilépés az alkalmazásból",
     "account": "Fiók kezelése",
@@ -63,8 +69,13 @@
       "ok_title": "Ellenőrizze az email-jét",
       "ok_text": "Egy mágikus linket küldtünk neked",
       "err_title": "Hibás email",
-      "empty_email_text": "Kérem, írjon be egy érvényes email címet",
-      "err_text": "Hiba történt a link elküldésekor az email címére"
+      "err_text": "Hiba történt a link elküldésekor az email címére",
+      "descriptions": { 
+        "email": "A linket a levelező e-mail címére fog küldeni, kattintson a hivatkozásra a bejelentkezéshez"
+      },
+      "validation": {
+        "email": "Kérem, írjon be egy érvényes email címet"
+      }
     },
     "login_with_google": {
       "title": "Bejelentkezés Google-lel"

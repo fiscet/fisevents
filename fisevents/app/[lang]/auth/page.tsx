@@ -1,3 +1,11 @@
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
+import { CreatorAdminRoutes } from '@/lib/routes';
+import { authOptions } from '@/lib/authOptions';
+import { NotificationProvider } from '@/components/Notification/NotificationContext';
+import SignInProviders from './components/SignInProviders';
+import Logo from '@/components/Logo';
+import { Separator } from '@/components/ui/separator';
 import {
   Card,
   CardContent,
@@ -5,17 +13,16 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card';
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
-import { Separator } from '@/components/ui/separator';
-import Logo from '@/components/Logo';
-import { CreatorAdminRoutes } from '@/lib/routes';
-import SignInProviders from './components/SignInProviders';
-import { authOptions } from '@/lib/authOptions';
-import { NotificationProvider } from '@/components/Notification/NotificationContext';
+import { Locale } from '@/lib/i18n';
+import { getDictionary } from '@/lib/i18n.utils';
 
-export default async function AuthPage() {
+export default async function AuthPage({
+  params: { lang }
+}: {
+  params: { lang: Locale };
+}) {
   const session = await getServerSession(authOptions);
+  const d = (await getDictionary(lang)).auth;
 
   if (session) {
     return redirect(`/${CreatorAdminRoutes.getBase()}`);
@@ -28,9 +35,9 @@ export default async function AuthPage() {
           <CardTitle>
             <Logo />
             <Separator className="mt-8 mb-4" />
-            Please Sign in
+            {d.title}
           </CardTitle>
-          <CardDescription>Choose your authentication method</CardDescription>
+          <CardDescription>{d.description}</CardDescription>
         </CardHeader>
         <CardContent>
           <SignInProviders />
