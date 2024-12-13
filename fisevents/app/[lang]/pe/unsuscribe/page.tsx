@@ -1,4 +1,4 @@
-import { getEventSingleBySlug } from '@/lib/actions';
+import { getEventSingleBySlug, getUserBySlug } from '@/lib/actions';
 import { Locale } from '@/lib/i18n';
 import PublicEvent from '../components/PublicEvent';
 import { NotificationProvider } from '@/components/Notification/NotificationContext';
@@ -16,6 +16,7 @@ export default async function UnsuscribePage({
   };
 }) {
   const eventData = await getEventSingleBySlug({ slug: eventSlug });
+  const userData = await getUserBySlug({ slug: eventData.organizationSlug });
 
   if (!eventData) {
     throw new Error('Event not found');
@@ -23,7 +24,7 @@ export default async function UnsuscribePage({
 
   return (
     <div>
-      <PublicEvent eventData={eventData} lang={lang} />
+      <PublicEvent eventData={eventData} userData={userData} lang={lang} />
       <NotificationProvider className="mt-0 md:mt-0">
         <EventUnsuscribe
           eventId={eventId}
