@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react';
 import { useNotification } from '@/components/Notification/useNotification';
 import { CreatorAdminRoutes } from '@/lib/routes';
 import { usePathname, useRouter } from 'next/navigation';
-import { getUser } from '@/lib/actions';
+import { getUserById } from '@/lib/actions';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 
 export default function GlobalChecks() {
@@ -22,7 +22,7 @@ export default function GlobalChecks() {
 
     const redirectTo = CreatorAdminRoutes.getItem('user-account');
 
-    getUser({ userId: session.data?.user!.uid! }).then((res) => {
+    getUserById({ userId: session.data?.user!.uid! }).then((res) => {
       if (!res.name) {
         showNotification({
           title: d.action_required,

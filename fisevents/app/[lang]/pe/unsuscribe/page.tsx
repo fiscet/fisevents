@@ -28,7 +28,7 @@ export default async function UnsuscribePage({
         <EventUnsuscribe
           eventId={eventId}
           eventSlug={eventSlug}
-          companySlug={eventData.organizationSlug}
+          organizationSlug={eventData.organizationSlug}
           eventAttendantUuid={eventAttendantUuid}
         />
       </NotificationProvider>

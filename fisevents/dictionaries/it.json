@@ -54,7 +54,7 @@
     }
   },
   "auth": {
-    "login": "Accedi qui",
+    "login": "Inizia da qui",
     "logout": "Esci dall'applicazione",
     "account": "Gestisci il tuo Account",
     "login_with_email": {
@@ -114,11 +114,11 @@
     "events": {
       "event": "Evento",
       "attendants": "Partecipanti",
-      "is_published": "Pubblicato",
+      "ongoing": "In corso",
       "title": "Nome dell'evento",
       "slug": "Slug",
       "image": "Immagine dell'evento",
-      "publicationStartDate": "Pubblicato dal",
+      "publicationStartDate": "Registrazione aperta dal",
       "startDate": "Data di inizio",
       "endDate": "Data di fine",
       "numAttendants": "Partecipanti",
@@ -130,9 +130,10 @@
       "active": "Pubblicabile",
       "not_active": "Non pubblicabile",
       "save": "Salva",
-      "filters": "Filtra per stato",
+      "filters": "Vedi",
       "all": "Tutti",
-      "published": "Pubblicato",
+      "published": "Pubblicati",
+      "unpublished": "Non pubblicati",
       "new_event": "Crea un nuovo evento",
       "back": "Tutti gli eventi",
       "public_url": "URL pubblico",
@@ -184,6 +185,7 @@
     "from_date": "Da",
     "to_date": "A",
     "places_left": "Posti rimanenti",
+    "organized_by": "Organizzato da",
     "fullname": "Nome completo",
     "email": "Email",
     "phone": "Telefono",

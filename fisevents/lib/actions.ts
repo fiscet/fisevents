@@ -8,7 +8,8 @@ import {
   eventSingleHasAttendantByEmailQuery,
   eventSingleHasAttendantByUuidQuery,
   eventIdQuery,
-  userQuery
+  userQuery,
+  userQueryBySlug
 } from './queries';
 import {
   CurrentUser,
@@ -26,10 +27,17 @@ import { v4 as uuidv4 } from 'uuid';
 import { toUserIsoString } from './utils';
 
 /** USERS */
-export const getUser = async ({ userId }: { userId: string; }) => {
+export const getUserById = async ({ userId }: { userId: string; }) => {
   return await sanityClient.fetch<CurrentUser>(
     userQuery,
     { userId },
+    { next: { tags: ['user'] } }
+  );
+};
+export const getUserBySlug = async ({ slug }: { slug: string; }) => {
+  return await sanityClient.fetch<CurrentUser>(
+    userQueryBySlug,
+    { slug },
     { next: { tags: ['user'] } }
   );
 };
@@ -108,6 +116,7 @@ export const updateEvent = async ({
   const res = await sanityClient.patch(id).set(data).commit();
 
   revalidateTag(`eventSingle:${id}`);
+  revalidateTag(`eventSingleBySlug:${data.slug?.current}`);
 
   return res;
 };

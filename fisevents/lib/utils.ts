@@ -53,14 +53,14 @@ export const slugify = (...args: (string | number)[]): string => {
     .replace(/\s+/g, '-');
 };
 
-export const getPublicEventLink = (eventSlug: string, companySlug: string) => {
+export const getPublicEventLink = (eventSlug: string, organizationSlug: string) => {
   if (typeof window === 'undefined') return '';
-  if (!eventSlug || !companySlug || eventSlug.length === 0 || companySlug.length === 0) return '';
+  if (!eventSlug || !organizationSlug || eventSlug.length === 0 || organizationSlug.length === 0) return '';
 
   const host = window.location.protocol + '//' + window.location.host;
   const publicSlug = PublicRoutes.getBase();
 
-  return `${host}/${publicSlug}/${companySlug}/${eventSlug}`;
+  return `${host}/${publicSlug}/${organizationSlug}/${eventSlug}`;
 };
 
 export const checkIsValidUrl = (url: string) => {
@@ -76,7 +76,7 @@ export const checkIsValidUrl = (url: string) => {
     '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
     '(\\#[-a-z\\d_]*)?$',
     'i'
-  );    
+  );
 
   return pattern.test(url);
 };

@@ -19,13 +19,13 @@ export type EventAttentantCardsProps = {
 
 export default function EventAttentantCards({
   attendants,
-  eventDescription,
+  eventDescription
 }: EventAttentantCardsProps) {
   return (
     <div className="md:hidden">
       {attendants &&
         attendants.map((attendant, index) => (
-          <Card key={slugify(attendant.email!)} className="my-1">
+          <Card key={`${index}_${slugify(attendant.email!)}`} className="my-1">
             <CardHeader>
               <CardTitle className="relative">
                 <span className="text-slate-500 text-sm absolute top-0 right-0 translate-x-[18px] -translate-y-[20px]">

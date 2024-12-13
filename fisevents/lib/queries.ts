@@ -13,6 +13,13 @@ export const userQuery = defineQuery(`*[_type == "user" && _id == $userId][0] {
   wwww,
   roles
 }`);
+export const userQueryBySlug = defineQuery(`*[_type == "user" && slug.current == $slug][0] {
+  name,
+  companyName,
+  email,
+  "logoUrl": logo.asset->url,
+  wwww
+}`);
 
 export const organizationQuery = defineQuery(`*[_type == "organization" && _id == $organizationId][0] {
   _id,
@@ -85,9 +92,14 @@ export const eventSingleBySlugQuery = defineQuery(`
   location,
   maxSubscribers,
   "remainingPlaces": maxSubscribers-(coalesce(count(attendants), 0)),
-  "price": coalesce(string(basicPrice), "") + " " + coalesce(currency, "-"),
+  "price": select(
+    length(currency) > 0 && basicPrice > 0 =>coalesce(string(basicPrice), "") + " " + coalesce(currency, "-"),
+    basicPrice > 0 => coalesce(string(basicPrice), ""),
+    ""
+  ),
   startDate,
   endDate,
+  "companyName":*[_type == "user" && _id == ^.createdByUser->_id][0].companyName,
   "organizationSlug":*[_type == "user" && _id == ^.createdByUser->_id][0].slug.current,
 }`);
 

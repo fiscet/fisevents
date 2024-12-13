@@ -10,7 +10,7 @@ export type PublishedIconProps = React.HTMLAttributes<HTMLDivElement> & {
   unPublishedIcon?: ElementType;
   borderColor?: string;
   inset?: string;
-  isPublished: boolean;
+  isOngoing: boolean;
 };
 
 export default function PublishedIcon({
@@ -18,7 +18,7 @@ export default function PublishedIcon({
   unPublishedIcon: UnpubIcon = GiNightSleep,
   borderColor = '#ddd',
   inset = '10px',
-  isPublished = true
+  isOngoing = true
 }: PublishedIconProps) {
   const customBorderStyle = {
     borderColor
@@ -30,7 +30,7 @@ export default function PublishedIcon({
     right: `-${inset}`
   };
 
-  if (isPublished) {
+  if (isOngoing) {
     return (
       <div className={cn('group relative flex items-center justify-center')}>
         <PubIcon className="w-5 h-5 text-teal-600" />

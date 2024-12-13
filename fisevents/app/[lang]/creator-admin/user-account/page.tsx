@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/authOptions';
-import { getUser } from '@/lib/actions';
+import { getUserById } from '@/lib/actions';
 import UserAccountContainer from './features/UserAccountContainer';
 
 export default async function AccountPage() {
@@ -10,11 +10,7 @@ export default async function AccountPage() {
     return null;
   }
 
-  const userData = await getUser({ userId: session.user!.uid! });
+  const userData = await getUserById({ userId: session.user!.uid! });
 
-  return (
-    <UserAccountContainer
-      userData={userData}
-    />
-  );
+  return <UserAccountContainer userData={userData} />;
 }

@@ -7,6 +7,13 @@ export type EventListFilterProps = {
   setFilter: (filter: typeof EVENT_FILTERS[number]) => void;
 };
 
+type EventListFilterItemProps = {
+  filter: typeof EVENT_FILTERS[number];
+  label: string;
+  isActive: boolean;
+  setFilter: (flt: typeof EVENT_FILTERS[number]) => void;
+};
+
 export default function EventListFilter({
   title,
   filter,
@@ -14,40 +21,48 @@ export default function EventListFilter({
   setFilter
 }: EventListFilterProps) {
   return (
-    <div className="flex flex-col md:flex-row gap-2 items-center">
+    <div className="flex flex-col md:flex-row gap-x-2 items-center">
       <div className="text-sm font-medium text-gray-900">{title}</div>
-      <div className="flex gap-2 items-center">
-        <div
-          className={`${
-            filter === 'all'
-              ? 'bg-gray-200 text-gray-900 border-gray-300 '
-              : 'border-gray-300 '
-          }rounded-md py-1 px-2 text-sm font-medium cursor-pointer`}
-          onClick={() => setFilter('all')}
-        >
-          {filterText.all}
-        </div>
-        <div
-          className={`${
-            filter === 'active'
-              ? 'bg-gray-200 text-gray-900 border-gray-300 '
-              : 'border-gray-300 '
-          }rounded-md py-1 px-2 text-sm font-medium cursor-pointer`}
-          onClick={() => setFilter('active')}
-        >
-          {filterText.active}
-        </div>
-        <div
-          className={`${
-            filter === 'published'
-              ? 'bg-gray-200 text-gray-900 border-gray-300 '
-              : 'border-gray-300 '
-          }rounded-md py-1 px-2 text-sm font-medium cursor-pointer`}
-          onClick={() => setFilter('published')}
-        >
-          {filterText.published}
-        </div>
+      <div className="flex items-center">
+        <EventListFilterItem
+          filter="all"
+          setFilter={setFilter}
+          label={filterText.all}
+          isActive={filter === 'all'}
+        />
+        <EventListFilterItem
+          filter="published"
+          setFilter={setFilter}
+          label={filterText.published}
+          isActive={filter === 'published'}
+        />
+        <EventListFilterItem
+          filter="unpublished"
+          setFilter={setFilter}
+          label={filterText.unpublished}
+          isActive={filter === 'unpublished'}
+        />
       </div>
+    </div>
+  );
+}
+
+function EventListFilterItem({
+  filter,
+  label,
+  isActive,
+  setFilter
+}: EventListFilterItemProps) {
+  return (
+    <div
+      className={`${
+        isActive
+          ? 'bg-gray-200 text-blue-600 border-gray-300 '
+          : 'text-blue-400 hover:text-blue-500 hover:bg-gray-100'
+      } rounded-md py-1 px-2 text-sm font-medium cursor-pointer`}
+      onClick={() => setFilter(filter)}
+    >
+      {label}
     </div>
   );
 }

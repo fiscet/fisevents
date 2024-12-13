@@ -54,7 +54,7 @@
     }
   },
   "auth": {
-    "login": "Login here",
+    "login": "Start here",
     "logout": "Logout",
     "account": "Manage your Account",
     "login_with_email": {
@@ -114,11 +114,11 @@
     "events": {
       "event": "Event",
       "attendants": "Subscribers",
-      "is_published": "Published",
+      "ongoing": "Ongoing",
       "title": "Event name",
       "slug": "Slug",
       "image": "Event image",
-      "publicationStartDate": "Published from",
+      "publicationStartDate": "Registration open from",
       "startDate": "Start date",
       "endDate": "End date",
       "numAttendants": "Attendants",
@@ -130,9 +130,10 @@
       "active": "Publishable",
       "not_active": "Unpublishable",
       "save": "Save",
-      "filters": "Filter by status",
+      "filters": "View",
       "all": "All",
       "published": "Published",
+      "unpublished": "Unpublished",
       "new_event": "Create a new Event",
       "back": "Back to events",
       "public_url": "Public URL",
@@ -184,6 +185,7 @@
     "from_date": "From",
     "to_date": "To",
     "places_left": "Places left",
+    "organized_by": "Organized by",
     "fullname": "Full name",
     "email": "Email",
     "phone": "Phone",
