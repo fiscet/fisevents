@@ -148,7 +148,6 @@
       "unpublished": "Nepublicate",
       "new_event": "Creează un nou eveniment",
       "back": "Înapoi la evenimente",
-      "public_url": "URL public",
       "details": "Detalii",
       "public_link": "Link public: copiați/lipiți-l în site-ul dvs. sau pe social media",
       "descriptions": {
@@ -158,7 +157,8 @@
         "description": "Oferiți detalii despre acest eveniment, de exemplu că este destinat pentru cineva, ce beneficii oferă, ce plan de învățare are, etc.",
         "location": "Unde se va locui evenimentul? Dacă este o sediu, oferiți indicații despre cum să vă ajunge",
         "maxSubscribers": "Dacă este un număr limitat, indicați numărul maxim, altfel lăsați gol",
-        "publicationStartDate": "Dacă vrei să anulați posibilitatea de a fi înregistrat pentru eveniment"
+        "publicationStartDate": "Dacă vrei să anulați posibilitatea de a fi înregistrat pentru eveniment",
+        "public_link": "URL-ul public, unde utilizatorii vor vedea descrierea evenimentului și să se înregistreze. Copiați/lipiți-o în site-ul dvs. sau profilul social"
       },
       "validation": {
         "title": "Titlul trebuie să conțină cel puțin 5 caractere.",

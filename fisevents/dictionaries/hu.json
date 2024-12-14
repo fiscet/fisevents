@@ -147,7 +147,6 @@
       "unpublished": "Nem közzétett",
       "new_event": "Új esemény létrehozása",
       "back": "Vissza az eseményekhez",
-      "public_url": "Nyilvános URL",
       "details": "Részletek",
       "public_link": "Nyilvános link: másolja/illessze be a weboldalon vagy a közösségi médiaban",
       "descriptions": {
@@ -157,7 +156,8 @@
         "description": "Adjon meg részleteket az eseményről a felhasználók számára, pl. kinek szól, milyen előnyöket kínál, mi a tanítási terv stb.",
         "location": "Hol lesz az esemény? Ha helyszín, kérjük, adjon útmutatót az odajutáshoz",
         "maxSubscribers": "Ha korlátozott számú, adja meg a maximális számot",
-        "publicationStartDate": "Elhalasztja a rendezvényre való jelentkezés lehetőségét"
+        "publicationStartDate": "Elhalasztja a rendezvényre való jelentkezés lehetőségét",
+        "public_link": "Nyilvános URL, ahol a felhasználók megtudhatják a részleteket és regisztrálhatják. Másolja/illessze be a weboldalon vagy a közösségi médiában"
       },
       "validation": {
         "title": "A címnek legalább 5 karakter hosszúságúnak kell lennie.",
