@@ -13,8 +13,8 @@
         "title": "Funzionalità",
         "list": {
           "reg_link": {
-            "title": "Collegamento di registrazione semplice",
-            "text": "Genera e condividi un link unico per gli utenti per registrarsi per il tuo evento con facilità."
+            "title": "Registrazione semplice per i tuoi utenti",
+            "text": "Ti basta condividere un link, generato automaticamente, con i tuoi utenti per registrarsi al tuo evento con facilità."
           },
           "events": {
             "title": "Dettagli personalizzati dell'evento",
@@ -22,11 +22,11 @@
           },
           "date_management": {
             "title": "Gestione delle date flessibile",
-            "text": "Imposta le date di inizio e fine per la pubblicazione e gestisci le date delle tue eventi in modo semplice e veloce."
+            "text": "Imposta data e ora di inizio e fine del tuo evento, decidi quando gli utenti possono iscriversi."
           },
           "start_free": {
             "title": "Puoi usarlo gratuitamente!",
-            "text": "Inizia a pubblicare il tuo evento subito, senza registrare carte o altro!"
+            "text": "Inizia a pubblicare il tuo evento subito, senza registrare carte di credito!"
           }
         }
       },

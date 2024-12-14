@@ -13,8 +13,8 @@
         "title": "Features",
         "list": {
           "reg_link": {
-            "title": "Easy Registration Link",
-            "text": "Generate and share a unique link for users to register for your event with ease."
+            "title": "Simple User Registration",
+            "text": "It's just a matter of sharing a unique link, generated automatically, with your users to register for your event with ease."
           },
           "events": {
             "title": "Customizable Event Details",
@@ -22,11 +22,11 @@
           },
           "date_management": {
             "title": "Flexible Date Management",
-            "text": "Set start and end dates for publication and manage eventtimelines effortlessly."
+            "text": "Set start and end dates for your event, decide when users can register."
           },
           "start_free": {
             "title": "You can use it for free!",
-            "text": "Start publishing your event right away, without registering cards or anything else!"
+            "text": "Start publishing your event right away, without registering credit cards or anything else!"
           }
         }
       },
