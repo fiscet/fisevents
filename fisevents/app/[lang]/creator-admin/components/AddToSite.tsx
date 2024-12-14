@@ -4,11 +4,18 @@ import { TbCopy } from 'react-icons/tb';
 import { TbCopyCheck } from 'react-icons/tb';
 import { TbCopyXFilled } from 'react-icons/tb';
 import { Button } from '@/components/ui/button';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '@/components/ui/popover';
+import { RiInformation2Fill } from 'react-icons/ri';
 
 type CopyState = 'idle' | 'copied' | 'error';
 
 export type AddToSiteProps = {
   publicLink: string;
+  title?: string;
   description?: string;
   copyText?: string;
   copySuccessText?: string;
@@ -17,6 +24,7 @@ export type AddToSiteProps = {
 
 export default function AddToSite({
   publicLink,
+  title,
   description,
   copyText = 'Copy',
   copySuccessText = 'Copied!',
@@ -41,11 +49,29 @@ export default function AddToSite({
 
   return (
     <div className="w-full flex flex-col justify-center items-center bg-">
-      <div className="w-full my-2 p-3 justify-self-start bg-gray-200 border-slate-200 text-cyan-700 whitespace-nowrap overflow-x-scroll rounded-md">
-        <Link href={publicLink} target="_blank">
+      <div className="w-full my-2 p-3 justify-self-start bg-gray-200 border-slate-200 overflow-x-scroll rounded-md">
+        {description && (
+          <Popover>
+            <PopoverTrigger className="mr-2">
+              <RiInformation2Fill className="w-5 h-5 text-gray-600" />
+            </PopoverTrigger>
+            <PopoverContent className="w-80 bg-white shadow-lg">
+              <div className="p-4">
+                <p className="text-gray-600 mt-2">{description}</p>
+              </div>
+            </PopoverContent>
+          </Popover>
+        )}
+        <Link
+          href={publicLink}
+          target="_blank"
+          className="text-cyan-700 whitespace-nowrap"
+        >
           {publicLink}
         </Link>
-        <div className="text-right mt-2">
+
+        <div className="flex justify-between items-center gap-x-2 mt-2">
+          {title && <div className="text-gray-900 text-sm">{title}</div>}
           <Button
             variant={copyState === 'copied' ? 'success' : 'secondary'}
             size="sm"
@@ -66,9 +92,6 @@ export default function AddToSite({
           </Button>
         </div>
       </div>
-      {description && (
-        <div className="text-gray-900 text-sm">{description}</div>
-      )}
     </div>
   );
 }

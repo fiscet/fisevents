@@ -84,6 +84,8 @@ export default function EventSingleContainer({
             publicLink && (
               <AddToSite
                 publicLink={publicLink}
+                title={d.public_link}
+                description={d.descriptions.public_link}
                 copyText={c.copy}
                 copySuccessText={c.copied}
                 copyErrorText={c.copy_error}
