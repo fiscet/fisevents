@@ -152,7 +152,7 @@
       "public_link": "Public link: copy/paste it in your website or social media",
       "descriptions": {
         "title": "This is your event public display name.",
-        "slug": "This is the URL of your event. It will be visible in the address bar of your browser.",
+        "slug": "This is the URL of your event. It will be visible in the address bar of any browser. It's generated automatically but you can change it if you want or press the button beside it.",
         "image": "A photo or image that represents your event",
         "description": "Give your users details about this event, e.g. who it is for, what benefits it provides, what the teaching plan is, etc.",
         "location": "Where will the event be held? If it is a venue, please provide directions to get there",

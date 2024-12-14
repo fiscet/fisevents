@@ -6,7 +6,6 @@ import { getDictionary } from '@/lib/i18n.utils';
 import { OccurrenceList } from '@/types/sanity.extended.types';
 import DataTable, { TableColumn } from 'react-data-table-component';
 import PublishedIcon from '../components/PublishedIcon';
-import PublishableIcon from '../components/PublishableIcon';
 import NumAttendants from '../components/NumAttendants';
 import EventListFilter from '../components/EventListFilter';
 import { CreatorAdminRoutes } from '@/lib/routes';

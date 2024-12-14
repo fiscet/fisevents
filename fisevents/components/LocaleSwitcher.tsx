@@ -34,7 +34,7 @@ export default function LocaleSwitcher({
       value={curLang}
       onValueChange={(value: Locale) => goToLangPath(value)}
     >
-      <SelectTrigger className="border-none">
+      <SelectTrigger className="max-w-14 border-none">
         <SelectValue placeholder={curLang} />
       </SelectTrigger>
       <SelectContent>
@@ -43,7 +43,7 @@ export default function LocaleSwitcher({
             <SelectItem value={locale} key={locale}>
               <span
                 className={cn(
-                  'pr-1',
+                  'font-bold pr-1',
                   locale === curLang ? 'text-amber-700' : 'text-cyan-700'
                 )}
               >

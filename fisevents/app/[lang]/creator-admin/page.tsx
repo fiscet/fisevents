@@ -3,12 +3,18 @@ import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/authOptions';
 import { getEventList } from '@/lib/actions';
+import { Locale } from '@/lib/i18n';
+import { CreatorAdminRoutes } from '@/lib/routes';
 
 const EventList = dynamic(() => import('./event/features/EventList'), {
   ssr: false
 });
 
-export default async function AdminPage() {
+export default async function AdminPage({
+  params: { lang }
+}: {
+  params: { lang: Locale };
+}) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -20,9 +26,9 @@ export default async function AdminPage() {
     active: true
   });
 
-  return (
-    <EventList
-      eventListData={eventListData}
-    />
-  );
+  if (!eventListData.length) {
+    return redirect(`/${lang}/${CreatorAdminRoutes.getItem('event')}`);
+  }
+
+  return <EventList eventListData={eventListData} />;
 }
