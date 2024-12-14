@@ -1,6 +1,5 @@
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -11,10 +10,10 @@ import { MdOutlineGeneratingTokens } from 'react-icons/md';
 import { UseFormReturn } from 'react-hook-form';
 import { slugify } from '@/lib/utils';
 import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger
-} from '@/components/ui/hover-card';
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '@/components/ui/popover';
 import { RiInformation2Fill } from 'react-icons/ri';
 
 export type FormSlugProps = {
@@ -53,16 +52,16 @@ export default function FormSlug({
             <div className="w-full flex align-center justify-between">
               <FormLabel>{label}</FormLabel>
               {description && (
-                <HoverCard>
-                  <HoverCardTrigger>
+                <Popover>
+                  <PopoverTrigger>
                     <RiInformation2Fill className="w-5 h-5 text-gray-600" />
-                  </HoverCardTrigger>
-                  <HoverCardContent className="w-80 bg-white shadow-lg">
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80 bg-white shadow-lg">
                     <div className="p-4">
                       <p className="text-gray-600 mt-2">{description}</p>
                     </div>
-                  </HoverCardContent>
-                </HoverCard>
+                  </PopoverContent>
+                </Popover>
               )}
             </div>
             <FormControl>
