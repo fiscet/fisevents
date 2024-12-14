@@ -13,8 +13,8 @@
         "title": "Funkciók",
         "list": {
           "reg_link": {
-            "title": "Egyszerű bejelentkezési hivatkozás",
-            "text": "Létrehozhat és megoszthat egy egyedi linket a felhasználók számára, hogy regisztrálhassanak a saját eseményre a könnyű és gyors módon."
+            "title": "Egyszerű felhasználói regisztráció",
+            "text": "Egyszerű módon létrehozhat és megoszthat egy egyedi linket a felhasználók számára, hogy regisztrálhassanak a saját eseményre a könnyű és gyors módon."
           },
           "events": {
             "title": "Testreszabható esemény részletei",
@@ -22,7 +22,7 @@
           },
           "date_management": {
             "title": "Szabad dátumkezelés",
-            "text": "Állítsa be kezdés- és befejezési dátumokat a közzététel és kezelje a saját események idővonalait egyszerűen és gyorsan."
+            "text": "Állítsa be kezdés- és befejezési dátumokat a saját események idővonalait, és válassza ki, hogy a felhasználók számára és mikor lehetnek regisztrációk."
           },
           "start_free": {
             "title": "Ingyenes használatra!",

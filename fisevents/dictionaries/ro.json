@@ -1,0 +1,229 @@
+
+{
+  "website": {
+    "navbar": {
+      "features": "Funcționalități",
+      "pricing": "Prețuri",
+      "admin": "Administrare"
+    },
+    "home": {
+      "payoff": "Publicați și gestionați evenimentele dvs. în mod simplu și rapid!",
+      "subtitle": "Simplifică gestarea evenimentelor",
+      "main_text": "Din workshopuri de cocina până la evenimente, FisEvents vă permite să creați, partajați și gestionați evenimente individuale în mod simplu și rapid. Începeți gratuit!",
+      "features": {
+        "title": "Funcționalități",
+        "list": {
+          "reg_link": {
+            "title": "Înregistrare simplă pentru utilizatorii dvs.",
+            "text": "Doar partajați un link, generat automat, cu utilizatorii dvs. pentru a vă înregistra la eveniment cu ușurință."
+          },
+          "events": {
+            "title": "Detalii personalizate ale evenimentului",
+            "text": "Adăugați un titlu, o descriere, o imagine, o locație și setați numărul maxim de participanți, prețul și valuta."
+          },
+          "date_management": {
+            "title": "Gestionarea datelor flexibilă",
+            "text": "Setați data și ora de început și de final al evenimentului, decideți când utilizatorii pot să se înregistreze."
+          },
+          "start_free": {
+            "title": "Puteți să îl folosiți gratuit!",
+            "text": "Începeți să publicați evenimentul imediat, fără a fi nevoie să vă înregistrați carte de credit!"
+          }
+        }
+      },
+      "pricing": {
+        "title": "Prețuri",
+        "list": {
+          "starter": {
+            "title": "Plan de pornire",
+            "text": "Perfect pentru a începe FisEvents.",
+            "features": [
+              "Publicați până la 3 evenimente",
+              "Toate funcționalitățile de bază incluse"
+            ]
+          },
+          "hero": {
+            "title": "Plan de utilizator de pornire",
+            "text": "Pentru organizatori de evenimente regulate.",
+            "features": [
+              "Publicați evenimente limitate",
+              "Toate funcționalitățile de bază incluse"
+            ]
+          }
+        }
+      }
+    },
+    "waiting_for_the_email": {
+      "title": "Verificați emailul dvs.",
+      "description": "Vă vom trimite un link \"magic\" la email. Faceți clic pe el sau copiați-l în browser."
+    }
+  },
+  "auth": {
+    "title": "Sunteți aproape de aici ...",
+    "description": "Autentificați-vă folosind email-ul dvs. sau cu Google",
+    "login": "Începeți aici",
+    "logout": "Ieșiți din aplicație",
+    "account": "Gestionați contul dvs.",
+    "login_with_email": {
+      "title": "Autentificarea cu Email",
+      "email": "Email",
+      "ok_title": "Verificați emailul dvs.",
+      "ok_text": "A fost trimis un link magic",
+      "err_title": "E-mail greșit",
+      "err_text": "A apărut o problemă la trimiterea link-ului la email",
+      "descriptions": {
+        "email": "Veți primi un link în email, faceți clic pe el pentru a vă conecta la aplicație"
+      },
+      "validation": {
+        "email": "Te rugăm să scrii o adresă de e-mail validă"
+      }
+    },
+    "login_with_google": {
+      "title": "Autentificarea cu Google"
+    }
+  },
+  "creator_admin": {
+    "common": {
+      "saving": "Se salvează",
+      "save": "Salvează",
+      "back": "Înapoi",
+      "success": "Succes",
+      "success_text": "Modificările au fost salvate cu succes",
+      "error": "Eroare",
+      "error_text": "Ceva nu a mers bine",
+      "goto_event_list": "Mergi la lista de evenimente",
+      "copy": "Copiază",
+      "copied": "Copiat",
+      "copy_error": "Eroare de copiere"
+    },
+    "account": {
+      "userAccount": "Cont de utilizator",
+      "name": "Numele tău complet",
+      "email": "Email",
+      "imageUrl": "URL-ul imaginii",
+      "organization": "Numele organizației dvs.",
+      "companyName": "Numele companiei",
+      "slug": "Slug",
+      "www": "Site web",
+      "logo": "Logo",
+      "save": "Salvează",
+      "back": "Înapoi la evenimente",
+      "descriptions": {
+        "name": "Numele tău complet și prenumele",
+        "email": "Email-ul tău",
+        "image": "Imaginea ta",
+        "companyName": "Numele organizației dvs. sau activității dvs.",
+        "slug": "Acesta este URL-ul companiei. Va fi vizibil în bara de adrese a browserului.",
+        "www": "Aveți un site web sau un profil social? Scrieți aici",
+        "logo": "Încărcați aici logo-ul companiei dvs. sau a organizației dvs."
+      },
+      "validation": {
+        "name": "Numele trebuie să fie de cel puțin 5 caractere.",
+        "companyName": "Numele companiei trebuie să fie de cel puțin 5 caractere.",
+        "www": "Scrieți URL-ul site-ului web pe care îl începeți cu http:// sau https://"
+      }      
+    },
+    "events": {
+      "event": "Eveniment",
+      "attendants": "Participanți",
+      "ongoing": "În curs",
+      "title": "Numele evenimentului",
+      "slug": "Slug",
+      "image": "Imaginea evenimentului",
+      "publicationStartDate": "Înregistrare deschisă de la",
+      "startDate": "Data de început",
+      "endDate": "Data de sfârșit",      
+      "numAttendants": "Numărul de participanți",
+      "description": "Descriere",
+      "location": "Locație",
+      "maxSubscribers": "Numărul maxim de participanți",
+      "basicPrice": "Preț de bază",
+      "currency": "Valută",
+      "active": "Publicabil",
+      "not_active": "Nepublicabil",
+      "save": "Salvează",
+      "filters": "Vezi",
+      "all": "Toate",
+      "published": "Publicate",
+      "unpublished": "Nepublicate",
+      "new_event": "Creează un nou eveniment",
+      "back": "Înapoi la evenimente",
+      "public_url": "URL public",
+      "details": "Detalii",
+      "public_link": "Link public: copiați/lipiți-l în site-ul dvs. sau pe social media",
+      "descriptions": {
+        "title": "Acesta este numele publicului evenimentului.",
+        "slug": "Acesta este URL-ul evenimentului. Va fi vizibil în bara de adrese a browserului.",
+        "image": "Imaginea de fundal pentru eveniment",
+        "description": "Oferiți detalii despre acest eveniment, de exemplu că este destinat pentru cineva, ce beneficii oferă, ce plan de învățare are, etc.",
+        "location": "Unde se va locui evenimentul? Dacă este o sediu, oferiți indicații despre cum să vă ajunge",
+        "maxSubscribers": "Dacă este un număr limitat, indicați numărul maxim, altfel lăsați gol",
+        "publicationStartDate": "Dacă vrei să anulați posibilitatea de a fi înregistrat pentru eveniment"
+      },
+      "validation": {
+        "title": "Titlul trebuie să conțină cel puțin 5 caractere.",
+        "slug": "Slug trebuie să conțină cel puțin 5 caractere.",
+        "publicationStartDateAndStartDate": "Data de publicare trebuie să fie anterioară cu data de început",
+        "publicationStartDateAndNow": "Data de publicare trebuie să înceapă de cel puțin de acum",
+        "startDate": "Data de început trebuie să fie anterioară cu data de sfârșit"
+      }
+    },
+    "attendants": {
+      "attendants": "Participanți",
+      "new_attendant": "Nou participant",
+      "fullname": "Nume complet",
+      "email": "Email",
+      "phone": "Telefon",
+      "subcribitionDate": "Înregistrat la",
+      "save": "Salvează",
+      "descriptions": {
+        "fullname": "Numele complet al participanților",
+        "email": "Email-ul participanților",
+        "phone": "Numărul de telefon al participanților"
+      },
+      "validation": {
+        "name": "Numele trebuie să conțină cel puțin 5 caractere.",
+        "email": "Email-ul trebuie să fie valid"
+      }
+    },
+    "notifications": {
+      "action_required": "Acțiune necesară!",
+      "missing_user_name": "Completați profilul dvs. personal",
+      "missing_company_data": "Completați profilul dvs. companiei"
+    }
+  },
+  "public": {
+    "event_not_found": "Evenimentul nu a fost găsit",
+    "from_date": "De la",
+    "to_date": "Până la",
+    "places_left": "Locuri rămase",
+    "organized_by": "Organizat de",
+    "fullname": "Nume complet",
+    "email": "Email",
+    "phone": "Telefon",
+    "descriptions": {
+      "fullname": "Numele tău complet și prenumele",
+      "email": "Email-ul tău preferat pentru a gestiona evenimentul",
+      "phone": "Numărul de telefon, pentru orice ultimă comunicare"
+    },
+    "validation": {
+      "fullName": "Numele trebuie să fie de cel puțin 5 caractere.",
+      "email": "Email-ul trebuie să fie valid"
+    },
+    "subscribe_title": "Abonează-te la eveniment",
+    "subscribe_button": "Abonează-te",
+    "subscribing": "Abonare",
+    "error": "Eroare",
+    "error_already_subscribed": "Deja abonat la acest eveniment",
+    "success": "Succes",
+    "success_subscribed": "Abonarea la acest eveniment a fost efectuată cu succes",
+    "unsuscribe_title": "Anulează-te de la eveniment",
+    "unsuscribe_button": "Anulează-te",
+    "unsuscribe_confirm": "Sunteți sigur că doriți să anulați abonarea la acest eveniment?",
+    "unsuscribe_confirm_yes": "Da, doresc să anulez abonarea la acest eveniment",
+    "unsuscribe_success": "Anularea abonarii a fost efectuată cu succes",
+    "unsuscribe_error": "Ceva nu a mers bine",
+    "unsuscribe_error_already_unsubscribed": "Deja anulat abonarea",
+    "unsubscribing": "Anulare abonare"
+  } 
+}

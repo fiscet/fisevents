@@ -1,6 +1,13 @@
 import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
 import Image from 'next/image';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from '@/components/ui/accordion';
+
 import HPCarousel from './components/HPCarousel';
 import Payoff from './components/Payoff';
 
@@ -35,21 +42,47 @@ export default async function MainPage({
           {dictionary.website.home.features.title}
         </h3>
         <div className="max-w-[600px] mx-auto pb-4">
-          <h4 className="font-semibold text-lg">
-            {dictionary.website.home.features.list.reg_link.title}
-          </h4>
-          <ul className="list-disc list-inside text-gray-600 mb-2">
-            <li>{dictionary.website.home.features.list.reg_link.title}</li>
-            <li>{dictionary.website.home.features.list.events.title}</li>
-            <li>
-              {dictionary.website.home.features.list.date_management.title}
-            </li>
-            <li id="pricing">
-              {dictionary.website.home.features.list.start_free.title}
-            </li>
-          </ul>
+          <Accordion type="single" collapsible>
+            <AccordionItem value="unique-item" className="border-none">
+              <AccordionTrigger>
+                {dictionary.website.home.features.list.reg_link.title}
+              </AccordionTrigger>
+              <AccordionContent className="p-1">
+                {dictionary.website.home.features.list.reg_link.text}
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+          <Accordion type="single" collapsible>
+            <AccordionItem value="unique-item" className="border-none">
+              <AccordionTrigger>
+                {dictionary.website.home.features.list.events.title}
+              </AccordionTrigger>
+              <AccordionContent className="p-1">
+                {dictionary.website.home.features.list.events.text}
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+          <Accordion type="single" collapsible>
+            <AccordionItem value="unique-item" className="border-none">
+              <AccordionTrigger>
+                {dictionary.website.home.features.list.date_management.title}
+              </AccordionTrigger>
+              <AccordionContent className="p-1">
+                {dictionary.website.home.features.list.date_management.text}
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+          <Accordion type="single" collapsible>
+            <AccordionItem value="unique-item" className="border-none">
+              <AccordionTrigger>
+                {dictionary.website.home.features.list.start_free.title}
+              </AccordionTrigger>
+              <AccordionContent className="p-1">
+                {dictionary.website.home.features.list.start_free.text}
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
-
         <HPCarousel />
       </section>
     </>

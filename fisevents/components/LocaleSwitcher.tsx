@@ -1,9 +1,15 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import Link from 'next/link';
 import { i18n, Locale } from '@/lib/i18n';
-import { useCurrentLang } from '@/hooks/useCurrentLang';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from './ui/select';
+import { cn } from '@/lib/utils';
 
 export default function LocaleSwitcher({
   curLang = i18n.defaultLocale
@@ -19,22 +25,34 @@ export default function LocaleSwitcher({
     return segments.join('/');
   };
 
+  const goToLangPath = (locale: Locale) => {
+    window.location.href = redirectedPathName(locale);
+  };
+
   return (
-    <ul className="flex gap-x-2">
-      {i18n.locales.map((locale) => {
-        return (
-          <li key={locale}>
-            {locale === curLang && (
-              <span className="text-amber-700">{locale}</span>
-            )}
-            {locale !== curLang && (
-              <Link href={redirectedPathName(locale)} className="text-cyan-700">
+    <Select
+      value={curLang}
+      onValueChange={(value: Locale) => goToLangPath(value)}
+    >
+      <SelectTrigger className="border-none">
+        <SelectValue placeholder={curLang} />
+      </SelectTrigger>
+      <SelectContent>
+        {i18n.locales.map((locale) => {
+          return (
+            <SelectItem value={locale} key={locale}>
+              <span
+                className={cn(
+                  'pr-1',
+                  locale === curLang ? 'text-amber-700' : 'text-cyan-700'
+                )}
+              >
                 {locale}
-              </Link>
-            )}
-          </li>
-        );
-      })}
-    </ul>
+              </span>
+            </SelectItem>
+          );
+        })}
+      </SelectContent>
+    </Select>
   );
 }
