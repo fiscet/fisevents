@@ -152,7 +152,7 @@
       "public_link": "Link pubblico: copia/incollalo nel tuo sito web o social media",
       "descriptions": {
         "title": "Questo è il nome pubblico del tuo evento.",
-        "slug": "Questo è l'URL del tuo evento. Sarà visibile nella barra degli indirizzi del tuo browser.",
+        "slug": "Questo è l'URL del tuo evento. Sarà visibile nella barra degli indirizzi del tuo browser. È generato automaticamente, ma puoi cambiarlo se vuoi o premi il pulsante accanto.",
         "image": "Immagine di sfondo dell'evento",
         "description": "Fornisci agli utenti i dettagli su questo evento, ad esempio a chi è rivolto, quali benefici offre, qual è il piano di insegnamento, ecc.",
         "location": "Dove si terrà l'evento? Se è una sede, fornisci indicazioni su come arrivarci",

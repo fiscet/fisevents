@@ -152,7 +152,7 @@
       "details": "Detalii",
       "public_link": "Link public: copiați/lipiți-l în site-ul dvs. sau pe social media",
       "descriptions": {
-        "title": "Acesta este numele publicului evenimentului.",
+        "title": "Acesta este numele publicului evenimentului. Va fi vizibil în bara de adrese a browserului. Este generat automat, dar poți schimba-l dacă dorești sau apăsați butonul de mai jos.", 
         "slug": "Acesta este URL-ul evenimentului. Va fi vizibil în bara de adrese a browserului.",
         "image": "Imaginea de fundal pentru eveniment",
         "description": "Oferiți detalii despre acest eveniment, de exemplu că este destinat pentru cineva, ce beneficii oferă, ce plan de învățare are, etc.",

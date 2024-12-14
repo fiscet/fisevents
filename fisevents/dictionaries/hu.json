@@ -152,7 +152,7 @@
       "public_link": "Nyilvános link: másolja/illessze be a weboldalon vagy a közösségi médiaban",
       "descriptions": {
         "title": "Ez az esemény nyilvános megjelenítési neve.",
-        "slug": "Ez az esemény URL-je. Látható lesz a böngésző címsorában.",
+        "slug": "Ez az esemény URL-je. Látható lesz a böngésző címsorában. Automatikusan generálva, de módosíthatja, ha szeretnél, vagy nyomja meg a gombra alá.",
         "image": "Esemény kép",
         "description": "Adjon meg részleteket az eseményről a felhasználók számára, pl. kinek szól, milyen előnyöket kínál, mi a tanítási terv stb.",
         "location": "Hol lesz az esemény? Ha helyszín, kérjük, adjon útmutatót az odajutáshoz",
