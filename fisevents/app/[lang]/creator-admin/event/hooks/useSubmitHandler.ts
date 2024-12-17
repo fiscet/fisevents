@@ -5,7 +5,7 @@ import { OccurrenceSingle } from "@/types/sanity.extended.types";
 import { useSession } from "next-auth/react";
 import { EventFormSchemaType } from "./useEventSingleForm";
 import { Occurrence } from "@/types/sanity.types";
-import { getPublicEventSlug, getPublicEventUrl, slugify, toUserIsoString } from "@/lib/utils";
+import { getPublicEventSlug, slugify, toUserIsoString } from "@/lib/utils";
 import { createEvent, updateEvent } from "@/lib/actions";
 import { CreatorAdminRoutes } from "@/lib/routes";
 import { Dispatch, SetStateAction, TransitionStartFunction } from "react";

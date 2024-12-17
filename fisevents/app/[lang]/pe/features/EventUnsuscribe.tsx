@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { removeEventAttendant } from '@/lib/actions';
 import { useNotification } from '@/components/Notification/useNotification';
 import Processing from '@/components/Processing';
-import { getPublicEventUrl } from '@/lib/utils';
+import { getPublicEventSlug, getPublicEventUrl } from '@/lib/utils';
 import Link from 'next/link';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 
@@ -29,7 +29,8 @@ export default function EventUnsuscribe({
 
   const { showNotification } = useNotification();
 
-  const publicUrl = getPublicEventUrl(eventSlug, organizationSlug);
+  const publicEventSlug = getPublicEventSlug(eventSlug, organizationSlug);
+  const publicUrl = getPublicEventUrl(publicEventSlug);
 
   useEffect(() => {
     if (isConfirmed) {
