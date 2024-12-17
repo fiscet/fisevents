@@ -2,9 +2,9 @@
 
 import React, { useState, useTransition } from 'react';
 import { getEmailDictionary } from '@/lib/i18n.utils';
-import { useEventAttendantForm } from '../hooks/useEventAttendantForm';
-import { useManageSubscription } from '../hooks/useManageSubscription';
-import { useSubscribeEmail } from '../hooks/useSubscribeEmail';
+import { useEventAttendantForm } from '../_hooks/useEventAttendantForm';
+import { useManageSubscription } from '../_hooks/useManageSubscription';
+import { useSubscribeEmail } from '../_hooks/useSubscribeEmail';
 import { EventAttendant } from '@/types/sanity.types';
 import EventAttendantForm from './EventAttendantForm';
 import Processing from '@/components/Processing';
@@ -38,7 +38,8 @@ export default function EventAttendantContainer({
   const eventAttendantData: Partial<EventAttendant> = {
     fullName: '',
     email: '',
-    phone: ''
+    phone: '',
+    privacyAccepted: false
   };
 
   const { form } = useEventAttendantForm({
@@ -75,10 +76,7 @@ export default function EventAttendantContainer({
     <>
       {isSaving && <Processing text={d.subscribing} />}
       {!isSubscribed && (
-        <EventAttendantForm
-          form={form}
-          onSubmit={handleAttendandSubmit}
-        />
+        <EventAttendantForm form={form} onSubmit={handleAttendandSubmit} />
       )}
     </>
   );

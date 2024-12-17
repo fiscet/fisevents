@@ -1,9 +1,9 @@
 import { getEventSingleBySlug, getUserBySlug } from '@/lib/actions';
 import { Locale } from '@/lib/i18n';
 import { getEmailDictionary } from '@/lib/i18n.utils';
-import EventNotFound from '../../components/EventNotFound';
-import PublicEvent from '../../components/PublicEvent';
-import EventAttendantForm from '../../features/EventAttendantContainer';
+import EventNotFound from '../../_components/EventNotFound';
+import PublicEvent from '../../_components/PublicEvent';
+import EventAttendantForm from '../../_features/EventAttendantContainer';
 import { NotificationProvider } from '@/components/Notification/NotificationContext';
 import { revalidateTag } from 'next/cache';
 import { PublicRoutes } from '@/lib/routes';

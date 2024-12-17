@@ -1,4 +1,9 @@
 {
+  "common": {
+    "privacy_policy": "Privacy Policy",
+    "cookie_policy": "Cookie Policy",
+    "privacy_cookie_policy": "Privacy e Cookie Policy"
+  },
   "website": {
     "navbar": {
       "features": "Funzionalità",
@@ -7,7 +12,7 @@
     },
     "home": {
       "payoff": "Pubblica e gestisci facilmente i tuoi eventi!",
-      "subtitle": "Semplifica la gestione degli eventi",    
+      "subtitle": "Semplifica la gestione degli eventi",
       "main_text": "Da workshop di cucina a riunioni, FisEvents ti consente di creare, condividere e gestire eventi singoli in modo semplice e veloce. Inizia gratuitamente!",
       "features": {
         "title": "Funzionalità",
@@ -49,11 +54,11 @@
               "Tutte le funzionalità di base incluse"
             ]
           }
-        }        
+        }
       }
     },
     "waiting_for_the_email": {
-      "title": "Controlla la tua casella di posta", 
+      "title": "Controlla la tua casella di posta",
       "description": "Ti invieremo un collegamento \"magico\" alla tua email. Clicca su di esso o copialo nel tuo browser."
     }
   },
@@ -115,7 +120,7 @@
         "slug": "Questo è l'URL dell'azienda. Sarà visibile nella barra degli indirizzi del tuo browser.",
         "www": "Hai un sito web o un profilo sociale? Scrivilo qui",
         "logo": "Carica qui il tuo logo della tua azienda o organizzazione"
-      },  
+      },
       "validation": {
         "name": "Il nome deve essere di almeno 5 caratteri!",
         "companyName": "Il nome della società deve essere di almeno 5 caratteri.",
@@ -200,14 +205,17 @@
     "fullname": "Nome completo",
     "email": "Email",
     "phone": "Telefono",
+    "privacy_acceptance": "Accetto la politica sulla privacy",
     "descriptions": {
       "fullname": "Il tuo nome e cognome",
       "email": "Il tuo email preferito per gestire la tua partecipazione",
-      "phone": "Il tuo numero di telefono, per qualsiasi comunicazione dell'ultimo secondo"
+      "phone": "Il tuo numero di telefono, per qualsiasi comunicazione dell'ultimo secondo",
+      "privacy_acceptance": "I tuoi dati personali saranno elaborati in conformità con la nostra politica sulla privacy. Raccogliamo e elaboramo i tuoi dati per fornirti i nostri servizi e per mantenere informati sui cambiamenti e aggiornamenti."
     },
     "validation": {
       "fullName": "Il nome deve essere di almeno 5 caratteri.",
-      "email": "L'email deve essere valida"
+      "email": "L'email deve essere valida",
+      "privacy_acceptance": "Per procedere con la registrazione è necessario accettare la politica sulla privacy"
     },
     "subscribe_title": "Iscriviti all'evento",
     "subscribe_button": "Iscriviti",

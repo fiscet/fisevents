@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 import { CreatorAdminRoutes } from '@/lib/routes';
 import { authOptions } from '@/lib/authOptions';
 import { NotificationProvider } from '@/components/Notification/NotificationContext';
-import SignInProviders from './components/SignInProviders';
+import SignInProviders from './_components/SignInProviders';
 import Logo from '@/components/Logo';
 import { Separator } from '@/components/ui/separator';
 import {

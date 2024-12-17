@@ -31,6 +31,12 @@ export default defineType({
       type: "string"
     }),
     defineField({
+      title: "Privacy accepted",
+      name: "privacyAccepted",
+      type: "boolean",
+      initialValue: false
+    }),
+    defineField({
       title: "Subcribition Date",
       name: "subcribitionDate",
       type: "datetime",

@@ -101,7 +101,7 @@ export const eventSingleBySlugQuery = defineQuery(`
   startDate,
   endDate,
   "companyName":*[_type == "user" && _id == ^.createdByUser->_id][0].companyName,
-  "organizationSlug":*[_type == "user" && _id == ^.createdByUser->_id][0].slug.current,
+  "organizationSlug":*[_type == "user" && _id == ^.createdByUser->_id][0].slug.current
 }`);
 
 export const eventSingleHasAttendantByEmailQuery = defineQuery(`

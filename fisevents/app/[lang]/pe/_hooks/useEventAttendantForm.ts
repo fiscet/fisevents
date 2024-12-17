@@ -14,7 +14,8 @@ export const formSchemaObj = z
   .object({
     fullName: z.string(),
     email: z.string().email(),
-    phone: z.string()
+    phone: z.string(),
+    privacyAccepted: z.boolean()
   });
 
 export type AttendantFormSchemaType = z.infer<typeof formSchemaObj>;
@@ -31,14 +32,18 @@ export function useEventAttendantForm({ eventAttendantData }: useEventAttendantF
         message: d.validation.fullName,
         path: ['fullName']
       }
-    );
+    ).refine((data) => data.privacyAccepted === true, {
+      message: d.validation.privacy_acceptance,
+      path: ['privacyAccepted']
+    });
 
   const form = useForm<AttendantFormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       fullName: eventAttendantData?.fullName ?? '',
       email: eventAttendantData?.email ?? '',
-      phone: eventAttendantData?.phone ?? ''
+      phone: eventAttendantData?.phone ?? '',
+      privacyAccepted: eventAttendantData?.privacyAccepted ?? false
     }
   });
 

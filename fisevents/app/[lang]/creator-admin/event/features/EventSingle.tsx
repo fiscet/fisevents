@@ -8,14 +8,14 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
 import DefaultFormField from '@/components/FormField/DefaultFormField';
-import SaveButton from '../../components/SaveButton';
-import { ImageUploaderProps } from '../../components/ImageUploader';
+import SaveButton from '../../_components/SaveButton';
+import { ImageUploaderProps } from '../../_components/ImageUploader';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 import FormFieldHeader from '@/components/FormField/FormFieldHeader';
 import { useForm } from 'react-hook-form';
 
 const EditorComp = dynamic(
-  () => import('../../components/MarkdownEditor/Editor'),
+  () => import('../../_components/MarkdownEditor/Editor'),
   {
     ssr: false
   }

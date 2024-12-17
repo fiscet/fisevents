@@ -73,6 +73,7 @@ export type EventAttendant = {
   fullName?: string;
   email?: string;
   phone?: string;
+  privacyAccepted?: boolean;
   subcribitionDate?: string;
   uuid?: string;
 };

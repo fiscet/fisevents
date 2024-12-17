@@ -8,8 +8,8 @@ import {
   AccordionTrigger
 } from '@/components/ui/accordion';
 
-import HPCarousel from './components/HPCarousel';
-import Payoff from './components/Payoff';
+import HPCarousel from './_components/HPCarousel';
+import Payoff from './_components/Payoff';
 
 export default async function MainPage({
   params: { lang }

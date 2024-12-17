@@ -1,4 +1,9 @@
 {
+  "common": {
+    "privacy_policy": "Adatvédelmi szabályzat",
+    "cookie_policy": "Sütik állapota szabályzat",
+    "privacy_cookie_policy": "Adatvédelmi és Sütik állapota szabályzat"
+  },
   "website": {
     "navbar": {
       "features": "Funkciók",
@@ -7,7 +12,7 @@
     },
     "home": {
       "payoff": "Elengedi és kezelje a saját eseményeidet!",
-      "subtitle": "Az esemény kezelésének egyszerűsítése",    
+      "subtitle": "Az esemény kezelésének egyszerűsítése",
       "main_text": "A gyümölat, tanulás, vagy tanulási események között, a FisEvents lehetővé teszi a saját események létrehozását, megosztását és kezelését egyszerű és gyorsan. Kezdje elnevezés nélkül!",
       "features": {
         "title": "Funkciók",
@@ -49,7 +54,7 @@
               "Minden alapvető funkció beépítve"
             ]
           }
-        }        
+        }
       }
     },
     "waiting_for_the_email": {
@@ -70,7 +75,7 @@
       "ok_text": "Egy mágikus linket küldtünk neked",
       "err_title": "Hibás email",
       "err_text": "Hiba történt a link elküldésekor az email címére",
-      "descriptions": { 
+      "descriptions": {
         "email": "A linket a levelező e-mail címére fog küldeni, kattintson a hivatkozásra a bejelentkezéshez"
       },
       "validation": {
@@ -193,21 +198,24 @@
   },
   "public": {
     "event_not_found": "Esemény nem található",
-    "from_date": "Kezdet",  
+    "from_date": "Kezdet",
     "to_date": "Befejezés",
     "places_left": "Szabad helyek",
     "organized_by": "Szervezett",
     "fullname": "Teljes név",
     "email": "E-mail",
     "phone": "Telefon",
+    "privacy_acceptance": "Elfogadom a adatvédelmi szabályzatot",
     "descriptions": {
       "fullname": "A személyes neve és vezetéknév",
-      "email": "A személyes e-mail címe, hogy kezelje a részvételét", 
-      "phone": "A személyes telefonszám, ha bármelyik újabb kommunikáció szükséges"
+      "email": "A személyes e-mail címe, hogy kezelje a részvételét",
+      "phone": "A személyes telefonszám, ha bármelyik újabb kommunikáció szükséges",
+      "privacy_acceptance": "Adataid feldolgozásához és adatvédelmi szabályzatának elfogadásához szükséges. Adataid gyűjtünk és feldolgozzuk, hogy szolgáltatásokat nyújtson és értesítsen a fontos frissítések és információk megfelelően."
     },
-    "validation": {   
+    "validation": {
       "fullName": "A névnek legalább 5 karakter hosszúnak kell lennie.",
-      "email": "Az e-mail címnek érvényesnek kell lennie."
+      "email": "Az e-mail címnek érvényesnek kell lennie.",
+      "privacy_acceptance": "A regisztráció folytatásához szükséges, hogy elfogadja a adatvédelmi szabályzatot"
     },
     "subscribe_title": "Részvétel",
     "subscribe_button": "Részvétel",
@@ -217,7 +225,7 @@
     "success": "Sikeres",
     "success_subscribed": "Sikeresen résztvevő ezen a részvételben",
     "unsuscribe_title": "Részvétel törlése",
-    "unsuscribe_button": "Részvétel törlése", 
+    "unsuscribe_button": "Részvétel törlése",
     "unsuscribe_confirm": "Biztosan el akarod résztvevő ezen a részvételben?",
     "unsuscribe_confirm_yes": "Igen, el akarok résztvevő ezen a részvételben",
     "unsuscribe_success": "Sikeresen résztvevő ezen a részvételben törölve",

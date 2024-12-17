@@ -6,8 +6,8 @@ import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import DefaultFormField from '@/components/FormField/DefaultFormField';
-import SaveButton from '../../components/SaveButton';
-import { ImageUploaderProps } from '../../components/ImageUploader';
+import SaveButton from '../../_components/SaveButton';
+import { ImageUploaderProps } from '../../_components/ImageUploader';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 import { useForm } from 'react-hook-form';
 

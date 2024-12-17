@@ -1,5 +1,9 @@
-
 {
+  "common": {
+    "privacy_policy": "Politica de Confidențialitate",
+    "cookie_policy": "Politica de Cookie-uri",
+    "privacy_cookie_policy": "Politica de Confidențialitate și Cookie-uri"
+  },
   "website": {
     "navbar": {
       "features": "Funcționalități",
@@ -121,7 +125,7 @@
         "name": "Numele trebuie să fie de cel puțin 5 caractere.",
         "companyName": "Numele companiei trebuie să fie de cel puțin 5 caractere.",
         "www": "Scrieți URL-ul site-ului web pe care îl începeți cu http:// sau https://"
-      }      
+      }
     },
     "events": {
       "event": "Eveniment",
@@ -132,7 +136,7 @@
       "image": "Imaginea evenimentului",
       "publicationStartDate": "Înregistrare deschisă de la",
       "startDate": "Data de început",
-      "endDate": "Data de sfârșit",      
+      "endDate": "Data de sfârșit",
       "numAttendants": "Numărul de participanți",
       "description": "Descriere",
       "location": "Locație",
@@ -151,7 +155,7 @@
       "details": "Detalii",
       "public_link": "Link public: copiați/lipiți-l în site-ul dvs. sau pe social media",
       "descriptions": {
-        "title": "Acesta este numele publicului evenimentului. Va fi vizibil în bara de adrese a browserului. Este generat automat, dar poți schimba-l dacă dorești sau apăsați butonul de mai jos.", 
+        "title": "Acesta este numele publicului evenimentului. Va fi vizibil în bara de adrese a browserului. Este generat automat, dar poți schimba-l dacă dorești sau apăsați butonul de mai jos.",
         "slug": "Acesta este URL-ul evenimentului. Va fi vizibil în bara de adrese a browserului.",
         "image": "Imaginea de fundal pentru eveniment",
         "description": "Oferiți detalii despre acest eveniment, de exemplu că este destinat pentru cineva, ce beneficii oferă, ce plan de învățare are, etc.",
@@ -201,14 +205,17 @@
     "fullname": "Nume complet",
     "email": "Email",
     "phone": "Telefon",
+    "privacy_acceptance": "Acceptăm politica de confidențialitate",
     "descriptions": {
       "fullname": "Numele tău complet și prenumele",
       "email": "Email-ul tău preferat pentru a gestiona evenimentul",
-      "phone": "Numărul de telefon, pentru orice ultimă comunicare"
+      "phone": "Numărul de telefon, pentru orice ultimă comunicare",
+      "privacy_acceptance": "Datele personale vor fi procesate conform politicii de confidențialitate noastre. Colectam și procesăm datele dvs. pentru a vă oferi serviciile noastre și pentru a vă informa despre actualizările relevante și informațiile."
     },
     "validation": {
       "fullName": "Numele trebuie să fie de cel puțin 5 caractere.",
-      "email": "Email-ul trebuie să fie valid"
+      "email": "Email-ul trebuie să fie valid",
+      "privacy_acceptance": "Este necesar să vă acceptați politica de confidențialitate"
     },
     "subscribe_title": "Abonează-te la eveniment",
     "subscribe_button": "Abonează-te",
@@ -225,5 +232,5 @@
     "unsuscribe_error": "Ceva nu a mers bine",
     "unsuscribe_error_already_unsubscribed": "Deja anulat abonarea",
     "unsubscribing": "Anulare abonare"
-  } 
+  }
 }

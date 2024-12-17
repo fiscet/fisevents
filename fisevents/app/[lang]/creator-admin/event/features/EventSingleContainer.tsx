@@ -8,17 +8,17 @@ import { useEventSingleForm } from '../hooks/useEventSingleForm';
 import { useCurrentLang } from '@/hooks/useCurrentLang';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import ImageUploader from '../../components/ImageUploader';
+import ImageUploader from '../../_components/ImageUploader';
 import EventSingle from './EventSingle';
 import Processing from '@/components/Processing';
-import UtilityBar from '../../components/UtilityBar';
+import UtilityBar from '../../_components/UtilityBar';
 import EventAttentantList from './EventAttentantList';
 import { useUploadImage } from '@/hooks/useUploadImage';
 import { useNotification } from '@/components/Notification/useNotification';
 import { useImageHandlers } from '@/hooks/useImageHandlers';
 import { useSubmitHandler } from '../hooks/useSubmitHandler';
-import GoToEventList from '../../components/GoToEventList';
-import AddToSite from '../../components/AddToSite';
+import GoToEventList from '../../_components/GoToEventList';
+import AddToSite from '../../_components/AddToSite';
 import { getPublicEventUrl } from '@/lib/utils';
 
 export type EventSingleContainerProps = {

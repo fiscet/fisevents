@@ -1,4 +1,9 @@
 {
+  "common": {
+    "privacy_policy": "Privacy Policy",
+    "cookie_policy": "Cookie Policy",
+    "privacy_cookie_policy": "Privacy and Cookie Policy"
+  },
   "website": {
     "navbar": {
       "features": "Features",
@@ -200,14 +205,17 @@
     "fullname": "Full name",
     "email": "Email",
     "phone": "Phone",
+    "privacy_acceptance": "I accept the Privacy policy",
     "descriptions": {
       "fullname": "Your name and family name",
       "email": "Your preferred email to manage your participation",
-      "phone": "Your phone number, for any last minute communications"
+      "phone": "Your phone number, for any last minute communications",
+      "privacy_acceptance": "Your personal data will be processed in accordance with our privacy policy. We collect and process your data toprovide you with our services and to keep you informed about relevant updates and information."
     },
     "validation": {
       "fullName": "Name must be at least 5 characters.",
-      "email": "Email must be valid"
+      "email": "Email must be valid",
+      "privacy_acceptance": "Required to proceed with registration"
     },
     "subscribe_title": "Subscribe to our event",
     "subscribe_button": "Subscribe",

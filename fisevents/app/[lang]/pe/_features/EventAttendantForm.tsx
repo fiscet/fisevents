@@ -1,15 +1,19 @@
 'use client';
 
-import React from 'react';
-import { Form } from '@/components/ui/form';
+import React, { FormEvent, FormEventHandler } from 'react';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import DefaultFormField from '@/components/FormField/DefaultFormField';
-import SaveButton from '../../creator-admin/components/SaveButton';
-import { AttendantFormSchemaType } from '../hooks/useEventAttendantForm';
+import SaveButton from '../../creator-admin/_components/SaveButton';
+import { AttendantFormSchemaType } from '../_hooks/useEventAttendantForm';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
+import { Checkbox } from '@/components/ui/checkbox';
+import { useForm } from 'react-hook-form';
+import { Switch } from '@/components/ui/switch';
+import FormFieldHeader from '@/components/FormField/FormFieldHeader';
 
 export type EventAttendantProps = {
-  form: any;
+  form: ReturnType<typeof useForm<AttendantFormSchemaType>>;
   onSubmit: (data: AttendantFormSchemaType) => void;
 };
 
@@ -45,6 +49,25 @@ const EventAttendantComponent = ({ form, onSubmit }: EventAttendantProps) => {
             label={d.phone}
             formComponent={Input}
             description={d.descriptions.phone}
+          />
+          <FormField
+            control={form.control}
+            name="privacyAccepted"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-2 items-center justify-end md:justify-between md:mb-5">
+                <div className='w-full flex  items-center gap-2'>
+                  <FormControl>
+                    <Switch checked={field.value} onCheckedChange={field.onChange} />
+                  </FormControl>
+                  <FormLabel style={{ margin: 0 }}>
+                    {d.privacy_acceptance}
+                  </FormLabel>
+                </div>
+                <FormDescription className="text-sm text-muted-foreground">
+                  {d.descriptions.privacy_acceptance}
+                </FormDescription>
+              </FormItem>
+            )}
           />
           <div className="flex justify-center">
             <SaveButton className="w-full" text={d.subscribe_button} />
