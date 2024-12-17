@@ -60,6 +60,7 @@ export const eventSingleByIdQuery = defineQuery(`*[_type == "occurrence" && crea
   _id,
   title,
   slug,
+  publicSlug,
   description,
   "pageImage": {
     "url": mainImage.asset->url,
@@ -79,7 +80,7 @@ export const eventSingleByIdQuery = defineQuery(`*[_type == "occurrence" && crea
 export const eventSingleBySlugQuery = defineQuery(`
 *[
   _type == "occurrence" && 
-  slug.current == $eventSlug && 
+  publicSlug == $publicSlug && 
   active == true
   ][0] {
   _id,

@@ -19,7 +19,7 @@ export default async function WebsiteLayout({
     <DictionaryProvider dictionary={dictionary}>
       <div className="text-gray-800 flex flex-col min-h-screen">
         <NavBar lang={lang} isLoggedIn={!!session?.user?.email} />
-        <main className="container max-w-[1240px] bg-white mx-auto px-4 mt-[115px] md:mt-[150px] flex-grow">
+        <main className="container max-w-[1240px] bg-white mx-auto px-4 mt-[115px] md:mt-[150px] xl:mt-[170px] flex-grow">
           {children}
         </main>
         <footer className="bg-gray-100 py-6 text-center">

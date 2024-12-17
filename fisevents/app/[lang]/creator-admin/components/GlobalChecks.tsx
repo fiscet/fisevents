@@ -7,6 +7,7 @@ import { CreatorAdminRoutes } from '@/lib/routes';
 import { usePathname, useRouter } from 'next/navigation';
 import { getUserById } from '@/lib/actions';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
+import { useCurrentLang } from '@/hooks/useCurrentLang';
 
 export default function GlobalChecks() {
   const session = useSession();
@@ -14,13 +15,16 @@ export default function GlobalChecks() {
   const { creator_admin } = useDictionary();
   const d = creator_admin.notifications;
 
+  const curLang = useCurrentLang();
   const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
     if (!session.data?.user?.uid) return;
 
-    const redirectTo = CreatorAdminRoutes.getItem('user-account');
+    const redirectTo = `/${curLang}/${CreatorAdminRoutes.getItem(
+      'user-account'
+    )}`;
 
     getUserById({ userId: session.data?.user!.uid! }).then((res) => {
       if (!res.name) {

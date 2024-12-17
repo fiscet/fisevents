@@ -129,6 +129,7 @@ export type Occurrence = {
   _rev: string;
   title?: string;
   slug?: Slug;
+  publicSlug?: string;
   mainImage?: {
     asset?: {
       _ref: string;

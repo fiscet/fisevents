@@ -12,8 +12,6 @@ import SaveButton from '../../components/SaveButton';
 import { ImageUploaderProps } from '../../components/ImageUploader';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 import FormFieldHeader from '@/components/FormField/FormFieldHeader';
-import FormSlug from '../../components/FormSlug';
-import { slugify } from '@/lib/utils';
 import { useForm } from 'react-hook-form';
 
 const EditorComp = dynamic(
@@ -66,12 +64,6 @@ export default function EventSingle({
             label={d.title}
             formComponent={Input}
             description={d.descriptions.title}
-          />
-          <FormSlug
-            form={form}
-            label={d.slug}
-            description={d.descriptions.slug}
-            sourceItem={form.getValues('title')}
           />
           <div>
             <FormFieldHeader
@@ -160,6 +152,7 @@ export default function EventSingle({
               forceNumber
               isAccordion={true}
             />
+
             <DefaultFormField
               form={form}
               name="publicationStartDate"
