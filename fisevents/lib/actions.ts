@@ -101,7 +101,7 @@ export const getEventSingleById = async ({
 export const getEventSingleBySlug = async ({ slug }: { slug: string; }) => {
   return await sanityClient.fetch<PublicOccurrenceSingle>(
     eventSingleBySlugQuery,
-    { eventSlug: slug },
+    { publicSlug: slug },
     { next: { tags: [`eventSingleBySlug:${slug}`] } }
   );
 };

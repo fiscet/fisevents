@@ -20,6 +20,7 @@ export const formSchemaObj = z
       current: z.string(),
       _type: z.literal('slug')
     }),
+    publicSlug: z.string(),
     description: z.string(),
     location: z.string().optional(),
     maxSubscribers: z.number().optional(),
@@ -106,6 +107,7 @@ export function useEventSingleForm({ eventSingleData }: useEventSingleFormProps)
         current: eventSingleData?.slug?.current ?? slugify(eventSingleData?.title ?? ''),
         _type: 'slug'
       },
+      publicSlug: eventSingleData?.publicSlug ?? '',
       description: eventSingleData?.description ?? '',
       location: eventSingleData?.location ?? '',
       maxSubscribers: eventSingleData?.maxSubscribers ?? undefined,

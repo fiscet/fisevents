@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { removeEventAttendant } from '@/lib/actions';
 import { useNotification } from '@/components/Notification/useNotification';
 import Processing from '@/components/Processing';
-import { getPublicEventLink } from '@/lib/utils';
+import { getPublicEventSlug, getPublicEventUrl } from '@/lib/utils';
 import Link from 'next/link';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 
@@ -29,7 +29,8 @@ export default function EventUnsuscribe({
 
   const { showNotification } = useNotification();
 
-  const publicLink = getPublicEventLink(eventSlug, organizationSlug);
+  const publicEventSlug = getPublicEventSlug(eventSlug, organizationSlug);
+  const publicUrl = getPublicEventUrl(publicEventSlug);
 
   useEffect(() => {
     if (isConfirmed) {
@@ -84,8 +85,8 @@ export default function EventUnsuscribe({
     <>
       {isSaving && <Processing text={d.unsubscribing} />}
       <p>If you want to subscribe again click this link:</p>
-      <Link className="text-cyan-700" href={publicLink}>
-        {publicLink}
+      <Link className="text-cyan-700" href={publicUrl}>
+        {publicUrl}
       </Link>
     </>
   );

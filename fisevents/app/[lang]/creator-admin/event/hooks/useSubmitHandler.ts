@@ -5,7 +5,7 @@ import { OccurrenceSingle } from "@/types/sanity.extended.types";
 import { useSession } from "next-auth/react";
 import { EventFormSchemaType } from "./useEventSingleForm";
 import { Occurrence } from "@/types/sanity.types";
-import { slugify, toUserIsoString } from "@/lib/utils";
+import { getPublicEventSlug, slugify, toUserIsoString } from "@/lib/utils";
 import { createEvent, updateEvent } from "@/lib/actions";
 import { CreatorAdminRoutes } from "@/lib/routes";
 import { Dispatch, SetStateAction, TransitionStartFunction } from "react";
@@ -13,6 +13,7 @@ import { useDictionary } from "@/app/contexts/DictionaryContext";
 
 export const useSubmitHandler = (
   eventSingleData: OccurrenceSingle | undefined,
+  organizationSlug: string,
   newImg: FileImageType,
   setNewImg: Dispatch<SetStateAction<FileImageType>>,
   setInitImageUrl: Dispatch<SetStateAction<string | undefined>>,
@@ -42,6 +43,15 @@ export const useSubmitHandler = (
           _type: 'slug',
           current: slugify(insValues.title!)
         };
+      }
+
+      if (!insValues.publicSlug || insValues.publicSlug.length == 1) {
+        const publicEventSlug = getPublicEventSlug(
+          insValues?.slug!.current!,
+          organizationSlug
+        );
+
+        insValues.publicSlug = publicEventSlug;
       }
 
       if (!values.maxSubscribers || values.maxSubscribers <= 0) {

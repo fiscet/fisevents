@@ -9,7 +9,7 @@ import PublishedIcon from '../components/PublishedIcon';
 import NumAttendants from '../components/NumAttendants';
 import EventListFilter from '../components/EventListFilter';
 import { CreatorAdminRoutes } from '@/lib/routes';
-import UtilityBar from '../../components/UtilityBar';
+import UtilityBar from '../../_components/UtilityBar';
 import { Button } from '@/components/ui/button';
 import { FiChevronRight } from 'react-icons/fi';
 import Link from 'next/link';

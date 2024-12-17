@@ -8,7 +8,7 @@ import {
   UserAccountFormSchemaType,
   useUserAccountForm
 } from '../hooks/useUserAccountForm';
-import ImageUploader from '../../components/ImageUploader';
+import ImageUploader from '../../_components/ImageUploader';
 import UserAccount from './UserAccount';
 import { useSession } from 'next-auth/react';
 import { CurrentUser } from '@/types/sanity.extended.types';
@@ -17,8 +17,8 @@ import { useNotification } from '@/components/Notification/useNotification';
 import Processing from '@/components/Processing';
 import { slugify } from '@/lib/utils';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
-import UtilityBar from '../../components/UtilityBar';
-import GoToEventList from '../../components/GoToEventList';
+import UtilityBar from '../../_components/UtilityBar';
+import GoToEventList from '../../_components/GoToEventList';
 import { useCurrentLang } from '@/hooks/useCurrentLang';
 
 export type UserAccountContainerProps = {

@@ -1,4 +1,4 @@
-import Spinner from '../app/[lang]/creator-admin/components/Spinner';
+import Spinner from '../app/[lang]/creator-admin/_components/Spinner';
 
 export default function Processing({ text }: { text?: string }) {
   return (

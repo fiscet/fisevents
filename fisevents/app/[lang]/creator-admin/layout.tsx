@@ -4,12 +4,13 @@ import { authOptions } from '@/lib/authOptions';
 import { Locale } from '@/lib/i18n';
 import Logo from '@/components/Logo';
 import { getDictionary } from '@/lib/i18n.utils';
-import PageWrapper from './components/PageWrapper';
+import PageWrapper from './_components/PageWrapper';
 import { NotificationProvider } from '@/components/Notification/NotificationContext';
 import { CreatorAdminRoutes } from '@/lib/routes';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
-import AccountSection from './components/AccountSection';
+import AccountSection from './_components/AccountSection';
 import { DictionaryProvider } from '@/app/contexts/DictionaryContext';
+import DefaultFooter from '@/components/DefaultFooter';
 
 export default async function AdminLayout({
   children,
@@ -26,9 +27,9 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="w-full min-h-fit h-screen flex flex-col bg-[url('/img/main-bg.jpg')] bg-contain bg-fixed">
-      <div className="container bg-white min-h-fit h-screen flex flex-col mx-auto p-1 md:p-4 border-x-2 border-orange-200 z-20">
-        <DictionaryProvider dictionary={dictionary}>
+    <DictionaryProvider dictionary={dictionary}>
+      <div className="w-full min-h-screen flex flex-col bg-[url('/img/main-bg.jpg')] bg-contain bg-fixed">
+        <div className="container bg-white grow  flex flex-col mx-auto p-1 md:p-4 border-x-2 border-orange-200 z-20">
           <header className="md:grid md:grid-cols-3">
             <div className="flex justify-between">
               <LocaleSwitcher curLang={lang} />
@@ -46,8 +47,9 @@ export default async function AdminLayout({
               <PageWrapper>{children}</PageWrapper>
             </div>
           </NotificationProvider>
-        </DictionaryProvider>
+        </div>
+        <DefaultFooter lang={lang} />
       </div>
-    </div>
+    </DictionaryProvider>
   );
 }

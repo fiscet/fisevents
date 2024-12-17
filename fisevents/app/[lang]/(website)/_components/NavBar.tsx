@@ -11,7 +11,7 @@ import { TiThMenu } from 'react-icons/ti';
 import { GrClose } from 'react-icons/gr';
 import Link from 'next/link';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
-import LogoutLink from '../../creator-admin/components/LogoutLink/LogoutLink';
+import LogoutLink from '../../creator-admin/_components/LogoutLink/LogoutLink';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 
 export type NavBarProps = {

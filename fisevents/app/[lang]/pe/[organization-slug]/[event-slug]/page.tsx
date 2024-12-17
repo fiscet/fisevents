@@ -1,11 +1,12 @@
 import { getEventSingleBySlug, getUserBySlug } from '@/lib/actions';
 import { Locale } from '@/lib/i18n';
 import { getEmailDictionary } from '@/lib/i18n.utils';
-import EventNotFound from '../../components/EventNotFound';
-import PublicEvent from '../../components/PublicEvent';
-import EventAttendantForm from '../../features/EventAttendantContainer';
+import EventNotFound from '../../_components/EventNotFound';
+import PublicEvent from '../../_components/PublicEvent';
+import EventAttendantForm from '../../_features/EventAttendantContainer';
 import { NotificationProvider } from '@/components/Notification/NotificationContext';
 import { revalidateTag } from 'next/cache';
+import { PublicRoutes } from '@/lib/routes';
 
 export default async function PublicEventPage({
   params: {
@@ -20,8 +21,12 @@ export default async function PublicEventPage({
     ['event-slug']: string;
   };
 }) {
-  const eventData = await getEventSingleBySlug({ slug: eventSlug });
-  const userData = await getUserBySlug({ slug: organizationSlug });
+  const peSlug = PublicRoutes.getBase();
+
+  const eventData = await getEventSingleBySlug({
+    slug: `${peSlug}/${organizationSlug}/${eventSlug}`
+  });
+  const userData = await getUserBySlug({ slug: eventData.organizationSlug });
   const emailDictionary = await getEmailDictionary(lang);
 
   const showForm =

@@ -48,5 +48,6 @@ export const PublicRoutes = new FRoute({ base: 'pe' }, [
 ]);
 
 export const WebsiteRoutes = new FRoute({ base: '' }, [
-  { key: 'waiting_for_the_email', slug: 'waiting-for-the-email', parentKey: 'base' }
+  { key: 'waiting_for_the_email', slug: 'waiting-for-the-email', parentKey: 'base' },
+  { key: 'privacy_cookie_policy', slug: 'privacy-cookie-policy', parentKey: 'base' },
 ]);

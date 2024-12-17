@@ -1,8 +1,8 @@
 import { getEventSingleBySlug, getUserBySlug } from '@/lib/actions';
 import { Locale } from '@/lib/i18n';
-import PublicEvent from '../components/PublicEvent';
+import PublicEvent from '../_components/PublicEvent';
 import { NotificationProvider } from '@/components/Notification/NotificationContext';
-import EventUnsuscribe from '../features/EventUnsuscribe';
+import EventUnsuscribe from '../_features/EventUnsuscribe';
 
 export default async function UnsuscribePage({
   params: { lang },

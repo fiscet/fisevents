@@ -359,6 +359,13 @@
           },
           "optional": true
         },
+        "privacyAccepted": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "boolean"
+          },
+          "optional": true
+        },
         "subcribitionDate": {
           "type": "objectAttribute",
           "value": {
@@ -776,6 +783,13 @@
         "value": {
           "type": "inline",
           "name": "slug"
+        },
+        "optional": true
+      },
+      "publicSlug": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
         },
         "optional": true
       },

@@ -25,6 +25,12 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      title: 'Public slug',
+      name: 'publicSlug',
+      type: 'string',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       title: 'Event image',
       name: 'mainImage',
       type: 'image'

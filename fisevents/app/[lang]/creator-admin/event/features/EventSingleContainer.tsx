@@ -8,18 +8,18 @@ import { useEventSingleForm } from '../hooks/useEventSingleForm';
 import { useCurrentLang } from '@/hooks/useCurrentLang';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import ImageUploader from '../../components/ImageUploader';
+import ImageUploader from '../../_components/ImageUploader';
 import EventSingle from './EventSingle';
 import Processing from '@/components/Processing';
-import UtilityBar from '../../components/UtilityBar';
+import UtilityBar from '../../_components/UtilityBar';
 import EventAttentantList from './EventAttentantList';
 import { useUploadImage } from '@/hooks/useUploadImage';
 import { useNotification } from '@/components/Notification/useNotification';
 import { useImageHandlers } from '@/hooks/useImageHandlers';
 import { useSubmitHandler } from '../hooks/useSubmitHandler';
-import GoToEventList from '../../components/GoToEventList';
-import { getPublicEventLink } from '@/lib/utils';
-import AddToSite from '../../components/AddToSite';
+import GoToEventList from '../../_components/GoToEventList';
+import AddToSite from '../../_components/AddToSite';
+import { getPublicEventUrl } from '@/lib/utils';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
@@ -47,21 +47,19 @@ export default function EventSingleContainer({
     setInitImageUrl
   } = useImageHandlers(eventSingleData?.pageImage.url);
 
-  const publicLink = getPublicEventLink(
-    eventSingleData?.slug!.current!,
-    organizationSlug
-  );
-
   const [isSaving, startProcessing] = useTransition();
 
   const { form } = useEventSingleForm({
     eventSingleData
   });
 
+  const publicUrl = getPublicEventUrl(eventSingleData?.publicSlug);
+
   const uploadImage = useUploadImage(newImg);
 
   const onSubmit = useSubmitHandler(
     eventSingleData,
+    organizationSlug,
     newImg,
     setNewImg,
     setInitImageUrl,
@@ -81,9 +79,9 @@ export default function EventSingleContainer({
             <GoToEventList label={c.goto_event_list} lang={curLang} />
           }
           centerElements={
-            publicLink && (
+            eventSingleData?.publicSlug && (
               <AddToSite
-                publicLink={publicLink}
+                publicUrl={publicUrl}
                 title={d.public_link}
                 description={d.descriptions.public_link}
                 copyText={c.copy}

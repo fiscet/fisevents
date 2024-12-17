@@ -14,7 +14,7 @@ import { RiInformation2Fill } from 'react-icons/ri';
 type CopyState = 'idle' | 'copied' | 'error';
 
 export type AddToSiteProps = {
-  publicLink: string;
+  publicUrl: string;
   title?: string;
   description?: string;
   copyText?: string;
@@ -23,7 +23,7 @@ export type AddToSiteProps = {
 };
 
 export default function AddToSite({
-  publicLink,
+  publicUrl,
   title,
   description,
   copyText = 'Copy',
@@ -63,11 +63,11 @@ export default function AddToSite({
           </Popover>
         )}
         <Link
-          href={publicLink}
+          href={publicUrl}
           target="_blank"
           className="text-cyan-700 whitespace-nowrap"
         >
-          {publicLink}
+          {publicUrl}
         </Link>
 
         <div className="flex justify-between items-center gap-x-2 mt-2">
@@ -77,7 +77,7 @@ export default function AddToSite({
             size="sm"
             onClick={() => {
               navigator.clipboard
-                .writeText(publicLink)
+                .writeText(publicUrl)
                 .then(() => {
                   setCopyState('copied');
                   setTimeout(() => setCopyState('idle'), 2000);

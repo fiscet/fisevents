@@ -53,14 +53,21 @@ export const slugify = (...args: (string | number)[]): string => {
     .replace(/\s+/g, '-');
 };
 
-export const getPublicEventLink = (eventSlug: string, organizationSlug: string) => {
-  if (typeof window === 'undefined') return '';
+export const getPublicEventSlug = (eventSlug: string, organizationSlug: string) => {
   if (!eventSlug || !organizationSlug || eventSlug.length === 0 || organizationSlug.length === 0) return '';
 
-  const host = window.location.protocol + '//' + window.location.host;
-  const publicSlug = PublicRoutes.getBase();
+  const peSlug = PublicRoutes.getBase();
 
-  return `${host}/${publicSlug}/${organizationSlug}/${eventSlug}`;
+  return `${peSlug}/${organizationSlug}/${eventSlug}`;
+};
+
+export const getPublicEventUrl = (publicEventSlug?: string) => {
+  if (typeof window === 'undefined') return '';
+  if (!publicEventSlug || publicEventSlug.length === 0) return '';
+
+  const host = window.location.protocol + '//' + window.location.host;
+
+  return `${host}/${publicEventSlug}`;
 };
 
 export const checkIsValidUrl = (url: string) => {

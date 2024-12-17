@@ -73,6 +73,7 @@ export type EventAttendant = {
   fullName?: string;
   email?: string;
   phone?: string;
+  privacyAccepted?: boolean;
   subcribitionDate?: string;
   uuid?: string;
 };
@@ -129,6 +130,7 @@ export type Occurrence = {
   _rev: string;
   title?: string;
   slug?: Slug;
+  publicSlug?: string;
   mainImage?: {
     asset?: {
       _ref: string;
