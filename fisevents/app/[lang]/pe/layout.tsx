@@ -25,7 +25,7 @@ export default async function PeLayout({
             <Suspense fallback={<Loading />}>{children}</Suspense>
           </div>
         </div>
-        <DefaultFooter lang={lang} />
+        <DefaultFooter />
       </div>
     </DictionaryProvider>
   );

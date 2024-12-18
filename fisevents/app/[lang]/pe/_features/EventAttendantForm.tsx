@@ -1,16 +1,14 @@
 'use client';
 
-import React, { FormEvent, FormEventHandler } from 'react';
+import React from 'react';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import DefaultFormField from '@/components/FormField/DefaultFormField';
 import SaveButton from '../../creator-admin/_components/SaveButton';
 import { AttendantFormSchemaType } from '../_hooks/useEventAttendantForm';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
-import { Checkbox } from '@/components/ui/checkbox';
 import { useForm } from 'react-hook-form';
 import { Switch } from '@/components/ui/switch';
-import FormFieldHeader from '@/components/FormField/FormFieldHeader';
 
 export type EventAttendantProps = {
   form: ReturnType<typeof useForm<AttendantFormSchemaType>>;

@@ -2,7 +2,12 @@
   "common": {
     "privacy_policy": "Adatvédelmi szabályzat",
     "cookie_policy": "Sütik állapota szabályzat",
-    "privacy_cookie_policy": "Adatvédelmi és Sütik állapota szabályzat"
+    "privacy_cookie_policy": "Adatvédelmi és Sütik állapota szabályzat",
+    "not_found": {
+      "title": "Hoppá! Ez az oldal rossz irányba fordult...",
+      "description": "Úgy tűnik, hogy a keresett oldal nem létezik. Talán összepakolt és elment nyaralni.",
+      "action": "Vissza a főoldalra"
+    }
   },
   "website": {
     "navbar": {
@@ -11,6 +16,11 @@
       "admin": "Adminisztráció"
     },
     "home": {
+      "meta": {
+        "title": "FisEvents - Egyszerűsítse az események kezelését",
+        "description": "Könnyedén publikálhatja és kezelheti eseményeit a FisEvents segítségével. A főzőtanfolyamoktól az értekezletekig a FisEvents lehetővé teszi az egyszeri események létrehozását, megosztását és kezelését.",
+        "keywords": "események, eseménykezelés, workshopok, találkozók, online regisztráció, FisEvents"
+      },
       "payoff": "Elengedi és kezelje a saját eseményeidet!",
       "subtitle": "Az esemény kezelésének egyszerűsítése",
       "main_text": "A gyümölat, tanulás, vagy tanulási események között, a FisEvents lehetővé teszi a saját események létrehozását, megosztását és kezelését egyszerű és gyorsan. Kezdje elnevezés nélkül!",
@@ -98,7 +108,16 @@
       "goto_event_list": "Ugrás a listához",
       "copy": "Másolás",
       "copied": "Másolva",
-      "copy_error": "Másolási hiba"
+      "copy_error": "Másolási hiba",
+      "report_bug": {
+        "title": "Jelentsd a hibát vagy javasold egy funkciót",
+        "description": "Szeretnél érteni velünk! Töltsd ki a két mezőt alá a hibajelentés vagy funkció javaslatának jelentéséhez.",
+        "type": "Típus",
+        "bug": "Hiba",
+        "suggestion": "Javaslat",
+        "text": "Írd be a hozzászólásokat",
+        "send": "Küldés"
+      }
     },
     "account": {
       "userAccount": "Felhasználói fiók",

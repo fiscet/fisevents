@@ -2,7 +2,12 @@
   "common": {
     "privacy_policy": "Privacy Policy",
     "cookie_policy": "Cookie Policy",
-    "privacy_cookie_policy": "Privacy and Cookie Policy"
+    "privacy_cookie_policy": "Privacy and Cookie Policy",
+    "not_found": {
+      "title": "Oops! This page took a wrong turn...",
+      "description": "It seems the page you're looking for doesn't exist. Maybe it packed its bags and left for vacation.",
+      "action": "Take me home"
+    }
   },
   "website": {
     "navbar": {
@@ -11,6 +16,11 @@
       "admin": "Admin"
     },
     "home": {
+      "meta": {
+        "title": "FisEvents - Simplify Your Event Management",
+        "description": "Effortlessly publish and manage your events with FisEvents. From cooking workshops to meetings, FisEvents lets you create, share, and manage one-time events seamlessly.",
+        "keywords": "events, event management, workshops, meetings, online registration, FisEvents"
+      },
       "payoff": "Effortlessly publish and manage your events!",
       "subtitle": "Simplify Event Management",
       "main_text": "From cooking workshops to meetings, FisEvents lets you create, share, and manage one-time events seamlessly. Get started for free!",
@@ -98,7 +108,16 @@
       "goto_event_list": "Go to event list",
       "copy": "Copy",
       "copied": "Copied",
-      "copy_error": "Copy error"
+      "copy_error": "Copy error",
+      "report_bug": {
+        "title": "Report a Bug or Suggest a Feature",
+        "description": "We would love to hear from you! Please fill in the form below to report a bug or suggest a feature.",
+        "type": "Type",
+        "bug": "Bug",
+        "suggestion": "Suggestion",
+        "text": "Write your comments here",
+        "send": "Send"
+      }
     },
     "account": {
       "userAccount": "User account",

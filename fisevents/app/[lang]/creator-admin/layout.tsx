@@ -48,7 +48,7 @@ export default async function AdminLayout({
             </div>
           </NotificationProvider>
         </div>
-        <DefaultFooter lang={lang} />
+        <DefaultFooter session={session} />
       </div>
     </DictionaryProvider>
   );

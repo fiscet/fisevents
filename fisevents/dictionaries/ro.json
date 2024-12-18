@@ -2,7 +2,12 @@
   "common": {
     "privacy_policy": "Politica de Confidențialitate",
     "cookie_policy": "Politica de Cookie-uri",
-    "privacy_cookie_policy": "Politica de Confidențialitate și Cookie-uri"
+    "privacy_cookie_policy": "Politica de Confidențialitate și Cookie-uri",
+    "not_found": {
+      "title": "Ups! Această pagină a luat-o pe un drum greșit...",
+      "description": "Se pare că pagina pe care o cauți nu există. Poate că și-a făcut bagajele și a plecat în vacanță.",
+      "action": "Înapoi la pagina principală"
+    }
   },
   "website": {
     "navbar": {
@@ -11,6 +16,11 @@
       "admin": "Administrare"
     },
     "home": {
+      "meta": {
+        "title": "FisEvents - Simplificați gestionarea evenimentelor",
+        "description": "Publicați și gestionați cu ușurință evenimentele dvs. cu FisEvents. De la ateliere de gătit la întâlniri, FisEvents vă permite să creați, să partajați și să gestionați evenimente unice fără efort.",
+        "keywords": "evenimente, gestionare evenimente, workshop-uri, întâlniri, înregistrare online, FisEvents"
+      },
       "payoff": "Publicați și gestionați evenimentele dvs. în mod simplu și rapid!",
       "subtitle": "Simplifică gestiunea evenimentelor",
       "main_text": "Din workshopuri de cocina până la evenimente, FisEvents vă permite să creați, partajați și gestionați evenimente individuale în mod simplu și rapid. Începeți gratuit!",
@@ -98,7 +108,16 @@
       "goto_event_list": "Mergi la lista de evenimente",
       "copy": "Copiază",
       "copied": "Copiat",
-      "copy_error": "Eroare de copiere"
+      "copy_error": "Eroare de copiere",
+      "report_bug": {
+        "title": "Raportează o eroare sau sugerează o caracteristică",
+        "description": "Vrem să îți întrebam! Vă rugăm să completezi formularul de mai jos pentru a raporta o eroare sau a sugera o caracteristică.",
+        "type": "Tip",
+        "bug": "Eroare",
+        "suggestion": "Sugestie",
+        "text": "Scrieți comentariile dvs. aici",
+        "send": "Trimite"
+      }
     },
     "account": {
       "userAccount": "Cont de utilizator",
