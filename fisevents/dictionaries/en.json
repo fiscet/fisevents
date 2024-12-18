@@ -116,7 +116,8 @@
         "bug": "Bug",
         "suggestion": "Suggestion",
         "text": "Write your comments here",
-        "send": "Send"
+        "send": "Send",
+        "ok_text": "Thank you for your feedback. We will get back to you soon."
       }
     },
     "account": {
