@@ -13,7 +13,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Fragment, useState } from 'react';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 import { FDefaultSession } from '@/types/custom.types';
-import { Button } from '@/components/ui/button';
+import { sendMail } from '@/lib/send-mail';
+import { useNotification } from '@/components/Notification/useNotification';
+import { usePathname } from 'next/navigation';
 
 const BugReportSchema = z.object({
   type: z.enum(['bug', 'suggestion'], {
@@ -37,7 +39,11 @@ export default function ReportBugDialog({
 
   const d = useDictionary().creator_admin.common;
 
+  const pathname = usePathname();
+
   const userEmail = session?.user?.email ?? '';
+
+  const { showNotification } = useNotification();
 
   const {
     register,
@@ -52,18 +58,39 @@ export default function ReportBugDialog({
     }
   });
 
-  const onSubmit = (data: BugReportFormValues) => {
-    console.log('Form Submitted:', data);
-    // Invia i dati al backend (esempio fetch)
-    // await fetch('/api/bug-report', { method: 'POST', body: JSON.stringify(data) });
+  const onSubmit = async (data: BugReportFormValues) => {
+    const bodyTxt = `From: ${data.email}\n\nPathname: ${pathname}\n\n${data.description}`;
+    const bodyHtml = `<p>From: ${data.email}</p><p>Pathname: ${pathname}</p><p>${data.description}</p>`;
 
-    reset();
-    setIsOpen(false);
+    const emailRes = await sendMail({
+      subject: `Fisvents - ${d.report_bug[data.type]}`,
+      text: bodyTxt,
+      html: bodyHtml
+    });
+
+    if (emailRes?.accepted.length) {
+      showNotification({
+        title: d.report_bug.title,
+        message: d.report_bug.ok_text,
+        type: 'success'
+      });
+
+      reset();
+
+      setTimeout(() => {
+        setIsOpen(false);
+      }, 1000);
+    } else {
+      showNotification({
+        title: d.report_bug.title,
+        message: d.error_text,
+        type: 'error'
+      });
+    }
   };
 
   return (
     <>
-      {/* Bottone per aprire il dialog */}
       <div
         className="text-orange-700 hover:text-orange-600 underline cursor-pointer"
         onClick={() => setIsOpen(true)}

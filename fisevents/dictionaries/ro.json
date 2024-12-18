@@ -116,7 +116,8 @@
         "bug": "Eroare",
         "suggestion": "Sugestie",
         "text": "Scrieți comentariile dvs. aici",
-        "send": "Trimite"
+        "send": "Trimite",
+        "ok_text": "Mulțumim pentru feedback-ul dvs. Vom răspunde în curând."
       }
     },
     "account": {

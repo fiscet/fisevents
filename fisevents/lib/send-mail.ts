@@ -4,9 +4,10 @@ import nodemailer from 'nodemailer';
 const SMTP_SERVER_HOST = process.env.EMAIL_SERVER_HOST;
 const SMTP_SERVER_USERNAME = process.env.EMAIL_SERVER_USER;
 const SMTP_SERVER_PASSWORD = process.env.EMAIL_SERVER_PASSWORD;
-const SITE_MAIL_RECIEVER = process.env.SITE_MAIL_RECIEVER;
+const SITE_MAIL_RECEIVING = process.env.SITE_MAIL_RECEIVING;
 const EMAIL_SERVER_PORT = process.env.EMAIL_SERVER_PORT;
 const EMAIL_FROM = process.env.EMAIL_FROM;
+const BUG_EMAIL_TO = process.env.BUG_EMAIL_TO;
 
 const transporter = nodemailer.createTransport({
   host: SMTP_SERVER_HOST,
@@ -38,7 +39,7 @@ export async function sendMail({
 
   const info = await transporter.sendMail({
     from: EMAIL_FROM,
-    to: sendTo || SITE_MAIL_RECIEVER,
+    to: sendTo || SITE_MAIL_RECEIVING,
     subject: subject,
     text: text,
     html: html ? html : '',
