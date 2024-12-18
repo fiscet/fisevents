@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { i18n, Locale } from '@/lib/i18n';
-import '../globals.css';
+import './globals.css';
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));

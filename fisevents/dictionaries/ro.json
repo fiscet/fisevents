@@ -2,7 +2,12 @@
   "common": {
     "privacy_policy": "Politica de Confidențialitate",
     "cookie_policy": "Politica de Cookie-uri",
-    "privacy_cookie_policy": "Politica de Confidențialitate și Cookie-uri"
+    "privacy_cookie_policy": "Politica de Confidențialitate și Cookie-uri",
+    "not_found": {
+      "title": "Ups! Această pagină a luat-o pe un drum greșit...",
+      "description": "Se pare că pagina pe care o cauți nu există. Poate că și-a făcut bagajele și a plecat în vacanță.",
+      "action": "Înapoi la pagina principală"
+    }
   },
   "website": {
     "navbar": {

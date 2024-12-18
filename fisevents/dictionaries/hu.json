@@ -2,7 +2,12 @@
   "common": {
     "privacy_policy": "Adatvédelmi szabályzat",
     "cookie_policy": "Sütik állapota szabályzat",
-    "privacy_cookie_policy": "Adatvédelmi és Sütik állapota szabályzat"
+    "privacy_cookie_policy": "Adatvédelmi és Sütik állapota szabályzat",
+    "not_found": {
+      "title": "Hoppá! Ez az oldal rossz irányba fordult...",
+      "description": "Úgy tűnik, hogy a keresett oldal nem létezik. Talán összepakolt és elment nyaralni.",
+      "action": "Vissza a főoldalra"
+    }
   },
   "website": {
     "navbar": {

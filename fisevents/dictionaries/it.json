@@ -2,7 +2,12 @@
   "common": {
     "privacy_policy": "Privacy Policy",
     "cookie_policy": "Cookie Policy",
-    "privacy_cookie_policy": "Privacy e Cookie Policy"
+    "privacy_cookie_policy": "Privacy e Cookie Policy",
+    "not_found": {
+      "title": "Ops! Questa pagina ha preso una brutta strada...",
+      "description": "Sembra che la pagina che stai cercando non esista. Forse ha fatto le valigie ed è partita per le vacanze.",
+      "action": "Torna alla home"
+    }
   },
   "website": {
     "navbar": {

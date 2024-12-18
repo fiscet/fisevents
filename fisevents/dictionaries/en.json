@@ -2,7 +2,12 @@
   "common": {
     "privacy_policy": "Privacy Policy",
     "cookie_policy": "Cookie Policy",
-    "privacy_cookie_policy": "Privacy and Cookie Policy"
+    "privacy_cookie_policy": "Privacy and Cookie Policy",
+    "not_found": {
+      "title": "Oops! This page took a wrong turn...",
+      "description": "It seems the page you're looking for doesn't exist. Maybe it packed its bags and left for vacation.",
+      "action": "Take me home"
+    }
   },
   "website": {
     "navbar": {
