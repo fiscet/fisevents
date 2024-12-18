@@ -11,6 +11,11 @@
       "admin": "Administrare"
     },
     "home": {
+      "meta": {
+        "title": "FisEvents - Simplificați gestionarea evenimentelor",
+        "description": "Publicați și gestionați cu ușurință evenimentele dvs. cu FisEvents. De la ateliere de gătit la întâlniri, FisEvents vă permite să creați, să partajați și să gestionați evenimente unice fără efort.",
+        "keywords": "evenimente, gestionare evenimente, workshop-uri, întâlniri, înregistrare online, FisEvents"
+      },
       "payoff": "Publicați și gestionați evenimentele dvs. în mod simplu și rapid!",
       "subtitle": "Simplifică gestiunea evenimentelor",
       "main_text": "Din workshopuri de cocina până la evenimente, FisEvents vă permite să creați, partajați și gestionați evenimente individuale în mod simplu și rapid. Începeți gratuit!",

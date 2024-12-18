@@ -11,6 +11,11 @@
       "admin": "Amministrazione"
     },
     "home": {
+      "meta": {
+        "title": "FisEvents - Semplifica la Gestione degli Eventi",
+        "description": "Pubblica e gestisci i tuoi eventi facilmente con FisEvents. Dai workshop di cucina agli incontri, FisEvents ti consente di creare, condividere e gestire eventi unici in modo semplice e veloce.",
+        "keywords": "eventi, gestione eventi, workshop, incontri, registrazione online, FisEvents"
+      },
       "payoff": "Pubblica e gestisci facilmente i tuoi eventi!",
       "subtitle": "Semplifica la gestione degli eventi",
       "main_text": "Da workshop di cucina a riunioni, FisEvents ti consente di creare, condividere e gestire eventi singoli in modo semplice e veloce. Inizia gratuitamente!",

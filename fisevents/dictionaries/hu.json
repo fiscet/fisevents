@@ -11,6 +11,11 @@
       "admin": "Adminisztráció"
     },
     "home": {
+      "meta": {
+        "title": "FisEvents - Egyszerűsítse az események kezelését",
+        "description": "Könnyedén publikálhatja és kezelheti eseményeit a FisEvents segítségével. A főzőtanfolyamoktól az értekezletekig a FisEvents lehetővé teszi az egyszeri események létrehozását, megosztását és kezelését.",
+        "keywords": "események, eseménykezelés, workshopok, találkozók, online regisztráció, FisEvents"
+      },
       "payoff": "Elengedi és kezelje a saját eseményeidet!",
       "subtitle": "Az esemény kezelésének egyszerűsítése",
       "main_text": "A gyümölat, tanulás, vagy tanulási események között, a FisEvents lehetővé teszi a saját események létrehozását, megosztását és kezelését egyszerű és gyorsan. Kezdje elnevezés nélkül!",

@@ -11,6 +11,11 @@
       "admin": "Admin"
     },
     "home": {
+      "meta": {
+        "title": "FisEvents - Simplify Your Event Management",
+        "description": "Effortlessly publish and manage your events with FisEvents. From cooking workshops to meetings, FisEvents lets you create, share, and manage one-time events seamlessly.",
+        "keywords": "events, event management, workshops, meetings, online registration, FisEvents"
+      },
       "payoff": "Effortlessly publish and manage your events!",
       "subtitle": "Simplify Event Management",
       "main_text": "From cooking workshops to meetings, FisEvents lets you create, share, and manage one-time events seamlessly. Get started for free!",
