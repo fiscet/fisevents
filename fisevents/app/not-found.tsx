@@ -70,7 +70,7 @@ export default async function NotFound({ params }: { params: any }) {
             </div>
           </div>
         </main>
-        <DefaultFooter lang={userLang as Locale} />
+        <DefaultFooter />
       </div>
     </DictionaryProvider>
   );

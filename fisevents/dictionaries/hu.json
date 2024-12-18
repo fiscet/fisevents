@@ -108,7 +108,16 @@
       "goto_event_list": "Ugrás a listához",
       "copy": "Másolás",
       "copied": "Másolva",
-      "copy_error": "Másolási hiba"
+      "copy_error": "Másolási hiba",
+      "report_bug": {
+        "title": "Jelentsd a hibát vagy javasold egy funkciót",
+        "description": "Szeretnél érteni velünk! Töltsd ki a két mezőt alá a hibajelentés vagy funkció javaslatának jelentéséhez.",
+        "type": "Típus",
+        "bug": "Hiba",
+        "suggestion": "Javaslat",
+        "text": "Írd be a hozzászólásokat",
+        "send": "Küldés"
+      }
     },
     "account": {
       "userAccount": "Felhasználói fiók",

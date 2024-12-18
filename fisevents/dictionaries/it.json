@@ -108,7 +108,16 @@
       "goto_event_list": "Vai alla lista degli eventi",
       "copy": "Copia",
       "copied": "Copiato",
-      "copy_error": "Errore di copia"
+      "copy_error": "Errore di copia",
+      "report_bug": {
+        "title": "Segnala un bug o suggerisci una funzionalità",
+        "description": "Ci piacerebbe sentire da te! Per favore, compila il modulo qui sotto per segnalare un bug o suggerire una funzionalità.",
+        "type": "Tipo",
+        "bug": "Bug",
+        "suggestion": "Suggerimento",
+        "text": "Scrivi i tuoi commenti qui",
+        "send": "Invia"
+      }
     },
     "account": {
       "userAccount": "Account utente",

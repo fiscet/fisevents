@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.4",
+    "@headlessui/react": "^2.2.0",
     "@hookform/resolvers": "^3.9.0",
     "@mdxeditor/editor": "^3.11.0",
     "@radix-ui/react-accordion": "^1.2.1",

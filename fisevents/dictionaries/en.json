@@ -108,7 +108,16 @@
       "goto_event_list": "Go to event list",
       "copy": "Copy",
       "copied": "Copied",
-      "copy_error": "Copy error"
+      "copy_error": "Copy error",
+      "report_bug": {
+        "title": "Report a Bug or Suggest a Feature",
+        "description": "We would love to hear from you! Please fill in the form below to report a bug or suggest a feature.",
+        "type": "Type",
+        "bug": "Bug",
+        "suggestion": "Suggestion",
+        "text": "Write your comments here",
+        "send": "Send"
+      }
     },
     "account": {
       "userAccount": "User account",
