@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import TooltipSimple from '../TooltipSimple';
+import PopoverSimple from '../PopoverSimple';
 import { cn } from '@/lib/utils';
 
 export type AccountLinkProps = {
@@ -16,14 +16,13 @@ export default function AccountLink({
   href,
   pictureUrl
 }: AccountLinkProps) {
-
   const labelChunks = label.split(' ');
 
   const firstChar = labelChunks[0].substring(0, 1).toUpperCase();
   const secondChar = labelChunks[1].substring(0, 1).toUpperCase();
 
   return (
-    <TooltipSimple label={label}>
+    <PopoverSimple label={label}>
       <Link href={href}>
         <Avatar
           className={cn(
@@ -32,9 +31,12 @@ export default function AccountLink({
           )}
         >
           <AvatarImage src={pictureUrl} />
-          <AvatarFallback>{firstChar}{secondChar}</AvatarFallback>
+          <AvatarFallback>
+            {firstChar}
+            {secondChar}
+          </AvatarFallback>
         </Avatar>
       </Link>
-    </TooltipSimple>
+    </PopoverSimple>
   );
 }

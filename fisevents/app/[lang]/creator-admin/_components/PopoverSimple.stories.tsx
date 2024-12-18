@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import TooltipSimple from './TooltipSimple';
+import PopoverSimple from './PopoverSimple';
 import { Button } from '@/components/ui/button';
 
 const meta = {
-  component: TooltipSimple,
-} satisfies Meta<typeof TooltipSimple>;
+  component: PopoverSimple,
+} satisfies Meta<typeof PopoverSimple>;
 
 export default meta;
 

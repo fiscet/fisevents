@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { IoLogOutSharp } from 'react-icons/io5';
-import TooltipSimple from '../TooltipSimple';
+import PopoverSimple from '../PopoverSimple';
 
 export type LogoutLinkProps = {
   label: string;
@@ -11,7 +11,7 @@ export type LogoutLinkProps = {
 
 export default function LogoutLink({ label, onSignOut }: LogoutLinkProps) {
   return (
-    <TooltipSimple label={label}>
+    <PopoverSimple label={label}>
       <Link
         href=""
         onClick={() =>
@@ -20,6 +20,6 @@ export default function LogoutLink({ label, onSignOut }: LogoutLinkProps) {
       >
         <IoLogOutSharp className="w-7 md:w-9 h-7 md:h-9 transition-colors ease-in-out duration-500 hover:text-orange-500" />
       </Link>
-    </TooltipSimple>
+    </PopoverSimple>
   );
 }
