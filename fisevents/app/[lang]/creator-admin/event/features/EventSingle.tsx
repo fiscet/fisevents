@@ -171,7 +171,7 @@ export default function EventSingle({
           <Separator className="my-5" />
           {!isExpired && (
             <div className="flex justify-center">
-              <SaveButton className="w-full" text={d.save} />
+              <SaveButton label={d.save} />
             </div>
           )}
         </form>

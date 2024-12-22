@@ -23,7 +23,7 @@ export default async function WebsiteLayout({
         <main className="container max-w-[1240px] bg-white mx-auto px-4 mt-[115px] md:mt-[150px] xl:mt-[170px] flex-grow">
           {children}
         </main>
-        <DefaultFooter />
+        <DefaultFooter showBugReport={false} />
       </div>
     </DictionaryProvider>
   );

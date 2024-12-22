@@ -99,7 +99,7 @@ export default function SignInWithEmail({ onSignIn }: SignInWithEmailProps) {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <Button type="submit" className="mt-4 w-full">
+        <Button variant="secondary" type="submit" className="mt-4 w-full">
           {d.title}
         </Button>
       </form>

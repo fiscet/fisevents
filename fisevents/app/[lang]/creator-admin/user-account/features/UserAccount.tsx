@@ -71,7 +71,7 @@ export default function UserAccount({
 
             <Separator className="my-5" />
             <div className="flex justify-center">
-              <SaveButton className="w-full" text={c.save} />
+              <SaveButton label={c.save} />
             </div>
           </form>
         </Form>

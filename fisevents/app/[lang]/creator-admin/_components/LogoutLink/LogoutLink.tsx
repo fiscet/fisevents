@@ -18,7 +18,7 @@ export default function LogoutLink({ label, onSignOut }: LogoutLinkProps) {
           onSignOut({ callbackUrl: `${window.location.origin}/auth` })
         }
       >
-        <IoLogOutSharp className="w-7 md:w-9 h-7 md:h-9 transition-colors ease-in-out duration-500 hover:text-orange-500" />
+        <IoLogOutSharp className="w-7 md:w-9 h-7 md:h-9 transition-colors ease-in-out duration-500 hover:text-orange-600" />
       </Link>
     </PopoverSimple>
   );
