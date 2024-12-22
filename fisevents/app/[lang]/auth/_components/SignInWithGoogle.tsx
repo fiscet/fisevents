@@ -25,7 +25,7 @@ export default function SignInWithGoogle({ onSignIn }: SignInWithGoogleProps) {
           }/${CreatorAdminRoutes.getBase()}/`
         })
       }
-      variant="secondary"
+      variant="primary"
     >
       <span className="mr-2">
         <GoogleLogo />
