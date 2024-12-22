@@ -48,11 +48,11 @@ export default function AddToSite({
   };
 
   return (
-    <div className="w-full flex flex-col justify-center items-center bg-">
-      <div className="w-full my-2 p-3 justify-self-start bg-gray-200 border-slate-200 overflow-x-scroll rounded-md">
+    <div className="w-full max-w-[650px] p-3 relative bg-gray-200 border-slate-200 rounded-md">
+      <div className="py-3 overflow-x-auto">
         {description && (
           <Popover>
-            <PopoverTrigger className="mr-2">
+            <PopoverTrigger className="absolute top-2 right-2">
               <RiInformation2Fill className="w-5 h-5 text-gray-600" />
             </PopoverTrigger>
             <PopoverContent className="w-80 bg-white shadow-lg">
@@ -62,35 +62,36 @@ export default function AddToSite({
             </PopoverContent>
           </Popover>
         )}
-        <Link
-          href={publicUrl}
-          target="_blank"
-          className="text-cyan-700 whitespace-nowrap"
-        >
-          {publicUrl}
-        </Link>
-
-        <div className="flex justify-between items-center gap-x-2 mt-2">
-          {title && <div className="text-gray-900 text-sm">{title}</div>}
-          <Button
-            variant={copyState === 'copied' ? 'success' : 'secondary'}
-            size="sm"
-            onClick={() => {
-              navigator.clipboard
-                .writeText(publicUrl)
-                .then(() => {
-                  setCopyState('copied');
-                  setTimeout(() => setCopyState('idle'), 2000);
-                })
-                .catch(() => {
-                  setCopyState('error');
-                  setTimeout(() => setCopyState('idle'), 2000);
-                });
-            }}
+        <div className="mt-1">
+          <Link
+            href={publicUrl}
+            target="_blank"
+            className="text-cyan-700 whitespace-nowrap"
           >
-            <Icon className="size-4 mr-2" /> {getMessageText(copyState)}
-          </Button>
+            {publicUrl}
+          </Link>
         </div>
+      </div>
+      <div className="flex justify-between items-center gap-x-2 mt-2">
+        {title && <div className="text-gray-900 text-sm">{title}</div>}
+        <Button
+          variant={copyState === 'copied' ? 'success' : 'secondary'}
+          size="sm"
+          onClick={() => {
+            navigator.clipboard
+              .writeText(publicUrl)
+              .then(() => {
+                setCopyState('copied');
+                setTimeout(() => setCopyState('idle'), 2000);
+              })
+              .catch(() => {
+                setCopyState('error');
+                setTimeout(() => setCopyState('idle'), 2000);
+              });
+          }}
+        >
+          <Icon className="size-4 mr-2" /> {getMessageText(copyState)}
+        </Button>
       </div>
     </div>
   );
