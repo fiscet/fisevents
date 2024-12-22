@@ -68,7 +68,7 @@ const EventAttendantComponent = ({ form, onSubmit }: EventAttendantProps) => {
             )}
           />
           <div className="flex justify-center">
-            <SaveButton className="w-full" text={d.subscribe_button} />
+            <SaveButton label={d.subscribe_button} />
           </div>
         </form>
       </Form>

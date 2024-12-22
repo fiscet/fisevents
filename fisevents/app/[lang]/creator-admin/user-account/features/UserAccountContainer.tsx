@@ -127,11 +127,7 @@ export default function UserAccountContainer({
       <UtilityBar
         leftElements={
           isBackVisible && (
-            <GoToEventList
-              variant="success"
-              label={c.goto_event_list}
-              lang={curLang}
-            />
+            <GoToEventList label={c.goto_event_list} lang={curLang} />
           )
         }
       />
