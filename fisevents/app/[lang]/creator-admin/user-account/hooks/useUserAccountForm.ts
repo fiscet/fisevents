@@ -6,32 +6,21 @@ import { useForm } from 'react-hook-form';
 import { CurrentUser } from '@/types/sanity.extended.types';
 import { checkIsValidUrl, slugify } from '@/lib/utils';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
+import { userAccountSchema } from '@/lib/form-schemas';
 
 export type useUserAccountFormProps = {
   userData: CurrentUser;
 };
 
-export const formSchemaObj = z
-  .object({
-    name: z.string(),
-    email: z.string(),
-    companyName: z.string(),
-    slug: z.object({
-      current: z.string(),
-      _type: z.literal('slug')
-    }),
-    www: z.string().optional(),
-    logoUrl: z.string().optional(),
-  });
 
-export type UserAccountFormSchemaType = z.infer<typeof formSchemaObj>;
+export type UserAccountFormSchemaType = z.infer<typeof userAccountSchema>;
 
 export function useUserAccountForm({ userData }: useUserAccountFormProps) {
   const { creator_admin: ca } = useDictionary();
   const { account: d } = ca;
 
   const formSchema = z
-    .object(formSchemaObj.shape)
+    .object(userAccountSchema.shape)
     .refine(
       (data) => {
         const { name } = data;
@@ -55,14 +44,14 @@ export function useUserAccountForm({ userData }: useUserAccountFormProps) {
     ).refine((data) => {
       const { www } = data;
 
-      if(www && !checkIsValidUrl(www)) return false;
+      if (www && !checkIsValidUrl(www)) return false;
 
       return true;
     },
-    {
-      message: d.validation.www,
-      path: ['www']
-    });
+      {
+        message: d.validation.www,
+        path: ['www']
+      });
 
   const form = useForm<UserAccountFormSchemaType>({
     resolver: zodResolver(formSchema),

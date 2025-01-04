@@ -23,6 +23,8 @@ export default async function PublicEventPage({
 }) {
   const peSlug = PublicRoutes.getBase();
 
+  revalidateTag(`eventSingleBySlug:${eventSlug}`);
+
   const eventData = await getEventSingleBySlug({
     slug: `${peSlug}/${organizationSlug}/${eventSlug}`
   });
@@ -36,8 +38,6 @@ export default async function PublicEventPage({
         eventData.maxSubscribers >= 0 &&
         eventData.remainingPlaces > 0)) &&
     Date.parse(eventData.endDate!) >= Date.now();
-
-  revalidateTag(`eventSingleBySlug:${eventSlug}`);
 
   return (
     <div>

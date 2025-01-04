@@ -7,32 +7,14 @@ import { pickerDateToIsoString, slugify } from '@/lib/utils';
 import { getDictionary } from '@/lib/i18n.utils';
 import { OccurrenceSingle } from '@/types/sanity.extended.types';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
+import { singleEventSchema } from '@/lib/form-schemas';
 
 export type useEventSingleFormProps = {
   eventSingleData?: OccurrenceSingle;
 };
 
-export const formSchemaObj = z
-  .object({
-    _id: z.string(),
-    title: z.string(),
-    slug: z.object({
-      current: z.string(),
-      _type: z.literal('slug')
-    }),
-    publicSlug: z.string(),
-    description: z.string(),
-    location: z.string().optional(),
-    maxSubscribers: z.number().optional(),
-    basicPrice: z.string().optional(),
-    currency: z.string().max(3).toUpperCase().optional(),
-    publicationStartDate: z.string().optional(),
-    startDate: z.string(),
-    endDate: z.string(),
-    active: z.boolean()
-  });
 
-export type EventFormSchemaType = z.infer<typeof formSchemaObj>;
+export type EventFormSchemaType = z.infer<typeof singleEventSchema>;
 
 export function useEventSingleForm({ eventSingleData }: useEventSingleFormProps) {
 
@@ -40,7 +22,7 @@ export function useEventSingleForm({ eventSingleData }: useEventSingleFormProps)
   const { events: d } = ca;
 
   const formSchema = z
-    .object(formSchemaObj.shape)
+    .object(singleEventSchema.shape)
     .refine(
       (data) => {
         const { publicationStartDate, startDate } = data;

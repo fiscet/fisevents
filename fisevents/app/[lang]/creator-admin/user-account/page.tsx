@@ -1,10 +1,9 @@
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/authOptions';
+import { getSession } from '@/lib/auth';
 import { getUserById } from '@/lib/actions';
 import UserAccountContainer from './features/UserAccountContainer';
 
 export default async function AccountPage() {
-  const session = await getServerSession(authOptions);
+  const session = await getSession();
 
   if (!session) {
     return null;

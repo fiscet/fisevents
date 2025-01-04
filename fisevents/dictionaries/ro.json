@@ -240,8 +240,6 @@
     "subscribe_title": "Abonează-te la eveniment",
     "subscribe_button": "Abonează-te",
     "subscribing": "Abonare",
-    "error": "Eroare",
-    "error_already_subscribed": "Deja abonat la acest eveniment",
     "success": "Succes",
     "success_subscribed": "Abonarea la acest eveniment a fost efectuată cu succes",
     "unsuscribe_title": "Anulează-te de la eveniment",
@@ -249,8 +247,13 @@
     "unsuscribe_confirm": "Sunteți sigur că doriți să anulați abonarea la acest eveniment?",
     "unsuscribe_confirm_yes": "Da, doresc să anulez abonarea la acest eveniment",
     "unsuscribe_success": "Anularea abonarii a fost efectuată cu succes",
-    "unsuscribe_error": "Ceva nu a mers bine",
-    "unsuscribe_error_already_unsubscribed": "Deja anulat abonarea",
-    "unsubscribing": "Anulare abonare"
+    "unsubscribing": "Anulare abonare",
+    "errors": {
+      "default_title": "Eroare",
+      "generic": "Ceva nu a mers bine",
+      "email_invalid": "E-mail-ul nu este valid",
+      "already_subscribed": "Deja abonat la acest eveniment",
+      "already_unsubscribed": "Deja anulat abonarea"
+    }
   }
 }

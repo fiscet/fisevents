@@ -50,7 +50,7 @@ export default function EventUnsuscribe({
             });
           })
           .catch((e) => {
-            const message = e instanceof Error ? e.message : d.unsuscribe_error;
+            const message = e instanceof Error ? e.message : d.errors.generic;
 
             showNotification({
               title: 'Error',

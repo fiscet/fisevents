@@ -16,17 +16,7 @@ import { FDefaultSession } from '@/types/custom.types';
 import { sendMail } from '@/lib/send-mail';
 import { useNotification } from '@/components/Notification/useNotification';
 import { usePathname } from 'next/navigation';
-
-const BugReportSchema = z.object({
-  type: z.enum(['bug', 'suggestion'], {
-    required_error: 'Please select a type'
-  }),
-  description: z
-    .string()
-    .min(10, 'Description must be at least 10 characters long')
-    .max(500, 'Description must be less than 500 characters'),
-  email: z.string().email('Invalid email address')
-});
+import { BugReportSchema } from '@/lib/form-schemas';
 
 type BugReportFormValues = z.infer<typeof BugReportSchema>;
 
