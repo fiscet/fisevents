@@ -35,7 +35,7 @@ export default function EventUnsuscribe({
   useEffect(() => {
     if (isConfirmed) {
       startProcessing(async () => {
-        const alreadyUnsubscribedText = d.unsuscribe_error_already_unsubscribed;
+        const alreadyUnsubscribedText = d.errors.already_unsubscribed;
 
         removeEventAttendant({
           eventId,
