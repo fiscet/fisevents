@@ -1,6 +1,4 @@
 import { redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/authOptions';
 import { Locale } from '@/lib/i18n';
 import Logo from '@/components/Logo';
 import { getDictionary } from '@/lib/i18n.utils';
@@ -11,6 +9,7 @@ import LocaleSwitcher from '@/components/LocaleSwitcher';
 import AccountSection from './_components/AccountSection';
 import { DictionaryProvider } from '@/app/contexts/DictionaryContext';
 import DefaultFooter from '@/components/DefaultFooter';
+import { getSession } from '@/lib/auth';
 
 export default async function AdminLayout({
   children,
@@ -19,7 +18,7 @@ export default async function AdminLayout({
   children: React.ReactNode;
   params: { lang: Locale };
 }) {
-  const session = await getServerSession(authOptions);
+  const session = await getSession();
   const dictionary = await getDictionary(lang);
 
   if (!session) {

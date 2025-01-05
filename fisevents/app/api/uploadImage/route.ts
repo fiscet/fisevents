@@ -1,11 +1,33 @@
 import { NextResponse } from "next/server";
 import { sanityClient } from "@/lib/sanity.cli";
+import { getSession } from "@/lib/auth";
+import arcjet, { fixedWindow } from "@/lib/arcjet";
 
 type StatusResponseType = { status: "success" | "fail"; };
 type SuccessResponseType = StatusResponseType & { id: string; url: string; };
 type ErrorResponseType = StatusResponseType & { error: unknown; };
 
+const aj = arcjet.withRule(
+  fixedWindow({
+    mode: "LIVE",
+    max: 2,
+    window: '60s',
+  }),
+);
+
 export async function POST(req: Request) {
+  const session = await getSession();
+
+  if (!session) {
+    return NextResponse.json({ status: "fail", error: "unauthorized" });
+  }
+
+  const decision = await aj.protect(req);
+
+  if (decision.isDenied()) {
+    return NextResponse.json({ status: "fail", error: "too_many_requests" });
+  }
+
   try {
     const formData = await req.formData();
 

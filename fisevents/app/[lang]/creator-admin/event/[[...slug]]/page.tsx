@@ -1,6 +1,5 @@
-import { authOptions } from '@/lib/authOptions';
+import { getSession } from '@/lib/auth';
 import { getEventSingleById, getEventIdList, getUserById } from '@/lib/actions';
-import { getServerSession } from 'next-auth';
 import EventSingle from '../features/EventSingleContainer';
 
 export async function generateStaticParams() {
@@ -22,7 +21,7 @@ export default async function EventSinglePage({
 }: {
   params: { slug?: string[] };
 }) {
-  const session = await getServerSession(authOptions);
+  const session = await getSession();
 
   const userData = await getUserById({ userId: session!.user!.uid! });
 

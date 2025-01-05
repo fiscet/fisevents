@@ -1,4 +1,4 @@
-import { NextAuthOptions } from 'next-auth';
+import { getServerSession, NextAuthOptions } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import Google from 'next-auth/providers/google';
 import Email from 'next-auth/providers/email';
@@ -55,3 +55,7 @@ export const authOptions = {
     }
   },
 } satisfies NextAuthOptions;
+
+export const getSession = async () => {
+  return await getServerSession(authOptions);
+};

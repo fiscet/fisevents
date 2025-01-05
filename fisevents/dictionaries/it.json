@@ -240,8 +240,6 @@
     "subscribe_title": "Iscriviti all'evento",
     "subscribe_button": "Iscriviti",
     "subscribing": "Iscrizione in corso",
-    "error": "Errore",
-    "error_already_subscribed": "Sei già iscritto a quest'evento",
     "success": "Successo",
     "success_subscribed": "L'iscrizione a quest'evento è avvenuta con successo",
     "unsuscribe_title": "Disiscriviti dall'evento",
@@ -249,8 +247,13 @@
     "unsuscribe_confirm": "Sei sicuro di voler disiscriverti da quest'evento?",
     "unsuscribe_confirm_yes": "Sì, voglio disiscrivermi da quest'evento",
     "unsuscribe_success": "La disiscrizione è avvenuta con successo",
-    "unsuscribe_error": "Qualcosa è andato storto",
-    "unsuscribe_error_already_unsubscribed": "Sei già disiscritto",
-    "unsubscribing": "Disiscrizione in corso"
+    "unsubscribing": "Disiscrizione in corso",
+    "errors": {
+      "default_title": "Errore",
+      "generic": "Qualcosa è andato storto",
+      "email_invalid": "L'email non è valida",
+      "already_subscribed": "Sei già iscritto a quest'evento",
+      "already_unsubscribed": "Sei già disiscritto"
+    }
   }
 }

@@ -96,7 +96,7 @@ export const useSubmitHandler = (
 
           const res = await createEvent({ data: insValues as Occurrence });
 
-          if (res._id) {
+          if (res?._id) {
             router.push(`/${CreatorAdminRoutes.getItem('event')}/${res._id}`);
           }
         } else {

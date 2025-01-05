@@ -1,7 +1,5 @@
-import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { CreatorAdminRoutes } from '@/lib/routes';
-import { authOptions } from '@/lib/authOptions';
 import { NotificationProvider } from '@/components/Notification/NotificationContext';
 import SignInProviders from './_components/SignInProviders';
 import Logo from '@/components/Logo';
@@ -15,13 +13,14 @@ import {
 } from '@/components/ui/card';
 import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
+import { getSession } from '@/lib/auth';
 
 export default async function AuthPage({
   params: { lang }
 }: {
   params: { lang: Locale };
 }) {
-  const session = await getServerSession(authOptions);
+  const session = await getSession();
   const d = (await getDictionary(lang)).auth;
 
   if (session) {

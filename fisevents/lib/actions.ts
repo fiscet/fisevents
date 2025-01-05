@@ -25,6 +25,15 @@ import {
 import { revalidateTag } from 'next/cache';
 import { v4 as uuidv4 } from 'uuid';
 import { toUserIsoString } from './utils';
+import { getSession } from '@/lib/auth';
+import { eventAttendantSchema } from './form-schemas';
+import arcjet, { validateEmail } from '@/lib/arcjet';
+import { request } from '@arcjet/next';
+
+const aj = arcjet.withRule(validateEmail({
+  mode: "LIVE",
+  block: ['DISPOSABLE', 'INVALID', 'NO_MX_RECORDS']
+}));
 
 /** USERS */
 export const getUserById = async ({ userId }: { userId: string; }) => {
@@ -49,6 +58,12 @@ export const updateUser = async ({
   id: string;
   data: Partial<User>;
 }) => {
+  const session = await getSession();
+
+  if (!session) {
+    return;
+  }
+
   const res = await sanityClient.patch(id).set(data).commit();
 
   revalidateTag('user');
@@ -113,6 +128,12 @@ export const updateEvent = async ({
   id: string;
   data: Partial<Occurrence>;
 }) => {
+  const session = await getSession();
+
+  if (!session) {
+    return;
+  }
+
   const res = await sanityClient.patch(id).set(data).commit();
 
   revalidateTag(`eventSingle:${id}`);
@@ -122,6 +143,12 @@ export const updateEvent = async ({
 };
 
 export const createEvent = async ({ data }: { data: Occurrence; }) => {
+  const session = await getSession();
+
+  if (!session) {
+    return;
+  }
+
   const res = await sanityClient.create<Occurrence>(data);
 
   revalidateTag('eventList');
@@ -164,13 +191,30 @@ export const addEventAttendant = async ({
   eventId: string;
   eventAttendant: Partial<EventAttendant>;
 }) => {
+
+  const validatedFields = eventAttendantSchema.safeParse(eventAttendant);
+
+  if (!validatedFields.success) {
+    throw new Error('generic');
+  }
+
+  const req = await request();
+
+  const decision = await aj.protect(req, {
+    email: validatedFields.data.email,
+  });
+
+  if (decision.isDenied()) {
+    throw new Error('email_invalid');
+  }
+
   const checkRes = await getEventSingleHasAttendantById({
     eventId,
     email: eventAttendant.email!
   });
 
   if (checkRes.hasAttendant) {
-    throw new Error('Attendant already subscribed');
+    throw new Error('already_subscribed');
   }
 
   eventAttendant._type = 'eventAttendant';

@@ -240,8 +240,6 @@
     "subscribe_title": "Részvétel",
     "subscribe_button": "Részvétel",
     "subscribing": "Részvétel",
-    "error": "Hiba",
-    "error_already_subscribed": "Már résztvevő ezen a részvételben",
     "success": "Sikeres",
     "success_subscribed": "Sikeresen résztvevő ezen a részvételben",
     "unsuscribe_title": "Részvétel törlése",
@@ -249,8 +247,13 @@
     "unsuscribe_confirm": "Biztosan el akarod résztvevő ezen a részvételben?",
     "unsuscribe_confirm_yes": "Igen, el akarok résztvevő ezen a részvételben",
     "unsuscribe_success": "Sikeresen résztvevő ezen a részvételben törölve",
-    "unsuscribe_error": "Hiba történt a részvétel törlése közben",
-    "unsuscribe_error_already_unsubscribed": "Már résztvevő ezen a részvételben",
-    "unsubscribing": "Részvétel törlése"
+    "unsubscribing": "Részvétel törlése",
+    "errors": {
+      "default_title": "Hiba",
+      "generic": "Hiba történt",
+      "email_invalid": "Az e-mail cím érvénytelen",
+      "already_subscribed": "Már résztvevő ezen a részvételben",
+      "already_unsubscribed": "Már résztvevő ezen a részvételben"
+    }
   }
 }

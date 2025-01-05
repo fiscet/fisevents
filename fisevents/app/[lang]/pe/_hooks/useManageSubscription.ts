@@ -32,23 +32,9 @@ export function useManageSubscription({
     async (data: Partial<EventAttendant>) => {
       startProcessing(async () => {
         try {
-          const res = await getEventSingleHasAttendantById({
-            eventId: eventId,
-            email: data.email || '',
-          });
-
-          if (res.hasAttendant) {
-            showNotification({
-              title: d.error,
-              message: d.error_already_subscribed,
-              type: 'error',
-            });
-            return;
-          }
-
           const addAttendantRes = await addEventAttendant({
             eventId: eventId,
-            eventAttendant: data,
+            eventAttendant: data
           });
 
           if (addAttendantRes) {
@@ -71,10 +57,10 @@ export function useManageSubscription({
             }
           }
         } catch (e) {
-          const message = e instanceof Error ? e.message : d.error;
+          const message = e instanceof Error ? d.errors[e.message as keyof typeof d.errors] : d.errors.generic;
 
           showNotification({
-            title: d.error,
+            title: d.errors.default_title,
             message: message,
             type: 'error',
           });
