@@ -33,6 +33,7 @@ const EventAttendantComponent = ({ form, onSubmit }: EventAttendantProps) => {
             label={d.fullname}
             formComponent={Input}
             description={d.descriptions.fullname}
+            requiredStatus='required'
           />
           <MemoizedDefaultFormField
             form={form}
@@ -40,6 +41,7 @@ const EventAttendantComponent = ({ form, onSubmit }: EventAttendantProps) => {
             label={d.email}
             formComponent={Input}
             description={d.descriptions.email}
+            requiredStatus='required'
           />
           <MemoizedDefaultFormField
             form={form}
@@ -47,6 +49,7 @@ const EventAttendantComponent = ({ form, onSubmit }: EventAttendantProps) => {
             label={d.phone}
             formComponent={Input}
             description={d.descriptions.phone}
+            requiredStatus='optional-with-text'
           />
           <FormField
             control={form.control}
@@ -58,7 +61,7 @@ const EventAttendantComponent = ({ form, onSubmit }: EventAttendantProps) => {
                     <Switch checked={field.value} onCheckedChange={field.onChange} />
                   </FormControl>
                   <FormLabel style={{ margin: 0 }}>
-                    {d.privacy_acceptance}
+                    {d.privacy_acceptance} *
                   </FormLabel>
                 </div>
                 <FormDescription className="text-sm text-muted-foreground">

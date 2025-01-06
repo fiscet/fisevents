@@ -7,7 +7,8 @@
       "title": "Hoppá! Ez az oldal rossz irányba fordult...",
       "description": "Úgy tűnik, az oldal, amit keresel, nem létezik. Talán elutazott szabadságra.",
       "action": "Vigyen haza"
-    }
+    },
+    "optional": "Opcionális"
   },
   "website": {
     "navbar": {
@@ -97,7 +98,7 @@
     }
   },
   "creator_admin": {
-    "common": {
+    "shared": {
       "saving": "Mentés folyamatban",
       "save": "Mentés",
       "back": "Vissza",

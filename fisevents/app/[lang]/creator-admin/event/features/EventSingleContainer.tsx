@@ -36,7 +36,7 @@ export default function EventSingleContainer({
   const curLang = useCurrentLang();
 
   const { creator_admin: ca } = useDictionary();
-  const { events: d, common: c } = ca;
+  const { events: d, shared: s } = ca;
 
   const {
     initImageUrl,
@@ -72,11 +72,11 @@ export default function EventSingleContainer({
 
   return (
     <>
-      {isSaving && <Processing text={c.saving} />}
+      {isSaving && <Processing text={s.saving} />}
       <Tabs defaultValue="event">
         <UtilityBar
           leftElements={
-            <GoToEventList label={c.goto_event_list} lang={curLang} />
+            <GoToEventList label={s.goto_event_list} lang={curLang} />
           }
           centerElements={
             eventSingleData?.publicSlug && (
@@ -84,9 +84,9 @@ export default function EventSingleContainer({
                 publicUrl={publicUrl}
                 title={d.public_link}
                 description={d.descriptions.public_link}
-                copyText={c.copy}
-                copySuccessText={c.copied}
-                copyErrorText={c.copy_error}
+                copyText={s.copy}
+                copySuccessText={s.copied}
+                copyErrorText={s.copy_error}
               />
             )
           }

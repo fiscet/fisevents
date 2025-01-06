@@ -7,7 +7,8 @@
       "title": "Ops! Questa pagina ha preso una brutta strada...",
       "description": "Sembra che la pagina che stai cercando non esista. Forse ha fatto le valigie ed è partita per le vacanze.",
       "action": "Torna alla home"
-    }
+    },
+    "optional": "Opzionale"
   },
   "website": {
     "navbar": {
@@ -97,7 +98,7 @@
     }
   },
   "creator_admin": {
-    "common": {
+    "shared": {
       "saving": "Salvataggio in corso",
       "save": "Salva",
       "back": "Torna indietro",

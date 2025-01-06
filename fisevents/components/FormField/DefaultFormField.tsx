@@ -6,6 +6,8 @@ import FormFieldHeader from './FormFieldHeader';
 import FormFieldControl from './FormFieldControl';
 import AccordionComponent from './AccordionComponent';
 
+export type RequiredStatus = 'required' | 'optional' | 'optional-with-text';
+
 type DefaultFormFieldProps = {
   form: UseFormReturn<any>;
   name: string;
@@ -16,6 +18,7 @@ type DefaultFormFieldProps = {
   description?: string;
   forceNumber?: boolean;
   isAccordion?: boolean;
+  requiredStatus?: RequiredStatus;
 };
 
 export default function DefaultFormField({
@@ -27,7 +30,8 @@ export default function DefaultFormField({
   formComponentProps,
   description,
   forceNumber,
-  isAccordion
+  isAccordion,
+  requiredStatus
 }: DefaultFormFieldProps) {
   if (isAccordion) {
     return (
@@ -38,7 +42,11 @@ export default function DefaultFormField({
           <FormItem className="relative mb-1">
             <AccordionComponent
               triggerComponent={
-                <FormFieldHeader label={label} description={description} />
+                <FormFieldHeader
+                  label={label}
+                  description={description}
+                  requiredStatus={requiredStatus}
+                />
               }
             >
               <FormFieldControl
@@ -65,6 +73,7 @@ export default function DefaultFormField({
       formComponentProps={formComponentProps}
       description={description}
       forceNumber={forceNumber}
+      requiredStatus={requiredStatus}
     />
   );
 }
@@ -77,7 +86,8 @@ function SimpleFormField({
   formComponentClassName,
   formComponentProps,
   description,
-  forceNumber
+  forceNumber,
+  requiredStatus
 }: DefaultFormFieldProps) {
   return (
     <FormField
@@ -85,7 +95,11 @@ function SimpleFormField({
       name={name}
       render={({ field }) => (
         <FormItem className="relative mb-1">
-          <FormFieldHeader label={label} description={description} />
+          <FormFieldHeader
+            label={label}
+            description={description}
+            requiredStatus={requiredStatus}
+          />
           <FormFieldControl
             formComponent={formComponent}
             formComponentClassName={formComponentClassName}

@@ -7,7 +7,8 @@
       "title": "Oops! This page took a wrong turn...",
       "description": "It seems the page you're looking for doesn't exist. Maybe it packed its bags and left for vacation.",
       "action": "Take me home"
-    }
+    },
+    "optional": "Optional"
   },
   "website": {
     "navbar": {
@@ -97,7 +98,7 @@
     }
   },
   "creator_admin": {
-    "common": {
+    "shared": {
       "saving": "Saving",
       "save": "Save",
       "back": "Back",

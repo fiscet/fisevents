@@ -26,7 +26,7 @@ export const useSubmitHandler = (
   const isNewEvent = !eventSingleData;
 
   const { creator_admin: ca } = useDictionary();
-  const { common: d } = ca;
+  const { shared: d } = ca;
 
   return async (values: EventFormSchemaType) => {
     startProcessing(async () => {

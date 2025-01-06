@@ -64,11 +64,40 @@ export default function EventSingle({
             label={d.title}
             formComponent={Input}
             description={d.descriptions.title}
+            requiredStatus='required'
           />
+          <div className="flex flex-col md:flex-row gap-1">
+            <DefaultFormField
+              form={form}
+              name="startDate"
+              label={d.startDate}
+              formComponent={Input}
+              formComponentProps={{
+                type: 'datetime-local',
+                disabled: isExpired
+              }}
+              formComponentClassName="w-[215px]"
+              requiredStatus='required'
+            />
+            <DefaultFormField
+              form={form}
+              name="endDate"
+              label={d.endDate}
+              formComponent={Input}
+              formComponentProps={{
+                type: 'datetime-local',
+                disabled: isExpired,
+                min: new Date().toISOString().substring(0, 16)
+              }}
+              formComponentClassName="w-[215px]"
+              requiredStatus='required'
+            />
+          </div>
           <div>
             <FormFieldHeader
               label={d.image}
               description={d.descriptions.image}
+              requiredStatus='optional'
             />
             {imageUploader}
           </div>
@@ -77,6 +106,7 @@ export default function EventSingle({
               <FormFieldHeader
                 label={d.description}
                 description={d.descriptions.description}
+                requiredStatus='optional'
               />
               <EditorComp
                 markdown={description}
@@ -91,6 +121,7 @@ export default function EventSingle({
             formComponent={Textarea}
             formComponentProps={{ rows: 3 }}
             description={d.descriptions.location}
+            requiredStatus='optional'
           />
           <div className="flex gap-1">
             <DefaultFormField
@@ -101,6 +132,7 @@ export default function EventSingle({
               formComponentProps={{ type: 'number' }}
               formComponentClassName="w-20 text-right"
               forceNumber
+              requiredStatus='optional'
             />
             <DefaultFormField
               form={form}
@@ -109,31 +141,7 @@ export default function EventSingle({
               formComponent={Input}
               formComponentProps={{ maxLength: 3 }}
               formComponentClassName="w-20"
-            />
-          </div>
-          <div className="flex flex-col md:flex-row gap-1">
-            <DefaultFormField
-              form={form}
-              name="startDate"
-              label={d.startDate}
-              formComponent={Input}
-              formComponentProps={{
-                type: 'datetime-local',
-                disabled: isExpired
-              }}
-              formComponentClassName="w-[215px]"
-            />
-            <DefaultFormField
-              form={form}
-              name="endDate"
-              label={d.endDate}
-              formComponent={Input}
-              formComponentProps={{
-                type: 'datetime-local',
-                disabled: isExpired,
-                min: new Date().toISOString().substring(0, 16)
-              }}
-              formComponentClassName="w-[215px]"
+              requiredStatus='optional'
             />
           </div>
           <div className="bg-slate-50 px-3">
@@ -151,6 +159,7 @@ export default function EventSingle({
               description={d.descriptions.maxSubscribers}
               forceNumber
               isAccordion={true}
+              requiredStatus='optional'
             />
 
             <DefaultFormField
@@ -165,6 +174,7 @@ export default function EventSingle({
               }}
               formComponentClassName="w-[215px]"
               isAccordion={true}
+              requiredStatus='optional'
             />
           </div>
 

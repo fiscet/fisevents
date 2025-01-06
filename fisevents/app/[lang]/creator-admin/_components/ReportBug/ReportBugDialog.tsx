@@ -27,7 +27,7 @@ export default function ReportBugDialog({
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const d = useDictionary().creator_admin.common;
+  const d = useDictionary().creator_admin.shared;
 
   const pathname = usePathname();
 
