@@ -1,47 +1,48 @@
 {
   "common": {
-    "privacy_policy": "Adatvédelmi szabályzat",
-    "cookie_policy": "Sütik állapota szabályzat",
-    "privacy_cookie_policy": "Adatvédelmi és Sütik állapota szabályzat",
+    "privacy_policy": "Adatvédelmi irányelvek",
+    "cookie_policy": "Sütikezelési irányelvek",
+    "privacy_cookie_policy": "Adatvédelmi és sütikezelési irányelvek",
     "not_found": {
       "title": "Hoppá! Ez az oldal rossz irányba fordult...",
-      "description": "Úgy tűnik, hogy a keresett oldal nem létezik. Talán összepakolt és elment nyaralni.",
-      "action": "Vissza a főoldalra"
-    }
+      "description": "Úgy tűnik, az oldal, amit keresel, nem létezik. Talán elutazott szabadságra.",
+      "action": "Vigyen haza"
+    },
+    "optional": "Opcionális"
   },
   "website": {
     "navbar": {
       "features": "Funkciók",
       "pricing": "Árazás",
-      "admin": "Adminisztráció"
+      "admin": "Adminisztrátor"
     },
     "home": {
       "meta": {
-        "title": "FisEvents - Egyszerűsítse az események kezelését",
-        "description": "Könnyedén publikálhatja és kezelheti eseményeit a FisEvents segítségével. A főzőtanfolyamoktól az értekezletekig a FisEvents lehetővé teszi az egyszeri események létrehozását, megosztását és kezelését.",
+        "title": "FisEvents - Egyszerűsítse az eseménykezelést",
+        "description": "Publikálja és kezelje eseményeit könnyedén a FisEvents segítségével. A főzőtanfolyamoktól a találkozókig, a FisEvents lehetővé teszi, hogy zökkenőmentesen hozzon létre, osszon meg és kezeljen egyszeri eseményeket.",
         "keywords": "események, eseménykezelés, workshopok, találkozók, online regisztráció, FisEvents"
       },
-      "payoff": "Elengedi és kezelje a saját eseményeidet!",
-      "subtitle": "Az esemény kezelésének egyszerűsítése",
-      "main_text": "A gyümölat, tanulás, vagy tanulási események között, a FisEvents lehetővé teszi a saját események létrehozását, megosztását és kezelését egyszerű és gyorsan. Kezdje elnevezés nélkül!",
+      "payoff": "Publikálja és kezelje eseményeit könnyedén!",
+      "subtitle": "Egyszerűsített eseménykezelés",
+      "main_text": "A főzőtanfolyamoktól a találkozókig, a FisEvents lehetővé teszi, hogy zökkenőmentesen hozzon létre, osszon meg és kezeljen egyszeri eseményeket. Kezdje el ingyen!",
       "features": {
         "title": "Funkciók",
         "list": {
           "reg_link": {
             "title": "Egyszerű felhasználói regisztráció",
-            "text": "Egyszerű módon létrehozhat és megoszthat egy egyedi linket a felhasználók számára, hogy regisztrálhassanak a saját eseményre a könnyű és gyors módon."
+            "text": "Csak meg kell osztania egy egyedi linket, amely automatikusan generálódik, hogy a felhasználók könnyedén regisztrálhassanak az eseményre."
           },
           "events": {
-            "title": "Testreszabható esemény részletei",
-            "text": "Adjon meg egy címet, leírást, képet, helyet és legfeljebb résztvevőt, árát és pénznemet a saját esemény részleteinek beállításához."
+            "title": "Testreszabható eseményadatok",
+            "text": "Adjon hozzá címet, leírást, képet, helyszínt, és állítson be maximális résztvevőszámot, árat és pénznemet."
           },
           "date_management": {
-            "title": "Szabad dátumkezelés",
-            "text": "Állítsa be kezdés- és befejezési dátumokat a saját események idővonalait, és válassza ki, hogy a felhasználók számára és mikor lehetnek regisztrációk."
+            "title": "Rugalmas időpontkezelés",
+            "text": "Állítson be kezdő- és záróidőpontokat az eseményhez, döntse el, mikor lehet regisztrálni."
           },
           "start_free": {
-            "title": "Ingyenes használatra!",
-            "text": "Kezdje először a saját esemény létrehozását, regisztrációs kártyák nélkül!"
+            "title": "Használja ingyen!",
+            "text": "Kezdje el az esemény publikálását azonnal, hitelkártya regisztráció vagy más kötelezettség nélkül!"
           }
         }
       },
@@ -49,102 +50,102 @@
         "title": "Árazás",
         "list": {
           "starter": {
-            "title": "Kezdő terv",
-            "text": "Ezzel a kezdő tervvel jól kezelheti a FisEvents-et.",
+            "title": "Kezdő csomag",
+            "text": "Tökéletes a FisEvents kipróbálásához.",
             "features": [
-              "Legfeljebb 3 esemény közzététele",
-              "Minden alapvető funkció beépítve"
+              "Maximum 3 esemény publikálása",
+              "Az összes alapfunkció elérhető"
             ]
           },
           "hero": {
-            "title": "Fejlődési terv",
-            "text": "Normál esemény szervezők számára.",
+            "title": "Hero felhasználói csomag",
+            "text": "Rendszeres eseményszervezők számára.",
             "features": [
-              "Korlátlan számú események közzététele",
-              "Minden alapvető funkció beépítve"
+              "Korlátlan eseménypublikálás",
+              "Az összes alapfunkció elérhető"
             ]
           }
         }
       }
     },
     "waiting_for_the_email": {
-      "title": "Ellenőrizze az email-jét",
-      "description": "Elküldünk egy mágikus linket a felhasználók számára. Kattintson a hivatkozásra vagy másolja a böngésző címsorába."
+      "title": "Ellenőrizze e-mailjeit",
+      "description": "Küldünk Önnek egy \"mágikus linket\" e-mailben. Csak kattintson rá, vagy másolja be a böngészőjébe."
     }
   },
   "auth": {
-    "title": "Most már itt vagy ...",
-    "description": "Hitelesítsen magának az email-címmel vagy Google-val",
+    "title": "Már majdnem ott vagy...",
+    "description": "Hitelesítse magát e-mailjével vagy a Google-on keresztül",
     "login": "Kezdje itt",
-    "logout": "Kilépés az alkalmazásból",
+    "logout": "Kijelentkezés",
     "account": "Fiók kezelése",
     "login_with_email": {
-      "title": "Bejelentkezés email-lel",
-      "email": "Email",
-      "ok_title": "Ellenőrizze az email-jét",
-      "ok_text": "Egy mágikus linket küldtünk neked",
-      "err_title": "Hibás email",
-      "err_text": "Hiba történt a link elküldésekor az email címére",
+      "title": "Bejelentkezés e-maillel",
+      "email": "E-mail",
+      "ok_title": "Ellenőrizze e-mailjeit",
+      "ok_text": "Egy mágikus linket küldtünk Önnek",
+      "err_title": "Helytelen e-mail",
+      "err_text": "Hiba történt a link küldése közben",
       "descriptions": {
-        "email": "A linket a levelező e-mail címére fog küldeni, kattintson a hivatkozásra a bejelentkezéshez"
+        "email": "Egy mágikus linket küldünk az Ön e-mail címére"
       },
       "validation": {
-        "email": "Kérem, írjon be egy érvényes email címet"
+        "email": "Adjon meg érvényes e-mail címet"
       }
     },
     "login_with_google": {
-      "title": "Bejelentkezés Google-lel"
+      "title": "Bejelentkezés Google-lal"
     }
   },
   "creator_admin": {
-    "common": {
-      "saving": "Mentés",
+    "shared": {
+      "saving": "Mentés folyamatban",
       "save": "Mentés",
       "back": "Vissza",
-      "success": "Sikerült",
-      "success_text": "A módosítások sikeresen mentve",
       "error": "Hiba",
-      "error_text": "Valami hiba történt",
-      "goto_event_list": "Ugrás a listához",
+      "success": "Siker",
+      "success_text": "A módosítások sikeresen mentve",
+      "error_text": "Hiba történt",
+      "goto_event_list": "Ugrás az eseménylistára",
       "copy": "Másolás",
       "copied": "Másolva",
       "copy_error": "Másolási hiba",
       "report_bug": {
-        "title": "Jelentsd a hibát vagy javasold egy funkciót",
-        "description": "Szeretnél érteni velünk! Töltsd ki a két mezőt alá a hibajelentés vagy funkció javaslatának jelentéséhez.",
+        "title": "Hiba jelentése vagy javaslat küldése",
+        "description": "Örömmel várjuk a visszajelzését! Kérjük, töltse ki az alábbi űrlapot a hiba bejelentéséhez vagy javaslat küldéséhez.",
         "type": "Típus",
         "bug": "Hiba",
         "suggestion": "Javaslat",
-        "text": "Írd be a hozzászólásokat",
+        "text": "Írja ide a megjegyzéseit",
         "send": "Küldés",
-        "ok_text": "Köszönjük a visszajelzésedet. Hamarosan válaszolunk."
+        "ok_text": "Köszönjük a visszajelzést! Hamarosan kapcsolatba lépünk Önnel."
       }
     },
     "account": {
       "userAccount": "Felhasználói fiók",
-      "name": "Az ön neve és vezetéknév",
-      "email": "Email",
-      "imageUrl": "Kép URL",
-      "organization": "Az ön szervezet neve",
-      "companyName": "Vállalat neve",
+      "name": "Név és vezetéknév",
+      "email": "E-mail",
+      "imageUrl": "Kép URL-je",
+      "organization": "Szervezet neve",
+      "companyName": "Cég neve",
       "slug": "Slug",
       "www": "Weboldal",
       "logo": "Logó",
       "save": "Mentés",
       "back": "Vissza az eseményekhez",
       "descriptions": {
-        "name": "Az ön személyes neve és vezetéknév",
-        "email": "Az ön emailje",
-        "image": "Az ön képe",
-        "companyName": "Az ön vállalatának vagy szervezetének a neve",
-        "slug": "Ez az URL az ön vállalatának. Látható lesz a böngésző címsorában.",
-        "www": "Van weboldal vagy profil oldal? Írja be itt",
-        "logo": "Ide töltse fel a vállalat vagy szervezet logóját"
+        "name": "Az Ön személyes neve és vezetékneve",
+        "email": "Az Ön e-mail címe",
+        "image": "Az Ön képe",
+        "companyName": "Az Ön cége vagy szervezete neve",
+        "slug": "Ez az Ön szervezetének URL-je. Látható lesz a böngésző címsorában.",
+        "www": "Van weboldala vagy közösségi profilja? Írja ide.",
+        "logo": "Töltse fel itt cége vagy szervezete logóját"
       },
       "validation": {
         "name": "A névnek legalább 5 karakter hosszúnak kell lennie.",
-        "companyName": "A vállalat nevének legalább 5 karakter hosszúnak kell lennie.",
-        "www": "Írja be a weboldal URL-jét, amelyet a http:// vagy a https:// előtagja"
+        "companyName": "A cég nevének legalább 5 karakter hosszúnak kell lennie.",
+        "www": "Írjon be egy érvényes weboldal URL-t http:// vagy https:// előtaggal"
       }
     },
     "events": {
@@ -153,43 +154,43 @@
       "ongoing": "Folyamatban",
       "title": "Esemény neve",
       "slug": "Slug",
-      "image": "Esemény kép",
-      "publicationStartDate": "Regisztráció nyitva",
+      "image": "Esemény képe",
+      "publicationStartDate": "Regisztráció kezdete",
       "startDate": "Kezdés dátuma",
       "endDate": "Befejezés dátuma",
-      "numAttendants": "Résztvevők",
+      "numAttendants": "Résztvevők száma",
       "description": "Leírás",
       "location": "Helyszín",
       "maxSubscribers": "Maximális résztvevők száma",
       "basicPrice": "Teljes ár",
-      "currency": "Valuta",
-      "active": "Közzétehető",
-      "not_active": "Nem közzétehető",
+      "currency": "Pénznem",
+      "active": "Publikálható",
+      "not_active": "Nem publikálható",
       "save": "Mentés",
       "filters": "Nézet",
       "all": "Összes",
-      "published": "Közzétéve",
-      "unpublished": "Nem közzétett",
+      "published": "Publikált",
+      "unpublished": "Nem publikált",
       "new_event": "Új esemény létrehozása",
       "back": "Vissza az eseményekhez",
       "details": "Részletek",
-      "public_link": "Nyilvános link: másolja/illessze be a weboldalon vagy a közösségi médiaban",
+      "public_link": "Nyilvános link: másolja be weboldalára vagy közösségi médiába",
       "descriptions": {
-        "title": "Ez az esemény nyilvános megjelenítési neve.",
-        "slug": "Ez az esemény URL-je. Látható lesz a böngésző címsorában. Automatikusan generálva, de módosíthatja, ha szeretnél, vagy nyomja meg a gombra alá.",
-        "image": "Esemény kép",
-        "description": "Adjon meg részleteket az eseményről a felhasználók számára, pl. kinek szól, milyen előnyöket kínál, mi a tanítási terv stb.",
-        "location": "Hol lesz az esemény? Ha helyszín, kérjük, adjon útmutatót az odajutáshoz",
-        "maxSubscribers": "Ha korlátozott számú, adja meg a maximális számot",
-        "publicationStartDate": "Elhalasztja a rendezvényre való jelentkezés lehetőségét",
-        "public_link": "Nyilvános URL, ahol a felhasználók megtudhatják a részleteket és regisztrálhatják. Másolja/illessze be a weboldalon vagy a közösségi médiában"
+        "title": "Ez az Ön eseményének nyilvános neve.",
+        "slug": "Ez az esemény URL-je, amely a böngésző címsorában lesz látható. Automatikusan generálódik, de megváltoztathatja.",
+        "image": "Az eseményt reprezentáló fénykép vagy kép",
+        "description": "Adjon meg részleteket az eseményről, például kinek szól, milyen előnyökkel jár, mi a tanítási terv stb.",
+        "location": "Hol kerül megrendezésre az esemény? Ha helyszín, kérjük, adja meg az odavezető útvonalat.",
+        "maxSubscribers": "Ha korlátozott a résztvevők száma, adja meg a maximális számot, különben hagyja üresen.",
+        "publicationStartDate": "Ha szeretné elhalasztani az esemény regisztrációjának kezdetét.",
+        "public_link": "Nyilvános URL, itt láthatják a felhasználók az esemény leírását és regisztrálhatnak. Másolja és illessze be weboldalára vagy közösségi médiába."
       },
       "validation": {
-        "title": "A címnek legalább 5 karakter hosszúságúnak kell lennie.",
-        "slug": "Slug-nek legalább 5 karakter hosszúságúnak kell lennie.",
-        "publicationStartDateAndStartDate": "A közzététel dátumának korábbinak kell lennie, mint az esemény kezdete",
-        "publicationStartDateAndNow": "A közzététel dátumának legalább a mai naptól kell kezdődnie",
-        "startDate": "A kezdési dátumnak korábbinak kell lennie, mint a befejezési dátum"
+        "title": "A címnek legalább 5 karakter hosszúnak kell lennie.",
+        "slug": "A slugnak legalább 5 karakter hosszúnak kell lennie.",
+        "publicationStartDateAndStartDate": "A publikáció dátumának az esemény kezdete előtt kell lennie.",
+        "publicationStartDateAndNow": "A publikáció dátumának legalább ma kell kezdődnie.",
+        "startDate": "A kezdési dátumnak az esemény befejezése előtt kell lennie."
       }
     },
     "attendants": {
@@ -198,7 +199,7 @@
       "fullname": "Teljes név",
       "email": "E-mail",
       "phone": "Telefon",
-      "subcribitionDate": "Feliratkozott dátuma",
+      "subcribitionDate": "Feliratkozás dátuma",
       "save": "Mentés",
       "descriptions": {
         "fullname": "A résztvevő teljes neve",
@@ -206,54 +207,54 @@
         "phone": "A résztvevő telefonszáma"
       },
       "validation": {
-        "name": "A névnek legalább 5 karakterből kell állnia.",
+        "name": "A névnek legalább 5 karakter hosszúnak kell lennie.",
         "email": "Az e-mail címnek érvényesnek kell lennie."
       }
     },
     "notifications": {
-      "action_required": "Intézkedés szükséges!",
-      "missing_user_name": "Kérjük, töltse ki a profilját",
-      "missing_company_data": "Kérjük, töltse ki a vállalata profilját"
+      "action_required": "Művelet szükséges!",
+      "missing_user_name": "Kérjük, töltse ki személyes profilját",
+      "missing_company_data": "Kérjük, töltse ki cégprofilját"
     }
   },
   "public": {
     "event_not_found": "Esemény nem található",
-    "from_date": "Kezdet",
-    "to_date": "Befejezés",
+    "from_date": "Ettől a dátumtól",
+    "to_date": "Eddig a dátumig",
     "places_left": "Szabad helyek",
-    "organized_by": "Szervezett",
+    "organized_by": "Szervező",
     "fullname": "Teljes név",
     "email": "E-mail",
     "phone": "Telefon",
-    "privacy_acceptance": "Elfogadom a adatvédelmi szabályzatot",
+    "privacy_acceptance": "Elfogadom az Adatvédelmi irányelveket",
     "descriptions": {
-      "fullname": "A személyes neve és vezetéknév",
-      "email": "A személyes e-mail címe, hogy kezelje a részvételét",
-      "phone": "A személyes telefonszám, ha bármelyik újabb kommunikáció szükséges",
-      "privacy_acceptance": "Adataid feldolgozásához és adatvédelmi szabályzatának elfogadásához szükséges. Adataid gyűjtünk és feldolgozzuk, hogy szolgáltatásokat nyújtson és értesítsen a fontos frissítések és információk megfelelően."
+      "fullname": "Az Ön neve és vezetékneve",
+      "email": "Az Ön preferált e-mail címe a részvétel kezeléséhez",
+      "phone": "Az Ön telefonszáma bármilyen utolsó pillanatos kommunikációhoz",
+      "privacy_acceptance": "Személyes adatait az adatvédelmi irányelveinknek megfelelően dolgozzuk fel. Az adatait szolgáltatásaink biztosítása és releváns frissítések küldése érdekében gyűjtjük és kezeljük."
     },
     "validation": {
       "fullName": "A névnek legalább 5 karakter hosszúnak kell lennie.",
       "email": "Az e-mail címnek érvényesnek kell lennie.",
-      "privacy_acceptance": "A regisztráció folytatásához szükséges, hogy elfogadja a adatvédelmi szabályzatot"
+      "privacy_acceptance": "Szükséges a regisztráció folytatásához"
     },
-    "subscribe_title": "Részvétel",
-    "subscribe_button": "Részvétel",
-    "subscribing": "Részvétel",
-    "success": "Sikeres",
-    "success_subscribed": "Sikeresen résztvevő ezen a részvételben",
-    "unsuscribe_title": "Részvétel törlése",
-    "unsuscribe_button": "Részvétel törlése",
-    "unsuscribe_confirm": "Biztosan el akarod résztvevő ezen a részvételben?",
-    "unsuscribe_confirm_yes": "Igen, el akarok résztvevő ezen a részvételben",
-    "unsuscribe_success": "Sikeresen résztvevő ezen a részvételben törölve",
-    "unsubscribing": "Részvétel törlése",
+    "subscribe_title": "Iratkozzon fel eseményünkre",
+    "subscribe_button": "Feliratkozás",
+    "subscribing": "Feliratkozás folyamatban",
+    "success": "Siker",
+    "success_subscribed": "Sikeresen feliratkozott erre az eseményre",
+    "unsuscribe_title": "Leiratkozás az eseményről",
+    "unsuscribe_button": "Leiratkozás",
+    "unsuscribe_confirm": "Biztosan le szeretne iratkozni erről az eseményről?",
+    "unsuscribe_confirm_yes": "Igen, le szeretnék iratkozni",
+    "unsuscribe_success": "Sikeresen leiratkozott",
+    "unsubscribing": "Leiratkozás folyamatban",
     "errors": {
       "default_title": "Hiba",
       "generic": "Hiba történt",
       "email_invalid": "Az e-mail cím érvénytelen",
-      "already_subscribed": "Már résztvevő ezen a részvételben",
-      "already_unsubscribed": "Már résztvevő ezen a részvételben"
+      "already_subscribed": "Már feliratkozott erre az eseményre",
+      "already_unsubscribed": "Már leiratkozott"
     }
   }
 }

@@ -10,7 +10,7 @@ export const userQuery = defineQuery(`*[_type == "user" && _id == $userId][0] {
   email,
   logo,
   "logoUrl": logo.asset->url,
-  wwww,
+  www,
   roles
 }`);
 export const userQueryBySlug = defineQuery(`*[_type == "user" && slug.current == $slug][0] {
@@ -18,7 +18,7 @@ export const userQueryBySlug = defineQuery(`*[_type == "user" && slug.current ==
   companyName,
   email,
   "logoUrl": logo.asset->url,
-  wwww
+  www
 }`);
 
 export const organizationQuery = defineQuery(`*[_type == "organization" && _id == $organizationId][0] {

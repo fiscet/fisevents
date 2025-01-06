@@ -42,6 +42,10 @@ export function useUserAccountForm({ userData }: useUserAccountFormProps) {
         path: ['companyName']
       }
     ).refine((data) => {
+      if (data.www && (!data.www.startsWith('http://') && !data.www.startsWith('https://'))) {
+        data.www = 'https://' + data.www;
+      }
+
       const { www } = data;
 
       if (www && !checkIsValidUrl(www)) return false;

@@ -25,7 +25,7 @@ export default function UserAccount({
   const imageUploader = imageUploaderRender();
 
   const { creator_admin: ca } = useDictionary();
-  const { account: a, common: c } = ca;
+  const { account: a, shared: s } = ca;
 
   useEffect(() => {
     if (!form.getValues('companyName')) {
@@ -64,14 +64,16 @@ export default function UserAccount({
             <DefaultFormField
               form={form}
               name="www"
-              label={a.www}
+              label={`${a.www}`}
               formComponent={Input}
               description={a.descriptions.www}
+              formComponentProps={{ placeholder: 'https://example.com' }}
+              requiredStatus='optional'
             />
 
             <Separator className="my-5" />
             <div className="flex justify-center">
-              <SaveButton label={c.save} />
+              <SaveButton label={s.save} />
             </div>
           </form>
         </Form>

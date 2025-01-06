@@ -33,7 +33,7 @@ export default function UserAccountContainer({
   const { showNotification } = useNotification();
   const curLang = useCurrentLang();
   const { creator_admin: ca } = useDictionary();
-  const { account: a, common: c } = ca;
+  const { account: a, shared: s } = ca;
 
   const [initImageUrl, setInitImageUrl] = useState(userData.logoUrl);
   const [newImg, setNewImg] = useState<FileImageType>({
@@ -89,7 +89,7 @@ export default function UserAccountContainer({
         await updateUser({ id: userData._id!, data: insValues });
         await updateSession(newSession);
       } catch (error) {
-        let errorMessage = c.error_text;
+        let errorMessage = s.error_text;
         if (
           typeof error === 'object' &&
           error !== null &&
@@ -107,7 +107,7 @@ export default function UserAccountContainer({
           errorMessage = error.message;
         }
         showNotification({
-          title: c.error,
+          title: s.error,
           message: errorMessage,
           type: 'error'
         });
@@ -123,11 +123,11 @@ export default function UserAccountContainer({
 
   return (
     <>
-      {isSaving && <Processing text={c.saving} />}
+      {isSaving && <Processing text={s.saving} />}
       <UtilityBar
         leftElements={
           isBackVisible && (
-            <GoToEventList label={c.goto_event_list} lang={curLang} />
+            <GoToEventList label={s.goto_event_list} lang={curLang} />
           )
         }
       />

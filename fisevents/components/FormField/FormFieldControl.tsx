@@ -1,7 +1,4 @@
-import {
-  FormControl,
-  FormMessage
-} from '@/components/ui/form';
+import { FormControl, FormMessage } from '@/components/ui/form';
 import { ElementType } from 'react';
 
 export type FormFieldControlProps = {
@@ -12,7 +9,13 @@ export type FormFieldControlProps = {
   field: any;
 };
 
-export default function FormFieldControl({ formComponent: FormComp, formComponentClassName, formComponentProps, forceNumber, field }: FormFieldControlProps) {
+export default function FormFieldControl({
+  formComponent: FormComp,
+  formComponentClassName,
+  formComponentProps,
+  forceNumber,
+  field
+}: FormFieldControlProps) {
   return (
     <>
       <FormControl>
