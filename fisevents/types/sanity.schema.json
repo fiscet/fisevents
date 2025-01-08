@@ -869,6 +869,13 @@
         },
         "optional": true
       },
+      "talkTo": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "maxSubscribers": {
         "type": "objectAttribute",
         "value": {
