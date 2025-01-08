@@ -199,7 +199,7 @@ export default function EventList({ eventListData }: EventListProps) {
         }
         rightElements={
           <Button asChild>
-            <Link href={`/${CreatorAdminRoutes.getItem('event')}`}>
+            <Link href={`${curLang}/${CreatorAdminRoutes.getItem('event')}`}>
               {d.new_event}
             </Link>
           </Button>

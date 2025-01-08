@@ -53,7 +53,7 @@ const ImageUploader = memo(
     return (
       <div>
         <div className="flex align-middle justify-between">
-          <FormLabel>{label}</FormLabel>
+          <FormLabel className="text-gray-600 italic">{label}</FormLabel>
           {description && (
             <Popover>
               <PopoverTrigger>
