@@ -1,16 +1,14 @@
 'use client';
 
 import { useCallback } from 'react';
-import { addEventAttendant, getEventSingleHasAttendantById } from '@/lib/actions';
+import { addEventAttendant } from '@/lib/actions';
 import { sendMail } from '@/lib/send-mail';
 import { EventAttendant } from '@/types/sanity.types';
 import { useNotification } from '@/components/Notification/useNotification';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
-import { revalidateTag } from 'next/cache';
 
 type ManageSubscriptionProps = {
   eventId: string;
-  eventSlug: string;
   startProcessing: (callback: () => void) => void;
   setIsSubscribed: (value: boolean) => void;
   prepareEmailContent: (addAttendantRes: Partial<EventAttendant>) => {
@@ -22,7 +20,6 @@ type ManageSubscriptionProps = {
 
 export function useManageSubscription({
   eventId,
-  eventSlug,
   startProcessing,
   setIsSubscribed,
   prepareEmailContent,
@@ -46,8 +43,6 @@ export function useManageSubscription({
               message: d.success_subscribed,
               type: 'success',
             });
-
-            revalidateTag(`eventSingleBySlug:${eventSlug}`);
 
             const { subject, text, html } = prepareEmailContent(addAttendantRes);
             const emailRes = await sendMail({

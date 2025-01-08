@@ -45,7 +45,7 @@ export const eventIdQuery = defineQuery(`*[_type == "occurrence" && active == $a
  _id
 }`);
 
-export const eventListQuery = defineQuery(`*[_type == "occurrence" && createdByUser._ref == $createdBy && active == $active ]|order(publicationStartDate desc) {
+export const eventListQuery = defineQuery(`*[_type == "occurrence" && createdByUser._ref == $createdBy && active == $active ]|order(startDate desc) {
   _id,
   title,
   slug,
