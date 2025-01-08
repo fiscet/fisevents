@@ -144,6 +144,7 @@ export type Occurrence = {
   };
   description?: string;
   location?: string;
+  talkTo?: string;
   maxSubscribers?: number;
   basicPrice?: number;
   currency?: string;

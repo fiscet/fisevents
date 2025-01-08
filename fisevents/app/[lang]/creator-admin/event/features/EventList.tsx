@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { getDictionary } from '@/lib/i18n.utils';
 import { OccurrenceList } from '@/types/sanity.extended.types';
 import DataTable, { TableColumn } from 'react-data-table-component';
-import PublishedIcon from '../components/PublishedIcon';
+import EventStatusIcon from '../components/EventStatusIcon';
 import NumAttendants from '../components/NumAttendants';
 import EventListFilter from '../components/EventListFilter';
 import { CreatorAdminRoutes } from '@/lib/routes';
@@ -16,10 +16,8 @@ import Link from 'next/link';
 import { useCurrentLang } from '@/hooks/useCurrentLang';
 import { Locale } from '@/lib/i18n';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
-
-const isOngoing = (publicationStartDate: string, endDate: string) =>
-  Date.parse(publicationStartDate) <= Date.now() &&
-  Date.parse(endDate) > Date.now();
+import { getEventStatus } from '@/lib/utils';
+import { EventFilterType } from '@/types/custom.types';
 
 function getColumns(
   lang: Locale,
@@ -27,11 +25,15 @@ function getColumns(
 ) {
   const columns = [
     {
-      name: d.ongoing,
+      name: d.status,
       cell: (row) => {
         return (
-          <PublishedIcon
-            isOngoing={isOngoing(row.publicationStartDate!, row.endDate!)}
+          <EventStatusIcon
+            status={getEventStatus(
+              row.startDate!,
+              row.endDate!,
+              row.publicationStartDate
+            )}
             inset="4px"
           />
         );
@@ -47,8 +49,12 @@ function getColumns(
         <div>
           <div className="pt-1">{row.title}</div>
           <div className="flex gap-3 py-2 sm:hidden">
-            <PublishedIcon
-              isOngoing={isOngoing(row.publicationStartDate!, row.endDate!)}
+            <EventStatusIcon
+              status={getEventStatus(
+                row.startDate!,
+                row.endDate!,
+                row.publicationStartDate
+              )}
               inset="4px"
             />
             <NumAttendants num={row.numAttendants} />
@@ -61,7 +67,19 @@ function getColumns(
     {
       name: d.numAttendants,
       selector: (row) => row.numAttendants,
-      cell: (row) => <NumAttendants num={row.numAttendants} />,
+      cell: (row) => {
+        return (
+          <div className="flex gap-2 items-center">
+            <Link
+              href={`/${lang}/${CreatorAdminRoutes.getItem('event')}/${
+                row._id
+              }?tab=attendants`}
+            >
+              <NumAttendants num={row.numAttendants} />
+            </Link>
+          </div>
+        );
+      },
       width: '120px',
       center: 'true',
       hide: 640
@@ -123,9 +141,7 @@ export default function EventList({ eventListData }: EventListProps) {
   const { creator_admin: ca } = useDictionary();
   const { events: d } = ca;
 
-  const [filter, setFilter] = useState<'all' | 'published' | 'unpublished'>(
-    'all'
-  );
+  const [filter, setFilter] = useState<EventFilterType>('all');
 
   const filterEvents = (events: OccurrenceList[]) => {
     if (filter === 'all') return events;
@@ -133,12 +149,31 @@ export default function EventList({ eventListData }: EventListProps) {
     const now = Date.now();
 
     return events.filter((event) => {
-      const isOngoing =
-        Date.parse(event.publicationStartDate!) <= now &&
-        Date.parse(event.endDate!) > now &&
-        event.active;
+      switch (filter) {
+        case 'finished':
+          return Date.parse(event.endDate!) <= now;
+        case 'published':
+          return (
+            (!event.publicationStartDate &&
+              Date.parse(event.startDate!) >= now) ||
+            (event.publicationStartDate &&
+              Date.parse(event.publicationStartDate) >= now &&
+              event.active &&
+              Date.parse(event.endDate!) > now)
+          );
+        case 'registrations_open':
+          return (
+            (!event.publicationStartDate &&
+              Date.parse(event.startDate!) <= now) ||
+            (event.publicationStartDate &&
+              Date.parse(event.publicationStartDate) <= now &&
+              event.active &&
+              Date.parse(event.endDate!) > now)
+          );
 
-      return filter === 'published' ? isOngoing : !isOngoing;
+        default:
+          return false;
+      }
     });
   };
 
@@ -156,7 +191,8 @@ export default function EventList({ eventListData }: EventListProps) {
             filterText={{
               all: d.all,
               published: d.published,
-              unpublished: d.unpublished
+              registrations_open: d.registrations_open,
+              finished: d.finished
             }}
             setFilter={setFilter}
           />
@@ -179,7 +215,6 @@ export default function EventList({ eventListData }: EventListProps) {
           rows: {
             style: {
               '&:hover': {
-                cursor: 'pointer',
                 backgroundColor: '#ffffee'
               }
             }

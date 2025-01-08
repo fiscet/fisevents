@@ -30,6 +30,7 @@ export const singleEventSchema = z
     publicSlug: z.string(),
     description: z.string(),
     location: z.string().optional(),
+    talkTo: z.string().optional(),
     maxSubscribers: z.number().optional(),
     basicPrice: z.string().optional(),
     currency: z.string().max(3).toUpperCase().optional(),

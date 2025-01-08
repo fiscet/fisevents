@@ -52,7 +52,6 @@ export default function EventAttendantContainer({
 
   const handleAttendandSubmit = useManageSubscription({
     eventId: eventData._id!,
-    eventSlug,
     startProcessing,
     setIsSubscribed,
     prepareEmailContent: (addAttendantRes) => {

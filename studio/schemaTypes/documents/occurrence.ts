@@ -53,6 +53,11 @@ export default defineType({
       type: 'text',
     }),
     defineField({
+      title: 'Event contact person',
+      name: 'talkTo',
+      type: 'text',
+    }),
+    defineField({
       title: 'Max Subscribers',
       name: 'maxSubscribers',
       type: 'number',

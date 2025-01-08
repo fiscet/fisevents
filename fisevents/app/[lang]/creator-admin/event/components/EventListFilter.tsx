@@ -37,10 +37,16 @@ export default function EventListFilter({
           isActive={filter === 'published'}
         />
         <EventListFilterItem
-          filter="unpublished"
+          filter="registrations_open"
           setFilter={setFilter}
-          label={filterText.unpublished}
-          isActive={filter === 'unpublished'}
+          label={filterText.registrations_open}
+          isActive={filter === 'registrations_open'}
+        />
+        <EventListFilterItem
+          filter="finished"
+          setFilter={setFilter}
+          label={filterText.finished}
+          isActive={filter === 'finished'}
         />
       </div>
     </div>

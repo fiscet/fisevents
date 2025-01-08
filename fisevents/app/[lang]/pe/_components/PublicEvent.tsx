@@ -7,6 +7,7 @@ import remarkGfm from 'remark-gfm';
 import { FaRegMoneyBill1 } from 'react-icons/fa6';
 import { FaMapLocationDot } from 'react-icons/fa6';
 import { MdOutlineEmojiPeople } from 'react-icons/md';
+import { GrContact } from 'react-icons/gr';
 import { Locale } from '@/lib/i18n';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import StartEndDates from './StartEndDates';
@@ -53,6 +54,10 @@ export default async function PublicEvent({
 
       {eventData.location && (
         <IconText Icon={FaMapLocationDot}>{eventData.location}</IconText>
+      )}
+
+      {eventData.talkTo && (
+        <IconText Icon={GrContact}>{eventData.talkTo}</IconText>
       )}
 
       {eventData.price && (

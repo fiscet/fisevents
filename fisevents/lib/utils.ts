@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { PublicRoutes } from "./routes";
+import { EventStatusType } from "@/types/custom.types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -85,4 +86,18 @@ export const checkIsValidUrl = (url: string) => {
   );
 
   return pattern.test(url);
+};
+
+export const getEventStatus = (startDate: string, endDate: string, publicationStartDate?: string): EventStatusType => {
+  const now = Date.now();
+
+  if (Date.parse(endDate) < now) {
+    return 'finished';
+  }
+
+  if ((!publicationStartDate && Date.parse(startDate) >= now) || publicationStartDate && Date.parse(publicationStartDate) >= now) {
+    return 'published';
+  }
+
+  return 'registrations_open';
 };

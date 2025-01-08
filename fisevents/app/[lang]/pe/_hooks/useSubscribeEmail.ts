@@ -41,12 +41,13 @@ export function useSubscribeEmail(
       .replaceAll('%event_title%', eventData.title!)
       .replaceAll('%unsubscribe_link%', unsubscribeLink)
       .replaceAll('%company_name%', eventData.companyName)
-      .replaceAll('%public_link%', publicUrl)
+      .replaceAll('%public_url%', publicUrl)
       .replaceAll('%location%', eventData?.location || '--')
+      .replaceAll('%talk_to%', eventData?.talkTo || '--')
       .replaceAll('%price%', eventData?.price || '--')
       .replaceAll('%currency%', eventData.currency || '')
-      .replaceAll('%start_date%', eventData?.startDate || '--')
-      .replaceAll('%end_date%', eventData?.endDate || '--');
+      .replaceAll('%start_date%', new Date(eventData.startDate as string).toLocaleString())
+      .replaceAll('%end_date%', new Date(eventData.endDate as string).toLocaleString());
 
   const prepareEmailBodyHtml = (fullName: string, unsubscribeLink: string): string =>
     emailDictionary.body_html
@@ -54,13 +55,13 @@ export function useSubscribeEmail(
       .replaceAll('%event_title%', eventData.title!)
       .replaceAll('%unsubscribe_link%', unsubscribeLink)
       .replaceAll('%company_name%', eventData.companyName)
-      .replaceAll('%public_link%', publicUrl)
+      .replaceAll('%public_url%', publicUrl)
       .replaceAll('%location%', eventData?.location || '--')
+      .replaceAll('%talk_to%', eventData?.talkTo || '--')
       .replaceAll('%price%', eventData?.price || '--')
       .replaceAll('%currency%', eventData.currency || '')
-      .replaceAll('%start_date%', eventData?.startDate || '--')
-      .replaceAll('%end_date%', eventData?.endDate || '--');
-
+      .replaceAll('%start_date%', new Date(eventData.startDate as string).toLocaleString())
+      .replaceAll('%end_date%', new Date(eventData.endDate as string).toLocaleString());
 
   return { generateUnsubscribeLink, prepareEmailSubject, prepareEmailBodyTxt, prepareEmailBodyHtml };
 }
