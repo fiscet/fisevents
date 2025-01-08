@@ -1,9 +1,9 @@
 {
   "event_attendant": {
     "subscription": {
-      "subject": "Eveniment - abonare reușită",
-      "body_txt": "Salută %attendant_name%,\n\nAbonarea dvs. la acest eveniment a fost reușită.\n\nVă mulțumim pentru sprijinul tău.\n\nDacă vrei să anulați abonarea, accesează acest link %unsubscribe_link%\n\nMă mulțumim,\n\n%company_name%",
-      "body_html": "<h1>Salută %attendant_name%,</h1><p>Abonarea dvs. la acest eveniment a fost reușită.</p><p>Vă mulțumim pentru sprijinul tău.</p><p>Dacă vrei să anulați abonarea, accesează acest link <a href=\"%unsubscribe_link%\">%unsubscribe_link%</a></p><p>Mă mulțumim,</p><p>%company_name%</p>"
+      "subject": "%event_title% - înscriere reușită",
+      "body_txt": "Salut %attendant_name%,\n\nTe-ai înscris cu succes la acest eveniment.\n\nDetalii eveniment:\n\nTitlu: %event_title%\n\nURL eveniment: %public_url%\n\nLocație: %location%\n\nPreț: %price% %currency%\n\nDată: %start_date% - %end_date%\n\nÎți mulțumim pentru sprijin.\n\nDacă dorești să te dezabonezi, fă clic pe acest link: %unsubscribe_link%\n\nCu stimă,\n\n%company_name%",
+      "body_html": "<h1>Salut %attendant_name%,</h1><p>Te-ai înscris cu succes la acest eveniment.</p><div><h3>Detalii eveniment</h3><p>Titlu: %event_title%</p><p>URL eveniment: %public_url%</p><p>Locație: %location%</p><p>Preț: %price% %currency%</p><p>Dată: %start_date% - %end_date%</p></div><p>&nbsp;</p><p>Îți mulțumim pentru sprijin.</p><p>Dacă dorești să te dezabonezi, fă clic pe acest link: <a href=\"%unsubscribe_link%\">%unsubscribe_link%</a></p><p>Cu stimă,</p><p>%company_name%</p>"
     }
   }
 }

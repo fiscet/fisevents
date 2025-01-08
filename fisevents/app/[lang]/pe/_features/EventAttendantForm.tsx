@@ -71,7 +71,7 @@ const EventAttendantComponent = ({ form, onSubmit }: EventAttendantProps) => {
             )}
           />
           <div className="flex justify-center">
-            <SaveButton label={d.subscribe_button} />
+            <SaveButton label={d.subscribe_button} isEnabled={form.formState.isValid} />
           </div>
         </form>
       </Form>

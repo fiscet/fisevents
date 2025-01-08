@@ -10,13 +10,12 @@ import EventAttendantForm from './EventAttendantForm';
 import Processing from '@/components/Processing';
 import { Locale } from '@/lib/i18n';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
+import { PublicOccurrenceSingle } from '@/types/sanity.extended.types';
 
 export type EventAttendantContainerProps = {
   lang: Locale;
-  eventId: string;
+  eventData: PublicOccurrenceSingle;
   eventSlug: string;
-  companyName: string;
-  eventTitle: string;
   emailDictionary: Awaited<
     ReturnType<typeof getEmailDictionary>
   >['event_attendant']['subscription'];
@@ -24,10 +23,8 @@ export type EventAttendantContainerProps = {
 
 export default function EventAttendantContainer({
   lang,
-  eventId,
+  eventData,
   eventSlug,
-  companyName,
-  eventTitle,
   emailDictionary
 }: EventAttendantContainerProps) {
   const [isSaving, startProcessing] = useTransition();
@@ -51,10 +48,11 @@ export default function EventAttendantContainer({
     prepareEmailSubject,
     prepareEmailBodyTxt,
     prepareEmailBodyHtml
-  } = useSubscribeEmail({ eventId, companyName, eventTitle, emailDictionary });
+  } = useSubscribeEmail({ eventData, emailDictionary });
 
   const handleAttendandSubmit = useManageSubscription({
-    eventId,
+    eventId: eventData._id!,
+    eventSlug,
     startProcessing,
     setIsSubscribed,
     prepareEmailContent: (addAttendantRes) => {
