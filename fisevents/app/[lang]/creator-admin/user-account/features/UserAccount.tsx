@@ -50,6 +50,7 @@ export default function UserAccount({
               label={a.name}
               formComponent={Input}
               description={a.descriptions.name}
+              requiredStatus='required'
             />
             <DefaultFormField
               form={form}
@@ -57,6 +58,7 @@ export default function UserAccount({
               label={a.companyName}
               formComponent={Input}
               description={a.descriptions.companyName}
+              requiredStatus='required'
             />
 
             {imageUploader}
@@ -73,7 +75,7 @@ export default function UserAccount({
 
             <Separator className="my-5" />
             <div className="flex justify-center">
-              <SaveButton label={s.save} />
+              <SaveButton label={s.save} isEnabled={form.formState.isValid} />
             </div>
           </form>
         </Form>

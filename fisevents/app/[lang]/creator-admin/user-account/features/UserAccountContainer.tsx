@@ -1,6 +1,6 @@
 'use client';
 
-import { useTransition, useState } from 'react';
+import { useTransition, useState, useEffect } from 'react';
 import { User } from '@/types/sanity.types';
 import { FileImageType } from '@/types/custom.types';
 import { CurrentUser } from '@/types/sanity.extended.types';
@@ -20,6 +20,7 @@ import Processing from '@/components/Processing';
 import ImageUploader from '../../_components/ImageUploader';
 import UtilityBar from '../../_components/UtilityBar';
 import GoToEventList from '../../_components/GoToEventList';
+import { CreatorAdminRoutes } from '@/lib/routes';
 
 export type UserAccountContainerProps = {
   userData: CurrentUser;
@@ -40,6 +41,13 @@ export default function UserAccountContainer({
     file: {} as File,
     imgUrl: userData.logoUrl ?? ''
   });
+  const [isVeryFirstAccess, setIsVeryFirstAccess] = useState(false);
+
+  useEffect(() => {
+    if (!userData.name || !userData.companyName) {
+      setIsVeryFirstAccess(true);
+    }
+  }, []);
 
   const { form } = useUserAccountForm({
     userData
@@ -88,6 +96,14 @@ export default function UserAccountContainer({
 
         await updateUser({ id: userData._id!, data: insValues });
         await updateSession(newSession);
+
+        if (isVeryFirstAccess) {
+          const url = `${
+            window.location.origin
+          }/${curLang}/${CreatorAdminRoutes.getItem('event')}`;
+
+          window.location.href = url;
+        }
       } catch (error) {
         let errorMessage = s.error_text;
         if (

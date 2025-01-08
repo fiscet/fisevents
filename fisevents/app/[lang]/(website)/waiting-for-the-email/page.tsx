@@ -10,7 +10,7 @@ export default async function WaitingEmailPage({
   const d = (await getDictionary(lang)).website.waiting_for_the_email;
 
   return (
-    <Card className="md:w-[600px] mx-auto mt-5">
+    <Card className="md:w-[600px] mx-auto mt-5 md:mt-16">
       <CardHeader>
         <CardTitle>{d.title}</CardTitle>
       </CardHeader>
