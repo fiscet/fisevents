@@ -49,10 +49,8 @@ export default async function PublicEventPage({
             <NotificationProvider>
               <EventAttendantForm
                 lang={lang}
-                eventId={eventData._id!}
+                eventData={eventData}
                 eventSlug={eventSlug}
-                companyName={eventData.companyName!}
-                eventTitle={eventData.title!}
                 emailDictionary={emailDictionary.event_attendant.subscription}
               />
             </NotificationProvider>

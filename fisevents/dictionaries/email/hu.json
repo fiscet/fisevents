@@ -1,9 +1,9 @@
 {
   "event_attendant": {
     "subscription": {
-      "subject": "%event_title% - subscription successful",
-      "body_txt": "Hello %attendant_name%,\n\nYou have been successfully subscribed to this event.\n\nThank you for your support.\n\nIf you want to unsubscribe click this link %unsubscribe_link%\n\nBest regards,\n\n%company_name%",
-      "body_html": "<h1>Hello %attendant_name%,</h1><p>You have been successfully subscribed to this event.</p><p>Thank you for your support.</p><p>If you want to unsubscribe click this link <a href=\"%unsubscribe_link%\">%unsubscribe_link%</a></p><p>Best regards,</p><p>%company_name%</p>"
+      "subject": "%event_title% - sikeres regisztráció",
+      "body_txt": "Kedves %attendant_name%,\n\nSikeresen regisztráltál erre az eseményre.\n\nEsemény részletei:\n\nCím: %event_title%\n\nEsemény URL: %public_url%\n\nHelyszín: %location%\n\nÁr: %price% %currency%\n\nDátum: %start_date% - %end_date%\n\nKöszönjük a támogatásodat.\n\nHa szeretnéd leiratkozni, kattints erre a linkre: %unsubscribe_link%\n\nÜdvözlettel,\n\n%company_name%",
+      "body_html": "<h1>Kedves %attendant_name%,</h1><p>Sikeresen regisztráltál erre az eseményre.</p><div><h3>Esemény részletei</h3><p>Cím: %event_title%</p><p>Esemény URL: %public_url%</p><p>Helyszín: %location%</p><p>Ár: %price% %currency%</p><p>Dátum: %start_date% - %end_date%</p></div><p>&nbsp;</p><p>Köszönjük a támogatásodat.</p><p>Ha szeretnéd leiratkozni, kattints erre a linkre: <a href=\"%unsubscribe_link%\">%unsubscribe_link%</a></p><p>Üdvözlettel,</p><p>%company_name%</p>"
     }
   }
 }

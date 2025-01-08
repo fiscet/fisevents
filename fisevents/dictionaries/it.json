@@ -129,7 +129,7 @@
       "organization": "Il nome della tua organizzazione",
       "companyName": "Nome della società",
       "slug": "Slug",
-      "www": "Sito web",
+      "www": "Sito web o Social Media",
       "logo": "Logo",
       "save": "Salva",
       "back": "Torna agli eventi",
@@ -182,7 +182,7 @@
         "description": "Fornisci agli utenti i dettagli su questo evento, ad esempio a chi è rivolto, quali benefici offre, qual è il piano di insegnamento, ecc.",
         "location": "Dove si terrà l'evento? Se è una sede, fornisci indicazioni su come arrivarci",
         "maxSubscribers": "Se è un numero limitato, indica il numero massimo, altrimenti lascialo vuoto",
-        "publicationStartDate": "Se vuoi ritardare la possibilità di iscriversi all'evento",
+        "publicationStartDate": "Se vuoi ritardare la possibilità di iscriversi all'evento, altrimenti lascialo vuoto e l'evento è aperto da subito",
         "public_link": "URL pubblico, dove gli utenti vedranno la descrizione dell'evento e saranno in grado di iscriversi. Copia/incollalo nel tuo sito web o social media"
       },
       "validation": {
