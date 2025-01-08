@@ -2,7 +2,7 @@
 
 import { useTransition } from 'react';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { OccurrenceSingle } from '@/types/sanity.extended.types';
 import { useEventSingleForm } from '../hooks/useEventSingleForm';
 import { useCurrentLang } from '@/hooks/useCurrentLang';
@@ -49,6 +49,10 @@ export default function EventSingleContainer({
 
   const [isSaving, startProcessing] = useTransition();
 
+  const tabParams = useSearchParams();
+
+  const tab = tabParams.get('tab');
+
   const { form } = useEventSingleForm({
     eventSingleData
   });
@@ -73,7 +77,7 @@ export default function EventSingleContainer({
   return (
     <>
       {isSaving && <Processing text={s.saving} />}
-      <Tabs defaultValue="event">
+      <Tabs defaultValue={tab ?? 'event'}>
         <UtilityBar
           leftElements={
             <GoToEventList label={s.goto_event_list} lang={curLang} />

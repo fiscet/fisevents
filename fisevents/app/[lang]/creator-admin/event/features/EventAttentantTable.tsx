@@ -21,7 +21,7 @@ export default function EventAttentantTable({
   eventDescription
 }: EventAttentantTableProps) {
   const { creator_admin: ca } = useDictionary();
-  const {attendants: d} = ca;
+  const { attendants: d } = ca;
 
   return (
     <Table className="hidden md:table">
@@ -41,7 +41,7 @@ export default function EventAttentantTable({
         {attendants &&
           attendants.map((attendant, index) => (
             <TableRow
-              key={slugify(attendant.email!)}
+              key={`${index}_${slugify(attendant.email!)}`}
               className={index % 2 === 0 ? 'bg-yellow-50' : ''}
             >
               <TableCell className="whitespace-nowrap font-bold w-full">

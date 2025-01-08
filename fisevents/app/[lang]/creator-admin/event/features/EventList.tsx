@@ -67,7 +67,19 @@ function getColumns(
     {
       name: d.numAttendants,
       selector: (row) => row.numAttendants,
-      cell: (row) => <NumAttendants num={row.numAttendants} />,
+      cell: (row) => {
+        return (
+          <div className="flex gap-2 items-center">
+            <Link
+              href={`/${lang}/${CreatorAdminRoutes.getItem('event')}/${
+                row._id
+              }?tab=attendants`}
+            >
+              <NumAttendants num={row.numAttendants} />
+            </Link>
+          </div>
+        );
+      },
       width: '120px',
       center: 'true',
       hide: 640
@@ -203,7 +215,6 @@ export default function EventList({ eventListData }: EventListProps) {
           rows: {
             style: {
               '&:hover': {
-                cursor: 'pointer',
                 backgroundColor: '#ffffee'
               }
             }
