@@ -92,6 +92,7 @@ export function useEventSingleForm({ eventSingleData }: useEventSingleFormProps)
       publicSlug: eventSingleData?.publicSlug ?? '',
       description: eventSingleData?.description ?? '',
       location: eventSingleData?.location ?? '',
+      talkTo: eventSingleData?.talkTo ?? '',
       maxSubscribers: eventSingleData?.maxSubscribers ?? undefined,
       basicPrice:
         eventSingleData?.basicPrice?.toString().replace(',', '.') ?? '0',

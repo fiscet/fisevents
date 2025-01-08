@@ -160,6 +160,7 @@
       "numAttendants": "Résztvevők száma",
       "description": "Leírás",
       "location": "Helyszín",
+      "talkTo": "Kapcsolat",
       "maxSubscribers": "Maximális résztvevők száma",
       "basicPrice": "Teljes ár",
       "currency": "Pénznem",
@@ -182,6 +183,7 @@
         "image": "Az eseményt reprezentáló fénykép vagy kép",
         "description": "Adjon meg részleteket az eseményről, például kinek szól, milyen előnyökkel jár, mi a tanítási terv stb.",
         "location": "Hol kerül megrendezésre az esemény? Adjon meg a helyszín utat, vagy helyezze be a térképet vagy utat",
+        "talkTo": "A résztvevő és a kapcsolattartó adatai, akik szeretne kapcsolatba lépni a résztvevőnek",
         "maxSubscribers": "Ha korlátozott a résztvevők száma, adja meg a maximális számot, különben hagyja üresen.",
         "publicationStartDate": "Ha szeretné elhalasztani az esemény regisztrációjának kezdetét, különben hagyja üresen és az esemény regisztrációja nyitva kezdődik most",
         "public_link": "Nyilvános URL, itt láthatják a felhasználók az esemény leírását és regisztrálhatnak. Másolja és illessze be weboldalára vagy közösségi médiába."

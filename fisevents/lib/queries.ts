@@ -67,6 +67,7 @@ export const eventSingleByIdQuery = defineQuery(`*[_type == "occurrence" && crea
     "dimensions": mainImage.asset->metadata.dimensions
   },
   location,
+  talkTo,
   maxSubscribers,
   basicPrice,
   currency,
@@ -91,6 +92,7 @@ export const eventSingleBySlugQuery = defineQuery(`
     "dimensions": mainImage.asset->metadata.dimensions
   },
   location,
+  talkTo,
   maxSubscribers,
   "remainingPlaces": maxSubscribers-(coalesce(count(attendants), 0)),
   "price": select(

@@ -123,6 +123,15 @@ export default function EventSingle({
             description={d.descriptions.location}
             requiredStatus='optional'
           />
+          <DefaultFormField
+            form={form}
+            name="talkTo"
+            label={d.talkTo}
+            formComponent={Textarea}
+            formComponentProps={{ rows: 3 }}
+            description={d.descriptions.talkTo}
+            requiredStatus='optional'
+          />
           <div className="flex gap-1">
             <DefaultFormField
               form={form}

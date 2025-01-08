@@ -2,8 +2,8 @@
   "event_attendant": {
     "subscription": {
       "subject": "%event_title% - subscription successful",
-      "body_txt": "Hello %attendant_name%,\n\nYou have been successfully subscribed to this event.\n\nEvent Details:\n\nTitle: %event_title%\n\nEvent url: %public_url%\n\nVenue: %location%\n\nPrice: %price% %currency%\n\nDate: %start_date% - %end_date%\n\nThank you for your support.\n\nIf you want to unsubscribe click this link %unsubscribe_link%\n\nBest regards,\n\n%company_name%",
-      "body_html": "<h1>Hello %attendant_name%,</h1><p>You have been successfully subscribed to this event.</p><div><h3>Event Details</h3><p>Title: %event_title%</p><p>Event url: %public_url%</p><p>Venue: %location%</p><p>Price: %price% %currency%</p><p>Date: %start_date% - %end_date%</p></div><p>&nbsp;</p><p>Thank you for your support.</p><p>If you want to unsubscribe click this link <a href=\"%unsubscribe_link%\">%unsubscribe_link%</a></p><p>Best regards,</p><p>%company_name%</p>"
+      "body_txt": "Hello %attendant_name%,\n\nYou have been successfully subscribed to this event.\n\nEvent Details:\n\nTitle: %event_title%\n\nEvent url: %public_url%\n\nVenue: %location%\n\nContact person: %talk_to%\n\nPrice: %price% %currency%\n\nDate: %start_date% - %end_date%\n\nThank you for your support.\n\nIf you want to unsubscribe click this link %unsubscribe_link%\n\nBest regards,\n\n%company_name%",
+      "body_html": "<h1>Hello %attendant_name%,</h1><p>You have been successfully subscribed to this event.</p><div><h3>Event Details</h3><p>Title: %event_title%</p><p>Event url: %public_url%</p><p>Venue: %location%</p><p>Contact person: %talk_to%<p>Price: %price% %currency%</p><p>Date: %start_date% - %end_date%</p></div><p>&nbsp;</p><p>Thank you for your support.</p><p>If you want to unsubscribe click this link <a href=\"%unsubscribe_link%\">%unsubscribe_link%</a></p><p>Best regards,</p><p>%company_name%</p>"
     }
   }
 }
