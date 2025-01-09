@@ -134,8 +134,7 @@ export default function UserAccountContainer({
   const { isDirty, isValid, isSubmitted } = form.formState;
 
   const isBackVisible =
-    (!isDirty && isValid && !isSubmitted) ||
-    (isDirty && isValid && isSubmitted);
+    (!isDirty && isValid) || (isDirty && isValid && isSubmitted);
 
   return (
     <>
