@@ -75,7 +75,7 @@ export default function UserAccount({
 
             <Separator className="my-5" />
             <div className="flex justify-center">
-              <SaveButton label={s.save} isEnabled={form.formState.isValid} />
+              <SaveButton label={s.save} isEnabled={form.formState.isValid && form.formState.isDirty} />
             </div>
           </form>
         </Form>
