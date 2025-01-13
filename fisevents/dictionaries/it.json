@@ -123,6 +123,7 @@
     },
     "account": {
       "userAccount": "Account utente",
+      "complete_your_profile": "Completa il tuo profilo",
       "name": "Il tuo nome completo",
       "email": "Email",
       "imageUrl": "URL della foto",
@@ -173,7 +174,7 @@
       "published": "Pubblicati",
       "registrations_open": "Registrazioni aperte",
       "finished": "Conclusi",
-      "new_event": "Crea un nuovo evento",
+      "new_event": "Crea il tuo prossimo evento",
       "back": "Tutti gli eventi",
       "details": "Dettagli",
       "public_link": "Link pubblico: copia/incollalo nel tuo sito web o social media",

@@ -123,6 +123,7 @@
     },
     "account": {
       "userAccount": "Cont de utilizator",
+      "complete_your_profile": "Completați profilul",
       "name": "Numele tău complet",
       "email": "Email",
       "imageUrl": "URL-ul imaginii",
@@ -173,7 +174,7 @@
       "published": "Publicate",
       "registrations_open": "Înregistrări deschise",
       "finished": "Terminat",
-      "new_event": "Creează un nou eveniment",
+      "new_event": "Creați-vă evenimentul următor",
       "back": "Înapoi la evenimente",
       "details": "Detalii",
       "public_link": "Link public: copiați/lipiți-l în site-ul dvs. sau pe social media",

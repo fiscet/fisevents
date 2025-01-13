@@ -123,6 +123,7 @@
     },
     "account": {
       "userAccount": "Felhasználói fiók",
+      "complete_your_profile": "Profil befejezése",
       "name": "Név és vezetéknév",
       "email": "E-mail",
       "imageUrl": "Kép URL-je",
@@ -173,7 +174,7 @@
       "published": "Publikált",
       "registrations_open": "Regisztrációk nyitva",
       "finished": "Befejezett",
-      "new_event": "Új esemény létrehozása",
+      "new_event": "Új esemény létrehozása a következőhöz",
       "back": "Vissza az eseményekhez",
       "details": "Részletek",
       "public_link": "Nyilvános link: másolja be weboldalára vagy közösségi médiába",
