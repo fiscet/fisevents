@@ -1,7 +1,13 @@
-import { Separator } from '@/components/ui/separator';
+import { Roboto } from 'next/font/google';
 import { cn } from '@/lib/utils';
+import { Separator } from '@/components/ui/separator';
 import { ReactNode } from 'react';
 import { IconType } from 'react-icons/lib';
+
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: '100'
+});
 
 export default function IconText({
   Icon,
@@ -16,8 +22,14 @@ export default function IconText({
 }) {
   return (
     <>
-      <div className={cn('flex gap-2 items-center pl-2', containerClassName)}>
-        <Icon className={cn('w-5 h-5 text-blue-700', iconClassName)} />
+      <div
+        className={cn(
+          'flex gap-4 items-center pl-2',
+          containerClassName,
+          roboto.className
+        )}
+      >
+        <Icon className={cn('w-12 h-12 text-orange-600', iconClassName)} />
         {children}
       </div>
       <Separator className="my-4" />
