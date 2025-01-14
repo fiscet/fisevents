@@ -11,6 +11,7 @@ import {
 import HPCarousel from './_components/HPCarousel';
 import Payoff from './_components/Payoff';
 import { Metadata } from 'next';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export async function generateMetadata({
   params
@@ -78,47 +79,37 @@ export default async function HomePage({
         <h3 className="text-2xl font-semibold text-orange-600 text-center mb-8">
           {dictionary.features.title}
         </h3>
-        <div className="max-w-[600px] mx-auto pb-4">
-          <Accordion type="single" collapsible>
-            <AccordionItem value="unique-item" className="border-none">
-              <AccordionTrigger>
-                {dictionary.features.list.reg_link.title}
-              </AccordionTrigger>
-              <AccordionContent className="p-1">
-                {dictionary.features.list.reg_link.text}
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-          <Accordion type="single" collapsible>
-            <AccordionItem value="unique-item" className="border-none">
-              <AccordionTrigger>
-                {dictionary.features.list.events.title}
-              </AccordionTrigger>
-              <AccordionContent className="p-1">
-                {dictionary.features.list.events.text}
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-          <Accordion type="single" collapsible>
-            <AccordionItem value="unique-item" className="border-none">
-              <AccordionTrigger>
+        <div className="max-w-[600px] mx-auto pb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>{dictionary.features.list.reg_link.title}</CardTitle>
+            </CardHeader>
+            <CardContent>{dictionary.features.list.reg_link.text}</CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>{dictionary.features.list.events.title}</CardTitle>
+            </CardHeader>
+            <CardContent>{dictionary.features.list.events.text}</CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>
                 {dictionary.features.list.date_management.title}
-              </AccordionTrigger>
-              <AccordionContent className="p-1">
-                {dictionary.features.list.date_management.text}
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-          <Accordion type="single" collapsible>
-            <AccordionItem value="unique-item" className="border-none">
-              <AccordionTrigger>
-                {dictionary.features.list.start_free.title}
-              </AccordionTrigger>
-              <AccordionContent className="p-1">
-                {dictionary.features.list.start_free.text}
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {dictionary.features.list.date_management.text}
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>{dictionary.features.list.start_free.title}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {dictionary.features.list.start_free.text}
+            </CardContent>
+          </Card>
         </div>
         <HPCarousel />
       </section>
