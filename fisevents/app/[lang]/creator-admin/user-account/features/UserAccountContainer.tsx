@@ -145,6 +145,13 @@ export default function UserAccountContainer({
             <GoToEventList label={s.goto_event_list} lang={curLang} />
           )
         }
+        centerElements={
+          isVeryFirstAccess ? (
+            <h3 className="text-center text-xl font-bold text-orange-600">
+              {a.complete_your_profile}
+            </h3>
+          ) : null
+        }
       />
       <UserAccount
         form={form}

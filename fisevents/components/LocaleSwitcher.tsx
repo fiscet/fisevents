@@ -44,7 +44,7 @@ export default function LocaleSwitcher({
               <span
                 className={cn(
                   'font-bold pr-1',
-                  locale === curLang ? 'text-amber-700' : 'text-cyan-700'
+                  locale === curLang ? 'text-orange-600' : 'text-cyan-700'
                 )}
               >
                 {locale}

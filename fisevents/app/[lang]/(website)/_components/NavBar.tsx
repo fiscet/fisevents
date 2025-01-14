@@ -13,6 +13,7 @@ import Link from 'next/link';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
 import LogoutLink from '../../creator-admin/_components/LogoutLink/LogoutLink';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
+import AdminLink from './AdminLink';
 
 export type NavBarProps = {
   lang: Locale;
@@ -27,10 +28,19 @@ export function NavBar({ lang, isLoggedIn }: NavBarProps) {
 
   return (
     <header className="flex py-6 shadow-xl fixed top-0 w-full z-10 bg-background/95">
-      <nav className="flex items-center container font-semibold relative">
-        <div className="mr-auto">
+      <nav className="flex items-center justify-between container font-semibold relative">
+        <div className="flex-grow w-1/3">
           <Logo size={currentBreakpoint as LogoProps['size']} />
         </div>
+
+        {/* Desktop Login button */}
+        {!isLoggedIn && (
+          <div className="hidden md:block text-center flex-grow w-1/3">
+            <Button size="lg" asChild>
+              <Link href={`/${lang}/auth`}> {d.auth.login}</Link>
+            </Button>
+          </div>
+        )}
 
         {/* Mobile menu button */}
         <button
@@ -41,31 +51,23 @@ export function NavBar({ lang, isLoggedIn }: NavBarProps) {
         </button>
 
         {/* Desktop menu */}
-        <div className="hidden md:flex items-center gap-10">
+        <div className="hidden md:flex justify-end items-center gap-x-10 flex-grow w-1/3">
           {/* <Link className="text-lg" href="/#features">
             {d.website.navbar.features}
           </Link>
           <Link className="text-lg" href="/#pricing">
             {d.website.navbar.pricing}
           </Link> */}
-          {isLoggedIn ? (
+          <LocaleSwitcher curLang={lang} />
+          {isLoggedIn && (
             <>
-              <Link
-                className="text-lg text-orange-600"
+              <AdminLink
+                label={d.website.navbar.admin}
                 href={`/${lang}/${CreatorAdminRoutes.getBase()}`}
-              >
-                Admin
-              </Link>
+              />
               <LogoutLink label={d.auth.logout} onSignOut={signOut} />
             </>
-          ) : (
-            <Button asChild>
-              <Link href={`/${lang}/auth`}> {d.auth.login}</Link>
-            </Button>
           )}
-          <div>
-            <LocaleSwitcher curLang={lang} />
-          </div>
         </div>
 
         {/* Mobile menu */}
@@ -77,23 +79,21 @@ export function NavBar({ lang, isLoggedIn }: NavBarProps) {
             <Link className="text-lg" href="/#pricing">
               {d.website.navbar.pricing}
             </Link> */}
-            {isLoggedIn ? (
-              <>
-                <Link
-                  className="text-lg text-orange-600"
-                  href={`/${lang}/${CreatorAdminRoutes.getBase()}`}
-                >
-                  {d.website.navbar.admin}
-                </Link>
-                <LogoutLink label={d.auth.logout} onSignOut={signOut} />
-              </>
-            ) : (
-              <Button asChild className="w-full">
-                <Link href={`/${lang}/auth`}> {d.auth.login}</Link>
-              </Button>
-            )}
-            <div>
+            <div className="flex justify-between items-center">
               <LocaleSwitcher curLang={lang} />
+              {isLoggedIn ? (
+                <>
+                  <AdminLink
+                    label={d.website.navbar.admin}
+                    href={`/${lang}/${CreatorAdminRoutes.getBase()}`}
+                  />
+                  <LogoutLink label={d.auth.logout} onSignOut={signOut} />
+                </>
+              ) : (
+                <Button asChild className="w-full">
+                  <Link href={`/${lang}/auth`}> {d.auth.login}</Link>
+                </Button>
+              )}
             </div>
           </div>
         )}

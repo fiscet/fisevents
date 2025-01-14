@@ -29,7 +29,7 @@ export default function Logo({ linkTo = '/', size = 'md' }: LogoProps) {
         alt="Logo"
         width={getSize(size)}
         height={getSize(size)}
-        className="mx-auto"
+        className="mx-auto md:mx-0"
       />
     </Link>
   );
