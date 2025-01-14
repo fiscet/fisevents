@@ -21,7 +21,7 @@ export default async function PeLayout({
         data-testid="public-layout"
       >
         <div className="grow flex justify-center">
-          <div className="bg-white w-full md:w-[700px] h-full p-10">
+          <div className="bg-white w-full md:w-[780px] h-full p-10">
             <Suspense fallback={<Loading />}>{children}</Suspense>
           </div>
         </div>
