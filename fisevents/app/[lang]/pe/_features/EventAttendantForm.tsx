@@ -1,13 +1,13 @@
 'use client';
 
 import React from 'react';
+import { useDictionary } from '@/app/contexts/DictionaryContext';
+import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import DefaultFormField from '@/components/FormField/DefaultFormField';
 import SaveButton from '../../creator-admin/_components/SaveButton';
 import { AttendantFormSchemaType } from '../_hooks/useEventAttendantForm';
-import { useDictionary } from '@/app/contexts/DictionaryContext';
-import { useForm } from 'react-hook-form';
 import { Switch } from '@/components/ui/switch';
 
 export type EventAttendantProps = {
@@ -21,7 +21,7 @@ const EventAttendantComponent = ({ form, onSubmit }: EventAttendantProps) => {
   const { public: d } = useDictionary();
 
   return (
-    <div className="pb-10">
+    <div className="pb-10" id="event-attendant-form-container">
       <h1 className="text-2xl font-bold text-center mt-5">
         {d.subscribe_title}
       </h1>

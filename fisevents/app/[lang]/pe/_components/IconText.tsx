@@ -21,18 +21,15 @@ export default function IconText({
   children: ReactNode;
 }) {
   return (
-    <>
-      <div
-        className={cn(
-          'flex gap-4 items-center pl-2',
-          containerClassName,
-          roboto.className
-        )}
-      >
-        <Icon className={cn('w-12 h-12 text-orange-600', iconClassName)} />
-        {children}
-      </div>
-      <Separator className="my-4" />
-    </>
+    <div
+      className={cn(
+        'flex gap-4 items-center pl-2',
+        containerClassName,
+        roboto.className
+      )}
+    >
+      <Icon className={cn('w-12 h-12 text-orange-600', iconClassName)} />
+      {children}
+    </div>
   );
 }

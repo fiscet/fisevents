@@ -5,12 +5,12 @@ import { getEmailDictionary } from '@/lib/i18n.utils';
 import { useEventAttendantForm } from '../_hooks/useEventAttendantForm';
 import { useManageSubscription } from '../_hooks/useManageSubscription';
 import { useSubscribeEmail } from '../_hooks/useSubscribeEmail';
+import { useDictionary } from '@/app/contexts/DictionaryContext';
+import { Locale } from '@/lib/i18n';
 import { EventAttendant } from '@/types/sanity.types';
+import { PublicOccurrenceSingle } from '@/types/sanity.extended.types';
 import EventAttendantForm from './EventAttendantForm';
 import Processing from '@/components/Processing';
-import { Locale } from '@/lib/i18n';
-import { useDictionary } from '@/app/contexts/DictionaryContext';
-import { PublicOccurrenceSingle } from '@/types/sanity.extended.types';
 
 export type EventAttendantContainerProps = {
   lang: Locale;

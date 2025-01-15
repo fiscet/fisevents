@@ -16,7 +16,8 @@ const images = [
   '/img/sh-hp-03.jpg',
   '/img/sh-hp-04.jpg',
   '/img/sh-hp-06.jpg',
-  '/img/sh-hp-07.jpg'
+  '/img/sh-hp-07.jpg',
+  '/img/sh-hp-08.jpg'
 ];
 
 export default function HPCarousel() {

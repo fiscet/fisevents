@@ -20,7 +20,10 @@ export default function IconCard({
 }) {
   return (
     <Card
-      className={cn('w-full  relative text-center shadow-md', roboto.className)}
+      className={cn(
+        'w-full  relative text-center shadow-md hover:bg-slate-50 hover:shadow-sm',
+        roboto.className
+      )}
     >
       <Icon className="w-12 h-12 mx-auto -mt-5 bg-white text-orange-600" />
       <CardHeader className="py-2">
