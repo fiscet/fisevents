@@ -1,9 +1,6 @@
 import { Locale } from '@/lib/i18n';
-import { Roboto } from 'next/font/google';
-import { cn } from '@/lib/utils';
 import { getDictionary } from '@/lib/i18n.utils';
 import { MdDateRange } from 'react-icons/md';
-import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/card';
 import IconCard from './IconCard';
 
 export type StartEndDatesProps = {
@@ -11,11 +8,6 @@ export type StartEndDatesProps = {
   endDate: string;
   lang: Locale;
 };
-
-const roboto = Roboto({
-  subsets: ['latin'],
-  weight: '100'
-});
 
 export default async function StartEndDatesCard({
   startDate,
@@ -55,7 +47,7 @@ export default async function StartEndDatesCard({
         hour12: false
       });
 
-  const title = isSameDay ? dictionary.from_hour : dictionary.from_date;
+  const title = isSameDay ? preDate : dictionary.dates;
 
   return (
     <IconCard Icon={MdDateRange} title={title}>

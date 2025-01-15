@@ -9,14 +9,13 @@ import { FaMapLocationDot } from 'react-icons/fa6';
 import { MdOutlineEmojiPeople } from 'react-icons/md';
 import { GrContact } from 'react-icons/gr';
 import { Locale } from '@/lib/i18n';
-import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import IconText from './IconText';
 import { getDictionary } from '@/lib/i18n.utils';
 import Image from 'next/image';
-import Link from 'next/link';
-import { Separator } from '@/components/ui/separator';
 import StartEndDatesCard from './StartEndDatesCard';
 import IconCard from './IconCard';
+import OrganizedBy from './OrganizedBy';
+import SubscribeAnchor from './SubscribeAnchor';
 
 export type PublicEventProps = {
   eventData: PublicOccurrenceSingle;
@@ -32,7 +31,7 @@ export default async function PublicEvent({
 
   return (
     <div className="flex flex-col">
-      <div className="relative">
+      <div className="relative mb-4">
         <Image
           src={eventData.pageImage.url ?? '/img/logo.png'}
           alt={eventData.title + ' image'}
@@ -45,6 +44,10 @@ export default async function PublicEvent({
           {eventData.title}
         </h1>
       </div>
+      <SubscribeAnchor
+        anchorId="#event-attendant-form-container"
+        label={dictionary.subscribe_button}
+      />
       <div className="flex flex-col gap-6 items-center md:flex-row md:gap-1 md:items-stretch md:justify-between my-8">
         <StartEndDatesCard
           startDate={eventData.startDate!}
@@ -72,30 +75,30 @@ export default async function PublicEvent({
         )}
       </div>
       {eventData.location && (
-        <IconText Icon={FaMapLocationDot} iconClassName="w-12 h-12">
+        <IconText
+          Icon={FaMapLocationDot}
+          iconClassName="w-12 h-12"
+          containerClassName="p-4 shadow-md hover:bg-slate-50 hover:shadow-sm mb-6"
+        >
           {eventData.location}
         </IconText>
       )}
+
+      <SubscribeAnchor
+        anchorId="#event-attendant-form-container"
+        label={dictionary.subscribe_button}
+      />
+
       <div className="py-2">
         <Markdown remarkPlugins={[remarkGfm]}>{eventData.description}</Markdown>
       </div>
 
-      <div className="flex justify-end items-baseline mt-6">
-        <Link
-          href={userData.www ?? '#'}
-          target={userData.www ? '_blank' : '_self'}
-          className="flex flex-row items-center gap-x-2"
-        >
-          <span className="text-sm text-muted-foreground">
-            {dictionary.organized_by} {userData.companyName}
-          </span>
-          {userData.logoUrl && (
-            <Avatar className="w-12 h-12 rounded-full">
-              <AvatarImage src={userData.logoUrl} />
-            </Avatar>
-          )}
-        </Link>
-      </div>
+      <OrganizedBy
+        companyName={userData.companyName!}
+        logoUrl={userData.logoUrl}
+        www={userData.www}
+        organizedByLabel={dictionary.organized_by}
+      />
     </div>
   );
 }
