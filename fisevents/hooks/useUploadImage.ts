@@ -17,7 +17,7 @@ export const useUploadImage = (newImg: FileImageType) => {
       status: string;
       id?: string;
       url?: string;
-      error?: any;
+      error?: unknown;
     };
   };
 };

@@ -35,6 +35,18 @@ const aj = arcjet.withRule(validateEmail({
   block: ['DISPOSABLE', 'INVALID', 'NO_MX_RECORDS']
 }));
 
+const validateSession = async () => {
+  const session = await getSession();
+  if (!session) {
+    throw new Error('Session not found');
+  }
+  return session;
+};
+
+const revalidateTags = (tags: string[]) => {
+  tags.forEach(tag => revalidateTag(tag));
+};
+
 /** USERS */
 export const getUserById = async ({ userId }: { userId: string; }) => {
   return await sanityClient.fetch<CurrentUser>(
@@ -43,6 +55,7 @@ export const getUserById = async ({ userId }: { userId: string; }) => {
     { next: { tags: ['user'] } }
   );
 };
+
 export const getUserBySlug = async ({ slug }: { slug: string; }) => {
   return await sanityClient.fetch<CurrentUser>(
     userQueryBySlug,
@@ -58,16 +71,9 @@ export const updateUser = async ({
   id: string;
   data: Partial<User>;
 }) => {
-  const session = await getSession();
-
-  if (!session) {
-    return;
-  }
-
+  await validateSession();
   const res = await sanityClient.patch(id).set(data).commit();
-
-  revalidateTag('user');
-
+  revalidateTags(['user']);
   return res;
 };
 
@@ -83,7 +89,6 @@ export const getEventIdList = async ({
     { next: { tags: ['eventSlugList'] } }
   );
 };
-
 
 export const getEventList = async ({
   createdBy,
@@ -128,31 +133,16 @@ export const updateEvent = async ({
   id: string;
   data: Partial<Occurrence>;
 }) => {
-  const session = await getSession();
-
-  if (!session) {
-    return;
-  }
-
+  await validateSession();
   const res = await sanityClient.patch(id).set(data).commit();
-
-  revalidateTag(`eventSingle:${id}`);
-  revalidateTag(`eventSingleBySlug:${data.slug?.current}`);
-
+  revalidateTags([`eventSingle:${id}`, `eventSingleBySlug:${data.slug?.current}`]);
   return res;
 };
 
 export const createEvent = async ({ data }: { data: Occurrence; }) => {
-  const session = await getSession();
-
-  if (!session) {
-    return;
-  }
-
+  await validateSession();
   const res = await sanityClient.create<Occurrence>(data);
-
-  revalidateTag('eventList');
-
+  revalidateTags(['eventList']);
   return res;
 };
 
@@ -191,7 +181,6 @@ export const addEventAttendant = async ({
   eventId: string;
   eventAttendant: Partial<EventAttendant>;
 }) => {
-
   const validatedFields = eventAttendantSchema.safeParse(eventAttendant);
 
   if (!validatedFields.success) {
@@ -199,7 +188,6 @@ export const addEventAttendant = async ({
   }
 
   const req = await request();
-
   const decision = await aj.protect(req, {
     email: validatedFields.data.email,
   });
@@ -228,8 +216,7 @@ export const addEventAttendant = async ({
     .commit<Occurrence>();
 
   if (res) {
-    revalidateTag(`eventSingle:${eventId}`);
-
+    revalidateTags([`eventSingle:${eventId}`]);
     return eventAttendant;
   }
 };
@@ -257,7 +244,6 @@ export const removeEventAttendant = async ({
     .unset([`attendants[uuid=="${eventAttendantUuid}"]`])
     .commit();
 
-  revalidateTag(`eventSingle:${eventId}`);
-
+  revalidateTags([`eventSingle:${eventId}`]);
   return res;
 };

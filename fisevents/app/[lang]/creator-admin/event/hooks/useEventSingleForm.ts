@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { pickerDateToIsoString, slugify } from '@/lib/utils';
+import { safeParseDate, validateDateRange } from '@/lib/date-utils';
 import { getDictionary } from '@/lib/i18n.utils';
 import { OccurrenceSingle } from '@/types/sanity.extended.types';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
@@ -29,10 +30,12 @@ export function useEventSingleForm({ eventSingleData }: useEventSingleFormProps)
 
         if (!publicationStartDate) return true;
 
-        const tsPublicationStartDate = Date.parse(publicationStartDate);
-        const tsStartDate = Date.parse(startDate);
+        const pubDate = safeParseDate(publicationStartDate);
+        const startDateObj = safeParseDate(startDate);
 
-        return tsPublicationStartDate <= tsStartDate;
+        if (!pubDate || !startDateObj) return false;
+
+        return pubDate <= startDateObj;
       },
       {
         message: d.validation.publicationStartDateAndStartDate,
@@ -45,11 +48,13 @@ export function useEventSingleForm({ eventSingleData }: useEventSingleFormProps)
 
         if (_id || !publicationStartDate) return true;
 
-        const minutesTollerance = 5;
+        const minutesTolerance = 5;
+        const pubDate = safeParseDate(publicationStartDate);
 
-        const tsPublicationStartDate = Date.parse(publicationStartDate);
+        if (!pubDate) return false;
 
-        return tsPublicationStartDate >= Date.now() - minutesTollerance * 60 * 1000;
+        const minDate = new Date(Date.now() - minutesTolerance * 60 * 1000);
+        return pubDate >= minDate;
       },
       {
         message: d.validation.publicationStartDateAndNow,
@@ -60,10 +65,7 @@ export function useEventSingleForm({ eventSingleData }: useEventSingleFormProps)
       (data) => {
         const { startDate, endDate } = data;
 
-        const tsStartDate = Date.parse(startDate);
-        const tsEndDate = Date.parse(endDate);
-
-        return tsStartDate <= tsEndDate;
+        return validateDateRange(startDate, endDate);
       },
       {
         message: d.validation.startDate,

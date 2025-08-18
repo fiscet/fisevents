@@ -84,11 +84,25 @@ export default defineType({
       title: 'End Date',
       name: 'endDate',
       type: 'datetime',
+      validation: (rule) => rule.custom((endDate, context) => {
+        const startDate = context.document?.startDate;
+        if (startDate && endDate && new Date(endDate as string) <= new Date(startDate as string)) {
+          return 'End date must be after start date';
+        }
+        return true;
+      }),
     }),
     defineField({
       title: 'Publication Start Date',
       name: 'publicationStartDate',
       type: 'datetime',
+      validation: (rule) => rule.custom((publicationStartDate, context) => {
+        const startDate = context.document?.startDate;
+        if (startDate && publicationStartDate && new Date(publicationStartDate as string) >= new Date(startDate as string)) {
+          return 'Publication date must be before event start date';
+        }
+        return true;
+      }),
     }),
     defineField({
       name: 'active',

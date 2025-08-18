@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { EventFormSchemaType } from "./useEventSingleForm";
 import { Occurrence } from "@/types/sanity.types";
 import { getPublicEventSlug, slugify, toUserIsoString } from "@/lib/utils";
+import { fromDatetimeLocalToISO, safeParseDate } from "@/lib/date-utils";
 import { createEvent, updateEvent } from "@/lib/actions";
 import { CreatorAdminRoutes } from "@/lib/routes";
 import { Dispatch, SetStateAction, TransitionStartFunction } from "react";
@@ -34,9 +35,10 @@ export const useSubmitHandler = (
       const { ...restValues } = values;
       const insValues = { ...restValues } as Partial<Occurrence>;
 
-      insValues.publicationStartDate = values.publicationStartDate ? toUserIsoString(new Date(values.publicationStartDate)) : undefined;
-      insValues.startDate = toUserIsoString(new Date(values.startDate));
-      insValues.endDate = toUserIsoString(new Date(values.endDate));
+      // Safely convert datetime-local format to ISO for storage
+      insValues.publicationStartDate = values.publicationStartDate ? fromDatetimeLocalToISO(values.publicationStartDate) : undefined;
+      insValues.startDate = fromDatetimeLocalToISO(values.startDate);
+      insValues.endDate = fromDatetimeLocalToISO(values.endDate);
 
       if (!insValues.slug?.current) {
         insValues.slug = {

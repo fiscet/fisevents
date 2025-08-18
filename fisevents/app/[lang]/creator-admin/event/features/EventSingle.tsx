@@ -11,6 +11,7 @@ import DefaultFormField from '@/components/FormField/DefaultFormField';
 import SaveButton from '../../_components/SaveButton';
 import { ImageUploaderProps } from '../../_components/ImageUploader';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
+import { isDateInPast, getMinDatetimeLocal } from '@/lib/date-utils';
 import FormFieldHeader from '@/components/FormField/FormFieldHeader';
 import { useForm } from 'react-hook-form';
 
@@ -43,8 +44,7 @@ export default function EventSingle({
   let isExpired = false;
 
   if (endDate) {
-    const today = new Date().toISOString().split('T')[0] + 'T00:00';
-    isExpired = Date.parse(endDate) < Date.parse(today);
+    isExpired = isDateInPast(endDate);
   }
 
   const imageUploader = imageUploaderRender();
@@ -87,7 +87,7 @@ export default function EventSingle({
               formComponentProps={{
                 type: 'datetime-local',
                 disabled: isExpired,
-                min: new Date().toISOString().substring(0, 16)
+                min: getMinDatetimeLocal()
               }}
               formComponentClassName="w-[215px]"
               requiredStatus='required'

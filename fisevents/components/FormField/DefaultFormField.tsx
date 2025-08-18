@@ -9,7 +9,7 @@ import AccordionComponent from './AccordionComponent';
 export type RequiredStatus = 'required' | 'optional' | 'optional-with-text';
 
 type DefaultFormFieldProps = {
-  form: UseFormReturn<any>;
+  form: UseFormReturn<Record<string, unknown>>;
   name: string;
   label: string;
   formComponent: ElementType;
