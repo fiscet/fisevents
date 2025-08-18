@@ -1,6 +1,8 @@
 import { StructureBuilder } from "sanity/structure";
 import { FaHouseUser } from "react-icons/fa";
 import { BsCalendarEventFill } from "react-icons/bs";
+import { BsGraphUp } from "react-icons/bs";
+import Dashboard from "./components/Dashboard";
 
 const groups = [
   {
@@ -25,6 +27,14 @@ export const structure = (S: StructureBuilder) =>
   S.list()
     .title('Main menu')
     .items([
+      S.listItem()
+        .title('Dashboard')
+        .icon(BsGraphUp)
+        .child(
+          S.component(Dashboard)
+            .title('Dashboard')
+        ),
+      S.divider(),
       ...groups.map((group, i) => {
         return (
           S.listItem()
