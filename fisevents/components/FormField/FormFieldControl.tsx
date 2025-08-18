@@ -6,7 +6,7 @@ export type FormFieldControlProps = {
   formComponentClassName?: string;
   formComponentProps?: {};
   forceNumber?: boolean;
-  field: any;
+  field: Record<string, unknown>;
 };
 
 export default function FormFieldControl({

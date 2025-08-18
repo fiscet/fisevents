@@ -62,7 +62,7 @@ export default function EventUnsuscribe({
           });
       });
     }
-  }, [isConfirmed]);
+  }, [isConfirmed, d.errors.already_unsubscribed, d.unsuscribe_success, d.errors.generic, eventAttendantUuid, eventId, showNotification]);
 
   return !isConfirmed ? (
     <>

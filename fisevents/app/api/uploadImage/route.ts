@@ -47,7 +47,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(response);
   } catch (e) {
-    console.error(e);
+    console.error('Image upload failed:', e);
     const response: ErrorResponseType = { status: "fail", error: e };
     return NextResponse.json(response);
   }

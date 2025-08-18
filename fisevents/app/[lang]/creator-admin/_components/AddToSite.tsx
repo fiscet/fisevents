@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Link from 'next/link';
 import { TbCopy } from 'react-icons/tb';
 import { TbCopyCheck } from 'react-icons/tb';
@@ -10,6 +9,7 @@ import {
   PopoverTrigger
 } from '@/components/ui/popover';
 import { RiInformation2Fill } from 'react-icons/ri';
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 
 type CopyState = 'idle' | 'copied' | 'error';
 
@@ -30,7 +30,7 @@ export default function AddToSite({
   copySuccessText = 'Copied!',
   copyErrorText = 'Error copy :-('
 }: AddToSiteProps) {
-  const [copyState, setCopyState] = useState<CopyState>('idle');
+  const { copyState, copyToClipboard } = useCopyToClipboard();
 
   const Icon = getCopyIcon(copyState);
 
@@ -77,18 +77,7 @@ export default function AddToSite({
         <Button
           variant={copyState === 'copied' ? 'success' : 'secondary'}
           size="sm"
-          onClick={() => {
-            navigator.clipboard
-              .writeText(publicUrl)
-              .then(() => {
-                setCopyState('copied');
-                setTimeout(() => setCopyState('idle'), 2000);
-              })
-              .catch(() => {
-                setCopyState('error');
-                setTimeout(() => setCopyState('idle'), 2000);
-              });
-          }}
+          onClick={() => copyToClipboard(publicUrl)}
         >
           <Icon className="size-4 mr-2" /> {getMessageText(copyState)}
         </Button>

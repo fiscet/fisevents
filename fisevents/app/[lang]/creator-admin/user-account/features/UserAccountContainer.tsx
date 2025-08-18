@@ -1,14 +1,14 @@
 'use client';
 
-import { useTransition, useState, useEffect } from 'react';
+import { useTransition } from 'react';
 import { User } from '@/types/sanity.types';
-import { FileImageType } from '@/types/custom.types';
 import { CurrentUser } from '@/types/sanity.extended.types';
 import { updateUser } from '@/lib/actions';
 import { slugify } from '@/lib/utils';
 import { useSession } from 'next-auth/react';
 import { useCurrentLang } from '@/hooks/useCurrentLang';
 import { useUploadImage } from '@/hooks/useUploadImage';
+import { useUserAccountState } from '@/hooks/useUserAccountState';
 import {
   UserAccountFormSchemaType,
   useUserAccountForm
@@ -36,27 +36,20 @@ export default function UserAccountContainer({
   const { creator_admin: ca } = useDictionary();
   const { account: a, shared: s } = ca;
 
-  const [initImageUrl, setInitImageUrl] = useState(userData.logoUrl);
-  const [newImg, setNewImg] = useState<FileImageType>({
-    file: {} as File,
-    imgUrl: userData.logoUrl ?? ''
-  });
-  const [isVeryFirstAccess, setIsVeryFirstAccess] = useState(false);
-
-  useEffect(() => {
-    if (!userData.name || !userData.companyName) {
-      setIsVeryFirstAccess(true);
-    }
-  }, []);
+  const {
+    initImageUrl,
+    setInitImageUrl,
+    newImg,
+    setNewImg,
+    isVeryFirstAccess,
+    handleRestoreImage,
+    handleDeleteImage
+  } = useUserAccountState(userData);
 
   const { form } = useUserAccountForm({
     userData
   });
   const uploadImage = useUploadImage(newImg);
-
-  const handleRestoreImage = () =>
-    setNewImg({ file: {} as File, imgUrl: initImageUrl ?? '' });
-  const handleDeleteImage = () => setNewImg({ file: {} as File, imgUrl: '' });
 
   const handleUserAccountSubmit = async (values: UserAccountFormSchemaType) => {
     startProcessing(async () => {
@@ -73,7 +66,7 @@ export default function UserAccountContainer({
         if (newImg.imgUrl && newImg.imgUrl !== userData.logoUrl) {
           const imgRes = await uploadImage();
           if (imgRes.error) {
-            throw new Error(imgRes.error);
+            throw new Error(String(imgRes.error));
           }
           if (imgRes.id) {
             insValues.logo = {
