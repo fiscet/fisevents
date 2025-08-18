@@ -67,6 +67,6 @@ export function useManageSubscription({
         }
       });
     },
-    [eventId, startProcessing, d, showNotification]
+    [eventId, startProcessing, d, showNotification, prepareEmailContent, setIsSubscribed]
   );
 }

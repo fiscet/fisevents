@@ -33,8 +33,7 @@ export async function sendMail({
   try {
     const isVerified = await transporter.verify();
   } catch (error) {
-    console.error('Something Went Wrong', SMTP_SERVER_USERNAME, SMTP_SERVER_PASSWORD, error);
-
+    console.error('SMTP connection failed:', error);
     return;
   }
 

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useTransition } from 'react';
+import React from 'react';
 import { getEmailDictionary } from '@/lib/i18n.utils';
 import { useEventAttendantForm } from '../_hooks/useEventAttendantForm';
 import { useManageSubscription } from '../_hooks/useManageSubscription';
@@ -9,6 +9,7 @@ import { useDictionary } from '@/app/contexts/DictionaryContext';
 import { Locale } from '@/lib/i18n';
 import { EventAttendant } from '@/types/sanity.types';
 import { PublicOccurrenceSingle } from '@/types/sanity.extended.types';
+import { useEventSubscription } from '@/hooks/useEventSubscription';
 import EventAttendantForm from './EventAttendantForm';
 import Processing from '@/components/Processing';
 
@@ -27,8 +28,7 @@ export default function EventAttendantContainer({
   eventSlug,
   emailDictionary
 }: EventAttendantContainerProps) {
-  const [isSaving, startProcessing] = useTransition();
-  const [isSubscribed, setIsSubscribed] = useState(false);
+  const { isSaving, startProcessing, isSubscribed, setIsSubscribed } = useEventSubscription();
 
   const { public: d } = useDictionary();
 
