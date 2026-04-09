@@ -68,7 +68,7 @@ export const useSubmitHandler = (
           imgRes = await uploadImage();
 
           if (imgRes.error) {
-            throw new Error(imgRes.error);
+            throw new Error(String(imgRes.error));
           }
 
           if (imgRes.id) {
