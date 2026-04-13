@@ -1,52 +1,71 @@
-import { defineField, defineType } from 'sanity';
-import { GrUserFemale } from "react-icons/gr";
-import { v4 as uuidv4 } from 'uuid';
-import { nanoid } from 'nanoid';
+import {defineField, defineType} from 'sanity'
+import {GrUserFemale} from 'react-icons/gr'
+import {v4 as uuidv4} from 'uuid'
+import {nanoid} from 'nanoid'
 
 export default defineType({
-  title: "Event Attendants",
-  name: "eventAttendant",
-  type: "object",
+  title: 'Event Attendants',
+  name: 'eventAttendant',
+  type: 'object',
   icon: GrUserFemale,
   fields: [
     defineField({
-      title: "Full Name",
-      name: "fullName",
-      type: "string",
+      title: 'Full Name',
+      name: 'fullName',
+      type: 'string',
       validation: (rule) => {
-        return rule.required();
-      }
+        return rule.required()
+      },
     }),
     defineField({
-      title: "Email",
-      name: "email",
-      type: "email",
+      title: 'Email',
+      name: 'email',
+      type: 'email',
       validation: (rule) => {
-        return rule.required();
-      }
+        return rule.required()
+      },
     }),
     defineField({
-      title: "Phone",
-      name: "phone",
-      type: "string"
+      title: 'Phone',
+      name: 'phone',
+      type: 'string',
     }),
     defineField({
-      title: "Privacy accepted",
-      name: "privacyAccepted",
-      type: "boolean",
-      initialValue: false
+      title: 'Privacy accepted',
+      name: 'privacyAccepted',
+      type: 'boolean',
+      initialValue: false,
     }),
     defineField({
-      title: "Subcribition Date",
-      name: "subcribitionDate",
-      type: "datetime",
-      initialValue: (new Date()).toISOString()
+      title: 'Subcribition Date',
+      name: 'subcribitionDate',
+      type: 'datetime',
+      initialValue: new Date().toISOString(),
     }),
     defineField({
-      name: "uuid",
-      type: "string",
+      name: 'uuid',
+      type: 'string',
       readOnly: true,
-      initialValue: () => nanoid(8)
+      initialValue: () => nanoid(8),
     }),
-  ]
-});
+    defineField({
+      title: 'Checked In',
+      name: 'checkedIn',
+      type: 'boolean',
+      initialValue: false,
+    }),
+    defineField({
+      title: 'Payment Status',
+      name: 'paymentStatus',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'Pending', value: 'pending'},
+          {title: 'Paid', value: 'paid'},
+          {title: 'Not Applicable', value: 'na'},
+        ],
+      },
+      initialValue: 'pending',
+    }),
+  ],
+})

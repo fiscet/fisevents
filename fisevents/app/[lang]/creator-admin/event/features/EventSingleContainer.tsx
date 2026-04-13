@@ -28,7 +28,7 @@ export type EventSingleContainerProps = {
 
 export default function EventSingleContainer({
   eventSingleData,
-  organizationSlug
+  organizationSlug,
 }: EventSingleContainerProps) {
   const session = useSession();
   const router = useRouter();
@@ -44,7 +44,7 @@ export default function EventSingleContainer({
     setNewImg,
     handleRestoreImage,
     handleDeleteImage,
-    setInitImageUrl
+    setInitImageUrl,
   } = useImageHandlers(eventSingleData?.pageImage.url);
 
   const [isSaving, startProcessing] = useTransition();
@@ -54,7 +54,7 @@ export default function EventSingleContainer({
   const tab = tabParams.get('tab');
 
   const { form } = useEventSingleForm({
-    eventSingleData
+    eventSingleData,
   });
 
   const publicUrl = getPublicEventUrl(eventSingleData?.publicSlug);
@@ -121,6 +121,7 @@ export default function EventSingleContainer({
         </TabsContent>
         <TabsContent value="attendants">
           <EventAttentantList
+            eventId={eventSingleData?._id}
             attendants={eventSingleData?.attendants}
             eventDescription={`${eventSingleData?.title} - ${new Date(
               eventSingleData?.startDate!
