@@ -1,16 +1,16 @@
 import { FormField, FormItem } from '@/components/ui/form';
 
 import { ElementType } from 'react';
-import { UseFormReturn } from 'react-hook-form';
+import { FieldValues, Path, UseFormReturn } from 'react-hook-form';
 import FormFieldHeader from './FormFieldHeader';
 import FormFieldControl from './FormFieldControl';
 import AccordionComponent from './AccordionComponent';
 
 export type RequiredStatus = 'required' | 'optional' | 'optional-with-text';
 
-type DefaultFormFieldProps = {
-  form: UseFormReturn<Record<string, unknown>>;
-  name: string;
+type DefaultFormFieldProps<T extends FieldValues = FieldValues> = {
+  form: UseFormReturn<T>;
+  name: Path<T>;
   label: string;
   formComponent: ElementType;
   formComponentClassName?: string;
@@ -21,7 +21,7 @@ type DefaultFormFieldProps = {
   requiredStatus?: RequiredStatus;
 };
 
-export default function DefaultFormField({
+export default function DefaultFormField<T extends FieldValues = FieldValues>({
   form,
   name,
   label,
@@ -32,7 +32,7 @@ export default function DefaultFormField({
   forceNumber,
   isAccordion,
   requiredStatus
-}: DefaultFormFieldProps) {
+}: DefaultFormFieldProps<T>) {
   if (isAccordion) {
     return (
       <FormField
@@ -78,7 +78,7 @@ export default function DefaultFormField({
   );
 }
 
-function SimpleFormField({
+function SimpleFormField<T extends FieldValues = FieldValues>({
   form,
   name,
   label,
@@ -88,7 +88,7 @@ function SimpleFormField({
   description,
   forceNumber,
   requiredStatus
-}: DefaultFormFieldProps) {
+}: DefaultFormFieldProps<T>) {
   return (
     <FormField
       control={form.control}

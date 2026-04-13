@@ -6,19 +6,24 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow
+  TableRow,
 } from '@/components/ui/table';
 import { slugify } from '@/lib/utils';
 import { EventAttendant } from '@/types/sanity.types';
+import RemoveAttendantDialog from '../components/RemoveAttendantDialog';
+import AttendantStatusToggle from '../components/AttendantStatusToggle';
+import PaymentStatusSelect from '../components/PaymentStatusSelect';
 
 export type EventAttentantTableProps = {
+  eventId?: string;
   attendants?: EventAttendant[];
   eventDescription?: string;
 };
 
 export default function EventAttentantTable({
+  eventId,
   attendants,
-  eventDescription
+  eventDescription,
 }: EventAttentantTableProps) {
   const { creator_admin: ca } = useDictionary();
   const { attendants: d } = ca;
@@ -34,7 +39,9 @@ export default function EventAttentantTable({
           <TableHead className="w-[100px]">{d.fullname}</TableHead>
           <TableHead>{d.email}</TableHead>
           <TableHead>{d.phone}</TableHead>
-          <TableHead>{d.subcribitionDate}</TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead>Payment</TableHead>
+          <TableHead className="w-[50px]"></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -45,7 +52,12 @@ export default function EventAttentantTable({
               className={index % 2 === 0 ? 'bg-yellow-50' : ''}
             >
               <TableCell className="whitespace-nowrap font-bold w-full">
-                {attendant.fullName}
+                <div className="flex flex-col">
+                  <span>{attendant.fullName}</span>
+                  <span className="text-xs font-normal text-muted-foreground">
+                    {new Date(attendant.subcribitionDate!).toLocaleString()}
+                  </span>
+                </div>
               </TableCell>
               <TableCell>
                 <a href={`mailto:${attendant.email}`}>{attendant.email}</a>
@@ -54,7 +66,31 @@ export default function EventAttentantTable({
                 {attendant.phone}
               </TableCell>
               <TableCell className="whitespace-nowrap">
-                {new Date(attendant.subcribitionDate!).toLocaleString()}
+                {eventId && attendant.uuid && (
+                  <AttendantStatusToggle
+                    eventId={eventId}
+                    attendantUuid={attendant.uuid}
+                    checkedIn={attendant.checkedIn}
+                  />
+                )}
+              </TableCell>
+              <TableCell className="whitespace-nowrap">
+                {eventId && attendant.uuid && (
+                  <PaymentStatusSelect
+                    eventId={eventId}
+                    attendantUuid={attendant.uuid}
+                    paymentStatus={attendant.paymentStatus}
+                  />
+                )}
+              </TableCell>
+              <TableCell>
+                {eventId && attendant.uuid && (
+                  <RemoveAttendantDialog
+                    eventId={eventId}
+                    attendantUuid={attendant.uuid}
+                    attendantName={attendant.fullName!}
+                  />
+                )}
               </TableCell>
             </TableRow>
           ))}
