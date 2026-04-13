@@ -9,19 +9,15 @@ import {
   eventSingleHasAttendantByUuidQuery,
   eventIdQuery,
   userQuery,
-  userQueryBySlug
+  userQueryBySlug,
 } from './queries';
 import {
   CurrentUser,
   OccurrenceList,
   OccurrenceSingle,
-  PublicOccurrenceSingle
+  PublicOccurrenceSingle,
 } from '@/types/sanity.extended.types';
-import {
-  EventAttendant,
-  Occurrence,
-  User
-} from '@/types/sanity.types';
+import { EventAttendant, Occurrence, User } from '@/types/sanity.types';
 import { revalidateTag } from 'next/cache';
 import { v4 as uuidv4 } from 'uuid';
 import { toUserIsoString } from './utils';
@@ -30,10 +26,12 @@ import { eventAttendantSchema } from './form-schemas';
 import arcjet, { validateEmail } from '@/lib/arcjet';
 import { request } from '@arcjet/next';
 
-const aj = arcjet.withRule(validateEmail({
-  mode: "LIVE",
-  block: ['DISPOSABLE', 'INVALID', 'NO_MX_RECORDS']
-}));
+const aj = arcjet.withRule(
+  validateEmail({
+    mode: 'LIVE',
+    block: ['DISPOSABLE', 'INVALID', 'NO_MX_RECORDS'],
+  })
+);
 
 const validateSession = async () => {
   const session = await getSession();
@@ -48,7 +46,7 @@ const revalidateTags = (tags: string[]) => {
 };
 
 /** USERS */
-export const getUserById = async ({ userId }: { userId: string; }) => {
+export const getUserById = async ({ userId }: { userId: string }) => {
   return await sanityClient.fetch<CurrentUser>(
     userQuery,
     { userId },
@@ -56,7 +54,7 @@ export const getUserById = async ({ userId }: { userId: string; }) => {
   );
 };
 
-export const getUserBySlug = async ({ slug }: { slug: string; }) => {
+export const getUserBySlug = async ({ slug }: { slug: string }) => {
   return await sanityClient.fetch<CurrentUser>(
     userQueryBySlug,
     { slug },
@@ -66,7 +64,7 @@ export const getUserBySlug = async ({ slug }: { slug: string; }) => {
 
 export const updateUser = async ({
   id,
-  data
+  data,
 }: {
   id: string;
   data: Partial<User>;
@@ -79,11 +77,11 @@ export const updateUser = async ({
 
 /** EVENTS */
 export const getEventIdList = async ({
-  active = true
+  active = true,
 }: {
   active?: boolean;
 }) => {
-  return await sanityClient.fetch<{ _id: string; }[]>(
+  return await sanityClient.fetch<{ _id: string }[]>(
     eventIdQuery,
     { active },
     { next: { tags: ['eventSlugList'] } }
@@ -92,7 +90,7 @@ export const getEventIdList = async ({
 
 export const getEventList = async ({
   createdBy,
-  active = true
+  active = true,
 }: {
   createdBy: string;
   active?: boolean;
@@ -106,7 +104,7 @@ export const getEventList = async ({
 
 export const getEventSingleById = async ({
   createdBy,
-  id
+  id,
 }: {
   createdBy: string;
   id: string;
@@ -118,7 +116,7 @@ export const getEventSingleById = async ({
   );
 };
 
-export const getEventSingleBySlug = async ({ slug }: { slug: string; }) => {
+export const getEventSingleBySlug = async ({ slug }: { slug: string }) => {
   return await sanityClient.fetch<PublicOccurrenceSingle>(
     eventSingleBySlugQuery,
     { publicSlug: slug },
@@ -128,18 +126,21 @@ export const getEventSingleBySlug = async ({ slug }: { slug: string; }) => {
 
 export const updateEvent = async ({
   id,
-  data
+  data,
 }: {
   id: string;
   data: Partial<Occurrence>;
 }) => {
   await validateSession();
   const res = await sanityClient.patch(id).set(data).commit();
-  revalidateTags([`eventSingle:${id}`, `eventSingleBySlug:${data.slug?.current}`]);
+  revalidateTags([
+    `eventSingle:${id}`,
+    `eventSingleBySlug:${data.slug?.current}`,
+  ]);
   return res;
 };
 
-export const createEvent = async ({ data }: { data: Occurrence; }) => {
+export const createEvent = async ({ data }: { data: Occurrence }) => {
   await validateSession();
   const res = await sanityClient.create<Occurrence>(data);
   revalidateTags(['eventList']);
@@ -148,12 +149,12 @@ export const createEvent = async ({ data }: { data: Occurrence; }) => {
 
 export const getEventSingleHasAttendantById = async ({
   eventId,
-  email
+  email,
 }: {
   eventId: string;
   email: string;
 }) => {
-  return await sanityClient.fetch<{ hasAttendant: boolean; }>(
+  return await sanityClient.fetch<{ hasAttendant: boolean }>(
     eventSingleHasAttendantByEmailQuery,
     { eventId, email },
     { next: { tags: [`eventSingleHasAttendant:${eventId}`] } }
@@ -162,12 +163,12 @@ export const getEventSingleHasAttendantById = async ({
 
 export const getEventSingleHasAttendantByUuid = async ({
   eventId,
-  uuid
+  uuid,
 }: {
   eventId: string;
   uuid: string;
 }) => {
-  return await sanityClient.fetch<{ hasAttendant: boolean; }>(
+  return await sanityClient.fetch<{ hasAttendant: boolean }>(
     eventSingleHasAttendantByUuidQuery,
     { eventId, uuid },
     { next: { tags: [`eventSingleHasAttendant:${eventId}`] } }
@@ -176,7 +177,7 @@ export const getEventSingleHasAttendantByUuid = async ({
 
 export const addEventAttendant = async ({
   eventId,
-  eventAttendant
+  eventAttendant,
 }: {
   eventId: string;
   eventAttendant: Partial<EventAttendant>;
@@ -198,7 +199,7 @@ export const addEventAttendant = async ({
 
   const checkRes = await getEventSingleHasAttendantById({
     eventId,
-    email: eventAttendant.email!
+    email: eventAttendant.email!,
   });
 
   if (checkRes.hasAttendant) {
@@ -224,7 +225,7 @@ export const addEventAttendant = async ({
 export const removeEventAttendant = async ({
   eventId,
   eventAttendantUuid,
-  alreadyUnsubscribedText = 'Attendant not subscribed'
+  alreadyUnsubscribedText = 'Attendant not subscribed',
 }: {
   eventId: string;
   eventAttendantUuid: string;
@@ -232,7 +233,7 @@ export const removeEventAttendant = async ({
 }) => {
   const checkRes = await getEventSingleHasAttendantByUuid({
     eventId,
-    uuid: eventAttendantUuid!
+    uuid: eventAttendantUuid!,
   });
 
   if (!checkRes.hasAttendant) {
@@ -243,6 +244,43 @@ export const removeEventAttendant = async ({
     .patch(eventId)
     .unset([`attendants[uuid=="${eventAttendantUuid}"]`])
     .commit();
+
+  revalidateTags([`eventSingle:${eventId}`]);
+  return res;
+};
+
+export const updateEventAttendantStatus = async ({
+  eventId,
+  eventAttendantUuid,
+  data,
+}: {
+  eventId: string;
+  eventAttendantUuid: string;
+  data: { checkedIn?: boolean; paymentStatus?: string };
+}) => {
+  const checkRes = await getEventSingleHasAttendantByUuid({
+    eventId,
+    uuid: eventAttendantUuid,
+  });
+
+  if (!checkRes.hasAttendant) {
+    throw new Error('Attendant not found');
+  }
+
+  // Create an object with the changes to apply
+  const patches: any = {};
+  if (data.checkedIn !== undefined) {
+    patches[`attendants[uuid=="${eventAttendantUuid}"].checkedIn`] =
+      data.checkedIn;
+  }
+  if (data.paymentStatus !== undefined) {
+    patches[`attendants[uuid=="${eventAttendantUuid}"].paymentStatus`] =
+      data.paymentStatus;
+  }
+
+  if (Object.keys(patches).length === 0) return;
+
+  const res = await sanityClient.patch(eventId).set(patches).commit();
 
   revalidateTags([`eventSingle:${eventId}`]);
   return res;

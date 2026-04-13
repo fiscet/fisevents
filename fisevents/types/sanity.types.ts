@@ -76,6 +76,8 @@ export type EventAttendant = {
   privacyAccepted?: boolean;
   subcribitionDate?: string;
   uuid?: string;
+  checkedIn?: boolean;
+  paymentStatus?: string;
 };
 
 export type BlockContent = Array<

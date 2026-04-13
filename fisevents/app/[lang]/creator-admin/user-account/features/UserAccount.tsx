@@ -32,7 +32,7 @@ export default function UserAccount({
       form.setFocus('companyName');
       form.trigger('companyName');
     }
-  }, []);
+  }, [form]);
 
   return (
     <div className="px-1 max-w-[650px] mx-auto mb-10">

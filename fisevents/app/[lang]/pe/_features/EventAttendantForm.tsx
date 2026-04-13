@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from '@/components/ui/form';
@@ -15,8 +14,6 @@ export type EventAttendantProps = {
   onSubmit: (data: AttendantFormSchemaType) => void;
 };
 
-const MemoizedDefaultFormField = React.memo(DefaultFormField);
-
 const EventAttendantComponent = ({ form, onSubmit }: EventAttendantProps) => {
   const { public: d } = useDictionary();
 
@@ -27,7 +24,7 @@ const EventAttendantComponent = ({ form, onSubmit }: EventAttendantProps) => {
       </h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <MemoizedDefaultFormField
+          <DefaultFormField
             form={form}
             name="fullName"
             label={d.fullname}
@@ -35,7 +32,7 @@ const EventAttendantComponent = ({ form, onSubmit }: EventAttendantProps) => {
             description={d.descriptions.fullname}
             requiredStatus='required'
           />
-          <MemoizedDefaultFormField
+          <DefaultFormField
             form={form}
             name="email"
             label={d.email}
@@ -43,7 +40,7 @@ const EventAttendantComponent = ({ form, onSubmit }: EventAttendantProps) => {
             description={d.descriptions.email}
             requiredStatus='required'
           />
-          <MemoizedDefaultFormField
+          <DefaultFormField
             form={form}
             name="phone"
             label={d.phone}
