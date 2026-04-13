@@ -75,7 +75,7 @@
   },
   "auth": {
     "title": "Már majdnem ott vagy...",
-    "description": "Hitelesítse magát e-mailjével vagy a Google-on keresztül",
+    "description": "Hitelesítse magát e-mailjével",
     "login": "Kezdje itt",
     "logout": "Kijelentkezés",
     "account": "Fiók kezelése",

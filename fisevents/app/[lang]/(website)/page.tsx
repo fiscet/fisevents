@@ -5,16 +5,21 @@ import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger
+  AccordionTrigger,
 } from '@/components/ui/accordion';
 
 import HPCarousel from './_components/HPCarousel';
 import Payoff from './_components/Payoff';
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export async function generateMetadata({
-  params
+  params,
 }: {
   params: {
     lang: Locale;
@@ -37,24 +42,23 @@ export async function generateMetadata({
           url: '/img/og-image.png',
           width: 800,
           height: 600,
-          alt: dictionary.meta.title
-        }
+          alt: dictionary.meta.title,
+        },
       ],
-      type: 'website'
+      type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
       title: dictionary.meta.title,
       description: dictionary.meta.description,
-      images: '/img/og-image.png'
+      images: '/img/og-image.png',
     },
-    viewport: 'width=device-width, initial-scale=1',
-    robots: 'index, follow'
+    robots: 'index, follow',
   };
 }
 
 export default async function HomePage({
-  params: { lang }
+  params: { lang },
 }: {
   params: { lang: Locale };
 }) {

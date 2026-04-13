@@ -75,7 +75,7 @@
   },
   "auth": {
     "title": "Ci sei quasi ...",
-    "description": "Autenticati utilizzando la tua email o via Google",
+    "description": "Autenticati utilizzando la tua email",
     "login": "Inizia da qui",
     "logout": "Esci dall'applicazione",
     "account": "Gestisci il tuo Account",

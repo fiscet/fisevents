@@ -44,7 +44,7 @@ export default function RemoveAttendantDialog({
           message: s.success_text || 'Removed successfully',
         });
         setIsOpen(false);
-      } catch (error: any) {
+      } catch {
         showNotification({
           type: 'error',
           message: s.error_text || 'Error removing attendant',

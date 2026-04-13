@@ -14,22 +14,22 @@ const parseAcceptLanguage = (acceptLanguage: string | null): string[] => {
 
   return acceptLanguage
     .split(',')
-    .map((part) => {
+    .map(part => {
       const [lang] = part.split(';');
       return lang.split('-')[0];
     })
     .filter((lang, index, self) => self.indexOf(lang) === index)
-    .filter((lang) => !!lang);
+    .filter(lang => !!lang);
 };
 
 const findFirstMatch = (
   userLanguages: string[],
   supportedLanguages: string[]
 ): string | undefined => {
-  return userLanguages.find((lang) => supportedLanguages.includes(lang));
+  return userLanguages.find(lang => supportedLanguages.includes(lang));
 };
 
-export default async function NotFound({ params }: { params: any }) {
+export default async function NotFound() {
   const headerList = headers();
 
   // Array.from(headerList.entries()).forEach(([key, value], index) => {
