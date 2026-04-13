@@ -3,12 +3,13 @@ import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
 
 export default async function AuthLayout({
-  params: { lang },
-  children
+  params,
+  children,
 }: {
-  params: { lang: Locale };
+  params: Promise<{ lang: string }>;
   children: React.ReactNode;
 }) {
+  const { lang } = (await params) as { lang: Locale };
   const dictionary = await getDictionary(lang);
 
   return (

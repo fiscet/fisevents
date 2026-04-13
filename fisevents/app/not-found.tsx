@@ -30,7 +30,7 @@ const findFirstMatch = (
 };
 
 export default async function NotFound() {
-  const headerList = headers();
+  const headerList = await headers();
 
   // Array.from(headerList.entries()).forEach(([key, value], index) => {
   //   console.log(`${index} - ${key}: ${value}`);

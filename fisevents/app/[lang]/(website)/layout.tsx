@@ -6,12 +6,13 @@ import DefaultFooter from '@/components/DefaultFooter';
 import { getSession } from '@/lib/auth';
 
 export default async function WebsiteLayout({
-  params: { lang },
-  children
+  params,
+  children,
 }: {
-  params: { lang: Locale };
+  params: Promise<{ lang: string }>;
   children: React.ReactNode;
 }) {
+  const { lang } = (await params) as { lang: Locale };
   const session = await getSession();
   const dictionary = await getDictionary(lang);
 

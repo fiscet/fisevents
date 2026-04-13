@@ -6,12 +6,13 @@ import { getDictionary } from '@/lib/i18n.utils';
 import DefaultFooter from '@/components/DefaultFooter';
 
 export default async function PeLayout({
-  params: { lang },
-  children
+  params,
+  children,
 }: {
-  params: { lang: Locale };
+  params: Promise<{ lang: string }>;
   children: React.ReactNode;
 }) {
+  const { lang } = (await params) as { lang: Locale };
   const dictionary = await getDictionary(lang);
 
   return (

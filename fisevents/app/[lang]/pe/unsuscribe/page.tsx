@@ -5,16 +5,18 @@ import { NotificationProvider } from '@/components/Notification/NotificationCont
 import EventUnsuscribe from '../_features/EventUnsuscribe';
 
 export default async function UnsuscribePage({
-  params: { lang },
-  searchParams: { eventId, eventSlug, eventAttendantUuid }
+  params,
+  searchParams,
 }: {
-  params: { lang: Locale };
-  searchParams: {
+  params: Promise<{ lang: Locale }>;
+  searchParams: Promise<{
     eventId: string;
     eventSlug: string;
     eventAttendantUuid: string;
-  };
+  }>;
 }) {
+  const { lang } = await params;
+  const { eventId, eventSlug, eventAttendantUuid } = await searchParams;
   const eventData = await getEventSingleBySlug({ slug: eventSlug });
   const userData = await getUserBySlug({ slug: eventData.organizationSlug });
 

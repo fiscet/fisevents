@@ -4,25 +4,23 @@ import { i18n, Locale } from '@/lib/i18n';
 import './globals.css';
 
 export async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({ lang: locale }));
+  return i18n.locales.map(locale => ({ lang: locale }));
 }
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'FisEvents',
-  description: 'Manage your events'
+  description: 'Manage your events',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-  params
 }: Readonly<{
   children: React.ReactNode;
-  params: { lang: Locale };
 }>) {
   return (
-    <html lang={params.lang}>
+    <html>
       <body className={inter.className}>{children}</body>
     </html>
   );

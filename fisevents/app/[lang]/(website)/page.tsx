@@ -21,11 +21,9 @@ export const viewport: Viewport = {
 export async function generateMetadata({
   params,
 }: {
-  params: {
-    lang: Locale;
-  };
+  params: Promise<{ lang: Locale }>;
 }): Promise<Metadata> {
-  const { lang } = params;
+  const { lang } = await params;
 
   const dictionary = (await getDictionary(lang)).website.home;
 
@@ -58,10 +56,11 @@ export async function generateMetadata({
 }
 
 export default async function HomePage({
-  params: { lang },
+  params,
 }: {
-  params: { lang: Locale };
+  params: Promise<{ lang: Locale }>;
 }) {
+  const { lang } = await params;
   const dictionary = (await getDictionary(lang)).website.home;
 
   return (

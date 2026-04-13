@@ -9,17 +9,18 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from '@/components/ui/card';
 import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
 import { getSession } from '@/lib/auth';
 
 export default async function AuthPage({
-  params: { lang }
+  params,
 }: {
-  params: { lang: Locale };
+  params: Promise<{ lang: Locale }>;
 }) {
+  const { lang } = await params;
   const session = await getSession();
   const d = (await getDictionary(lang)).auth;
 

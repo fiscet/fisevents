@@ -3,10 +3,11 @@ import { getDictionary } from '@/lib/i18n.utils';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default async function WaitingEmailPage({
-  params: { lang }
+  params,
 }: {
-  params: { lang: Locale };
+  params: Promise<{ lang: Locale }>;
 }) {
+  const { lang } = await params;
   const d = (await getDictionary(lang)).website.waiting_for_the_email;
 
   return (
