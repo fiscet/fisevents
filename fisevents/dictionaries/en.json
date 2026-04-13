@@ -75,7 +75,7 @@
   },
   "auth": {
     "title": "You are almost there ...",
-    "description": "Authenticate using your email or via Google",
+    "description": "Authenticate using your email",
     "login": "Get started now",
     "logout": "Logout",
     "account": "Manage your Account",

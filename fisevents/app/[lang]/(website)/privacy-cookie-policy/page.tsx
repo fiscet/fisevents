@@ -1,10 +1,11 @@
 import { Locale } from '@/lib/i18n';
 
 export default async function PrivacyCookiePrivacyPage({
-  params: { lang }
+  params,
 }: {
-  params: { lang: Locale };
+  params: Promise<{ lang: Locale }>;
 }) {
+  const { lang } = await params;
   const PrivacyAndCookiePolicy = (
     await import(`@/dictionaries/policy/${lang}.tsx`)
   ).default;

@@ -13,8 +13,16 @@ import { WebsiteRoutes } from '@/lib/routes';
 export type SignInWithEmailProps = {
   onSignIn: (
     provider: string,
-    { email, callbackUrl, redirect }: any
-  ) => Promise<any>;
+    options: { email?: string | null; callbackUrl?: string; redirect?: boolean }
+  ) => Promise<
+    | {
+        ok?: boolean;
+        error?: string | null;
+        status?: number;
+        url?: string | null;
+      }
+    | undefined
+  >;
 };
 
 export default function SignInWithEmail({ onSignIn }: SignInWithEmailProps) {
@@ -29,7 +37,7 @@ export default function SignInWithEmail({ onSignIn }: SignInWithEmailProps) {
     showNotification({
       title: '',
       message: '',
-      type: 'none'
+      type: 'none',
     });
     setIsLoading(true);
     signInWithEmail();
@@ -39,7 +47,7 @@ export default function SignInWithEmail({ onSignIn }: SignInWithEmailProps) {
     let notificationParams = {
       title: d.ok_title,
       message: d.ok_text,
-      type: 'success'
+      type: 'success',
     } as Notification;
 
     if (!email) {
@@ -48,7 +56,7 @@ export default function SignInWithEmail({ onSignIn }: SignInWithEmailProps) {
       notificationParams = {
         title: d.err_title,
         message: d.validation.email,
-        type: 'error'
+        type: 'error',
       };
 
       showNotification(notificationParams);
@@ -62,7 +70,7 @@ export default function SignInWithEmail({ onSignIn }: SignInWithEmailProps) {
 
     const res = await onSignIn('email', {
       email,
-      redirect: false
+      redirect: false,
     });
 
     setEmail(null);
@@ -71,7 +79,7 @@ export default function SignInWithEmail({ onSignIn }: SignInWithEmailProps) {
       notificationParams = {
         title: d.err_title,
         message: d.err_text,
-        type: 'error'
+        type: 'error',
       };
     }
 
@@ -96,7 +104,7 @@ export default function SignInWithEmail({ onSignIn }: SignInWithEmailProps) {
             name="email"
             placeholder="name@example.com"
             value={email || ''}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
           />
         </div>
         <Button variant="secondary" type="submit" className="mt-4 w-full">

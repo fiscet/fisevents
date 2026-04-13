@@ -13,11 +13,12 @@ import { getSession } from '@/lib/auth';
 
 export default async function AdminLayout({
   children,
-  params: { lang }
+  params,
 }: {
   children: React.ReactNode;
-  params: { lang: Locale };
+  params: Promise<{ lang: string }>;
 }) {
+  const { lang } = (await params) as { lang: Locale };
   const session = await getSession();
   const dictionary = await getDictionary(lang);
 

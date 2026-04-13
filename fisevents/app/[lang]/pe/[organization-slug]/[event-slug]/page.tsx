@@ -9,24 +9,24 @@ import { revalidateTag } from 'next/cache';
 import { PublicRoutes } from '@/lib/routes';
 
 export default async function PublicEventPage({
-  params: {
-    lang,
-    ['organization-slug']: organizationSlug,
-    ['event-slug']: eventSlug
-  }
+  params,
 }: {
-  params: {
+  params: Promise<{
     lang: Locale;
     ['organization-slug']: string;
     ['event-slug']: string;
-  };
+  }>;
 }) {
+  const resolvedParams = await params;
+  const lang = resolvedParams.lang;
+  const organizationSlug = resolvedParams['organization-slug'];
+  const eventSlug = resolvedParams['event-slug'];
   const peSlug = PublicRoutes.getBase();
 
   revalidateTag(`eventSingleBySlug:${eventSlug}`);
 
   const eventData = await getEventSingleBySlug({
-    slug: `${peSlug}/${organizationSlug}/${eventSlug}`
+    slug: `${peSlug}/${organizationSlug}/${eventSlug}`,
   });
   const userData = await getUserBySlug({ slug: eventData.organizationSlug });
   const emailDictionary = await getEmailDictionary(lang);
