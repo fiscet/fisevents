@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { SectionHeader } from '@/components/SectionHeader/SectionHeader';
-import HPCarousel from './_components/HPCarousel';
 import HPPricing from './_components/HPPricing';
 
 export const viewport: Viewport = {
@@ -208,9 +207,20 @@ export default async function HomePage({
             </div>
           </div>
 
-          {/* Screenshot carousel */}
-          <div className="mt-16 rounded-3xl overflow-hidden shadow-editorial border border-fe-outline-variant/20">
-            <HPCarousel />
+          {/* App screenshots */}
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/img/sh-hp-02.jpg"
+              alt="Event list screenshot"
+              className="rounded-2xl w-full h-auto shadow-editorial border border-fe-outline-variant/10"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/img/sh-hp-04.jpg"
+              alt="Event detail screenshot"
+              className="rounded-2xl w-full h-auto shadow-editorial border border-fe-outline-variant/10"
+            />
           </div>
         </div>
       </section>
