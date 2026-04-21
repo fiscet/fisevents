@@ -172,9 +172,7 @@
         "email": "Please write a valid email"
       }
     },
-    "login_with_google": {
-      "title": "Login with Google"
-    }
+    "privacy_agree": "By signing in you agree to our"
   },
   "creator_admin": {
     "shared": {

@@ -178,9 +178,7 @@
         "email": "Adjon meg érvényes e-mail címet"
       }
     },
-    "login_with_google": {
-      "title": "Bejelentkezés Google-lal"
-    }
+    "privacy_agree": "A bejelentkezéssel elfogadja az"
   },
   "creator_admin": {
     "shared": {

@@ -178,9 +178,7 @@
         "email": "Please write a valid email"
       }
     },
-    "login_with_google": {
-      "title": "Accedi con Google"
-    }
+    "privacy_agree": "Accedendo accetti la nostra"
   },
   "creator_admin": {
     "shared": {

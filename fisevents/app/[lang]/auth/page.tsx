@@ -16,7 +16,9 @@ export default async function AuthPage({
 }) {
   const { lang } = await params;
   const session = await getSession();
-  const d = (await getDictionary(lang)).auth;
+  const dict = await getDictionary(lang);
+  const d = dict.auth;
+  const dc = dict.common;
 
   if (session) {
     return redirect(`/${lang}/${CreatorAdminRoutes.getBase()}`);
@@ -26,7 +28,7 @@ export default async function AuthPage({
     <div className="w-full">
       {/* Brand */}
       <div className="flex justify-center mb-8">
-        <Logo linkTo={`/${lang}`} height={56} />
+        <Logo linkTo={`/${lang}`} height={140} />
       </div>
 
       {/* Auth card */}
@@ -47,12 +49,12 @@ export default async function AuthPage({
 
       {/* Legal */}
       <p className="text-center text-xs text-fe-on-surface-variant mt-6 leading-relaxed">
-        By signing in you agree to our{' '}
+        {d.privacy_agree}{' '}
         <Link
           href={`/${lang}/privacy-cookie-policy`}
           className="text-fe-primary underline underline-offset-2"
         >
-          Privacy Policy
+          {dc.privacy_policy}
         </Link>
         .
       </p>
