@@ -10,11 +10,11 @@ import HPPricing from './_components/HPPricing';
 
 export const viewport: Viewport = {
   width: 'device-width',
-  initialScale: 1,
+  initialScale: 1
 };
 
 export async function generateMetadata({
-  params,
+  params
 }: {
   params: Promise<{ lang: Locale }>;
 }): Promise<Metadata> {
@@ -26,7 +26,7 @@ export async function generateMetadata({
     description: dictionary.meta.description,
     keywords: dictionary.meta.keywords,
     alternates: {
-      canonical: `https://fisevents.vercel.app/${lang}`,
+      canonical: `https://fisevents.vercel.app/${lang}`
     },
     openGraph: {
       title: dictionary.meta.title,
@@ -37,23 +37,23 @@ export async function generateMetadata({
           url: '/img/og-image.png',
           width: 1200,
           height: 630,
-          alt: dictionary.meta.title,
-        },
+          alt: dictionary.meta.title
+        }
       ],
-      type: 'website',
+      type: 'website'
     },
     twitter: {
       card: 'summary_large_image',
       title: dictionary.meta.title,
       description: dictionary.meta.description,
-      images: '/img/og-image.png',
+      images: '/img/og-image.png'
     },
-    robots: 'index, follow',
+    robots: 'index, follow'
   };
 }
 
 export default async function HomePage({
-  params,
+  params
 }: {
   params: Promise<{ lang: Locale }>;
 }) {
@@ -64,16 +64,16 @@ export default async function HomePage({
     <>
       {/* ── HERO ──────────────────────────────────────────────── */}
       <section
-        className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden"
+        className="relative pt-16 pb-20 md:pt-24 md:pb-32 overflow-hidden"
         aria-labelledby="hero-heading"
       >
         {/* Ambient background blobs */}
         <div
-          className="absolute -top-32 -right-32 w-[700px] h-[700px] bg-fe-primary-container/10 rounded-full blur-[120px] pointer-events-none"
+          className="absolute -top-32 -right-32 w-[700px] h-[700px] bg-fe-primary-container/20 rounded-full blur-[120px] pointer-events-none"
           aria-hidden="true"
         />
         <div
-          className="absolute -bottom-32 -left-32 w-[500px] h-[500px] bg-fe-secondary-container/10 rounded-full blur-[120px] pointer-events-none"
+          className="absolute -bottom-32 -left-32 w-[500px] h-[500px] bg-fe-secondary-container/20 rounded-full blur-[120px] pointer-events-none"
           aria-hidden="true"
         />
 
@@ -118,8 +118,14 @@ export default async function HomePage({
                 className="rounded-[1.5rem] w-full h-auto"
               />
             </div>
-            <div className="absolute -top-12 -right-12 w-64 h-64 bg-fe-primary-container/20 rounded-full blur-3xl -z-10 pointer-events-none" aria-hidden="true" />
-            <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-fe-secondary-container/20 rounded-full blur-3xl -z-10 pointer-events-none" aria-hidden="true" />
+            <div
+              className="absolute -top-12 -right-12 w-64 h-64 bg-fe-primary-container/20 rounded-full blur-3xl -z-10 pointer-events-none"
+              aria-hidden="true"
+            />
+            <div
+              className="absolute -bottom-12 -left-12 w-64 h-64 bg-fe-secondary-container/20 rounded-full blur-3xl -z-10 pointer-events-none"
+              aria-hidden="true"
+            />
           </div>
         </div>
       </section>
@@ -191,7 +197,7 @@ export default async function HomePage({
           </div>
 
           {/* Screenshot carousel */}
-          <div className="mt-16 rounded-3xl overflow-hidden shadow-editorial border border-fe-outline-variant/10">
+          <div className="mt-16 rounded-3xl overflow-hidden shadow-editorial border border-fe-outline-variant/20">
             <HPCarousel />
           </div>
         </div>

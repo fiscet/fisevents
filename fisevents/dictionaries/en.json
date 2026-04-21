@@ -74,7 +74,9 @@
               "All features included"
             ]
           }
-        }
+        },
+        "per_month": "/month",
+        "per_event": "/event"
       }
     },
     "howItWorks": {

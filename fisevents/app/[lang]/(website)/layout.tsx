@@ -7,7 +7,7 @@ import { getSession } from '@/lib/auth';
 
 export default async function WebsiteLayout({
   params,
-  children,
+  children
 }: {
   params: Promise<{ lang: string }>;
   children: React.ReactNode;

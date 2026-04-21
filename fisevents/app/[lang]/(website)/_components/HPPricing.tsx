@@ -38,7 +38,7 @@ export default function HPPricing() {
             0€
           </span>
           <span className="text-fe-on-surface-variant text-sm ml-2">
-            /mese
+            {d.home.pricing.per_month}
           </span>
         </div>
         <Button variant="outline" size="lg" asChild className="w-full">
@@ -75,7 +75,7 @@ export default function HPPricing() {
           <span className="text-4xl font-headline font-extrabold text-fe-on-primary tracking-tight">
             4,70€
           </span>
-          <span className="text-fe-on-primary/70 text-sm ml-2">/evento</span>
+          <span className="text-fe-on-primary/70 text-sm ml-2">{d.home.pricing.per_event}</span>
         </div>
         <Button
           variant="ghost"

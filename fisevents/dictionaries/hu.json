@@ -74,7 +74,9 @@
               "Összes funkció elérhető"
             ]
           }
-        }
+        },
+        "per_month": "/hó",
+        "per_event": "/esemény"
       }
     },
     "howItWorks": {
