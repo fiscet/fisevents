@@ -8,15 +8,24 @@
       "description": "Úgy tűnik, az oldal, amit keresel, nem létezik. Talán elutazott szabadságra.",
       "action": "Vigyen haza"
     },
-    "optional": "Opcionális"
+    "optional": "Opcionális",
+    "skipToMain": "Ugrás a fő tartalomra"
   },
   "website": {
     "navbar": {
-      "features": "Funkciók",
+      "howItWorks": "Hogyan működik",
       "pricing": "Árazás",
+      "contacts": "Kapcsolat",
       "admin": "Adminisztrátor"
     },
     "home": {
+      "getStarted": "Kezd el",
+      "getStartedFree": "Kezd el ingyen",
+      "seeFeatures": "Funkciók megtekintése",
+      "craftFocus": "Összpontosítson a mesterségére.",
+      "readyToHost": "Készen áll a következő esemény megrendezésére?",
+      "createFirstEvent": "Hozd létre az első eseményed",
+      "tagline": "Változtassa szakértelmét élménnyé!",
       "meta": {
         "title": "FisEvents - Egyszerűsítse az eseménykezelést",
         "description": "Publikálja és kezelje eseményeit könnyedén a FisEvents segítségével. A főzőtanfolyamoktól a találkozókig, a FisEvents lehetővé teszi, hogy zökkenőmentesen hozzon létre, osszon meg és kezeljen egyszeri eseményeket.",
@@ -50,21 +59,97 @@
         "title": "Árazás",
         "list": {
           "starter": {
-            "title": "Kezdő csomag",
-            "text": "Tökéletes a FisEvents kipróbálásához.",
+            "title": "Ingyenes",
+            "text": "Kezdje el minden kötelezettség nélkül.",
             "features": [
-              "Maximum 3 esemény publikálása",
-              "Az összes alapfunkció elérhető"
+              "1 ingyenes esemény havonta",
+              "Összes funkció elérhető"
             ]
           },
           "hero": {
-            "title": "Hero felhasználói csomag",
-            "text": "Rendszeres eseményszervezők számára.",
+            "title": "További események",
+            "text": "Publikáljon annyi eseményt, amennyit szeretne.",
             "features": [
-              "Korlátlan eseménypublikálás",
-              "Az összes alapfunkció elérhető"
+              "4,70€ minden további eseményért",
+              "Összes funkció elérhető"
             ]
           }
+        }
+      }
+    },
+    "howItWorks": {
+      "meta": {
+        "title": "Hogyan működik - FisEvents",
+        "description": "Fedezze fel, hogyan teszi lehetővé a FisEvents, hogy néhány lépésben létrehozzon, osszon meg és kezeljen eseményeket."
+      },
+      "title": "Hogyan működik",
+      "subtitle": "A fiók létrehozásától a regisztrációk kezeléséig — minden néhány lépésben.",
+      "steps": [
+        {
+          "title": "Hozza létre fiókját",
+          "text": "Regisztráljon ingyenesen az e-mail címével. Hitelkártya nem szükséges."
+        },
+        {
+          "title": "Hozza létre eseményét",
+          "text": "Adjon meg címet, leírást, képet, helyszínt, dátumokat és a résztvevők maximális számát."
+        },
+        {
+          "title": "Ossza meg a linket",
+          "text": "A FisEvents egyedi regisztrációs linket generál az eseményéhez. Ossza meg weboldalán vagy közösségi médiában."
+        },
+        {
+          "title": "Kezelje a regisztrációkat",
+          "text": "Tekintse meg és kezelje a résztvevők listáját személyes irányítópultjáról."
+        }
+      ]
+    },
+    "pricingPage": {
+      "meta": {
+        "title": "Árazás - FisEvents",
+        "description": "Egyszerű és átlátható árazás. 1 ingyenes esemény havonta, majd 4,70€ minden további eseményért."
+      },
+      "title": "Egyszerű, átlátható árazás",
+      "subtitle": "1 ingyenes esemény minden hónapban. 4,70€ minden további eseményért. Nincs előfizetés, nincs meglepetés.",
+      "faq": {
+        "title": "Gyakran ismételt kérdések",
+        "items": [
+          {
+            "q": "Mit tartalmaz az ingyenes esemény?",
+            "a": "Minden hónapban 1 eseményt publikálhat ingyenesen, az összes funkcióhoz hozzáféréssel: regisztrációs link, résztvevők kezelése, egyéni adatok és még sok más."
+          },
+          {
+            "q": "Hogyan működik a fizetés?",
+            "a": "Minden további esemény az első után 4,70€-ba kerül. Csak azért fizet, amit ténylegesen publikál."
+          },
+          {
+            "q": "Megújul az ingyenes esemény minden hónapban?",
+            "a": "Igen, minden hónap elsején az ingyenes esemény kerete automatikusan megújul."
+          }
+        ]
+      }
+    },
+    "contacts": {
+      "meta": {
+        "title": "Kapcsolat - FisEvents",
+        "description": "Vegye fel a kapcsolatot a FisEvents-szel kérdések, támogatás vagy javaslatok esetén."
+      },
+      "title": "Kapcsolat",
+      "subtitle": "Kérdése, javaslata vagy hibája van? Segítünk.",
+      "bug_label": "Hiba bejelentése vagy funkció javaslata",
+      "bug_description": "Már FisEvents-felhasználó? Használja a Hiba bejelentése gombot az irányítópulton, hogy részletes visszajelzést küldjön közvetlenül.",
+      "form": {
+        "name": "Név",
+        "email": "Email",
+        "message": "Üzenet",
+        "send": "Üzenet küldése",
+        "sending": "Küldés...",
+        "success_title": "Üzenet elküldve!",
+        "success_text": "Köszönjük, hogy írt nekünk. Mielőbb válaszolunk.",
+        "error_text": "Valami hiba történt. Próbálja újra, vagy írjon nekünk közvetlenül emailben.",
+        "validation": {
+          "name": "A névnek legalább 2 karakternek kell lennie.",
+          "email": "Adjon meg egy érvényes email-címet.",
+          "message": "Az üzenetnek 10 és 1000 karakter között kell lennie."
         }
       }
     },
@@ -177,6 +262,7 @@
       "new_event": "Új esemény létrehozása a következőhöz",
       "back": "Vissza az eseményekhez",
       "details": "Részletek",
+      "copyPublicLink": "Nyilvános link másolása",
       "public_link": "Nyilvános link: másolja be weboldalára vagy közösségi médiába",
       "descriptions": {
         "title": "Ez az Ön eseményének nyilvános neve.",

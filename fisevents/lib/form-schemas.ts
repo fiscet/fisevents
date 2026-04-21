@@ -9,6 +9,15 @@ export const eventAttendantSchema = z.object({
   paymentStatus: z.string().optional(),
 });
 
+export const ContactSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Invalid email address'),
+  message: z
+    .string()
+    .min(10, 'Message must be at least 10 characters')
+    .max(1000, 'Message must be less than 1000 characters'),
+});
+
 export const BugReportSchema = z.object({
   type: z.enum(['bug', 'suggestion'], {
     required_error: 'Please select a type',

@@ -8,15 +8,24 @@
       "description": "Sembra che la pagina che stai cercando non esista. Forse ha fatto le valigie ed è partita per le vacanze.",
       "action": "Torna alla home"
     },
-    "optional": "Opzionale"
+    "optional": "Opzionale",
+    "skipToMain": "Vai al contenuto principale"
   },
   "website": {
     "navbar": {
-      "features": "Funzionalità",
+      "howItWorks": "Come funziona",
       "pricing": "Prezzi",
+      "contacts": "Contatti",
       "admin": "Amministrazione"
     },
     "home": {
+      "getStarted": "Inizia",
+      "getStartedFree": "Inizia gratis",
+      "seeFeatures": "Guarda le funzionalità",
+      "craftFocus": "Concentrati sulla tua arte.",
+      "readyToHost": "Pronto a ospitare il tuo prossimo evento?",
+      "createFirstEvent": "Crea il tuo primo evento",
+      "tagline": "Trasforma la tua competenza in un'esperienza!",
       "meta": {
         "title": "FisEvents - Semplifica la Gestione degli Eventi",
         "description": "Pubblica e gestisci i tuoi eventi facilmente con FisEvents. Dai workshop di cucina agli incontri, FisEvents ti consente di creare, condividere e gestire eventi unici in modo semplice e veloce.",
@@ -50,21 +59,97 @@
         "title": "Prezzi",
         "list": {
           "starter": {
-            "title": "Piano di avvio",
-            "text": "Perfetto per provare FisEvents.",
+            "title": "Gratis",
+            "text": "Inizia senza alcun impegno.",
             "features": [
-              "Pubblica fino a 3 eventi",
-              "Tutte le funzionalità di base incluse"
+              "1 evento gratuito al mese",
+              "Tutte le funzionalità incluse"
             ]
           },
           "hero": {
-            "title": "Piano utente di avvio",
-            "text": "Per organizzatori di eventi regolari.",
+            "title": "Eventi aggiuntivi",
+            "text": "Pubblica tutti gli eventi che vuoi.",
             "features": [
-              "Pubblica eventi illimitati",
-              "Tutte le funzionalità di base incluse"
+              "4,70€ per ogni evento aggiuntivo",
+              "Tutte le funzionalità incluse"
             ]
           }
+        }
+      }
+    },
+    "howItWorks": {
+      "meta": {
+        "title": "Come funziona - FisEvents",
+        "description": "Scopri come FisEvents ti permette di creare, condividere e gestire i tuoi eventi in pochi passi."
+      },
+      "title": "Come funziona",
+      "subtitle": "Dalla creazione dell'account alla gestione delle iscrizioni — tutto in pochi passi.",
+      "steps": [
+        {
+          "title": "Crea il tuo account",
+          "text": "Registrati gratuitamente con la tua email. Non serve nessuna carta di credito."
+        },
+        {
+          "title": "Crea il tuo evento",
+          "text": "Aggiungi titolo, descrizione, immagine, luogo, date e il numero massimo di partecipanti."
+        },
+        {
+          "title": "Condividi il link",
+          "text": "FisEvents genera un link univoco per le iscrizioni al tuo evento. Condividilo sul tuo sito o sui social."
+        },
+        {
+          "title": "Gestisci le iscrizioni",
+          "text": "Visualizza e gestisci la lista dei partecipanti dalla tua dashboard personale."
+        }
+      ]
+    },
+    "pricingPage": {
+      "meta": {
+        "title": "Prezzi - FisEvents",
+        "description": "Prezzi semplici e trasparenti. 1 evento gratuito al mese, poi 4,70€ per ogni evento aggiuntivo."
+      },
+      "title": "Prezzi semplici e trasparenti",
+      "subtitle": "1 evento gratuito ogni mese. 4,70€ per ogni evento in più. Nessun abbonamento, nessuna sorpresa.",
+      "faq": {
+        "title": "Domande frequenti",
+        "items": [
+          {
+            "q": "Cosa include l'evento gratuito?",
+            "a": "Ogni mese puoi pubblicare 1 evento gratuitamente, con accesso a tutte le funzionalità: link di registrazione, gestione partecipanti, dettagli personalizzati e molto altro."
+          },
+          {
+            "q": "Come funziona il pagamento?",
+            "a": "Ogni evento aggiuntivo oltre il primo viene addebitato a 4,70€. Paghi solo quello che pubblichi effettivamente."
+          },
+          {
+            "q": "L'evento gratuito si rinnova ogni mese?",
+            "a": "Sì, il primo di ogni mese il tuo slot evento gratuito viene automaticamente rinnovato."
+          }
+        ]
+      }
+    },
+    "contacts": {
+      "meta": {
+        "title": "Contatti - FisEvents",
+        "description": "Contatta FisEvents per domande, supporto o suggerimenti."
+      },
+      "title": "Contattaci",
+      "subtitle": "Hai una domanda, un suggerimento o un bug da segnalare? Siamo qui.",
+      "bug_label": "Segnala un bug o suggerisci una funzionalità",
+      "bug_description": "Sei già utente FisEvents? Usa il pulsante Segnala Bug nella tua dashboard per inviarci feedback dettagliati direttamente.",
+      "form": {
+        "name": "Nome",
+        "email": "Email",
+        "message": "Messaggio",
+        "send": "Invia messaggio",
+        "sending": "Invio in corso...",
+        "success_title": "Messaggio inviato!",
+        "success_text": "Grazie per averci scritto. Ti risponderemo al più presto.",
+        "error_text": "Qualcosa è andato storto. Riprova o scrivici direttamente via email.",
+        "validation": {
+          "name": "Il nome deve avere almeno 2 caratteri.",
+          "email": "Inserisci un'email valida.",
+          "message": "Il messaggio deve essere tra 10 e 1000 caratteri."
         }
       }
     },
@@ -177,6 +262,7 @@
       "new_event": "Crea il tuo prossimo evento",
       "back": "Tutti gli eventi",
       "details": "Dettagli",
+      "copyPublicLink": "Copia link pubblico",
       "public_link": "Link pubblico: copia/incollalo nel tuo sito web o social media",
       "descriptions": {
         "title": "Questo è il nome pubblico del tuo evento.",

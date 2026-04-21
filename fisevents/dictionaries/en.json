@@ -8,15 +8,24 @@
       "description": "It seems the page you're looking for doesn't exist. Maybe it packed its bags and left for vacation.",
       "action": "Take me home"
     },
-    "optional": "Optional"
+    "optional": "Optional",
+    "skipToMain": "Skip to main content"
   },
   "website": {
     "navbar": {
-      "features": "Features",
+      "howItWorks": "How it works",
       "pricing": "Pricing",
+      "contacts": "Contacts",
       "admin": "Admin"
     },
     "home": {
+      "getStarted": "Get started",
+      "getStartedFree": "Get started for free",
+      "seeFeatures": "See features",
+      "craftFocus": "Focus on your craft.",
+      "readyToHost": "Ready to host your next event?",
+      "createFirstEvent": "Create your first event",
+      "tagline": "Turn your expertise into an experience!",
       "meta": {
         "title": "FisEvents - Simplify Your Event Management",
         "description": "Effortlessly publish and manage your events with FisEvents. From cooking workshops to meetings, FisEvents lets you create, share, and manage one-time events seamlessly.",
@@ -50,21 +59,91 @@
         "title": "Pricing",
         "list": {
           "starter": {
-            "title": "Starter Plan",
-            "text": "Perfect for trying out FisEvents.",
-            "features": [
-              "Publish up to 3 events",
-              "All core features included"
-            ]
+            "title": "Free",
+            "text": "Start with no commitment.",
+            "features": ["1 free event per month", "All features included"]
           },
           "hero": {
-            "title": "Hero user Plan",
-            "text": "For regular event organizers.",
-            "features": [
-              "Publish unlimited events",
-              "All core features included"
-            ]
+            "title": "Additional events",
+            "text": "Publish as many events as you want.",
+            "features": ["€4.70 per additional event", "All features included"]
           }
+        }
+      }
+    },
+    "howItWorks": {
+      "meta": {
+        "title": "How it works - FisEvents",
+        "description": "Discover how FisEvents lets you create, share and manage your events in just a few steps."
+      },
+      "title": "How it works",
+      "subtitle": "From account creation to managing registrations — everything in a few steps.",
+      "steps": [
+        {
+          "title": "Create your account",
+          "text": "Sign up for free with your email. No credit card required."
+        },
+        {
+          "title": "Create your event",
+          "text": "Add a title, description, image, location, dates and the maximum number of participants."
+        },
+        {
+          "title": "Share the link",
+          "text": "FisEvents generates a unique registration link for your event. Share it on your website or social media."
+        },
+        {
+          "title": "Manage registrations",
+          "text": "View and manage your attendees list from your personal dashboard."
+        }
+      ]
+    },
+    "pricingPage": {
+      "meta": {
+        "title": "Pricing - FisEvents",
+        "description": "Simple and transparent pricing. 1 free event per month, then €4.70 for each additional event."
+      },
+      "title": "Simple, transparent pricing",
+      "subtitle": "1 free event every month. €4.70 for each additional one. No subscriptions, no surprises.",
+      "faq": {
+        "title": "Frequently asked questions",
+        "items": [
+          {
+            "q": "What does the free event include?",
+            "a": "Every month you can publish 1 event for free, with access to all features: registration link, attendee management, custom details and more."
+          },
+          {
+            "q": "How does payment work?",
+            "a": "Each additional event beyond the first is charged at €4.70. You only pay for what you actually publish."
+          },
+          {
+            "q": "Does the free event reset every month?",
+            "a": "Yes, on the first of each month your free event slot is automatically renewed."
+          }
+        ]
+      }
+    },
+    "contacts": {
+      "meta": {
+        "title": "Contacts - FisEvents",
+        "description": "Contact FisEvents for questions, support or suggestions."
+      },
+      "title": "Contact us",
+      "subtitle": "Got a question, a suggestion or a bug to report? We're here.",
+      "bug_label": "Report a bug or suggest a feature",
+      "bug_description": "Already a FisEvents user? Use the Report Bug button in your dashboard to send us detailed feedback directly.",
+      "form": {
+        "name": "Name",
+        "email": "Email",
+        "message": "Message",
+        "send": "Send message",
+        "sending": "Sending...",
+        "success_title": "Message sent!",
+        "success_text": "Thanks for writing to us. We will reply as soon as possible.",
+        "error_text": "Something went wrong. Please try again or write to us directly by email.",
+        "validation": {
+          "name": "Name must be at least 2 characters.",
+          "email": "Please enter a valid email.",
+          "message": "Message must be between 10 and 1000 characters."
         }
       }
     },
@@ -177,6 +256,7 @@
       "new_event": "Create your next Event",
       "back": "Back to events",
       "details": "Details",
+      "copyPublicLink": "Copy public link",
       "public_link": "Public link: copy/paste it in your website or social media",
       "descriptions": {
         "title": "This is your event public display name.",
