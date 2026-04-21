@@ -51,109 +51,132 @@ export default function EventSingle({
 
   return (
     <div className="px-1 max-w-[650px] mx-auto mt-5 mb-10">
-      <h1 className="text-2xl font-bold text-center">{title}</h1>
-      <Separator className="my-5" />
+      <div className="text-center mb-8">
+        <h1 className="text-2xl font-bold">{title}</h1>
+        {isExpired && (
+          <p className="text-sm text-fe-on-surface-variant mt-1">{d.not_active}</p>
+        )}
+      </div>
       <Form {...form}>
         <form
           onSubmit={!isExpired ? form.handleSubmit(onSubmit) : undefined}
-          className="space-y-8"
+          className="space-y-6"
         >
-          <DefaultFormField
-            form={form}
-            name="title"
-            label={d.title}
-            formComponent={Input}
-            description={d.descriptions.title}
-            requiredStatus='required'
-          />
-          <div className="flex flex-col md:flex-row gap-1">
+          {/* ── INFO BASE ── */}
+          <section className="rounded-2xl border border-fe-outline-variant/20 bg-fe-surface-container-lowest p-6 space-y-5">
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-fe-on-surface-variant">{d.section_info}</h2>
             <DefaultFormField
               form={form}
-              name="startDate"
-              label={d.startDate}
+              name="title"
+              label={d.title}
               formComponent={Input}
-              formComponentProps={{
-                type: 'datetime-local',
-                disabled: isExpired
-              }}
-              formComponentClassName="w-[215px]"
+              description={d.descriptions.title}
               requiredStatus='required'
             />
-            <DefaultFormField
-              form={form}
-              name="endDate"
-              label={d.endDate}
-              formComponent={Input}
-              formComponentProps={{
-                type: 'datetime-local',
-                disabled: isExpired,
-                min: getMinDatetimeLocal()
-              }}
-              formComponentClassName="w-[215px]"
-              requiredStatus='required'
-            />
-          </div>
-          <div>
-            <FormFieldHeader
-              label={d.image}
-              description={d.descriptions.image}
-              requiredStatus='optional'
-            />
-            {imageUploader}
-          </div>
-          <div>
-            <Suspense fallback={null}>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <DefaultFormField
+                form={form}
+                name="startDate"
+                label={d.startDate}
+                formComponent={Input}
+                formComponentProps={{
+                  type: 'datetime-local',
+                  disabled: isExpired
+                }}
+                formComponentClassName="w-[215px]"
+                requiredStatus='required'
+              />
+              <DefaultFormField
+                form={form}
+                name="endDate"
+                label={d.endDate}
+                formComponent={Input}
+                formComponentProps={{
+                  type: 'datetime-local',
+                  disabled: isExpired,
+                  min: getMinDatetimeLocal()
+                }}
+                formComponentClassName="w-[215px]"
+                requiredStatus='required'
+              />
+            </div>
+          </section>
+
+          {/* ── CONTENUTO ── */}
+          <section className="rounded-2xl border border-fe-outline-variant/20 bg-fe-surface-container-lowest p-6 space-y-5">
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-fe-on-surface-variant">{d.section_content}</h2>
+            <div>
               <FormFieldHeader
-                label={d.description}
-                description={d.descriptions.description}
+                label={d.image}
+                description={d.descriptions.image}
                 requiredStatus='optional'
               />
-              <EditorComp
-                markdown={description}
-                onChange={(text) => form.setValue('description', text)}
+              {imageUploader}
+            </div>
+            <div>
+              <Suspense fallback={null}>
+                <FormFieldHeader
+                  label={d.description}
+                  description={d.descriptions.description}
+                  requiredStatus='optional'
+                />
+                <EditorComp
+                  markdown={description}
+                  onChange={(text) => form.setValue('description', text)}
+                />
+              </Suspense>
+            </div>
+          </section>
+
+          {/* ── LOGISTICA ── */}
+          <section className="rounded-2xl border border-fe-outline-variant/20 bg-fe-surface-container-lowest p-6 space-y-5">
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-fe-on-surface-variant">{d.section_logistics}</h2>
+            <DefaultFormField
+              form={form}
+              name="location"
+              label={d.location}
+              formComponent={Textarea}
+              formComponentProps={{ rows: 2 }}
+              formComponentClassName="min-h-0"
+              description={d.descriptions.location}
+              requiredStatus='optional'
+            />
+            <DefaultFormField
+              form={form}
+              name="talkTo"
+              label={d.talk_to}
+              formComponent={Textarea}
+              formComponentProps={{ rows: 2 }}
+              formComponentClassName="min-h-0"
+              description={d.descriptions.talk_to}
+              requiredStatus='optional'
+            />
+          </section>
+
+          {/* ── ISCRIZIONI ── */}
+          <section className="rounded-2xl border border-fe-outline-variant/20 bg-fe-surface-container-lowest p-6 space-y-5">
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-fe-on-surface-variant">{d.section_registrations}</h2>
+            <div className="flex gap-4 items-end">
+              <DefaultFormField
+                form={form}
+                name="basicPrice"
+                label={d.basicPrice}
+                formComponent={Input}
+                formComponentProps={{ type: 'number' }}
+                formComponentClassName="w-28 text-right"
+                forceNumber
+                requiredStatus='optional'
               />
-            </Suspense>
-          </div>
-          <DefaultFormField
-            form={form}
-            name="location"
-            label={d.location}
-            formComponent={Textarea}
-            formComponentProps={{ rows: 3 }}
-            description={d.descriptions.location}
-            requiredStatus='optional'
-          />
-          <DefaultFormField
-            form={form}
-            name="talkTo"
-            label={d.talk_to}
-            formComponent={Textarea}
-            formComponentProps={{ rows: 3 }}
-            description={d.descriptions.talk_to}
-            requiredStatus='optional'
-          />
-          <div className="flex gap-1">
-            <DefaultFormField
-              form={form}
-              name="basicPrice"
-              label={d.basicPrice}
-              formComponent={Input}
-              formComponentProps={{ type: 'number' }}
-              formComponentClassName="w-20 text-right"
-              forceNumber
-              requiredStatus='optional'
-            />
-            <DefaultFormField
-              form={form}
-              name="currency"
-              label={d.currency}
-              formComponent={Input}
-              formComponentProps={{ maxLength: 3 }}
-              formComponentClassName="w-20"
-              requiredStatus='optional'
-            />
-          </div>
-          <div className="bg-slate-50 px-3">
+              <DefaultFormField
+                form={form}
+                name="currency"
+                label={d.currency}
+                formComponent={Input}
+                formComponentProps={{ maxLength: 3 }}
+                formComponentClassName="w-24"
+                requiredStatus='optional'
+              />
+            </div>
             <DefaultFormField
               form={form}
               name="maxSubscribers"
@@ -164,13 +187,12 @@ export default function EventSingle({
                 onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
                   form.setValue('maxSubscribers', Number(event.target.value))
               }}
-              formComponentClassName="w-20 text-center"
+              formComponentClassName="w-28 text-center"
               description={d.descriptions.maxSubscribers}
               forceNumber
               isAccordion={true}
               requiredStatus='optional'
             />
-
             <DefaultFormField
               form={form}
               name="publicationStartDate"
@@ -185,11 +207,10 @@ export default function EventSingle({
               isAccordion={true}
               requiredStatus='optional'
             />
-          </div>
+          </section>
 
-          <Separator className="my-5" />
           {!isExpired && (
-            <div className="flex justify-center">
+            <div className="flex justify-center pt-2">
               <SaveButton label={d.save} />
             </div>
           )}

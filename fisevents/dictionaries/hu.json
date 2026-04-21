@@ -25,7 +25,7 @@
       "craftFocus": "Összpontosítson a mesterségére.",
       "readyToHost": "Készen áll a következő esemény megrendezésére?",
       "createFirstEvent": "Hozd létre az első eseményed",
-      "tagline": "Változtassa szakértelmét élménnyé!",
+      "tagline": "Az eseményeid regisztrációi, hogy semmi se maradjon ki!",
       "meta": {
         "title": "FisEvents - Egyszerűsítse az eseménykezelést",
         "description": "Publikálja és kezelje eseményeit könnyedén a FisEvents segítségével. A főzőtanfolyamoktól a találkozókig, a FisEvents lehetővé teszi, hogy zökkenőmentesen hozzon létre, osszon meg és kezeljen egyszeri eseményeket.",
@@ -77,7 +77,37 @@
         },
         "per_month": "/hó",
         "per_event": "/esemény"
-      }
+      },
+      "use_cases": [
+        {
+          "icon": "🧘",
+          "label": "Jóga & meditáció"
+        },
+        {
+          "icon": "🍳",
+          "label": "Főzőtanfolyamok"
+        },
+        {
+          "icon": "🎨",
+          "label": "Kreatív workshopok"
+        },
+        {
+          "icon": "💼",
+          "label": "Üzleti szemináriumok"
+        },
+        {
+          "icon": "🎵",
+          "label": "Zenei kurzusok"
+        },
+        {
+          "icon": "🏃",
+          "label": "Sportkurzusok"
+        },
+        {
+          "icon": "📚",
+          "label": "Képzési kurzusok"
+        }
+      ]
     },
     "howItWorks": {
       "meta": {
@@ -282,7 +312,17 @@
         "publicationStartDateAndStartDate": "A publikáció dátumának az esemény kezdete előtt kell lennie.",
         "publicationStartDateAndNow": "A publikáció dátumának legalább ma kell kezdődnie.",
         "startDate": "A kezdési dátumnak az esemény befejezése előtt kell lennie."
-      }
+      },
+      "section_info": "Alapinformációk",
+      "section_content": "Tartalom",
+      "section_logistics": "Logisztika",
+      "section_registrations": "Regisztrációk",
+      "publicationStartDateShort": "Nyitva ettől",
+      "rows_per_page": "Sorok oldalanként",
+      "of": "/",
+      "published_short": "Publ.",
+      "registrations_open_short": "Nyitva",
+      "finished_short": "Lezárt"
     },
     "attendants": {
       "attendants": "Résztvevők",
@@ -300,7 +340,17 @@
       "validation": {
         "name": "A névnek legalább 5 karakter hosszúnak kell lennie.",
         "email": "Az e-mail címnek érvényesnek kell lennie."
-      }
+      },
+      "checked_in": "Megjelent",
+      "status": "Státusz",
+      "payment": "Fizetés",
+      "payment_pending": "Függőben",
+      "payment_paid": "Fizetve",
+      "payment_na": "Nem alkalmazható",
+      "status_updated": "Státusz frissítve",
+      "status_error": "Státusz frissítési hiba",
+      "payment_updated": "Fizetési státusz frissítve",
+      "payment_error": "Fizetési státusz frissítési hiba"
     },
     "notifications": {
       "action_required": "Művelet szükséges!",

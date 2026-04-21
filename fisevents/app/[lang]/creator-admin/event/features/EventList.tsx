@@ -69,15 +69,13 @@ function getColumns(
       selector: (row) => row.numAttendants,
       cell: (row) => {
         return (
-          <div className="flex gap-2 items-center">
-            <Link
-              href={`/${lang}/${CreatorAdminRoutes.getItem('event')}/${
-                row._id
-              }?tab=attendants`}
-            >
-              <NumAttendants num={row.numAttendants} />
-            </Link>
-          </div>
+          <Link
+            href={`/${lang}/${CreatorAdminRoutes.getItem('event')}/${row._id}?tab=attendants`}
+            onClick={(e) => e.stopPropagation()}
+            className="group flex items-center gap-1 hover:underline underline-offset-2"
+          >
+            <NumAttendants num={row.numAttendants} />
+          </Link>
         );
       },
       width: '120px',
@@ -85,11 +83,11 @@ function getColumns(
       hide: 640
     },
     {
-      name: d.publicationStartDate,
+      name: d.publicationStartDateShort,
       selector: (row) => row.publicationStartDate,
       format: (row) =>
         row.publicationStartDate
-          ? new Date(row.publicationStartDate as string).toLocaleString()
+          ? new Date(row.publicationStartDate as string).toLocaleDateString()
           : '',
       hide: 'md',
       sortable: true
@@ -97,33 +95,31 @@ function getColumns(
     {
       name: d.startDate,
       selector: (row) => row.startDate,
-      format: (row) => new Date(row.startDate as string).toLocaleString(),
+      format: (row) => new Date(row.startDate as string).toLocaleDateString(),
       hide: 'md',
       sortable: true
     },
     {
       name: d.endDate,
       selector: (row) => row.endDate,
-      format: (row) => new Date(row.endDate as string).toLocaleString(),
+      format: (row) => new Date(row.endDate as string).toLocaleDateString(),
       hide: 'md',
       sortable: true
     },
     {
-      name: d.details,
+      name: '',
       cell: (row) => {
         return (
-          <div className="flex gap-2 items-center">
-            <Link
-              href={`/${lang}/${CreatorAdminRoutes.getItem('event')}/${
-                row._id
-              }`}
-            >
-              <FiChevronRight className="w-5 h-5 text-fe-secondary" />
-            </Link>
-          </div>
+          <Link
+            href={`/${lang}/${CreatorAdminRoutes.getItem('event')}/${row._id}`}
+            onClick={(e) => e.stopPropagation()}
+            className="inline-flex items-center gap-1 px-3 py-1 rounded-lg border border-fe-outline-variant/30 text-xs font-medium text-fe-on-surface hover:bg-fe-surface-container transition-colors whitespace-nowrap"
+          >
+            {d.details} <FiChevronRight className="w-3.5 h-3.5" />
+          </Link>
         );
       },
-      center: 'true'
+      width: '110px',
     }
   ] as TableColumn<OccurrenceList>[];
 
@@ -209,16 +205,26 @@ export default function EventList({ eventListData }: EventListProps) {
         columns={getColumns(curLang, d)}
         data={filterEvents(eventListData)}
         pagination
+        paginationComponentOptions={{ rowsPerPageText: d.rows_per_page, rangeSeparatorText: d.of }}
         responsive
         striped
         customStyles={{
           rows: {
             style: {
               '&:hover': {
-                backgroundColor: '#ffffee'
-              }
-            }
-          }
+                backgroundColor: 'hsl(var(--fe-surface-container))',
+              },
+            },
+          },
+          headCells: {
+            style: {
+              fontWeight: '600',
+              fontSize: '0.75rem',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              color: 'hsl(var(--fe-on-surface-variant))',
+            },
+          },
         }}
         onRowClicked={(row) => handleOpenSingleEvent(row._id!)}
       />

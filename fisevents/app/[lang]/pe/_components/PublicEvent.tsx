@@ -31,24 +31,28 @@ export default async function PublicEvent({
 
   return (
     <div className="flex flex-col">
-      <div className="relative mb-4">
+      {/* Hero */}
+      <div className="relative w-full h-56 sm:h-72 md:h-80 rounded-2xl overflow-hidden mb-6">
         <Image
           src={eventData.pageImage.url ?? '/img/logo.png'}
           alt={eventData.title + ' image'}
-          width="1024"
-          height="320"
-          className="mx-auto"
+          fill
+          className="object-cover"
+          priority
         />
-        <div className="absolute h-40 left-0 right-0 bottom-0 bg-black bg-opacity-50 z-0"></div>
-        <h1 className="absolute bottom-10 text-2xl font-bold text-white ml-2 z-10">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
+        <h1 className="absolute bottom-5 left-5 right-5 text-2xl sm:text-3xl font-bold text-white leading-tight drop-shadow-md">
           {eventData.title}
         </h1>
       </div>
+
       <SubscribeAnchor
         anchorId="#event-attendant-form-container"
         label={dictionary.subscribe_button}
       />
-      <div className="flex flex-col gap-6 items-center md:flex-row md:gap-1 md:items-stretch md:justify-between my-8">
+
+      {/* Info cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-2 mb-8">
         <StartEndDatesCard
           startDate={eventData.startDate!}
           endDate={eventData.endDate!}
@@ -66,30 +70,36 @@ export default async function PublicEvent({
         )}
         {eventData.maxSubscribers && eventData.maxSubscribers > 0 && (
           <IconCard Icon={MdOutlineEmojiPeople} title={dictionary.places_left}>
-            <span
-              className={eventData.remainingPlaces <= 0 ? 'text-red-600' : ''}
-            >
-              {eventData.remainingPlaces} {dictionary.places_left}
+            <span className={eventData.remainingPlaces <= 0 ? 'text-fe-error font-semibold' : 'font-semibold'}>
+              {eventData.remainingPlaces}
             </span>
+            {' '}
+            <span className="text-fe-on-surface-variant text-sm">{dictionary.places_left}</span>
           </IconCard>
         )}
       </div>
+
       {eventData.location && (
         <IconText
           Icon={FaMapLocationDot}
-          iconClassName="w-12 h-12"
-          containerClassName="p-4 shadow-md hover:bg-slate-50 hover:shadow-sm mb-6"
+          iconClassName="w-5 h-5"
+          containerClassName="px-4 py-3 rounded-xl bg-fe-surface-container border border-fe-outline-variant/20 mb-6 text-fe-on-surface"
         >
           {eventData.location}
         </IconText>
       )}
 
-      <SubscribeAnchor
-        anchorId="#event-attendant-form-container"
-        label={dictionary.subscribe_button}
-      />
-
-      <div className="py-2">
+      {/* Description */}
+      <div className="py-6 border-t border-fe-outline-variant/20 text-fe-on-surface leading-relaxed
+        [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-3
+        [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:mb-2
+        [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:mb-2
+        [&_p]:mb-3
+        [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-3
+        [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-3
+        [&_a]:text-fe-primary [&_a]:underline
+        [&_strong]:font-semibold
+        [&_blockquote]:border-l-4 [&_blockquote]:border-fe-outline-variant [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-fe-on-surface-variant">
         <Markdown remarkPlugins={[remarkGfm]}>{eventData.description}</Markdown>
       </div>
 

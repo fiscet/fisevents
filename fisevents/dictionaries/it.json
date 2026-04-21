@@ -25,7 +25,7 @@
       "craftFocus": "Concentrati sulla tua arte.",
       "readyToHost": "Pronto a ospitare il tuo prossimo evento?",
       "createFirstEvent": "Crea il tuo primo evento",
-      "tagline": "Trasforma la tua competenza in un'esperienza!",
+      "tagline": "Le iscrizioni ai tuoi eventi, senza perdersi niente!",
       "meta": {
         "title": "FisEvents - Semplifica la Gestione degli Eventi",
         "description": "Pubblica e gestisci i tuoi eventi facilmente con FisEvents. Dai workshop di cucina agli incontri, FisEvents ti consente di creare, condividere e gestire eventi unici in modo semplice e veloce.",
@@ -77,7 +77,37 @@
         },
         "per_month": "/mese",
         "per_event": "/evento"
-      }
+      },
+      "use_cases": [
+        {
+          "icon": "🧘",
+          "label": "Yoga & meditazione"
+        },
+        {
+          "icon": "🍳",
+          "label": "Corsi di cucina"
+        },
+        {
+          "icon": "🎨",
+          "label": "Workshop creativi"
+        },
+        {
+          "icon": "💼",
+          "label": "Seminari aziendali"
+        },
+        {
+          "icon": "🎵",
+          "label": "Corsi di musica"
+        },
+        {
+          "icon": "🏃",
+          "label": "Corsi sportivi"
+        },
+        {
+          "icon": "📚",
+          "label": "Corsi di formazione"
+        }
+      ]
     },
     "howItWorks": {
       "meta": {
@@ -282,7 +312,17 @@
         "publicationStartDateAndStartDate": "La data di pubblicazione deve essere antecedente alla data di inizio dell'evento",
         "publicationStartDateAndNow": "La data di pubblicazione deve iniziare almeno da oggi",
         "startDate": "La data di inizio deve essere antecedente alla data di fine dell'evento"
-      }
+      },
+      "section_info": "Informazioni base",
+      "section_content": "Contenuto",
+      "section_logistics": "Logistica",
+      "section_registrations": "Iscrizioni",
+      "publicationStartDateShort": "Aperta dal",
+      "rows_per_page": "Righe per pagina",
+      "of": "di",
+      "published_short": "Pubbl.",
+      "registrations_open_short": "Aperto",
+      "finished_short": "Concluso"
     },
     "attendants": {
       "attendants": "Partecipanti",
@@ -300,7 +340,17 @@
       "validation": {
         "name": "Il nome deve contenere almeno 5 caratteri.",
         "email": "L'email deve essere valida."
-      }
+      },
+      "checked_in": "Presente",
+      "status": "Stato",
+      "payment": "Pagamento",
+      "payment_pending": "Da pagare",
+      "payment_paid": "Pagato",
+      "payment_na": "Non applicabile",
+      "status_updated": "Stato aggiornato",
+      "status_error": "Errore aggiornamento stato",
+      "payment_updated": "Pagamento aggiornato",
+      "payment_error": "Errore aggiornamento pagamento"
     },
     "notifications": {
       "action_required": "Azione richiesta!",

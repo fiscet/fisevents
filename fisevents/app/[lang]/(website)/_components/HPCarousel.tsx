@@ -11,7 +11,6 @@ import {
 import Autoplay from 'embla-carousel-autoplay';
 
 const images = [
-  '/img/sh-hp-01.jpg',
   '/img/sh-hp-02.jpg',
   '/img/sh-hp-03.jpg',
   '/img/sh-hp-04.jpg',

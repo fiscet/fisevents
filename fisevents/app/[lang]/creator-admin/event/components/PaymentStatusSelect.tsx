@@ -3,6 +3,7 @@
 import { useTransition } from 'react';
 import { updateEventAttendantStatus } from '@/lib/actions';
 import { useNotification } from '@/components/Notification/useNotification';
+import { useDictionary } from '@/app/contexts/DictionaryContext';
 import {
   Select,
   SelectContent,
@@ -24,6 +25,8 @@ export default function PaymentStatusSelect({
 }: PaymentStatusSelectProps) {
   const { showNotification } = useNotification();
   const [isPending, startTransition] = useTransition();
+  const { creator_admin: ca } = useDictionary();
+  const { attendants: d } = ca;
 
   const handleChange = (value: string) => {
     startTransition(async () => {
@@ -33,15 +36,9 @@ export default function PaymentStatusSelect({
           eventAttendantUuid: attendantUuid,
           data: { paymentStatus: value },
         });
-        showNotification({
-          type: 'success',
-          message: 'Payment status updated',
-        });
+        showNotification({ type: 'success', message: d.payment_updated });
       } catch (error) {
-        showNotification({
-          type: 'error',
-          message: 'Failed to update payment status',
-        });
+        showNotification({ type: 'error', message: d.payment_error });
       }
     });
   };
@@ -52,13 +49,13 @@ export default function PaymentStatusSelect({
       onValueChange={handleChange}
       disabled={isPending}
     >
-      <SelectTrigger className="w-[130px] h-8 text-xs">
-        <SelectValue placeholder="Payment status" />
+      <SelectTrigger className="w-[150px] h-8 text-xs">
+        <SelectValue placeholder={d.payment} />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="pending">Pending</SelectItem>
-        <SelectItem value="paid">Paid</SelectItem>
-        <SelectItem value="na">Not Applicable</SelectItem>
+        <SelectItem value="pending">{d.payment_pending}</SelectItem>
+        <SelectItem value="paid">{d.payment_paid}</SelectItem>
+        <SelectItem value="na">{d.payment_na}</SelectItem>
       </SelectContent>
     </Select>
   );

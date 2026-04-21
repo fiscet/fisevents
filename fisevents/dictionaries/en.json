@@ -25,7 +25,7 @@
       "craftFocus": "Focus on your craft.",
       "readyToHost": "Ready to host your next event?",
       "createFirstEvent": "Create your first event",
-      "tagline": "Turn your expertise into an experience!",
+      "tagline": "Your event registrations, without missing a thing!",
       "meta": {
         "title": "FisEvents - Simplify Your Event Management",
         "description": "Effortlessly publish and manage your events with FisEvents. From cooking workshops to meetings, FisEvents lets you create, share, and manage one-time events seamlessly.",
@@ -77,7 +77,37 @@
         },
         "per_month": "/month",
         "per_event": "/event"
-      }
+      },
+      "use_cases": [
+        {
+          "icon": "🧘",
+          "label": "Yoga & meditation"
+        },
+        {
+          "icon": "🍳",
+          "label": "Cooking classes"
+        },
+        {
+          "icon": "🎨",
+          "label": "Creative workshops"
+        },
+        {
+          "icon": "💼",
+          "label": "Business seminars"
+        },
+        {
+          "icon": "🎵",
+          "label": "Music lessons"
+        },
+        {
+          "icon": "🏃",
+          "label": "Sports classes"
+        },
+        {
+          "icon": "📚",
+          "label": "Training courses"
+        }
+      ]
     },
     "howItWorks": {
       "meta": {
@@ -282,7 +312,17 @@
         "publicationStartDateAndStartDate": "The publication date must be before the event start date",
         "publicationStartDateAndNow": "The publication date must start at least from today",
         "startDate": "The start date must be before the event end date"
-      }
+      },
+      "section_info": "Basic info",
+      "section_content": "Content",
+      "section_logistics": "Logistics",
+      "section_registrations": "Registrations",
+      "publicationStartDateShort": "Open from",
+      "rows_per_page": "Rows per page",
+      "of": "of",
+      "published_short": "Publ.",
+      "registrations_open_short": "Open",
+      "finished_short": "Ended"
     },
     "attendants": {
       "attendants": "Attendants",
@@ -300,7 +340,17 @@
       "validation": {
         "name": "Name must be at least 5 characters.",
         "email": "Email must be valid"
-      }
+      },
+      "checked_in": "Checked In",
+      "status": "Status",
+      "payment": "Payment",
+      "payment_pending": "Pending",
+      "payment_paid": "Paid",
+      "payment_na": "Not Applicable",
+      "status_updated": "Status updated",
+      "status_error": "Failed to update status",
+      "payment_updated": "Payment status updated",
+      "payment_error": "Failed to update payment status"
     },
     "notifications": {
       "action_required": "Action required!",

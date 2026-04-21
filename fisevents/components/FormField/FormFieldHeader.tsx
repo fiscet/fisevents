@@ -30,10 +30,10 @@ export default function FormFieldHeader({
       break;
     case 'optional-with-text':
       labelText = `${label} (${c.optional})`;
-      labelClass = 'text-fe-on-surface-variant italic';
+      labelClass = 'text-fe-on-surface-variant';
       break;
     case 'optional':
-      labelClass = 'text-fe-on-surface-variant italic';
+      labelClass = 'text-fe-on-surface-variant';
       break;
     default:
       break;

@@ -1,13 +1,11 @@
-import { FaPeopleLine } from 'react-icons/fa6';
 import { BiMinus } from 'react-icons/bi';
 
 export default function NumAttendants({ num }: { num?: number }) {
   if (num) {
     return (
-      <div className="flex sm:flex-col gap-1 sm:gap-0 items-center text-fe-secondary">
-        <FaPeopleLine className="w-5 h-5" />
-        <span>{num}</span>
-      </div>
+      <span className="inline-flex items-center justify-center min-w-[28px] h-7 px-2 rounded-full bg-fe-secondary-container text-fe-on-secondary-container text-sm font-semibold">
+        {num}
+      </span>
     );
   }
 

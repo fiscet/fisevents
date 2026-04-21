@@ -92,9 +92,21 @@ export default async function HomePage({
               <em className="text-fe-primary not-italic">!</em>
             </h1>
 
-            <p className="text-lg md:text-xl text-fe-on-surface-variant max-w-2xl mb-10 leading-relaxed">
+            <p className="text-lg md:text-xl text-fe-on-surface-variant max-w-2xl mb-6 leading-relaxed">
               {dictionary.home.main_text}
             </p>
+
+            <div className="flex flex-wrap gap-2 mb-10">
+              {dictionary.home.use_cases.map((uc: { icon: string; label: string }) => (
+                <span
+                  key={uc.label}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-fe-surface-container text-fe-on-surface-variant text-sm border border-fe-outline-variant/20"
+                >
+                  <span aria-hidden="true">{uc.icon}</span>
+                  {uc.label}
+                </span>
+              ))}
+            </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Button variant="default" size="xl" asChild>

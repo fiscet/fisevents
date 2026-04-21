@@ -9,7 +9,7 @@ import Logo from '@/components/Logo';
 
 export default async function PeLayout({
   params,
-  children,
+  children
 }: {
   params: Promise<{ lang: string }>;
   children: React.ReactNode;
@@ -26,7 +26,7 @@ export default async function PeLayout({
         {/* Minimal top bar with brand */}
         <header className="glass-nav" role="banner">
           <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
-            <Logo linkTo={`/${lang}`} height={36} />
+            <Logo linkTo={`/${lang}`} />
           </div>
         </header>
 

@@ -14,7 +14,7 @@ import Logo from '@/components/Logo';
 
 export default async function AdminLayout({
   children,
-  params,
+  params
 }: {
   children: React.ReactNode;
   params: Promise<{ lang: string }>;
@@ -34,10 +34,7 @@ export default async function AdminLayout({
         <header className="glass-nav fixed top-0 w-full z-50" role="banner">
           <div className="flex items-center justify-between px-6 md:px-12 py-4 max-w-7xl mx-auto">
             {/* Brand */}
-            <Logo
-              linkTo={`/${lang}/${CreatorAdminRoutes.getBase()}`}
-              height={40}
-            />
+            <Logo linkTo={`/${lang}/${CreatorAdminRoutes.getBase()}`} />
 
             {/* Locale + account */}
             <div className="flex items-center gap-4">
@@ -49,7 +46,7 @@ export default async function AdminLayout({
 
         {/* Page content */}
         <main id="main-content" className="flex-grow pt-[72px]" tabIndex={-1}>
-          <div className="max-w-7xl mx-auto px-6 md:px-12 py-8 md:py-12">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 md:py-6">
             <NotificationProvider>
               <PageWrapper>{children}</PageWrapper>
             </NotificationProvider>

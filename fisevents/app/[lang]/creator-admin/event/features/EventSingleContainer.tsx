@@ -87,6 +87,8 @@ export default function EventSingleContainer({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const isExistingEvent = !!eventSingleData;
+
   return (
     <>
       {isSaving && <Processing text={s.saving} />}
@@ -107,15 +109,24 @@ export default function EventSingleContainer({
               />
             )
           }
-          rightElements={
-            !!eventSingleData?.attendants?.length && (
-              <TabsList>
-                <TabsTrigger value="event">{d.event}</TabsTrigger>
-                <TabsTrigger value="attendants">{d.attendants}</TabsTrigger>
-              </TabsList>
-            )
-          }
         />
+
+        {isExistingEvent && (
+          <div className="flex justify-center mt-4 mb-2">
+            <TabsList>
+              <TabsTrigger value="event">{d.event}</TabsTrigger>
+              <TabsTrigger value="attendants">
+                {d.attendants}
+                {!!eventSingleData.attendants?.length && (
+                  <span className="ml-2 inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-fe-secondary-container text-fe-on-secondary-container text-xs font-semibold">
+                    {eventSingleData.attendants.length}
+                  </span>
+                )}
+              </TabsTrigger>
+            </TabsList>
+          </div>
+        )}
+
         <TabsContent value="event">
           <EventSingle
             title={eventSingleData?.title ?? d.new_event}
