@@ -122,6 +122,19 @@ export default defineType({
       ]
     }),
     defineField({
+      name: 'pendingPayment',
+      title: 'Pending Payment',
+      type: 'boolean',
+      hidden: true,
+      initialValue: false,
+    }),
+    defineField({
+      name: 'stripeSessionId',
+      title: 'Stripe Session ID',
+      type: 'string',
+      hidden: true,
+    }),
+    defineField({
       title: 'Created by',
       name: 'createdByUser',
       type: 'reference',

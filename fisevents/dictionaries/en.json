@@ -61,12 +61,18 @@
           "starter": {
             "title": "Free",
             "text": "Start with no commitment.",
-            "features": ["1 free event per month", "All features included"]
+            "features": [
+              "1 free event per month",
+              "All features included"
+            ]
           },
           "hero": {
             "title": "Additional events",
             "text": "Publish as many events as you want.",
-            "features": ["€4.70 per additional event", "All features included"]
+            "features": [
+              "€4.70 per additional event",
+              "All features included"
+            ]
           }
         }
       }
@@ -196,7 +202,8 @@
         "text": "Write your comments here",
         "send": "Send",
         "ok_text": "Thank you for your feedback. We will get back to you soon."
-      }
+      },
+      "payment_success": "Payment completed! Your event is now published."
     },
     "account": {
       "userAccount": "User account",

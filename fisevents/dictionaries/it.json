@@ -202,7 +202,8 @@
         "text": "Scrivi i tuoi commenti qui",
         "send": "Invia",
         "ok_text": "Grazie per il tuo feedback. Ti risponderemo presto."
-      }
+      },
+      "payment_success": "Pagamento completato! Il tuo evento è ora pubblicato."
     },
     "account": {
       "userAccount": "Account utente",

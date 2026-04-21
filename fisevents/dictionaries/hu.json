@@ -202,7 +202,8 @@
         "text": "Írja ide a megjegyzéseit",
         "send": "Küldés",
         "ok_text": "Köszönjük a visszajelzést! Hamarosan kapcsolatba lépünk Önnel."
-      }
+      },
+      "payment_success": "A fizetés sikeres! Az eseményed most megjelent."
     },
     "account": {
       "userAccount": "Felhasználói fiók",

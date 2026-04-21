@@ -41,6 +41,11 @@ export const organizationCountBySlugQuery = defineQuery(
 );
 
 /** EVENTS */
+export const eventMonthlyCountQuery = defineQuery(
+  `count(*[_type == "occurrence" && createdByUser._ref == $userId && _createdAt >= $monthStart && pendingPayment != true])`
+);
+
+
 export const eventIdQuery = defineQuery(`*[_type == "occurrence" && active == $active && publicationStartDate <= now() && endDate >= now()]|order(publicationStartDate desc) {
  _id
 }`);

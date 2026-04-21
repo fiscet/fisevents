@@ -1,6 +1,6 @@
 'use client';
 
-import { useTransition } from 'react';
+import { useEffect, useTransition } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { OccurrenceSingle } from '@/types/sanity.extended.types';
@@ -52,6 +52,7 @@ export default function EventSingleContainer({
   const tabParams = useSearchParams();
 
   const tab = tabParams.get('tab');
+  const paymentStatus = tabParams.get('payment');
 
   const { form } = useEventSingleForm({
     eventSingleData,
@@ -71,8 +72,20 @@ export default function EventSingleContainer({
     session,
     router,
     uploadImage,
-    showNotification
+    showNotification,
+    curLang
   );
+
+  useEffect(() => {
+    if (paymentStatus === 'success') {
+      showNotification({
+        title: s.success,
+        message: s.payment_success,
+        type: 'success',
+      });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
