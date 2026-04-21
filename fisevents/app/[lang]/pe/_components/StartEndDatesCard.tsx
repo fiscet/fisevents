@@ -52,16 +52,16 @@ export default async function StartEndDatesCard({
   return (
     <IconCard Icon={MdDateRange} title={title}>
       <div className="flex justify-center items-center gap-1">
-        <span className="text-emerald-600 font-bold">
+        <span className="text-fe-on-surface-variant font-medium text-sm">
           {isSameDay ? dictionary.from_hour : dictionary.from_date}
         </span>
-        <span>{startDateText}</span>
+        <span className="font-semibold">{startDateText}</span>
       </div>
       <div className="flex justify-center items-center gap-1">
-        <span className="text-red-600 font-bold">
+        <span className="text-fe-on-surface-variant font-medium text-sm">
           {isSameDay ? dictionary.to_hour : dictionary.to_date}
         </span>
-        <span>{endDateText}</span>
+        <span className="font-semibold">{endDateText}</span>
       </div>
     </IconCard>
   );

@@ -46,27 +46,31 @@ export default async function NotFound() {
 
   return (
     <DictionaryProvider dictionary={dictionary}>
-      <div className="bg-gray-50 w-full flex flex-col min-h-screen">
-        <header className="flex py-6 shadow-xl fixed top-0 w-full z-10 bg-background/95">
-          <nav className="container">
+      <div className="bg-fe-surface w-full flex flex-col min-h-screen">
+        <header className="glass-nav fixed top-0 w-full z-50">
+          <nav className="px-8 py-4 max-w-7xl mx-auto">
             <Logo />
           </nav>
         </header>
-        <main className="container mt-[170px] mx-auto px-4 flex-grow">
-          <div className="max-w-5xl mx-auto bg-white shadow-md rounded-md p-8 flex flex-col md:flex-row gap-4">
-            <Image src="/img/404.jpg" alt="404" width={400} height={400} />
-            <div>
-              <h1 className="text-2xl font-bold text-gray-800 mb-6">
+        <main className="flex-grow flex items-center justify-center px-6 pt-[72px]">
+          <div className="max-w-3xl w-full bg-fe-surface-container-lowest rounded-3xl shadow-editorial border border-fe-outline-variant/15 p-10 flex flex-col md:flex-row gap-8 items-center">
+            <Image
+              src="/img/404.jpg"
+              alt="404"
+              width={360}
+              height={360}
+              className="rounded-2xl"
+            />
+            <div className="flex-1">
+              <h1 className="text-3xl font-headline font-bold text-fe-on-surface mb-4">
                 {dictionary.common.not_found.title}
               </h1>
-              <p className="text-gray-600 mb-6">
+              <p className="text-fe-on-surface-variant mb-8 leading-relaxed">
                 {dictionary.common.not_found.description}
               </p>
-              <Link href="/">
-                <Button variant="success" className="mt-4 w-full">
-                  {dictionary.common.not_found.action}
-                </Button>
-              </Link>
+              <Button variant="default" size="lg" asChild className="w-full">
+                <Link href="/">{dictionary.common.not_found.action}</Link>
+              </Button>
             </div>
           </div>
         </main>

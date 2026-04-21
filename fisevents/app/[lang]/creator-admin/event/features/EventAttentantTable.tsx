@@ -30,17 +30,13 @@ export default function EventAttentantTable({
 
   return (
     <Table className="hidden md:table">
-      <TableCaption>
-        <h2 className="uppercase font-medium">{d.attendants}</h2>
-        <h3 className="italic">{eventDescription}</h3>
-      </TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">{d.fullname}</TableHead>
           <TableHead>{d.email}</TableHead>
           <TableHead>{d.phone}</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Payment</TableHead>
+          <TableHead>{d.status}</TableHead>
+          <TableHead>{d.payment}</TableHead>
           <TableHead className="w-[50px]"></TableHead>
         </TableRow>
       </TableHeader>
@@ -49,7 +45,7 @@ export default function EventAttentantTable({
           attendants.map((attendant, index) => (
             <TableRow
               key={`${index}_${slugify(attendant.email!)}`}
-              className={index % 2 === 0 ? 'bg-yellow-50' : ''}
+              className={index % 2 === 0 ? 'bg-slate-50/60' : ''}
             >
               <TableCell className="whitespace-nowrap font-bold w-full">
                 <div className="flex flex-col">

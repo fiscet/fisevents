@@ -2,18 +2,12 @@ import { redirect } from 'next/navigation';
 import { CreatorAdminRoutes } from '@/lib/routes';
 import { NotificationProvider } from '@/components/Notification/NotificationContext';
 import SignInProviders from './_components/SignInProviders';
-import Logo from '@/components/Logo';
 import { Separator } from '@/components/ui/separator';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
 import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
 import { getSession } from '@/lib/auth';
+import Link from 'next/link';
+import Logo from '@/components/Logo';
 
 export default async function AuthPage({
   params,
@@ -22,27 +16,48 @@ export default async function AuthPage({
 }) {
   const { lang } = await params;
   const session = await getSession();
-  const d = (await getDictionary(lang)).auth;
+  const dict = await getDictionary(lang);
+  const d = dict.auth;
+  const dc = dict.common;
 
   if (session) {
-    return redirect(`/${CreatorAdminRoutes.getBase()}`);
+    return redirect(`/${lang}/${CreatorAdminRoutes.getBase()}`);
   }
 
   return (
-    <Card className="w-80 drop-shadow-2xl">
-      <NotificationProvider className="mt-0 md:mt-0">
-        <CardHeader>
-          <CardTitle>
-            <Logo />
-            <Separator className="mt-8 mb-4" />
+    <div className="w-full">
+      {/* Brand */}
+      <div className="flex justify-center mb-8">
+        <Logo linkTo={`/${lang}`} height={140} />
+      </div>
+
+      {/* Auth card */}
+      <div className="bg-fe-surface-container-lowest rounded-3xl p-10 shadow-editorial border border-fe-outline-variant/10">
+        <NotificationProvider>
+          <h1 className="text-2xl font-headline font-bold text-fe-on-surface mb-2">
             {d.title}
-          </CardTitle>
-          <CardDescription>{d.description}</CardDescription>
-        </CardHeader>
-        <CardContent>
+          </h1>
+          <p className="text-fe-on-surface-variant mb-8 text-sm leading-relaxed">
+            {d.description}
+          </p>
+
+          <Separator className="mb-8 bg-fe-outline-variant/20" />
+
           <SignInProviders />
-        </CardContent>
-      </NotificationProvider>
-    </Card>
+        </NotificationProvider>
+      </div>
+
+      {/* Legal */}
+      <p className="text-center text-xs text-fe-on-surface-variant mt-6 leading-relaxed">
+        {d.privacy_agree}{' '}
+        <Link
+          href={`/${lang}/privacy-cookie-policy`}
+          className="text-fe-primary underline underline-offset-2"
+        >
+          {dc.privacy_policy}
+        </Link>
+        .
+      </p>
+    </div>
   );
 }

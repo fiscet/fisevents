@@ -6,18 +6,17 @@ import {
   CarouselContent,
   CarouselItem,
   CarouselNext,
-  CarouselPrevious
+  CarouselPrevious,
 } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 
 const images = [
-  '/img/sh-hp-01.jpg',
   '/img/sh-hp-02.jpg',
   '/img/sh-hp-03.jpg',
   '/img/sh-hp-04.jpg',
   '/img/sh-hp-06.jpg',
   '/img/sh-hp-07.jpg',
-  '/img/sh-hp-08.jpg'
+  '/img/sh-hp-08.jpg',
 ];
 
 export default function HPCarousel() {
@@ -30,8 +29,8 @@ export default function HPCarousel() {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="left-3 text-orange-600 shadow" />
-      <CarouselNext className="right-3 text-orange-600 shadow" />
+      <CarouselPrevious className="left-3 text-fe-primary bg-fe-surface-container-lowest/90 border-fe-outline-variant/20 shadow-editorial-sm" />
+      <CarouselNext className="right-3 text-fe-primary bg-fe-surface-container-lowest/90 border-fe-outline-variant/20 shadow-editorial-sm" />
     </Carousel>
   );
 }

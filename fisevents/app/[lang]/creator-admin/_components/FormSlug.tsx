@@ -54,11 +54,11 @@ export default function FormSlug({
               {description && (
                 <Popover>
                   <PopoverTrigger>
-                    <RiInformation2Fill className="w-5 h-5 text-gray-600" />
+                    <RiInformation2Fill className="w-5 h-5 text-fe-on-surface-variant" />
                   </PopoverTrigger>
                   <PopoverContent className="w-80 bg-white shadow-lg">
                     <div className="p-4">
-                      <p className="text-gray-600 mt-2">{description}</p>
+                      <p className="text-fe-on-surface-variant mt-2">{description}</p>
                     </div>
                   </PopoverContent>
                 </Popover>
@@ -74,7 +74,7 @@ export default function FormSlug({
         )}
       />
       <MdOutlineGeneratingTokens
-        className="w-5 h-5 text-orange-600 mb-2 cursor-pointer"
+        className="w-5 h-5 text-fe-primary mb-2 cursor-pointer"
         onClick={handleSetSlug}
       />
     </div>

@@ -44,12 +44,11 @@ export const getPublicEventSlug = (eventSlug: string, organizationSlug: string) 
 };
 
 export const getPublicEventUrl = (publicEventSlug?: string) => {
-  if (typeof window === 'undefined') return '';
   if (!publicEventSlug || publicEventSlug.length === 0) return '';
 
-  const host = window.location.protocol + '//' + window.location.host;
+  const base = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 
-  return `${host}/${publicEventSlug}`;
+  return `${base}/${publicEventSlug}`;
 };
 
 export const checkIsValidUrl = (url: string) => {

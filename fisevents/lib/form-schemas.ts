@@ -6,7 +6,16 @@ export const eventAttendantSchema = z.object({
   phone: z.string().optional(),
   privacyAccepted: z.boolean(),
   checkedIn: z.boolean().optional(),
-  paymentStatus: z.string().optional(),
+  paymentStatus: z.enum(['pending', 'paid', 'na']).optional(),
+});
+
+export const ContactSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Invalid email address'),
+  message: z
+    .string()
+    .min(10, 'Message must be at least 10 characters')
+    .max(1000, 'Message must be less than 1000 characters'),
 });
 
 export const BugReportSchema = z.object({

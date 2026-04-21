@@ -7,7 +7,7 @@ import { getSession } from '@/lib/auth';
 
 export default async function WebsiteLayout({
   params,
-  children,
+  children
 }: {
   params: Promise<{ lang: string }>;
   children: React.ReactNode;
@@ -18,11 +18,21 @@ export default async function WebsiteLayout({
 
   return (
     <DictionaryProvider dictionary={dictionary}>
-      <div className="text-gray-800 flex flex-col min-h-screen">
+      {/* Skip-to-content link for keyboard / screen-reader users */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-fe-surface-container-lowest focus:text-fe-on-surface focus:px-6 focus:py-3 focus:rounded-xl focus:shadow-editorial focus:text-sm focus:font-semibold"
+      >
+        {dictionary.common.skipToMain}
+      </a>
+
+      <div className="flex flex-col min-h-screen bg-fe-surface text-fe-on-surface">
         <NavBar lang={lang} isLoggedIn={!!session?.user?.email} />
-        <main className="container max-w-[1240px] bg-white mx-auto px-4 mt-[115px] md:mt-[150px] xl:mt-[170px] flex-grow">
+
+        <main id="main-content" className="flex-grow pt-[72px]" tabIndex={-1}>
           {children}
         </main>
+
         <DefaultFooter showBugReport={false} />
       </div>
     </DictionaryProvider>

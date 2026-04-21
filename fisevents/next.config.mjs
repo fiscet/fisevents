@@ -19,8 +19,8 @@ const nextConfig = {
       },
     ],
   },
-  serverExternalPackages: ['react-data-table-component'],
   experimental: {
+    serverComponentsExternalPackages: ['@sanity/client', 'next-sanity'],
     optimizePackageImports: ['react-icons'],
   },
 };

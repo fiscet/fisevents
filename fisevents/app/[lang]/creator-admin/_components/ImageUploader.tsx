@@ -53,15 +53,15 @@ const ImageUploader = memo(
     return (
       <div>
         <div className="flex align-middle justify-between">
-          <FormLabel className="text-gray-600 italic">{label}</FormLabel>
+          <FormLabel className="text-fe-on-surface-variant italic">{label}</FormLabel>
           {description && (
             <Popover>
               <PopoverTrigger>
-                <RiInformation2Fill className="w-5 h-5 text-gray-600" />
+                <RiInformation2Fill className="w-5 h-5 text-fe-on-surface-variant" />
               </PopoverTrigger>
               <PopoverContent className="w-80 bg-white shadow-lg">
                 <div className="p-4">
-                  <p className="text-gray-600 mt-2">{description}</p>
+                  <p className="text-fe-on-surface-variant mt-2">{description}</p>
                 </div>
               </PopoverContent>
             </Popover>
@@ -104,7 +104,7 @@ const ImageUploader = memo(
               </label>
               {initImageUrl != img?.imgUrl && (
                 <div className="cursor-pointer" onClick={onRestore}>
-                  <GrRevert className="w-5 h-5 text-cyan-700" />
+                  <GrRevert className="w-5 h-5 text-fe-secondary" />
                 </div>
               )}
               <div className="cursor-pointer" onClick={onDelete}>

@@ -48,40 +48,34 @@ export default function AddToSite({
   };
 
   return (
-    <div className="w-full max-w-[650px] p-3 relative bg-gray-200 border-slate-200 rounded-md">
-      <div className="py-3 overflow-x-auto">
-        {description && (
-          <Popover>
-            <PopoverTrigger className="absolute top-2 right-2">
-              <RiInformation2Fill className="w-5 h-5 text-gray-600" />
-            </PopoverTrigger>
-            <PopoverContent className="w-80 bg-white shadow-lg">
-              <div className="p-4">
-                <p className="text-gray-600 mt-2">{description}</p>
-              </div>
-            </PopoverContent>
-          </Popover>
-        )}
-        <div className="mt-1">
-          <Link
-            href={publicUrl}
-            target="_blank"
-            className="text-cyan-700 whitespace-nowrap"
-          >
-            {publicUrl}
-          </Link>
-        </div>
-      </div>
-      <div className="flex justify-between items-center gap-x-2 mt-2">
-        {title && <div className="text-gray-900 text-sm">{title}</div>}
-        <Button
-          variant={copyState === 'copied' ? 'success' : 'secondary'}
-          size="sm"
-          onClick={() => copyToClipboard(publicUrl)}
-        >
-          <Icon className="size-4 mr-2" /> {getMessageText(copyState)}
-        </Button>
-      </div>
+    <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-fe-surface-container-high border border-fe-outline-variant/20 max-w-[600px] w-full">
+      <Link
+        href={publicUrl}
+        target="_blank"
+        className="text-fe-secondary text-sm truncate flex-1 min-w-0"
+      >
+        {publicUrl}
+      </Link>
+      {description && (
+        <Popover>
+          <PopoverTrigger className="shrink-0">
+            <RiInformation2Fill className="w-4 h-4 text-fe-on-surface-variant" />
+          </PopoverTrigger>
+          <PopoverContent className="w-80 bg-white shadow-lg">
+            <div className="p-4">
+              <p className="text-fe-on-surface-variant mt-2 text-sm">{description}</p>
+            </div>
+          </PopoverContent>
+        </Popover>
+      )}
+      <Button
+        variant={copyState === 'copied' ? 'success' : 'secondary'}
+        size="sm"
+        className="shrink-0"
+        onClick={() => copyToClipboard(publicUrl)}
+      >
+        <Icon className="size-4 mr-1.5" /> {getMessageText(copyState)}
+      </Button>
     </div>
   );
 }

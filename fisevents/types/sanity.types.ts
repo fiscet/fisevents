@@ -77,7 +77,7 @@ export type EventAttendant = {
   subcribitionDate?: string;
   uuid?: string;
   checkedIn?: boolean;
-  paymentStatus?: string;
+  paymentStatus?: 'pending' | 'paid' | 'na';
 };
 
 export type BlockContent = Array<
@@ -162,6 +162,8 @@ export type Occurrence = {
       _key: string;
     } & EventAttendant
   >;
+  pendingPayment?: boolean;
+  stripeSessionId?: string;
   createdByUser?: {
     _ref: string;
     _type: 'reference';

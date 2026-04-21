@@ -4,58 +4,146 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    /* ── FISEVENTS DESIGN TOKENS ──────────────────────────────── */
+
+    /* Primary brand — Warm Coral */
+    --fe-primary: 20 100% 31%; /* #9d4300 */
+    --fe-primary-container: 25 95% 53%; /* #f97316 */
+    --fe-on-primary: 0 0% 100%;
+    --fe-on-primary-container: 20 100% 17%; /* #582200 */
+    --fe-primary-fixed: 20 100% 91%; /* #ffdbca */
+    --fe-primary-fixed-dim: 20 100% 78%; /* #ffb690 */
+    --fe-on-primary-fixed: 20 100% 10%; /* #341100 */
+    --fe-on-primary-fixed-variant: 20 100% 24%; /* #783200 */
+    --fe-inverse-primary: 20 100% 78%; /* #ffb690 */
+
+    /* Secondary brand — Soft Teal */
+    --fe-secondary: 172 100% 21%; /* #006b5f */
+    --fe-secondary-container: 172 86% 69%; /* #6df5e1 */
+    --fe-on-secondary: 0 0% 100%;
+    --fe-on-secondary-container: 174 100% 22%; /* #006f64 */
+    --fe-secondary-fixed: 172 90% 85%; /* #71f8e4 */
+    --fe-secondary-fixed-dim: 172 70% 58%; /* #4fdbc8 */
+    --fe-on-secondary-fixed: 172 100% 6%; /* #00201c */
+    --fe-on-secondary-fixed-variant: 172 100% 15%; /* #005048 */
+
+    /* Tertiary — Slate */
+    --fe-tertiary: 214 13% 38%; /* #555f6f */
+    --fe-tertiary-container: 215 18% 60%; /* #919bad */
+    --fe-on-tertiary: 0 0% 100%;
+    --fe-on-tertiary-container: 214 21% 22%; /* #293341 */
+    --fe-tertiary-fixed: 214 35% 90%; /* #d9e3f6 */
+    --fe-tertiary-fixed-dim: 214 19% 80%; /* #bdc7d9 */
+
+    /* Surface layers (tonal depth model) */
+    --fe-surface: 240 100% 99%; /* #f9f9ff */
+    --fe-surface-bright: 240 100% 99%;
+    --fe-surface-dim: 220 30% 84%; /* #d3daea */
+    --fe-surface-variant: 221 52% 90%; /* #dce2f3 */
+    --fe-surface-container-lowest: 0 0% 100%; /* #ffffff */
+    --fe-surface-container-low: 228 100% 97%; /* #f0f3ff */
+    --fe-surface-container: 230 95% 95%; /* #e7eefe */
+    --fe-surface-container-high: 220 71% 93%; /* #e2e8f8 */
+    --fe-surface-container-highest: 221 52% 90%; /* #dce2f3 */
+
+    /* Text tokens */
+    --fe-on-surface: 218 27% 12%; /* #151c27 — no pure black */
+    --fe-on-surface-variant: 18 21% 28%; /* #584237 */
+    --fe-on-background: 218 27% 12%;
+
+    /* Outline tokens */
+    --fe-outline: 18 16% 47%; /* #8c7164 */
+    --fe-outline-variant: 18 40% 78%; /* #e0c0b1 */
+
+    /* Inverse tokens (dark sections) */
+    --fe-inverse-surface: 218 20% 20%; /* #2a313d */
+    --fe-inverse-on-surface: 224 100% 96%; /* #ebf1ff */
+
+    /* Error tokens */
+    --fe-error: 0 75% 42%; /* #ba1a1a */
+    --fe-error-container: 4 100% 92%; /* #ffdad6 */
+    --fe-on-error: 0 0% 100%;
+    --fe-on-error-container: 356 100% 29%; /* #93000a */
+
+    /* ── SHADCN/UI COMPATIBILITY REMAPPING ───────────────────── */
+    --background: 240 100% 99%;
+    --foreground: 218 27% 12%;
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card-foreground: 218 27% 12%;
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
-    --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --popover-foreground: 218 27% 12%;
+    --primary: 20 100% 31%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 172 100% 21%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 228 100% 97%;
+    --muted-foreground: 18 21% 28%;
+    --accent: 230 95% 95%;
+    --accent-foreground: 218 27% 12%;
+    --destructive: 0 75% 42%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 18 40% 78%;
+    --input: 220 71% 93%;
+    --ring: 20 100% 31%;
+    --radius: 0.75rem;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    /* Surface layers — dark */
+    --fe-surface: 220 20% 7%;
+    --fe-surface-bright: 220 20% 10%;
+    --fe-surface-dim: 220 15% 5%;
+    --fe-surface-variant: 220 15% 18%;
+    --fe-surface-container-lowest: 220 20% 9%;
+    --fe-surface-container-low: 220 18% 12%;
+    --fe-surface-container: 220 16% 14%;
+    --fe-surface-container-high: 220 14% 17%;
+    --fe-surface-container-highest: 220 12% 20%;
+
+    /* Text — dark */
+    --fe-on-surface: 224 100% 96%;
+    --fe-on-surface-variant: 18 25% 70%;
+    --fe-on-background: 224 100% 96%;
+
+    /* Primary brand — dark (inverted) */
+    --fe-primary: 20 100% 78%;
+    --fe-primary-container: 20 100% 24%;
+    --fe-on-primary: 20 100% 10%;
+
+    /* Secondary brand — dark */
+    --fe-secondary: 172 70% 58%;
+    --fe-secondary-container: 172 100% 15%;
+    --fe-on-secondary: 172 100% 6%;
+    --fe-on-secondary-container: 172 90% 85%;
+
+    /* Outline — dark */
+    --fe-outline: 18 20% 55%;
+    --fe-outline-variant: 18 15% 30%;
+
+    /* Inverse — dark */
+    --fe-inverse-surface: 224 100% 96%;
+    --fe-inverse-on-surface: 218 27% 12%;
+
+    /* Shadcn compatibility — dark */
+    --background: 220 20% 7%;
+    --foreground: 224 100% 96%;
+    --card: 220 20% 9%;
+    --card-foreground: 224 100% 96%;
+    --popover: 220 20% 9%;
+    --popover-foreground: 224 100% 96%;
+    --primary: 20 100% 78%;
+    --primary-foreground: 20 100% 10%;
+    --secondary: 172 70% 58%;
+    --secondary-foreground: 172 100% 6%;
+    --muted: 220 18% 12%;
+    --muted-foreground: 18 25% 70%;
+    --accent: 220 16% 14%;
+    --accent-foreground: 224 100% 96%;
+    --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --border: 220 14% 17%;
+    --input: 220 14% 17%;
+    --ring: 20 100% 78%;
   }
 }
 
@@ -64,6 +152,38 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-fe-surface text-fe-on-surface font-body antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-headline;
+  }
+}
+
+@layer utilities {
+  /* Glassmorphism navbar */
+  .glass-nav {
+    background-color: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 40px 60px -15px rgba(21, 28, 39, 0.06);
+  }
+
+  /* Editorial ambient shadow */
+  .shadow-editorial {
+    box-shadow: 0 40px 60px -15px rgba(21, 28, 39, 0.06);
+  }
+
+  /* Card hover lift */
+  .card-hover {
+    @apply transition-all duration-300;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -10px rgba(21, 28, 39, 0.1);
   }
 }

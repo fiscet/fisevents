@@ -7,12 +7,12 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from './ui/select';
 import { cn } from '@/lib/utils';
 
 export default function LocaleSwitcher({
-  curLang = i18n.defaultLocale
+  curLang = i18n.defaultLocale,
 }: {
   curLang?: Locale;
 }) {
@@ -38,13 +38,13 @@ export default function LocaleSwitcher({
         <SelectValue placeholder={curLang} />
       </SelectTrigger>
       <SelectContent>
-        {i18n.locales.map((locale) => {
+        {i18n.locales.map(locale => {
           return (
             <SelectItem value={locale} key={locale}>
               <span
                 className={cn(
                   'font-bold pr-1',
-                  locale === curLang ? 'text-orange-600' : 'text-cyan-700'
+                  locale === curLang ? 'text-fe-primary' : 'text-fe-secondary'
                 )}
               >
                 {locale}

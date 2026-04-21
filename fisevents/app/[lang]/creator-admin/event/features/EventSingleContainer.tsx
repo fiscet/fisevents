@@ -1,6 +1,6 @@
 'use client';
 
-import { useTransition } from 'react';
+import { useEffect, useTransition } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { OccurrenceSingle } from '@/types/sanity.extended.types';
@@ -52,6 +52,7 @@ export default function EventSingleContainer({
   const tabParams = useSearchParams();
 
   const tab = tabParams.get('tab');
+  const paymentStatus = tabParams.get('payment');
 
   const { form } = useEventSingleForm({
     eventSingleData,
@@ -71,8 +72,22 @@ export default function EventSingleContainer({
     session,
     router,
     uploadImage,
-    showNotification
+    showNotification,
+    curLang
   );
+
+  useEffect(() => {
+    if (paymentStatus === 'success') {
+      showNotification({
+        title: s.success,
+        message: s.payment_success,
+        type: 'success',
+      });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const isExistingEvent = !!eventSingleData;
 
   return (
     <>
@@ -94,15 +109,24 @@ export default function EventSingleContainer({
               />
             )
           }
-          rightElements={
-            !!eventSingleData?.attendants?.length && (
-              <TabsList>
-                <TabsTrigger value="event">{d.event}</TabsTrigger>
-                <TabsTrigger value="attendants">{d.attendants}</TabsTrigger>
-              </TabsList>
-            )
-          }
         />
+
+        {isExistingEvent && (
+          <div className="flex justify-center mt-4 mb-2">
+            <TabsList>
+              <TabsTrigger value="event">{d.event}</TabsTrigger>
+              <TabsTrigger value="attendants">
+                {d.attendants}
+                {!!eventSingleData.attendants?.length && (
+                  <span className="ml-2 inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-fe-secondary-container text-fe-on-secondary-container text-xs font-semibold">
+                    {eventSingleData.attendants.length}
+                  </span>
+                )}
+              </TabsTrigger>
+            </TabsList>
+          </div>
+        )}
+
         <TabsContent value="event">
           <EventSingle
             title={eventSingleData?.title ?? d.new_event}

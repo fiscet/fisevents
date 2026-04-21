@@ -3,6 +3,7 @@
 import { sanityClient } from './sanity.cli';
 import {
   eventListQuery,
+  eventMonthlyCountQuery,
   eventSingleByIdQuery,
   eventSingleBySlugQuery,
   eventSingleHasAttendantByEmailQuery,
@@ -11,6 +12,7 @@ import {
   userQuery,
   userQueryBySlug,
 } from './queries';
+import { stripe, PUBLISH_PRICE_CENTS } from './stripe';
 import {
   CurrentUser,
   OccurrenceList,
@@ -140,11 +142,61 @@ export const updateEvent = async ({
   return res;
 };
 
-export const createEvent = async ({ data }: { data: Occurrence }) => {
-  await validateSession();
+export const getMonthlyEventCount = async ({ userId }: { userId: string }) => {
+  const now = new Date();
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+  return await sanityClient.fetch<number>(
+    eventMonthlyCountQuery,
+    { userId, monthStart },
+    { cache: 'no-store' }
+  );
+};
+
+export const createEvent = async ({
+  data,
+  lang = 'it',
+}: {
+  data: Occurrence;
+  lang?: string;
+}) => {
+  const session = await validateSession();
+  const userId = session.user!.uid as string;
+
+  const monthlyCount = await getMonthlyEventCount({ userId });
+
+  if (monthlyCount >= 1) {
+    const pendingData = { ...data, active: false, pendingPayment: true } as unknown as Occurrence;
+    const pendingEvent = await sanityClient.create<Occurrence>(pendingData);
+
+    const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3000';
+
+    const checkoutSession = await stripe.checkout.sessions.create({
+      mode: 'payment',
+      line_items: [
+        {
+          price_data: {
+            currency: 'eur',
+            product_data: { name: `Pubblicazione evento: ${data.title ?? 'Nuovo evento'}` },
+            unit_amount: PUBLISH_PRICE_CENTS,
+          },
+          quantity: 1,
+        },
+      ],
+      metadata: { occurrenceId: pendingEvent._id },
+      success_url: `${baseUrl}/${lang}/creator-admin/event/${pendingEvent._id}?payment=success`,
+      cancel_url: `${baseUrl}/api/stripe/cancel?occurrenceId=${pendingEvent._id}&lang=${lang}`,
+    });
+
+    return {
+      _id: pendingEvent._id,
+      requiresPayment: true as const,
+      paymentUrl: checkoutSession.url!,
+    };
+  }
+
   const res = await sanityClient.create<Occurrence>(data);
   revalidateTags(['eventList']);
-  return res;
+  return { ...res, requiresPayment: false as const };
 };
 
 export const getEventSingleHasAttendantById = async ({
@@ -209,6 +261,7 @@ export const addEventAttendant = async ({
   eventAttendant._type = 'eventAttendant';
   eventAttendant.uuid = uuidv4();
   eventAttendant.subcribitionDate = toUserIsoString(new Date());
+  eventAttendant.paymentStatus = 'pending';
 
   const res = await sanityClient
     .patch(eventId)

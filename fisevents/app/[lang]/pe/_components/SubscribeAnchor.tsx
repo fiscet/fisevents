@@ -7,13 +7,13 @@ export type SubscribeAnchorProps = {
 
 export default function SubscribeAnchor({
   anchorId,
-  label
+  label,
 }: SubscribeAnchorProps) {
   return (
     <div className="text-center mt-2 mb-6">
       <Link
         href={anchorId}
-        className="bg-orange-600 text-white p-4 rounded-md shadow-md hover:bg-orange-700 hover:shadow-sm"
+        className="inline-block bg-gradient-to-r from-fe-primary to-fe-primary-container text-fe-on-primary px-8 py-4 rounded-xl font-headline font-bold shadow-editorial hover:scale-[0.98] transition-transform"
       >
         {label}
       </Link>

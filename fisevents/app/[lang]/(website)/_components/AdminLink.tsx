@@ -7,7 +7,10 @@ export type AdminLinkProps = {
 
 export default function AdminLink({ label, href }: AdminLinkProps) {
   return (
-    <Link className="text-lg text-orange-600" href={href}>
+    <Link
+      className="font-headline font-semibold text-sm text-fe-primary hover:opacity-80 transition-opacity"
+      href={href}
+    >
       {label}
     </Link>
   );

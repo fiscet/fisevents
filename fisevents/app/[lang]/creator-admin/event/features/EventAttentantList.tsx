@@ -21,11 +21,11 @@ export default function EventAttentantList({
 
   return (
     <div>
-      <div className="mb-2 text-center">
-        <h2 className="uppercase font-medium text-xl">
+      <div className="mb-4 text-center">
+        <h2 className="font-semibold text-2xl">
           {attendants?.length} {d.attendants}
         </h2>
-        <h3 className="italic text-lg">{eventDescription}</h3>
+        <p className="text-sm text-fe-on-surface-variant mt-1">{eventDescription}</p>
         {eventId && (
           <div className="mt-4 flex justify-center gap-4">
             <AddAttendantModal eventId={eventId} />

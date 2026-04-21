@@ -13,10 +13,20 @@ export default async function AuthLayout({
   const dictionary = await getDictionary(lang);
 
   return (
-    <div className="w-screen h-screen flex flex-col items-center justify-center bg-[url('/img/main-bg.jpg')] bg-contain">
-      <DictionaryProvider dictionary={dictionary}>
-        <div className="z-20">{children}</div>
-      </DictionaryProvider>
-    </div>
+    <DictionaryProvider dictionary={dictionary}>
+      {/* Clean surface background — no background image */}
+      <div className="min-h-screen flex flex-col items-center justify-center bg-fe-surface px-6">
+        {/* Decorative ambient blobs */}
+        <div
+          className="fixed top-0 right-0 w-[600px] h-[600px] bg-fe-primary-container/10 rounded-full blur-[120px] pointer-events-none"
+          aria-hidden="true"
+        />
+        <div
+          className="fixed bottom-0 left-0 w-[500px] h-[500px] bg-fe-secondary-container/10 rounded-full blur-[120px] pointer-events-none"
+          aria-hidden="true"
+        />
+        <div className="relative z-10 w-full max-w-md">{children}</div>
+      </div>
+    </DictionaryProvider>
   );
 }

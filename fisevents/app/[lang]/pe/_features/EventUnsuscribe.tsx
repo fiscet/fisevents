@@ -85,7 +85,7 @@ export default function EventUnsuscribe({
     <>
       {isSaving && <Processing text={d.unsubscribing} />}
       <p>If you want to subscribe again click this link:</p>
-      <Link className="text-cyan-700" href={publicUrl}>
+      <Link className="text-fe-secondary" href={publicUrl}>
         {publicUrl}
       </Link>
     </>

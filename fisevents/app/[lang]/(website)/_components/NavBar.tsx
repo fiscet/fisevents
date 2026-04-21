@@ -2,11 +2,9 @@
 
 import { useState } from 'react';
 import { signOut } from 'next-auth/react';
-import { useCurrentBreakpoint } from '@/hooks/useCurrentBreakpoint';
 import { Locale } from '@/lib/i18n';
 import { CreatorAdminRoutes } from '@/lib/routes';
 import { Button } from '@/components/ui/button';
-import Logo, { LogoProps } from '@/components/Logo';
 import { TiThMenu } from 'react-icons/ti';
 import { GrClose } from 'react-icons/gr';
 import Link from 'next/link';
@@ -14,6 +12,7 @@ import LocaleSwitcher from '@/components/LocaleSwitcher';
 import LogoutLink from '../../creator-admin/_components/LogoutLink/LogoutLink';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 import AdminLink from './AdminLink';
+import Logo from '@/components/Logo';
 
 export type NavBarProps = {
   lang: Locale;
@@ -22,44 +21,43 @@ export type NavBarProps = {
 
 export function NavBar({ lang, isLoggedIn }: NavBarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const d = useDictionary();
-  const currentBreakpoint = useCurrentBreakpoint();
 
   return (
-    <header className="flex py-6 shadow-xl fixed top-0 w-full z-10 bg-background/95">
-      <nav className="flex items-center justify-between container font-semibold relative">
-        <div className="flex-grow w-1/3">
-          <Logo size={currentBreakpoint as LogoProps['size']} />
+    <header role="banner" className="glass-nav fixed top-0 w-full z-50">
+      <nav
+        aria-label="Main navigation"
+        className="flex items-center justify-between px-6 md:px-8 py-4 max-w-7xl mx-auto"
+      >
+        {/* Brand logo */}
+        <Logo linkTo={`/${lang}`} />
+
+        {/* Desktop nav links */}
+        <div className="hidden md:flex items-center gap-6">
+          <Link
+            href={`/${lang}/how-it-works`}
+            className="text-sm font-medium text-fe-on-surface-variant hover:text-fe-on-surface transition-colors"
+          >
+            {d.website.navbar.howItWorks}
+          </Link>
+          <Link
+            href={`/${lang}/pricing`}
+            className="text-sm font-medium text-fe-on-surface-variant hover:text-fe-on-surface transition-colors"
+          >
+            {d.website.navbar.pricing}
+          </Link>
+          <Link
+            href={`/${lang}/contacts`}
+            className="text-sm font-medium text-fe-on-surface-variant hover:text-fe-on-surface transition-colors"
+          >
+            {d.website.navbar.contacts}
+          </Link>
         </div>
 
-        {/* Desktop Login button */}
-        {!isLoggedIn && (
-          <div className="hidden md:block text-center flex-grow w-1/3">
-            <Button size="lg" asChild>
-              <Link href={`/${lang}/auth`}> {d.auth.login}</Link>
-            </Button>
-          </div>
-        )}
-
-        {/* Mobile menu button */}
-        <button
-          className="md:hidden"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          {isMenuOpen ? <GrClose size={24} /> : <TiThMenu size={24} />}
-        </button>
-
-        {/* Desktop menu */}
-        <div className="hidden md:flex justify-end items-center gap-x-10 flex-grow w-1/3">
-          {/* <Link className="text-lg" href="/#features">
-            {d.website.navbar.features}
-          </Link>
-          <Link className="text-lg" href="/#pricing">
-            {d.website.navbar.pricing}
-          </Link> */}
+        {/* Desktop right section */}
+        <div className="hidden md:flex items-center gap-6">
           <LocaleSwitcher curLang={lang} />
-          {isLoggedIn && (
+          {isLoggedIn ? (
             <>
               <AdminLink
                 label={d.website.navbar.admin}
@@ -67,37 +65,97 @@ export function NavBar({ lang, isLoggedIn }: NavBarProps) {
               />
               <LogoutLink label={d.auth.logout} onSignOut={signOut} />
             </>
+          ) : (
+            <>
+              <Button variant="ghost" size="sm" asChild>
+                <Link href={`/${lang}/auth`}>{d.auth.login}</Link>
+              </Button>
+              <Button variant="default" size="sm" asChild>
+                <Link href={`/${lang}/auth`}>Start for free</Link>
+              </Button>
+            </>
           )}
         </div>
 
-        {/* Mobile menu */}
-        {isMenuOpen && (
-          <div className="absolute top-full right-0 left-0 bg-background/95 mt-6 p-4 shadow-lg md:hidden flex flex-col gap-4">
-            {/* <Link className="text-lg" href="/#features">
-              {d.website.navbar.features}
-            </Link>
-            <Link className="text-lg" href="/#pricing">
-              {d.website.navbar.pricing}
-            </Link> */}
-            <div className="flex justify-between items-center">
-              <LocaleSwitcher curLang={lang} />
-              {isLoggedIn ? (
-                <>
-                  <AdminLink
-                    label={d.website.navbar.admin}
-                    href={`/${lang}/${CreatorAdminRoutes.getBase()}`}
-                  />
-                  <LogoutLink label={d.auth.logout} onSignOut={signOut} />
-                </>
-              ) : (
-                <Button asChild className="w-full">
-                  <Link href={`/${lang}/auth`}> {d.auth.login}</Link>
-                </Button>
-              )}
-            </div>
-          </div>
-        )}
+        {/* Mobile hamburger */}
+        <button
+          className="md:hidden p-2 rounded-xl text-fe-on-surface hover:bg-fe-surface-container-low transition-colors"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-menu"
+          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+        >
+          {isMenuOpen ? <GrClose size={20} /> : <TiThMenu size={20} />}
+        </button>
       </nav>
+
+      {/* Mobile dropdown */}
+      {isMenuOpen && (
+        <div
+          id="mobile-menu"
+          className="md:hidden border-t border-fe-outline-variant/10 bg-fe-surface-container-lowest px-6 py-4 flex flex-col gap-4"
+        >
+          <nav className="flex flex-col gap-1">
+            <Link
+              href={`/${lang}/how-it-works`}
+              onClick={() => setIsMenuOpen(false)}
+              className="text-sm font-medium text-fe-on-surface-variant hover:text-fe-on-surface py-2 transition-colors"
+            >
+              {d.website.navbar.howItWorks}
+            </Link>
+            <Link
+              href={`/${lang}/pricing`}
+              onClick={() => setIsMenuOpen(false)}
+              className="text-sm font-medium text-fe-on-surface-variant hover:text-fe-on-surface py-2 transition-colors"
+            >
+              {d.website.navbar.pricing}
+            </Link>
+            <Link
+              href={`/${lang}/contacts`}
+              onClick={() => setIsMenuOpen(false)}
+              className="text-sm font-medium text-fe-on-surface-variant hover:text-fe-on-surface py-2 transition-colors"
+            >
+              {d.website.navbar.contacts}
+            </Link>
+          </nav>
+          <div className="flex justify-between items-center border-t border-fe-outline-variant/10 pt-3">
+            <LocaleSwitcher curLang={lang} />
+          </div>
+          {isLoggedIn ? (
+            <div className="flex flex-col gap-3">
+              <AdminLink
+                label={d.website.navbar.admin}
+                href={`/${lang}/${CreatorAdminRoutes.getBase()}`}
+              />
+              <LogoutLink label={d.auth.logout} onSignOut={signOut} />
+            </div>
+          ) : (
+            <div className="flex flex-col gap-3">
+              <Button
+                variant="ghost"
+                size="sm"
+                asChild
+                className="justify-start"
+              >
+                <Link
+                  href={`/${lang}/auth`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {d.auth.login}
+                </Link>
+              </Button>
+              <Button variant="default" size="sm" asChild>
+                <Link
+                  href={`/${lang}/auth`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Start for free
+                </Link>
+              </Button>
+            </div>
+          )}
+        </div>
+      )}
     </header>
   );
 }

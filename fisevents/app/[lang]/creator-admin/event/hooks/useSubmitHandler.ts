@@ -22,7 +22,8 @@ export const useSubmitHandler = (
   session: ReturnType<typeof useSession>,
   router: ReturnType<typeof import('next/navigation').useRouter>,
   uploadImage: ReturnType<typeof useUploadImage>,
-  showNotification: ReturnType<typeof useNotification>['showNotification']
+  showNotification: ReturnType<typeof useNotification>['showNotification'],
+  lang: string
 ) => {
   const isNewEvent = !eventSingleData;
 
@@ -97,9 +98,14 @@ export const useSubmitHandler = (
 
           delete insValues._id;
 
-          const res = await createEvent({ data: insValues as Occurrence });
+          const res = await createEvent({ data: insValues as Occurrence, lang });
 
-          if (res?._id) {
+          if (res.requiresPayment) {
+            window.location.href = res.paymentUrl;
+            return;
+          }
+
+          if (res._id) {
             router.push(`/${CreatorAdminRoutes.getItem('event')}/${res._id}`);
           }
         } else {

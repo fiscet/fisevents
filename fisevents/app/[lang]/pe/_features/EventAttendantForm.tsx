@@ -18,10 +18,10 @@ const EventAttendantComponent = ({ form, onSubmit }: EventAttendantProps) => {
   const { public: d } = useDictionary();
 
   return (
-    <div className="pb-10" id="event-attendant-form-container">
-      <h1 className="text-2xl font-bold text-center mt-5">
+    <div className="pb-10 mt-8 pt-8 border-t border-fe-outline-variant/20" id="event-attendant-form-container">
+      <h2 className="text-xl font-semibold text-center mb-6">
         {d.subscribe_title}
-      </h1>
+      </h2>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <DefaultFormField

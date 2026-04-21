@@ -3,33 +3,20 @@ import Link from 'next/link';
 
 export type LogoProps = {
   linkTo?: string;
-  size?: 'sm' | 'md' | 'lg';
+  /** Pixel height of the image — width scales proportionally (square asset). */
+  height?: number;
 };
 
-function getSize(size: string) {
-  switch (size) {
-    case 'sm':
-      return '160';
-    case 'md':
-    case 'lg':
-    case 'xl':
-      return '240';
-    case '2xl':
-      return '320';
-    default:
-      return '160';
-  }
-}
-
-export default function Logo({ linkTo = '/', size = 'md' }: LogoProps) {
+export default function Logo({ linkTo = '/', height = 120 }: LogoProps) {
   return (
-    <Link href={linkTo}>
+    <Link href={linkTo} aria-label="FisEvents — Home">
       <Image
         src="/img/logo.png"
-        alt="Logo"
-        width={getSize(size)}
-        height={getSize(size)}
-        className="mx-auto md:mx-0"
+        alt="FisEvents"
+        width={height}
+        height={height}
+        className="object-contain"
+        priority
       />
     </Link>
   );
