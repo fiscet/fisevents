@@ -6,7 +6,7 @@ export const eventAttendantSchema = z.object({
   phone: z.string().optional(),
   privacyAccepted: z.boolean(),
   checkedIn: z.boolean().optional(),
-  paymentStatus: z.string().optional(),
+  paymentStatus: z.enum(['pending', 'paid', 'na']).optional(),
 });
 
 export const ContactSchema = z.object({
