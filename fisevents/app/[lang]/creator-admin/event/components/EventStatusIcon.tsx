@@ -20,27 +20,25 @@ export default function EventStatusIcon({
   publishedIcon: PubIcon = MdPublic,
   registrationsOpenIcon: RegIcon = VscVmActive,
   finishedIcon: FinishedIcon = GiNightSleep,
-  borderColor = '#ddd',
+  borderColor = 'hsl(172 100% 21%)',
   inset = '10px',
-  status
+  status,
 }: PublishedIconProps) {
-  const customBorderStyle = {
-    borderColor
-  };
+  const customBorderStyle = { borderColor };
   const insetStyle = {
     top: `-${inset}`,
     bottom: `-${inset}`,
     left: `-${inset}`,
-    right: `-${inset}`
+    right: `-${inset}`,
   };
 
   switch (status) {
     case 'published':
-      return <PubIcon className="w-5 h-5 text-teal-600" />;
+      return <PubIcon className="w-5 h-5 text-fe-secondary" />;
     case 'registrations_open':
       return (
         <div className={cn('group relative flex items-center justify-center')}>
-          <RegIcon className="w-5 h-5 text-teal-700" />
+          <RegIcon className="w-5 h-5 text-fe-secondary" />
           <div
             className={cn(
               'absolute -inset-4 animate-ping rounded-full border-2'
@@ -50,6 +48,6 @@ export default function EventStatusIcon({
         </div>
       );
     default:
-      return <FinishedIcon className="w-5 h-5 text-red-400" />;
+      return <FinishedIcon className="w-5 h-5 text-fe-on-surface-variant" />;
   }
 }

@@ -118,7 +118,7 @@ function getColumns(
                 row._id
               }`}
             >
-              <FiChevronRight className="w-5 h-5 text-cyan-700" />
+              <FiChevronRight className="w-5 h-5 text-fe-secondary" />
             </Link>
           </div>
         );

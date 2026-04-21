@@ -3,7 +3,7 @@ import { FormLabel } from '@/components/ui/form';
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger
+  PopoverTrigger,
 } from '@/components/ui/popover';
 import { RiInformation2Fill } from 'react-icons/ri';
 import { RequiredStatus } from './DefaultFormField';
@@ -12,7 +12,7 @@ export default function FormFieldHeader({
   label,
   description,
   inForm = true,
-  requiredStatus
+  requiredStatus,
 }: {
   label: string;
   description?: string;
@@ -30,10 +30,10 @@ export default function FormFieldHeader({
       break;
     case 'optional-with-text':
       labelText = `${label} (${c.optional})`;
-      labelClass = 'text-gray-600 italic';
+      labelClass = 'text-fe-on-surface-variant italic';
       break;
     case 'optional':
-      labelClass = 'text-gray-600 italic';
+      labelClass = 'text-fe-on-surface-variant italic';
       break;
     default:
       break;
@@ -49,11 +49,13 @@ export default function FormFieldHeader({
       {description && (
         <Popover>
           <PopoverTrigger>
-            <RiInformation2Fill className="w-5 h-5 text-gray-600" />
+            <RiInformation2Fill className="w-5 h-5 text-fe-on-surface-variant" />
           </PopoverTrigger>
           <PopoverContent className="w-80 bg-white shadow-lg">
             <div className="p-4">
-              <p className="text-gray-600 mt-2">{description}</p>
+              <p className="text-fe-on-surface-variant mt-2 text-sm">
+                {description}
+              </p>
             </div>
           </PopoverContent>
         </Popover>

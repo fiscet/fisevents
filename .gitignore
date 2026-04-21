@@ -400,3 +400,16 @@ FodyWeavers.xsd
 # Custom
 work-files/
 fisevents/public/img/oops.jpg
+.claude/settings.json
+.claude/settings.local.json
+.kilo/package-lock.json
+.kilo/plans/design-system.md
+.kilo/plans/stitch/01.amber_horizon/DESIGN.md
+.kilo/plans/stitch/02.homepage_fisevents/code.html
+.kilo/plans/stitch/02.homepage_fisevents/screen.png
+.kilo/plans/stitch/03.create_new_event/code.html
+.kilo/plans/stitch/03.create_new_event/screen.png
+.kilo/plans/stitch/04.my_events_management/code.html
+.kilo/plans/stitch/04.my_events_management/screen.png
+.kilo/plans/stitch/05.registration_form/code.html
+.kilo/plans/stitch/05.registration_form/screen.png

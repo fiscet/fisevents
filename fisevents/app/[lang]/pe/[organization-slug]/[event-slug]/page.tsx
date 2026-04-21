@@ -5,7 +5,6 @@ import EventNotFound from '../../_components/EventNotFound';
 import PublicEvent from '../../_components/PublicEvent';
 import EventAttendantForm from '../../_features/EventAttendantContainer';
 import { NotificationProvider } from '@/components/Notification/NotificationContext';
-import { revalidateTag } from 'next/cache';
 import { PublicRoutes } from '@/lib/routes';
 
 export default async function PublicEventPage({
@@ -22,8 +21,6 @@ export default async function PublicEventPage({
   const organizationSlug = resolvedParams['organization-slug'];
   const eventSlug = resolvedParams['event-slug'];
   const peSlug = PublicRoutes.getBase();
-
-  revalidateTag(`eventSingleBySlug:${eventSlug}`);
 
   const eventData = await getEventSingleBySlug({
     slug: `${peSlug}/${organizationSlug}/${eventSlug}`,

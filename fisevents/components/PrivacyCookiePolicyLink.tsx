@@ -4,7 +4,7 @@ import { WebsiteRoutes } from '@/lib/routes';
 import Link from 'next/link';
 
 export default async function PrivacyCookiePolicyLink({
-  lang
+  lang,
 }: {
   lang?: Locale;
 }) {
@@ -17,7 +17,11 @@ export default async function PrivacyCookiePolicyLink({
   )}`;
 
   return (
-    <Link href={url} className="text-blue-600 underline" target="_blank">
+    <Link
+      href={url}
+      className="text-fe-primary underline underline-offset-2 hover:opacity-80 transition-opacity"
+      target="_blank"
+    >
       {dictionary.common.privacy_cookie_policy}
     </Link>
   );

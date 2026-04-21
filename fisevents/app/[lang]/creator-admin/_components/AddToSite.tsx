@@ -48,16 +48,16 @@ export default function AddToSite({
   };
 
   return (
-    <div className="w-full max-w-[650px] p-3 relative bg-gray-200 border-slate-200 rounded-md">
+    <div className="w-full max-w-[650px] p-3 relative bg-fe-surface-container-high border-slate-200 rounded-md">
       <div className="py-3 overflow-x-auto">
         {description && (
           <Popover>
             <PopoverTrigger className="absolute top-2 right-2">
-              <RiInformation2Fill className="w-5 h-5 text-gray-600" />
+              <RiInformation2Fill className="w-5 h-5 text-fe-on-surface-variant" />
             </PopoverTrigger>
             <PopoverContent className="w-80 bg-white shadow-lg">
               <div className="p-4">
-                <p className="text-gray-600 mt-2">{description}</p>
+                <p className="text-fe-on-surface-variant mt-2">{description}</p>
               </div>
             </PopoverContent>
           </Popover>
@@ -66,14 +66,14 @@ export default function AddToSite({
           <Link
             href={publicUrl}
             target="_blank"
-            className="text-cyan-700 whitespace-nowrap"
+            className="text-fe-secondary whitespace-nowrap"
           >
             {publicUrl}
           </Link>
         </div>
       </div>
       <div className="flex justify-between items-center gap-x-2 mt-2">
-        {title && <div className="text-gray-900 text-sm">{title}</div>}
+        {title && <div className="text-fe-on-surface text-sm">{title}</div>}
         <Button
           variant={copyState === 'copied' ? 'success' : 'secondary'}
           size="sm"

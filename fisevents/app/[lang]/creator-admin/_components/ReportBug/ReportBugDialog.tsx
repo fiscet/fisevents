@@ -82,7 +82,7 @@ export default function ReportBugDialog({
   return (
     <>
       <div
-        className="text-orange-700 hover:text-orange-600 underline cursor-pointer"
+        className="text-fe-primary hover:text-fe-primary underline cursor-pointer"
         onClick={() => setIsOpen(true)}
       >
         {d.report_bug.title}
@@ -121,7 +121,7 @@ export default function ReportBugDialog({
                 <DialogPanel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                   <DialogTitle
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    className="text-lg font-medium leading-6 text-fe-on-surface"
                   >
                     {d.report_bug.title}
                   </DialogTitle>
@@ -136,7 +136,7 @@ export default function ReportBugDialog({
                     className="mt-4 space-y-4"
                   >
                     <div>
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-fe-on-surface-variant">
                         {d.report_bug.type}
                       </label>
                       <select
@@ -156,7 +156,7 @@ export default function ReportBugDialog({
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-fe-on-surface-variant">
                         {d.report_bug.text}
                       </label>
                       <textarea
@@ -172,7 +172,7 @@ export default function ReportBugDialog({
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-fe-on-surface-variant">
                         Email
                       </label>
                       <input
@@ -190,7 +190,7 @@ export default function ReportBugDialog({
                     <div className="flex justify-end space-x-2">
                       <button
                         type="button"
-                        className="px-4 py-2 text-gray-700 bg-gray-200 rounded hover:bg-gray-300"
+                        className="px-4 py-2 text-fe-on-surface-variant bg-fe-surface-container-high rounded hover:bg-fe-surface-container-highest"
                         onClick={() => setIsOpen(false)}
                       >
                         Cancel

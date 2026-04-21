@@ -140,7 +140,7 @@ export default function UserAccountContainer({
         }
         centerElements={
           isVeryFirstAccess ? (
-            <h3 className="text-center text-xl font-bold text-orange-600">
+            <h3 className="text-center text-xl font-bold text-fe-primary">
               {a.complete_your_profile}
             </h3>
           ) : null
