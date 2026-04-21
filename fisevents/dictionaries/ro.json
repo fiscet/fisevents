@@ -75,7 +75,7 @@
   },
   "auth": {
     "title": "Sunteți aproape de aici ...",
-    "description": "Autentificați-vă folosind email-ul dvs. sau cu Google",
+    "description": "Autentificați-vă folosind email-ul",
     "login": "Începeți aici",
     "logout": "Ieșiți din aplicație",
     "account": "Gestionați contul dvs.",

@@ -1,16 +1,16 @@
-import { useNotification } from "@/components/Notification/useNotification";
-import { useUploadImage } from "@/hooks/useUploadImage";
-import { FileImageType } from "@/types/custom.types";
-import { OccurrenceSingle } from "@/types/sanity.extended.types";
-import { useSession } from "next-auth/react";
-import { EventFormSchemaType } from "./useEventSingleForm";
-import { Occurrence } from "@/types/sanity.types";
-import { getPublicEventSlug, slugify, toUserIsoString } from "@/lib/utils";
-import { fromDatetimeLocalToISO, safeParseDate } from "@/lib/date-utils";
-import { createEvent, updateEvent } from "@/lib/actions";
-import { CreatorAdminRoutes } from "@/lib/routes";
-import { Dispatch, SetStateAction, TransitionStartFunction } from "react";
-import { useDictionary } from "@/app/contexts/DictionaryContext";
+import { useNotification } from '@/components/Notification/useNotification';
+import { useUploadImage } from '@/hooks/useUploadImage';
+import { FileImageType } from '@/types/custom.types';
+import { OccurrenceSingle } from '@/types/sanity.extended.types';
+import { useSession } from 'next-auth/react';
+import { EventFormSchemaType } from './useEventSingleForm';
+import { Occurrence } from '@/types/sanity.types';
+import { getPublicEventSlug, slugify, toUserIsoString } from '@/lib/utils';
+import { fromDatetimeLocalToISO, safeParseDate } from '@/lib/date-utils';
+import { createEvent, updateEvent } from '@/lib/actions';
+import { CreatorAdminRoutes } from '@/lib/routes';
+import { Dispatch, SetStateAction, TransitionStartFunction } from 'react';
+import { useDictionary } from '@/app/contexts/DictionaryContext';
 
 export const useSubmitHandler = (
   eventSingleData: OccurrenceSingle | undefined,
@@ -20,7 +20,7 @@ export const useSubmitHandler = (
   setInitImageUrl: Dispatch<SetStateAction<string | undefined>>,
   startProcessing: TransitionStartFunction,
   session: ReturnType<typeof useSession>,
-  router: any,
+  router: ReturnType<typeof import('next/navigation').useRouter>,
   uploadImage: ReturnType<typeof useUploadImage>,
   showNotification: ReturnType<typeof useNotification>['showNotification']
 ) => {
@@ -31,19 +31,20 @@ export const useSubmitHandler = (
 
   return async (values: EventFormSchemaType) => {
     startProcessing(async () => {
-
       const { ...restValues } = values;
       const insValues = { ...restValues } as Partial<Occurrence>;
 
       // Safely convert datetime-local format to ISO for storage
-      insValues.publicationStartDate = values.publicationStartDate ? fromDatetimeLocalToISO(values.publicationStartDate) : undefined;
+      insValues.publicationStartDate = values.publicationStartDate
+        ? fromDatetimeLocalToISO(values.publicationStartDate)
+        : undefined;
       insValues.startDate = fromDatetimeLocalToISO(values.startDate);
       insValues.endDate = fromDatetimeLocalToISO(values.endDate);
 
       if (!insValues.slug?.current) {
         insValues.slug = {
           _type: 'slug',
-          current: slugify(insValues.title!)
+          current: slugify(insValues.title!),
         };
       }
 
@@ -76,8 +77,8 @@ export const useSubmitHandler = (
               _type: 'image',
               asset: {
                 _type: 'reference',
-                _ref: imgRes.id
-              }
+                _ref: imgRes.id,
+              },
             };
           }
         }
@@ -90,7 +91,7 @@ export const useSubmitHandler = (
         if (isNewEvent) {
           insValues.createdByUser = {
             _type: 'reference',
-            _ref: session.data!.user!.uid as string
+            _ref: session.data!.user!.uid as string,
           };
           insValues._type = 'occurrence';
 
@@ -104,26 +105,32 @@ export const useSubmitHandler = (
         } else {
           await updateEvent({
             id: eventSingleData!._id!,
-            data: insValues as Partial<Occurrence>
+            data: insValues as Partial<Occurrence>,
           });
         }
 
         if (imgRes?.id) {
           setNewImg({
             file: {} as File,
-            imgUrl: imgRes.url!
+            imgUrl: imgRes.url!,
           });
           setInitImageUrl(imgRes.url);
         }
         showNotification({
           title: d.success,
           message: d.success_text,
-          type: 'success'
+          type: 'success',
         });
       } catch (error: unknown) {
         let errorMessage = d.error_text;
-        if (typeof error === 'object' && error !== null && 'response' in error) {
-          const responseError = error as { response?: { data?: { message?: string; }; }; };
+        if (
+          typeof error === 'object' &&
+          error !== null &&
+          'response' in error
+        ) {
+          const responseError = error as {
+            response?: { data?: { message?: string } };
+          };
           if (responseError.response?.data?.message) {
             // updateEvent or createEvent
             errorMessage = responseError.response.data.message;
@@ -135,7 +142,7 @@ export const useSubmitHandler = (
         showNotification({
           title: d.error,
           message: errorMessage,
-          type: 'error'
+          type: 'error',
         });
       }
     });

@@ -83,12 +83,14 @@ export default function AddAttendantModal({ eventId }: AddAttendantModalProps) {
         showNotification({ type: 'success', message: s.success_text });
         setIsOpen(false);
         form.reset();
-      } catch (error: any) {
+      } catch (error: unknown) {
         let msg = s.error_text;
-        if (error.message === 'already_subscribed') {
-          msg = 'Already subscribed';
-        } else if (error.message === 'email_invalid') {
-          msg = pd.validation.email || 'Invalid email';
+        if (error instanceof Error) {
+          if (error.message === 'already_subscribed') {
+            msg = 'Already subscribed';
+          } else if (error.message === 'email_invalid') {
+            msg = pd.validation.email || 'Invalid email';
+          }
         }
         showNotification({ type: 'error', message: msg });
       }

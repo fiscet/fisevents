@@ -29,7 +29,7 @@ import { request } from '@arcjet/next';
 const aj = arcjet.withRule(
   validateEmail({
     mode: 'LIVE',
-    block: ['DISPOSABLE', 'INVALID', 'NO_MX_RECORDS'],
+    deny: ['DISPOSABLE', 'INVALID', 'NO_MX_RECORDS'],
   })
 );
 
@@ -268,7 +268,7 @@ export const updateEventAttendantStatus = async ({
   }
 
   // Create an object with the changes to apply
-  const patches: any = {};
+  const patches: Record<string, boolean | string> = {};
   if (data.checkedIn !== undefined) {
     patches[`attendants[uuid=="${eventAttendantUuid}"].checkedIn`] =
       data.checkedIn;
