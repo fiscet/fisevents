@@ -80,6 +80,7 @@ export const eventSingleByIdQuery = defineQuery(`*[_type == "occurrence" && crea
   endDate,
   publicationStartDate,
   active,
+  pendingPayment,
   attendants
 }`);
 
@@ -108,7 +109,8 @@ export const eventSingleBySlugQuery = defineQuery(`
   startDate,
   endDate,
   "companyName":*[_type == "user" && _id == ^.createdByUser->_id][0].companyName,
-  "organizationSlug":*[_type == "user" && _id == ^.createdByUser->_id][0].slug.current
+  "organizationSlug":*[_type == "user" && _id == ^.createdByUser->_id][0].slug.current,
+  "organizerEmail":*[_type == "user" && _id == ^.createdByUser->_id][0].email
 }`);
 
 export const eventSingleHasAttendantByEmailQuery = defineQuery(`
@@ -121,8 +123,15 @@ export const eventSingleHasAttendantByEmailQuery = defineQuery(`
 
 export const eventSingleHasAttendantByUuidQuery = defineQuery(`
 *[
-  _type == "occurrence" && 
-  _id == $eventId 
+  _type == "occurrence" &&
+  _id == $eventId
   ][0] {
   "hasAttendant":count(attendants[uuid match $uuid]) > 0
+}`);
+
+export const eventForWebhookQuery = defineQuery(`
+*[_type == "occurrence" && _id == $occurrenceId][0] {
+  title,
+  "creatorEmail": createdByUser->email,
+  "creatorName": createdByUser->name
 }`);

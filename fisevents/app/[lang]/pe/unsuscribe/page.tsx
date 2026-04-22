@@ -13,10 +13,11 @@ export default async function UnsuscribePage({
     eventId: string;
     eventSlug: string;
     eventAttendantUuid: string;
+    eventAttendantEmail: string;
   }>;
 }) {
   const { lang } = await params;
-  const { eventId, eventSlug, eventAttendantUuid } = await searchParams;
+  const { eventId, eventSlug, eventAttendantUuid, eventAttendantEmail } = await searchParams;
   const eventData = await getEventSingleBySlug({ slug: eventSlug });
   const userData = await getUserBySlug({ slug: eventData.organizationSlug });
 
@@ -33,6 +34,10 @@ export default async function UnsuscribePage({
           eventSlug={eventSlug}
           organizationSlug={eventData.organizationSlug}
           eventAttendantUuid={eventAttendantUuid}
+          eventAttendantEmail={eventAttendantEmail}
+          eventTitle={eventData.title ?? ''}
+          companyName={eventData.companyName}
+          lang={lang}
         />
       </NotificationProvider>
     </div>

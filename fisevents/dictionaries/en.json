@@ -235,7 +235,10 @@
         "send": "Send",
         "ok_text": "Thank you for your feedback. We will get back to you soon."
       },
-      "payment_success": "Payment completed! Your event is now published."
+      "payment_success": "Payment completed! Your event is now published.",
+      "payment_cancelled": "Payment cancelled. The event has not been published.",
+      "payment_processing": "Confirming your payment. This page will refresh automatically.",
+      "payment_timeout_warning": "Payment confirmation is taking longer than expected. If you've been charged, your event will be published automatically as soon as the system syncs."
     },
     "account": {
       "userAccount": "User account",

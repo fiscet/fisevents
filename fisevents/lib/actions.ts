@@ -27,6 +27,11 @@ import { getSession } from '@/lib/auth';
 import { eventAttendantSchema } from './form-schemas';
 import arcjet, { validateEmail } from '@/lib/arcjet';
 import { request } from '@arcjet/next';
+import { sendMail } from '@/lib/send-mail';
+import { getEmailDictionary } from '@/lib/i18n.utils';
+import { getPublicEventSlug, getPublicEventUrl } from '@/lib/utils';
+import { applyTemplate } from '@/lib/email-template';
+import type { Locale } from '@/lib/i18n';
 
 const aj = arcjet.withRule(
   validateEmail({
@@ -152,6 +157,44 @@ export const getMonthlyEventCount = async ({ userId }: { userId: string }) => {
   );
 };
 
+async function startCheckoutForEvent({
+  occurrenceId,
+  title,
+  lang,
+}: {
+  occurrenceId: string;
+  title?: string;
+  lang: string;
+}): Promise<string> {
+  const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3000';
+  const checkoutSession = await stripe.checkout.sessions.create({
+    mode: 'payment',
+    line_items: [
+      {
+        price_data: {
+          currency: 'eur',
+          product_data: { name: `Pubblicazione evento: ${title ?? 'Nuovo evento'}` },
+          unit_amount: PUBLISH_PRICE_CENTS,
+        },
+        quantity: 1,
+      },
+    ],
+    metadata: { occurrenceId },
+    success_url: `${baseUrl}/${lang}/creator-admin/event/${occurrenceId}?payment=success`,
+    cancel_url: `${baseUrl}/api/stripe/cancel?occurrenceId=${occurrenceId}&lang=${lang}`,
+  });
+
+  await sanityClient
+    .patch(occurrenceId)
+    .set({ stripeSessionId: checkoutSession.id })
+    .commit()
+    .catch((e) => {
+      console.error('Failed to persist stripeSessionId on pending event:', e);
+    });
+
+  return checkoutSession.url!;
+}
+
 export const createEvent = async ({
   data,
   lang = 'it',
@@ -168,33 +211,65 @@ export const createEvent = async ({
     const pendingData = { ...data, active: false, pendingPayment: true } as unknown as Occurrence;
     const pendingEvent = await sanityClient.create<Occurrence>(pendingData);
 
-    const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3000';
-
-    const checkoutSession = await stripe.checkout.sessions.create({
-      mode: 'payment',
-      line_items: [
-        {
-          price_data: {
-            currency: 'eur',
-            product_data: { name: `Pubblicazione evento: ${data.title ?? 'Nuovo evento'}` },
-            unit_amount: PUBLISH_PRICE_CENTS,
-          },
-          quantity: 1,
-        },
-      ],
-      metadata: { occurrenceId: pendingEvent._id },
-      success_url: `${baseUrl}/${lang}/creator-admin/event/${pendingEvent._id}?payment=success`,
-      cancel_url: `${baseUrl}/api/stripe/cancel?occurrenceId=${pendingEvent._id}&lang=${lang}`,
-    });
-
-    return {
-      _id: pendingEvent._id,
-      requiresPayment: true as const,
-      paymentUrl: checkoutSession.url!,
-    };
+    try {
+      const paymentUrl = await startCheckoutForEvent({
+        occurrenceId: pendingEvent._id,
+        title: data.title,
+        lang,
+      });
+      return {
+        _id: pendingEvent._id,
+        requiresPayment: true as const,
+        paymentUrl,
+      };
+    } catch (err) {
+      await sanityClient.delete(pendingEvent._id).catch((e) => {
+        console.error('Failed to rollback pending event after Stripe error:', e);
+      });
+      throw err;
+    }
   }
 
   const res = await sanityClient.create<Occurrence>(data);
+
+  const monthStart = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    1
+  ).toISOString();
+  const freeThisMonth = await sanityClient.fetch<
+    Array<{ _id: string; _createdAt: string }>
+  >(
+    `*[_type == "occurrence" && createdByUser._ref == $userId && _createdAt >= $monthStart && pendingPayment != true] | order(_createdAt asc) {_id, _createdAt}`,
+    { userId, monthStart },
+    { cache: 'no-store' }
+  );
+
+  const firstFreeId = freeThisMonth[0]?._id;
+  if (freeThisMonth.length > 1 && firstFreeId !== res._id) {
+    await sanityClient
+      .patch(res._id)
+      .set({ active: false, pendingPayment: true })
+      .commit();
+    try {
+      const paymentUrl = await startCheckoutForEvent({
+        occurrenceId: res._id,
+        title: data.title,
+        lang,
+      });
+      return {
+        _id: res._id,
+        requiresPayment: true as const,
+        paymentUrl,
+      };
+    } catch (err) {
+      await sanityClient.delete(res._id).catch((e) => {
+        console.error('Failed to rollback pending event after Stripe error:', e);
+      });
+      throw err;
+    }
+  }
+
   revalidateTags(['eventList']);
   return { ...res, requiresPayment: false as const };
 };
@@ -337,4 +412,117 @@ export const updateEventAttendantStatus = async ({
 
   revalidateTags([`eventSingle:${eventId}`]);
   return res;
+};
+
+type EventEmailData = {
+  eventTitle: string;
+  location?: string;
+  talkTo?: string;
+  price?: string;
+  startDate?: string;
+  endDate?: string;
+  companyName: string;
+  organizationSlug: string;
+  eventSlug: string;
+  organizerEmail?: string;
+};
+
+export const subscribeToEvent = async ({
+  eventId,
+  eventAttendant,
+  lang,
+  emailData,
+}: {
+  eventId: string;
+  eventAttendant: Partial<EventAttendant>;
+  lang: Locale;
+  emailData: EventEmailData;
+}) => {
+  const result = await addEventAttendant({ eventId, eventAttendant });
+  if (!result) return;
+
+  const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3000';
+  const publicSlug = getPublicEventSlug(emailData.eventSlug, emailData.organizationSlug);
+  const publicUrl = getPublicEventUrl(publicSlug);
+  const unsubscribeLink = `${baseUrl}/${lang}/pe/unsuscribe?eventId=${eventId}&eventSlug=${publicSlug}&eventAttendantEmail=${result.email}&eventAttendantUuid=${result.uuid}`;
+
+  const emailDict = await getEmailDictionary(lang);
+  const subDict = emailDict.event_attendant.subscription;
+
+  const vars = {
+    attendant_name: result.fullName ?? '',
+    event_title: emailData.eventTitle,
+    public_url: publicUrl,
+    location: emailData.location ?? '--',
+    talk_to: emailData.talkTo ?? '--',
+    price: emailData.price ?? '--',
+    currency: '',
+    start_date: emailData.startDate ? new Date(emailData.startDate).toLocaleString() : '--',
+    end_date: emailData.endDate ? new Date(emailData.endDate).toLocaleString() : '--',
+    unsubscribe_link: unsubscribeLink,
+    company_name: emailData.companyName,
+  };
+
+  await sendMail({
+    sendTo: result.email!,
+    subject: applyTemplate(subDict.subject, vars),
+    text: applyTemplate(subDict.body_txt, vars),
+    html: applyTemplate(subDict.body_html, vars),
+  });
+
+  if (emailData.organizerEmail) {
+    const orgDict = emailDict.organizer.new_attendant;
+    const orgVars = {
+      event_title: emailData.eventTitle,
+      attendant_name: result.fullName ?? '',
+      attendant_email: result.email ?? '',
+    };
+    await sendMail({
+      sendTo: emailData.organizerEmail,
+      subject: applyTemplate(orgDict.subject, orgVars),
+      text: applyTemplate(orgDict.body_txt, orgVars),
+      html: applyTemplate(orgDict.body_html, orgVars),
+    });
+  }
+
+  return result;
+};
+
+export const unsubscribeFromEvent = async ({
+  eventId,
+  eventAttendantUuid,
+  eventAttendantEmail,
+  lang,
+  emailData,
+  alreadyUnsubscribedText,
+}: {
+  eventId: string;
+  eventAttendantUuid: string;
+  eventAttendantEmail: string;
+  lang: Locale;
+  emailData: Pick<EventEmailData, 'eventTitle' | 'companyName' | 'organizationSlug' | 'eventSlug'>;
+  alreadyUnsubscribedText?: string;
+}) => {
+  const result = await removeEventAttendant({ eventId, eventAttendantUuid, alreadyUnsubscribedText });
+
+  const publicSlug = getPublicEventSlug(emailData.eventSlug, emailData.organizationSlug);
+  const publicUrl = getPublicEventUrl(publicSlug);
+
+  const emailDict = await getEmailDictionary(lang);
+  const unsubDict = emailDict.event_attendant.unsubscription;
+
+  const vars = {
+    event_title: emailData.eventTitle,
+    company_name: emailData.companyName,
+    public_url: publicUrl,
+  };
+
+  await sendMail({
+    sendTo: eventAttendantEmail,
+    subject: applyTemplate(unsubDict.subject, vars),
+    text: applyTemplate(unsubDict.body_txt, vars),
+    html: applyTemplate(unsubDict.body_html, vars),
+  });
+
+  return result;
 };

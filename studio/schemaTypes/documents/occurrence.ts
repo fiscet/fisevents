@@ -135,6 +135,13 @@ export default defineType({
       hidden: true,
     }),
     defineField({
+      name: 'reminderSentAt',
+      title: 'Reminder Sent At',
+      type: 'datetime',
+      hidden: true,
+      readOnly: true,
+    }),
+    defineField({
       title: 'Created by',
       name: 'createdByUser',
       type: 'reference',

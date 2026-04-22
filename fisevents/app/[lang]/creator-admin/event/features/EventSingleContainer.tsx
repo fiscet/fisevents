@@ -76,16 +76,43 @@ export default function EventSingleContainer({
     curLang
   );
 
+  const isPaymentPending =
+    !!eventSingleData?.pendingPayment || eventSingleData?.active === false;
+
   useEffect(() => {
     if (paymentStatus === 'success') {
       showNotification({
         title: s.success,
-        message: s.payment_success,
-        type: 'success',
+        message: isPaymentPending ? s.payment_processing : s.payment_success,
+        type: isPaymentPending ? 'info' : 'success',
+      });
+    } else if (paymentStatus === 'cancelled') {
+      showNotification({
+        title: s.error,
+        message: s.payment_cancelled,
+        type: 'error',
       });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (paymentStatus !== 'success' || !isPaymentPending) return;
+    const interval = setInterval(() => {
+      router.refresh();
+    }, 3000);
+    const warningTimeout = setTimeout(() => {
+      showNotification({
+        title: s.error,
+        message: s.payment_timeout_warning,
+        type: 'warning',
+      });
+    }, 30000);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(warningTimeout);
+    };
+  }, [paymentStatus, isPaymentPending, router, showNotification, s]);
 
   const isExistingEvent = !!eventSingleData;
 

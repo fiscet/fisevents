@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { sendMail } from '@/lib/send-mail';
+import { sendContactEmail } from '@/lib/mail-actions';
 import { Button } from '@/components/ui/button';
 
 type Props = {
@@ -52,15 +52,8 @@ export default function ContactForm({ labels: l }: Props) {
   const onSubmit = async (data: ContactFormValues) => {
     setStatus('sending');
 
-    const text = `Name: ${data.name}\nEmail: ${data.email}\n\n${data.message}`;
-    const html = `<p><strong>Name:</strong> ${data.name}</p><p><strong>Email:</strong> ${data.email}</p><p>${data.message}</p>`;
-
     try {
-      const res = await sendMail({
-        subject: `FisEvents - Contact form: ${data.name}`,
-        text,
-        html,
-      });
+      const res = await sendContactEmail({ name: data.name, email: data.email, message: data.message });
 
       if (res?.accepted?.length) {
         setStatus('success');
