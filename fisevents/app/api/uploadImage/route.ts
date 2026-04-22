@@ -36,9 +36,11 @@ export async function POST(req: Request) {
     const response: SuccessResponseType = { status: "success", id: '', url: '' };
 
     if (file.name) {
+      const buffer = Buffer.from(await file.arrayBuffer());
       const res = await sanityClient.assets
-        .upload('image', file, {
+        .upload('image', buffer, {
           filename: file.name,
+          contentType: file.type,
         });
 
       response.id = res._id;
