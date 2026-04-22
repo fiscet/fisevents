@@ -164,6 +164,7 @@ export type Occurrence = {
   >;
   pendingPayment?: boolean;
   stripeSessionId?: string;
+  reminderSentAt?: string;
   createdByUser?: {
     _ref: string;
     _type: 'reference';

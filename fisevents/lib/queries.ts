@@ -80,6 +80,7 @@ export const eventSingleByIdQuery = defineQuery(`*[_type == "occurrence" && crea
   endDate,
   publicationStartDate,
   active,
+  pendingPayment,
   attendants
 }`);
 

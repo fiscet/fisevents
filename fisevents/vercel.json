@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/stripe/reconcile",
+      "schedule": "0 * * * *"
+    },
+    {
+      "path": "/api/cron/event-reminders",
+      "schedule": "0 * * * *"
+    }
+  ]
+}

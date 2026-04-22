@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useTransition } from 'react';
+import { useState, useTransition } from 'react';
 import { Button } from '@/components/ui/button';
 import { unsubscribeFromEvent } from '@/lib/actions';
 import { useNotification } from '@/components/Notification/useNotification';
@@ -32,54 +32,54 @@ export default function EventUnsuscribe({
   lang,
 }: EventUnsuscribeProps) {
   const [isSaving, startProcessing] = useTransition();
-  const [isConfirmed, setIsConfirmed] = useState(false);
+  const [isDone, setIsDone] = useState(false);
 
   const { public: d } = useDictionary();
   const { showNotification } = useNotification();
 
-  const publicEventSlug = getPublicEventSlug(eventSlug, organizationSlug);
-  const publicUrl = getPublicEventUrl(publicEventSlug);
+  const publicUrl = getPublicEventUrl(getPublicEventSlug(eventSlug, organizationSlug));
 
-  useEffect(() => {
-    if (!isConfirmed) return;
-
-    startProcessing(() => {
-      unsubscribeFromEvent({
-        eventId,
-        eventAttendantUuid,
-        eventAttendantEmail,
-        lang,
-        emailData: { eventTitle, companyName, organizationSlug, eventSlug },
-        alreadyUnsubscribedText: d.errors.already_unsubscribed,
-      })
-        .then(() => {
-          showNotification({ title: 'Success', message: d.unsuscribe_success, type: 'success' });
-        })
-        .catch((e) => {
-          const message = e instanceof Error ? e.message : d.errors.generic;
-          showNotification({ title: 'Error', message, type: 'error' });
-          setIsConfirmed(false);
+  const handleUnsubscribe = () => {
+    startProcessing(async () => {
+      try {
+        await unsubscribeFromEvent({
+          eventId,
+          eventAttendantUuid,
+          eventAttendantEmail,
+          lang,
+          emailData: { eventTitle, companyName, organizationSlug, eventSlug },
+          alreadyUnsubscribedText: d.errors.already_unsubscribed,
         });
+        showNotification({ title: 'Success', message: d.unsuscribe_success, type: 'success' });
+        setIsDone(true);
+      } catch (e) {
+        const message = e instanceof Error ? e.message : d.errors.generic;
+        showNotification({ title: 'Error', message, type: 'error' });
+      }
     });
-  }, [isConfirmed]); // eslint-disable-line react-hooks/exhaustive-deps
+  };
 
-  return !isConfirmed ? (
+  if (isDone) {
+    return (
+      <>
+        <p>If you want to subscribe again click this link:</p>
+        <Link className="text-fe-secondary" href={publicUrl}>
+          {publicUrl}
+        </Link>
+      </>
+    );
+  }
+
+  return (
     <>
+      {isSaving && <Processing text={d.unsubscribing} />}
       <h1 className="text-2xl font-bold text-center mb-5">{d.unsuscribe_title}</h1>
       <p className="text-center mb-5">{d.unsuscribe_confirm}</p>
       <div className="flex justify-center mb-5">
-        <Button variant="destructive" onClick={() => setIsConfirmed(true)}>
+        <Button variant="destructive" onClick={handleUnsubscribe} disabled={isSaving}>
           {d.unsuscribe_confirm_yes}
         </Button>
       </div>
-    </>
-  ) : (
-    <>
-      {isSaving && <Processing text={d.unsubscribing} />}
-      <p>If you want to subscribe again click this link:</p>
-      <Link className="text-fe-secondary" href={publicUrl}>
-        {publicUrl}
-      </Link>
     </>
   );
 }

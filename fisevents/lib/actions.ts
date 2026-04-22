@@ -157,6 +157,44 @@ export const getMonthlyEventCount = async ({ userId }: { userId: string }) => {
   );
 };
 
+async function startCheckoutForEvent({
+  occurrenceId,
+  title,
+  lang,
+}: {
+  occurrenceId: string;
+  title?: string;
+  lang: string;
+}): Promise<string> {
+  const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3000';
+  const checkoutSession = await stripe.checkout.sessions.create({
+    mode: 'payment',
+    line_items: [
+      {
+        price_data: {
+          currency: 'eur',
+          product_data: { name: `Pubblicazione evento: ${title ?? 'Nuovo evento'}` },
+          unit_amount: PUBLISH_PRICE_CENTS,
+        },
+        quantity: 1,
+      },
+    ],
+    metadata: { occurrenceId },
+    success_url: `${baseUrl}/${lang}/creator-admin/event/${occurrenceId}?payment=success`,
+    cancel_url: `${baseUrl}/api/stripe/cancel?occurrenceId=${occurrenceId}&lang=${lang}`,
+  });
+
+  await sanityClient
+    .patch(occurrenceId)
+    .set({ stripeSessionId: checkoutSession.id })
+    .commit()
+    .catch((e) => {
+      console.error('Failed to persist stripeSessionId on pending event:', e);
+    });
+
+  return checkoutSession.url!;
+}
+
 export const createEvent = async ({
   data,
   lang = 'it',
@@ -173,33 +211,65 @@ export const createEvent = async ({
     const pendingData = { ...data, active: false, pendingPayment: true } as unknown as Occurrence;
     const pendingEvent = await sanityClient.create<Occurrence>(pendingData);
 
-    const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3000';
-
-    const checkoutSession = await stripe.checkout.sessions.create({
-      mode: 'payment',
-      line_items: [
-        {
-          price_data: {
-            currency: 'eur',
-            product_data: { name: `Pubblicazione evento: ${data.title ?? 'Nuovo evento'}` },
-            unit_amount: PUBLISH_PRICE_CENTS,
-          },
-          quantity: 1,
-        },
-      ],
-      metadata: { occurrenceId: pendingEvent._id },
-      success_url: `${baseUrl}/${lang}/creator-admin/event/${pendingEvent._id}?payment=success`,
-      cancel_url: `${baseUrl}/api/stripe/cancel?occurrenceId=${pendingEvent._id}&lang=${lang}`,
-    });
-
-    return {
-      _id: pendingEvent._id,
-      requiresPayment: true as const,
-      paymentUrl: checkoutSession.url!,
-    };
+    try {
+      const paymentUrl = await startCheckoutForEvent({
+        occurrenceId: pendingEvent._id,
+        title: data.title,
+        lang,
+      });
+      return {
+        _id: pendingEvent._id,
+        requiresPayment: true as const,
+        paymentUrl,
+      };
+    } catch (err) {
+      await sanityClient.delete(pendingEvent._id).catch((e) => {
+        console.error('Failed to rollback pending event after Stripe error:', e);
+      });
+      throw err;
+    }
   }
 
   const res = await sanityClient.create<Occurrence>(data);
+
+  const monthStart = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    1
+  ).toISOString();
+  const freeThisMonth = await sanityClient.fetch<
+    Array<{ _id: string; _createdAt: string }>
+  >(
+    `*[_type == "occurrence" && createdByUser._ref == $userId && _createdAt >= $monthStart && pendingPayment != true] | order(_createdAt asc) {_id, _createdAt}`,
+    { userId, monthStart },
+    { cache: 'no-store' }
+  );
+
+  const firstFreeId = freeThisMonth[0]?._id;
+  if (freeThisMonth.length > 1 && firstFreeId !== res._id) {
+    await sanityClient
+      .patch(res._id)
+      .set({ active: false, pendingPayment: true })
+      .commit();
+    try {
+      const paymentUrl = await startCheckoutForEvent({
+        occurrenceId: res._id,
+        title: data.title,
+        lang,
+      });
+      return {
+        _id: res._id,
+        requiresPayment: true as const,
+        paymentUrl,
+      };
+    } catch (err) {
+      await sanityClient.delete(res._id).catch((e) => {
+        console.error('Failed to rollback pending event after Stripe error:', e);
+      });
+      throw err;
+    }
+  }
+
   revalidateTags(['eventList']);
   return { ...res, requiresPayment: false as const };
 };

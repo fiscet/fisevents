@@ -20,6 +20,13 @@ const groups = [
       ['occurrence'],
       ['eventType']
     ]
+  },
+  {
+    name: 'Payments',
+    icon: BsGraphUp,
+    menuGroups: [
+      ['paymentEvent']
+    ]
   }
 ];
 

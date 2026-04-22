@@ -235,7 +235,10 @@
         "send": "Invia",
         "ok_text": "Grazie per il tuo feedback. Ti risponderemo presto."
       },
-      "payment_success": "Pagamento completato! Il tuo evento è ora pubblicato."
+      "payment_success": "Pagamento completato! Il tuo evento è ora pubblicato.",
+      "payment_cancelled": "Pagamento annullato. L'evento non è stato pubblicato.",
+      "payment_processing": "Stiamo confermando il pagamento. La pagina si aggiornerà automaticamente.",
+      "payment_timeout_warning": "La conferma del pagamento sta richiedendo più del previsto. Se ti è stato addebitato, il tuo evento verrà pubblicato automaticamente non appena il sistema si sincronizza."
     },
     "account": {
       "userAccount": "Account utente",
