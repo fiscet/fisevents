@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
   }
 
   const now = new Date();
-  const in24h = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+  const windowEnd = new Date(now.getTime() + 48 * 60 * 60 * 1000);
 
   const events = await sanityClient.fetch<ReminderEvent[]>(
     `*[_type == "occurrence"
@@ -53,7 +53,7 @@ export async function GET(req: NextRequest) {
       "organizationSlug": createdByUser->slug.current,
       attendants[] { _key, fullName, email }
     }`,
-    { nowIso: now.toISOString(), windowEndIso: in24h.toISOString() }
+    { nowIso: now.toISOString(), windowEndIso: windowEnd.toISOString() }
   );
 
   const results: Array<{
