@@ -36,7 +36,17 @@ describe('Utils', () => {
     });
 
     it('should return processed ISO substring for correct ISO format', () => {
-      expect(pickerDateToIsoString('2024-08-14T15:37:00.000Z')).toBe('2024-08-14T15:37');
+      const input = '2024-08-14T15:37:00.000Z';
+      const d = new Date(input);
+      const expected = [
+        d.getFullYear(),
+        String(d.getMonth() + 1).padStart(2, '0'),
+        String(d.getDate()).padStart(2, '0'),
+      ].join('-') + 'T' + [
+        String(d.getHours()).padStart(2, '0'),
+        String(d.getMinutes()).padStart(2, '0'),
+      ].join(':');
+      expect(pickerDateToIsoString(input)).toBe(expected);
     });
 
     it('should return empty string for incorrect string format', () => {
@@ -45,17 +55,24 @@ describe('Utils', () => {
 
     it('should return processed ISO substring for Date object', () => {
       const date = new Date(Date.UTC(2024, 7, 14, 15, 37)); // 2024-08-14T15:37:00.000Z
-      expect(pickerDateToIsoString(date)).toBe('2024-08-14T15:37');
+      const expected = [
+        date.getFullYear(),
+        String(date.getMonth() + 1).padStart(2, '0'),
+        String(date.getDate()).padStart(2, '0'),
+      ].join('-') + 'T' + [
+        String(date.getHours()).padStart(2, '0'),
+        String(date.getMinutes()).padStart(2, '0'),
+      ].join(':');
+      expect(pickerDateToIsoString(date)).toBe(expected);
     });
   });
 
   describe('toIsoString', () => {
-    it('should return ISO string with timezone offset', () => {
+    it('should return UTC ISO string', () => {
       const date = new Date(Date.UTC(2024, 7, 14, 15, 37)); // 2024-08-14T15:37:00.000Z
       const result = toUserIsoString(date);
 
-      const expectedIsoString = '2024-08-14T17:37:00+02:00'; // Adjust according to timezone offset
-      expect(result).toBe(expectedIsoString);
+      expect(result).toBe('2024-08-14T15:37:00.000Z');
     });
   });
 

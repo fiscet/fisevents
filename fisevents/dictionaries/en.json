@@ -366,7 +366,7 @@
   "public": {
     "event_not_found": "Event not found",
     "event_not_available": "Event not yet available",
-    "event_pending_payment": "This event is not yet public because the organiser has not completed the publication payment.",
+    "event_pending_payment": "This event is not yet public because the organiser has not completed the publication.",
     "dates": "Dates",
     "from_date": "From",
     "to_date": "To",
