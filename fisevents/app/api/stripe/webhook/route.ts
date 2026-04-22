@@ -17,6 +17,7 @@ async function logPaymentEvent(data: {
   stripeEventId: string;
   eventType: string;
   occurrenceId?: string;
+  eventTitle?: string;
   sessionId?: string;
   status: 'received' | 'processed' | 'failed' | 'skipped';
   errorMessage?: string;
@@ -63,10 +64,12 @@ export async function POST(req: Request) {
 
   const session = event.data.object as Stripe.Checkout.Session;
   const occurrenceId = session.metadata?.occurrenceId;
+  const eventTitle = session.metadata?.eventTitle;
   const eventBase = {
     stripeEventId: event.id,
     eventType: event.type,
     occurrenceId,
+    eventTitle,
     sessionId: session.id,
     amount: session.amount_total ?? undefined,
     currency: session.currency ?? undefined,
@@ -98,6 +101,18 @@ export async function POST(req: Request) {
         const creatorName = eventInfo.creatorName ?? '';
         const eventTitle = eventInfo.title ?? '';
 
+        const adminEmail = process.env.SITE_MAIL_RECEIVING;
+        if (adminEmail) {
+          void sendMail({
+            sendTo: adminEmail,
+            subject: `[FisEvents] Pagamento ricevuto - ${eventTitle || 'Evento'}`,
+            text: `Nuovo pagamento confermato.\n\nEvento: ${eventTitle}\nCreatore: ${creatorName} (${eventInfo.creatorEmail})\nSessione Stripe: ${session.id}\nImporto: €${((session.amount_total ?? 0) / 100).toFixed(2)}\n`,
+            html: `<h2>Nuovo pagamento ricevuto</h2><table><tr><td><strong>Evento:</strong></td><td>${eventTitle}</td></tr><tr><td><strong>Creatore:</strong></td><td>${creatorName} (${eventInfo.creatorEmail})</td></tr><tr><td><strong>Sessione Stripe:</strong></td><td>${session.id}</td></tr><tr><td><strong>Importo:</strong></td><td>€${((session.amount_total ?? 0) / 100).toFixed(2)}</td></tr></table>`,
+          }).catch((err) => {
+            console.error('Admin payment notification email failed:', err);
+          });
+        }
+
         void sendMail({
           sendTo: eventInfo.creatorEmail,
           subject: `Pagamento confermato - ${eventTitle || 'Evento'}`,
@@ -115,15 +130,29 @@ export async function POST(req: Request) {
       if (stillPending) {
         await sanityClient.delete(occurrenceId);
         revalidateTag('eventList');
+      } else {
+        await logPaymentEvent({
+          ...eventBase,
+          status: 'skipped',
+          errorMessage: 'Pending event already removed',
+        });
+        return new Response(null, { status: 200 });
       }
     }
 
     await logPaymentEvent({ ...eventBase, status: 'processed' });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    await logPaymentEvent({ ...eventBase, status: 'failed', errorMessage: message });
-    console.error('Webhook processing failed:', err);
-    return new Response('Internal error', { status: 500 });
+    const isNotFound = message.includes('was not found');
+    await logPaymentEvent({
+      ...eventBase,
+      status: isNotFound ? 'skipped' : 'failed',
+      errorMessage: message,
+    });
+    if (!isNotFound) {
+      console.error('Webhook processing failed:', err);
+      return new Response('Internal error', { status: 500 });
+    }
   }
 
   return new Response(null, { status: 200 });

@@ -19,23 +19,37 @@ import { useDictionary } from '@/app/contexts/DictionaryContext';
 import { getEventStatus } from '@/lib/utils';
 import { EventFilterType } from '@/types/custom.types';
 
+function PaymentBadge({ row, pendingLabel }: { row: OccurrenceList; pendingLabel: string }) {
+  if (row.pendingPayment) {
+    return <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 whitespace-nowrap">{pendingLabel}</span>;
+  }
+  if (!row.active) {
+    return <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600 whitespace-nowrap">Inactive</span>;
+  }
+  return null;
+}
+
 function getColumns(
   lang: Locale,
-  d: Awaited<ReturnType<typeof getDictionary>>['creator_admin']['events']
+  d: Awaited<ReturnType<typeof getDictionary>>['creator_admin']['events'],
+  pendingLabel: string
 ) {
   const columns = [
     {
       name: d.status,
       cell: (row) => {
         return (
-          <EventStatusIcon
-            status={getEventStatus(
-              row.startDate!,
-              row.endDate!,
-              row.publicationStartDate
-            )}
-            inset="4px"
-          />
+          <div className="flex flex-col gap-1 items-center">
+            <EventStatusIcon
+              status={getEventStatus(
+                row.startDate!,
+                row.endDate!,
+                row.publicationStartDate
+              )}
+              inset="4px"
+            />
+            <PaymentBadge row={row} pendingLabel={pendingLabel} />
+          </div>
         );
       },
       width: '120px',
@@ -135,7 +149,7 @@ export default function EventList({ eventListData }: EventListProps) {
   const curLang = useCurrentLang();
 
   const { creator_admin: ca } = useDictionary();
-  const { events: d } = ca;
+  const { events: d, attendants: att } = ca;
 
   const [filter, setFilter] = useState<EventFilterType>('all');
 
@@ -202,7 +216,7 @@ export default function EventList({ eventListData }: EventListProps) {
         }
       />
       <DataTable
-        columns={getColumns(curLang, d)}
+        columns={getColumns(curLang, d, att.payment_pending)}
         data={filterEvents(eventListData)}
         pagination
         paginationComponentOptions={{ rowsPerPageText: d.rows_per_page, rangeSeparatorText: d.of }}

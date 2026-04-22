@@ -1,16 +1,15 @@
 import { StructureBuilder } from "sanity/structure";
 import { FaHouseUser } from "react-icons/fa";
-import { BsCalendarEventFill } from "react-icons/bs";
+import { BsCalendarEventFill, BsGearFill } from "react-icons/bs";
 import { BsGraphUp } from "react-icons/bs";
 import Dashboard from "./components/Dashboard";
 
 const groups = [
   {
-    name: 'Auth & Users',
+    name: 'Users',
     icon: FaHouseUser,
     menuGroups: [
       ['user'],
-      ['account', 'verificationToken'],
     ]
   },
   {
@@ -27,7 +26,14 @@ const groups = [
     menuGroups: [
       ['paymentEvent']
     ]
-  }
+  },
+  {
+    name: 'System (auth internals)',
+    icon: BsGearFill,
+    menuGroups: [
+      ['account', 'verificationToken'],
+    ]
+  },
 ];
 
 export const structure = (S: StructureBuilder) =>

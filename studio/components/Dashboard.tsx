@@ -13,10 +13,11 @@ import {
 interface DashboardStats {
   totalEvents: number;
   activeEvents: number;
+  pendingPaymentEvents: number;
   upcomingEvents: number;
   pastEvents: number;
   totalAttendees: number;
-  totalRevenue: number;
+  platformRevenue: number;
   averageAttendeesPerEvent: number;
   eventsThisMonth: number;
 }
@@ -29,47 +30,51 @@ export default function Dashboard() {
   useEffect(() => {
     async function fetchStats() {
       try {
-        // Fetch all occurrences
-        const occurrences = await client.fetch(`
-          *[_type == "occurrence"] {
-            _id,
-            title,
-            startDate,
-            endDate,
-            active,
-            attendants,
-            basicPrice,
-            currency
-          }
-        `);
+        const [occurrences, paymentEvents] = await Promise.all([
+          client.fetch(`
+            *[_type == "occurrence"] {
+              _id,
+              title,
+              startDate,
+              endDate,
+              active,
+              pendingPayment,
+              attendants
+            }
+          `),
+          client.fetch(`
+            *[_type == "paymentEvent" && status == "processed" && eventType == "checkout.session.completed"] {
+              amount
+            }
+          `),
+        ]);
 
         const now = new Date();
         const thisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
         const stats: DashboardStats = {
           totalEvents: occurrences.length,
-          activeEvents: occurrences.filter((event: any) => event.active).length,
-          upcomingEvents: occurrences.filter((event: any) => 
-            event.startDate && new Date(event.startDate) > now
+          activeEvents: occurrences.filter((e: any) => e.active).length,
+          pendingPaymentEvents: occurrences.filter((e: any) => e.pendingPayment).length,
+          upcomingEvents: occurrences.filter((e: any) =>
+            e.startDate && new Date(e.startDate) > now
           ).length,
-          pastEvents: occurrences.filter((event: any) => 
-            event.endDate && new Date(event.endDate) < now
+          pastEvents: occurrences.filter((e: any) =>
+            e.endDate && new Date(e.endDate) < now
           ).length,
-          totalAttendees: occurrences.reduce((sum: number, event: any) => 
-            sum + (event.attendants?.length || 0), 0
+          totalAttendees: occurrences.reduce((sum: number, e: any) =>
+            sum + (e.attendants?.length || 0), 0
           ),
-          totalRevenue: occurrences.reduce((sum: number, event: any) => {
-            const attendees = event.attendants?.length || 0;
-            const price = event.basicPrice || 0;
-            return sum + (attendees * price);
-          }, 0),
-          averageAttendeesPerEvent: occurrences.length > 0 
-            ? Math.round(occurrences.reduce((sum: number, event: any) => 
-                sum + (event.attendants?.length || 0), 0) / occurrences.length)
+          platformRevenue: paymentEvents.reduce((sum: number, pe: any) =>
+            sum + (pe.amount || 0), 0
+          ) / 100,
+          averageAttendeesPerEvent: occurrences.length > 0
+            ? Math.round(occurrences.reduce((sum: number, e: any) =>
+                sum + (e.attendants?.length || 0), 0) / occurrences.length)
             : 0,
-          eventsThisMonth: occurrences.filter((event: any) => 
-            event.startDate && new Date(event.startDate) >= thisMonth
-          ).length
+          eventsThisMonth: occurrences.filter((e: any) =>
+            e.startDate && new Date(e.startDate) >= thisMonth
+          ).length,
         };
 
         setStats(stats);
@@ -166,7 +171,15 @@ export default function Dashboard() {
           icon={BsCalendarCheck}
           tone="positive"
         />
-        
+
+        <StatCard
+          title="Pending Payment"
+          value={stats.pendingPaymentEvents}
+          icon={BsCurrencyDollar}
+          tone={stats.pendingPaymentEvents > 0 ? 'caution' : 'primary'}
+          subtitle="awaiting Stripe confirmation"
+        />
+
         <StatCard
           title="Upcoming Events"
           value={stats.upcomingEvents}
@@ -189,10 +202,11 @@ export default function Dashboard() {
         />
         
         <StatCard
-          title="Total Revenue"
-          value={`€${stats.totalRevenue.toLocaleString()}`}
+          title="Platform Revenue"
+          value={`€${stats.platformRevenue.toLocaleString('it-IT', { minimumFractionDigits: 2 })}`}
           icon={BsCurrencyDollar}
           tone="positive"
+          subtitle="confirmed Stripe payments"
         />
         
         <StatCard

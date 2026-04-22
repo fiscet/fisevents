@@ -235,6 +235,8 @@
         "send": "Küldés",
         "ok_text": "Köszönjük a visszajelzést! Hamarosan kapcsolatba lépünk Önnel."
       },
+      "payment_pending_notice": "Ez az esemény még nem lett közzétéve, mert a fizetés nem fejeződött be.",
+      "complete_payment": "Fizetés befejezése",
       "payment_success": "A fizetés sikeres! Az eseményed most megjelent.",
       "payment_cancelled": "A fizetés megszakadt. Az esemény nem lett közzétéve.",
       "payment_processing": "A fizetés megerősítése folyamatban. Az oldal automatikusan frissül.",
@@ -363,6 +365,8 @@
   },
   "public": {
     "event_not_found": "Esemény nem található",
+    "event_not_available": "Az esemény még nem elérhető",
+    "event_pending_payment": "Ez az esemény még nem nyilvános, mert a szervező nem fejezte be a közzétételi díj fizetését.",
     "dates": "Dátumok",
     "from_date": "Ettől a dátumtól",
     "to_date": "Eddig a dátumig",

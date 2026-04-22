@@ -6,6 +6,7 @@ import {
   eventMonthlyCountQuery,
   eventSingleByIdQuery,
   eventSingleBySlugQuery,
+  eventStatusBySlugQuery,
   eventSingleHasAttendantByEmailQuery,
   eventSingleHasAttendantByUuidQuery,
   eventIdQuery,
@@ -95,16 +96,10 @@ export const getEventIdList = async ({
   );
 };
 
-export const getEventList = async ({
-  createdBy,
-  active = true,
-}: {
-  createdBy: string;
-  active?: boolean;
-}) => {
+export const getEventList = async ({ createdBy }: { createdBy: string }) => {
   return await sanityClient.fetch<OccurrenceList[]>(
     eventListQuery,
-    { createdBy, active },
+    { createdBy },
     { next: { tags: ['eventList'] } }
   );
 };
@@ -129,6 +124,55 @@ export const getEventSingleBySlug = async ({ slug }: { slug: string }) => {
     { publicSlug: slug },
     { next: { tags: [`eventSingleBySlug:${slug}`] } }
   );
+};
+
+export const getEventStatusBySlug = async ({ slug }: { slug: string }) => {
+  return await sanityClient.fetch<{ title: string; active: boolean; pendingPayment: boolean } | null>(
+    eventStatusBySlugQuery,
+    { publicSlug: slug },
+    { cache: 'no-store' }
+  );
+};
+
+export const resumeOrCreateCheckout = async ({
+  occurrenceId,
+  lang = 'it',
+}: {
+  occurrenceId: string;
+  lang?: string;
+}) => {
+  const session = await validateSession();
+  const userId = session.user!.uid as string;
+
+  const occ = await sanityClient.fetch<{
+    _id: string;
+    title?: string;
+    stripeSessionId?: string;
+    pendingPayment?: boolean;
+    createdByUser?: { _ref: string };
+  } | null>(
+    `*[_type == "occurrence" && _id == $id][0] { _id, title, stripeSessionId, pendingPayment, createdByUser }`,
+    { id: occurrenceId }
+  );
+
+  if (!occ || occ.createdByUser?._ref !== userId) {
+    throw new Error('Not found or unauthorized');
+  }
+
+  if (occ.stripeSessionId) {
+    const existing = await stripe.checkout.sessions.retrieve(occ.stripeSessionId);
+    if (existing.status === 'open') {
+      return { paymentUrl: existing.url! };
+    }
+  }
+
+  const paymentUrl = await startCheckoutForEvent({
+    occurrenceId,
+    title: occ.title,
+    lang,
+  });
+
+  return { paymentUrl };
 };
 
 export const updateEvent = async ({
@@ -179,7 +223,7 @@ async function startCheckoutForEvent({
         quantity: 1,
       },
     ],
-    metadata: { occurrenceId },
+    metadata: { occurrenceId, eventTitle: title ?? '' },
     success_url: `${baseUrl}/${lang}/creator-admin/event/${occurrenceId}?payment=success`,
     cancel_url: `${baseUrl}/api/stripe/cancel?occurrenceId=${occurrenceId}&lang=${lang}`,
   });

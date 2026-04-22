@@ -235,6 +235,8 @@
         "send": "Send",
         "ok_text": "Thank you for your feedback. We will get back to you soon."
       },
+      "payment_pending_notice": "This event is not yet published because payment has not been completed.",
+      "complete_payment": "Complete payment",
       "payment_success": "Payment completed! Your event is now published.",
       "payment_cancelled": "Payment cancelled. The event has not been published.",
       "payment_processing": "Confirming your payment. This page will refresh automatically.",
@@ -363,6 +365,8 @@
   },
   "public": {
     "event_not_found": "Event not found",
+    "event_not_available": "Event not yet available",
+    "event_pending_payment": "This event is not yet public because the organiser has not completed the publication payment.",
     "dates": "Dates",
     "from_date": "From",
     "to_date": "To",

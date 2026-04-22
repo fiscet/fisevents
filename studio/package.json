@@ -12,7 +12,7 @@
     "prebuild": "npm run gen-types",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy",
-    "gen-types": "sanity schema extract --path ../fisevents/types/sanity.schema.json && sanity typegen generate"
+    "gen-types": "sanity schema extract --workspace production --path ../fisevents/types/sanity.schema.json && sanity typegen generate --workspace production"
   },
   "keywords": [
     "sanity"

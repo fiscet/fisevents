@@ -45,21 +45,9 @@ describe('Actions', () => {
       (sanityClient.fetch as jest.Mock).mockResolvedValue(mockData);
 
       const createdBy = 'user1';
-      const active = true;
-      const result = await getEventList({ createdBy, active });
-
-      expect(sanityClient.fetch).toHaveBeenCalledWith(expect.anything(), { createdBy, active }, { next: { tags: ['eventList'] } });
-      expect(result).toEqual(mockData);
-    });
-
-    it('should default active to true if not provided', async () => {
-      const mockData: OccurrenceList[] = [];
-      (sanityClient.fetch as jest.Mock).mockResolvedValue(mockData);
-
-      const createdBy = 'user1';
       const result = await getEventList({ createdBy });
 
-      expect(sanityClient.fetch).toHaveBeenCalledWith(expect.anything(), { createdBy, active: true }, { next: { tags: ['eventList'] } });
+      expect(sanityClient.fetch).toHaveBeenCalledWith(expect.anything(), { createdBy }, { next: { tags: ['eventList'] } });
       expect(result).toEqual(mockData);
     });
   });
