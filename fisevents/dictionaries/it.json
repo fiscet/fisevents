@@ -366,7 +366,7 @@
   "public": {
     "event_not_found": "Evento non trovato",
     "event_not_available": "Evento non ancora disponibile",
-    "event_pending_payment": "Questo evento non è ancora pubblico perché l'organizzatore non ha completato il pagamento per la pubblicazione.",
+    "event_pending_payment": "Questo evento non è ancora pubblico perché l'organizzatore non ha completato la pubblicazione.",
     "dates": "Date",
     "from_date": "Dal",
     "to_date": "Al",

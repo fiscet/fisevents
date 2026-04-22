@@ -366,7 +366,7 @@
   "public": {
     "event_not_found": "Esemény nem található",
     "event_not_available": "Az esemény még nem elérhető",
-    "event_pending_payment": "Ez az esemény még nem nyilvános, mert a szervező nem fejezte be a közzétételi díj fizetését.",
+    "event_pending_payment": "Ez az esemény még nem nyilvános, mert a szervező nem fejezte be az esemény közzétételét.",
     "dates": "Dátumok",
     "from_date": "Ettől a dátumtól",
     "to_date": "Eddig a dátumig",
