@@ -20,5 +20,6 @@ export type PublicOccurrenceSingle = Partial<Occurrence> & {
   price: string;
   companyName: string;
   organizationSlug: string;
+  organizerEmail: string;
 };
 

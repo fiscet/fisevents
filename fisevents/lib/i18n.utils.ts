@@ -13,7 +13,7 @@ const emailDictionaries = {
   it: () =>
     import('../dictionaries/email/it.json').then(module => module.default),
   hu: () =>
-    import('../dictionaries/email/hu.json').then(module => module.default)
+    import('../dictionaries/email/hu.json').then(module => module.default),
 };
 
 export const getDictionary = async (locale: Locale) =>

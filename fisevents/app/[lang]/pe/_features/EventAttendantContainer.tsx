@@ -20,13 +20,17 @@ export type EventAttendantContainerProps = {
   emailDictionary: Awaited<
     ReturnType<typeof getEmailDictionary>
   >['event_attendant']['subscription'];
+  organizerEmailDictionary: Awaited<
+    ReturnType<typeof getEmailDictionary>
+  >['organizer']['new_attendant'];
 };
 
 export default function EventAttendantContainer({
   lang,
   eventData,
   eventSlug,
-  emailDictionary
+  emailDictionary,
+  organizerEmailDictionary,
 }: EventAttendantContainerProps) {
   const { isSaving, startProcessing, isSubscribed, setIsSubscribed } = useEventSubscription();
 
@@ -52,6 +56,7 @@ export default function EventAttendantContainer({
 
   const handleAttendandSubmit = useManageSubscription({
     eventId: eventData._id!,
+    organizerEmail: eventData.organizerEmail,
     startProcessing,
     setIsSubscribed,
     prepareEmailContent: (addAttendantRes) => {
@@ -66,7 +71,19 @@ export default function EventAttendantContainer({
         text: prepareEmailBodyTxt(addAttendantRes.fullName!, unsubscribeLink),
         html: prepareEmailBodyHtml(addAttendantRes.fullName!, unsubscribeLink)
       };
-    }
+    },
+    prepareOrganizerEmailContent: (addAttendantRes) => {
+      const subject = organizerEmailDictionary.subject.replace('%event_title%', eventData.title ?? '');
+      const text = organizerEmailDictionary.body_txt
+        .replaceAll('%event_title%', eventData.title ?? '')
+        .replaceAll('%attendant_name%', addAttendantRes.fullName ?? '')
+        .replaceAll('%attendant_email%', addAttendantRes.email ?? '');
+      const html = organizerEmailDictionary.body_html
+        .replaceAll('%event_title%', eventData.title ?? '')
+        .replaceAll('%attendant_name%', addAttendantRes.fullName ?? '')
+        .replaceAll('%attendant_email%', addAttendantRes.email ?? '');
+      return { subject, text, html };
+    },
   });
 
   return (

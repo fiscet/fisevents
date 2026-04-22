@@ -9,9 +9,15 @@ import { useDictionary } from '@/app/contexts/DictionaryContext';
 
 type ManageSubscriptionProps = {
   eventId: string;
+  organizerEmail?: string;
   startProcessing: (callback: () => void) => void;
   setIsSubscribed: (value: boolean) => void;
   prepareEmailContent: (addAttendantRes: Partial<EventAttendant>) => {
+    subject: string;
+    text: string;
+    html: string;
+  };
+  prepareOrganizerEmailContent: (addAttendantRes: Partial<EventAttendant>) => {
     subject: string;
     text: string;
     html: string;
@@ -20,9 +26,11 @@ type ManageSubscriptionProps = {
 
 export function useManageSubscription({
   eventId,
+  organizerEmail,
   startProcessing,
   setIsSubscribed,
   prepareEmailContent,
+  prepareOrganizerEmailContent,
 }: ManageSubscriptionProps) {
   const { showNotification } = useNotification();
 
@@ -33,7 +41,7 @@ export function useManageSubscription({
       startProcessing(async () => {
         try {
           const addAttendantRes = await addEventAttendant({
-            eventId: eventId,
+            eventId,
             eventAttendant: data
           });
 
@@ -55,6 +63,16 @@ export function useManageSubscription({
             if (emailRes?.accepted.length) {
               setIsSubscribed(true);
             }
+
+            if (organizerEmail) {
+              const org = prepareOrganizerEmailContent(addAttendantRes);
+              await sendMail({
+                sendTo: organizerEmail,
+                subject: org.subject,
+                text: org.text,
+                html: org.html,
+              });
+            }
           }
         } catch (e) {
           const message = e instanceof Error ? d.errors[e.message as keyof typeof d.errors] : d.errors.generic;
@@ -67,6 +85,6 @@ export function useManageSubscription({
         }
       });
     },
-    [eventId, startProcessing, d, showNotification, prepareEmailContent, setIsSubscribed]
+    [eventId, startProcessing, d, showNotification, prepareEmailContent, prepareOrganizerEmailContent, setIsSubscribed, organizerEmail]
   );
 }

@@ -3,6 +3,7 @@
 import { useEffect, useState, useTransition } from 'react';
 import { Button } from '@/components/ui/button';
 import { removeEventAttendant } from '@/lib/actions';
+import { sendMail } from '@/lib/send-mail';
 import { useNotification } from '@/components/Notification/useNotification';
 import Processing from '@/components/Processing';
 import { getPublicEventSlug, getPublicEventUrl } from '@/lib/utils';
@@ -14,13 +15,25 @@ export type EventUnsuscribeProps = {
   eventSlug: string;
   organizationSlug: string;
   eventAttendantUuid: string;
+  eventAttendantEmail: string;
+  eventTitle: string;
+  companyName: string;
+  emailDictionary: {
+    subject: string;
+    body_txt: string;
+    body_html: string;
+  };
 };
 
 export default function EventUnsuscribe({
   eventId,
   eventSlug,
   organizationSlug,
-  eventAttendantUuid
+  eventAttendantUuid,
+  eventAttendantEmail,
+  eventTitle,
+  companyName,
+  emailDictionary,
 }: EventUnsuscribeProps) {
   const [isSaving, startProcessing] = useTransition();
   const [isConfirmed, setIsConfirmed] = useState(false);
@@ -48,6 +61,18 @@ export default function EventUnsuscribe({
               message: d.unsuscribe_success,
               type: 'success'
             });
+
+            const subject = emailDictionary.subject.replace('%event_title%', eventTitle);
+            const text = emailDictionary.body_txt
+              .replaceAll('%event_title%', eventTitle)
+              .replaceAll('%company_name%', companyName)
+              .replaceAll('%public_url%', publicUrl);
+            const html = emailDictionary.body_html
+              .replaceAll('%event_title%', eventTitle)
+              .replaceAll('%company_name%', companyName)
+              .replaceAll('%public_url%', publicUrl);
+
+            sendMail({ sendTo: eventAttendantEmail, subject, text, html });
           })
           .catch((e) => {
             const message = e instanceof Error ? e.message : d.errors.generic;
@@ -62,7 +87,7 @@ export default function EventUnsuscribe({
           });
       });
     }
-  }, [isConfirmed, d.errors.already_unsubscribed, d.unsuscribe_success, d.errors.generic, eventAttendantUuid, eventId, showNotification]);
+  }, [isConfirmed, d.errors.already_unsubscribed, d.unsuscribe_success, d.errors.generic, eventAttendantUuid, eventId, showNotification, emailDictionary, eventTitle, companyName, publicUrl, eventAttendantEmail]);
 
   return !isConfirmed ? (
     <>

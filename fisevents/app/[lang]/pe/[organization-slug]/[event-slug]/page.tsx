@@ -49,6 +49,7 @@ export default async function PublicEventPage({
                 eventData={eventData}
                 eventSlug={eventSlug}
                 emailDictionary={emailDictionary.event_attendant.subscription}
+                organizerEmailDictionary={emailDictionary.organizer.new_attendant}
               />
             </NotificationProvider>
           )}
