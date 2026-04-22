@@ -50,7 +50,7 @@ export const eventIdQuery = defineQuery(`*[_type == "occurrence" && active == $a
  _id
 }`);
 
-export const eventListQuery = defineQuery(`*[_type == "occurrence" && createdByUser._ref == $createdBy && active == $active ]|order(startDate desc) {
+export const eventListQuery = defineQuery(`*[_type == "occurrence" && createdByUser._ref == $createdBy]|order(startDate desc) {
   _id,
   title,
   slug,
@@ -58,7 +58,8 @@ export const eventListQuery = defineQuery(`*[_type == "occurrence" && createdByU
   endDate,
   publicationStartDate,
   'numAttendants': count(attendants),
-  active
+  active,
+  pendingPayment
 }`);
 
 export const eventSingleByIdQuery = defineQuery(`*[_type == "occurrence" && createdByUser._ref == $createdBy && _id == $id ][0] {
@@ -82,6 +83,13 @@ export const eventSingleByIdQuery = defineQuery(`*[_type == "occurrence" && crea
   active,
   pendingPayment,
   attendants
+}`);
+
+export const eventStatusBySlugQuery = defineQuery(`
+*[_type == "occurrence" && publicSlug == $publicSlug][0] {
+  title,
+  active,
+  pendingPayment
 }`);
 
 export const eventSingleBySlugQuery = defineQuery(`

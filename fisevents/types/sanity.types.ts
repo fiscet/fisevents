@@ -116,6 +116,24 @@ export type BlockContent = Array<
     }
 >;
 
+export type PaymentEvent = {
+  _id: string;
+  _type: 'paymentEvent';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  stripeEventId?: string;
+  eventType?: string;
+  occurrenceId?: string;
+  eventTitle?: string;
+  sessionId?: string;
+  status?: 'received' | 'processed' | 'failed' | 'skipped';
+  errorMessage?: string;
+  amount?: number;
+  currency?: string;
+  receivedAt?: string;
+};
+
 export type EventType = {
   _id: string;
   _type: 'eventType';
@@ -312,6 +330,7 @@ export type AllSanitySchemaTypes =
   | Geopoint
   | EventAttendant
   | BlockContent
+  | PaymentEvent
   | EventType
   | Occurrence
   | VerificationToken

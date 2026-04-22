@@ -235,6 +235,8 @@
         "send": "Invia",
         "ok_text": "Grazie per il tuo feedback. Ti risponderemo presto."
       },
+      "payment_pending_notice": "Questo evento non è ancora pubblicato perché il pagamento non è stato completato.",
+      "complete_payment": "Completa il pagamento",
       "payment_success": "Pagamento completato! Il tuo evento è ora pubblicato.",
       "payment_cancelled": "Pagamento annullato. L'evento non è stato pubblicato.",
       "payment_processing": "Stiamo confermando il pagamento. La pagina si aggiornerà automaticamente.",
@@ -363,6 +365,8 @@
   },
   "public": {
     "event_not_found": "Evento non trovato",
+    "event_not_available": "Evento non ancora disponibile",
+    "event_pending_payment": "Questo evento non è ancora pubblico perché l'organizzatore non ha completato il pagamento per la pubblicazione.",
     "dates": "Date",
     "from_date": "Dal",
     "to_date": "Al",

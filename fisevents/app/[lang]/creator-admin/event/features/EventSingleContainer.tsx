@@ -20,6 +20,8 @@ import { useSubmitHandler } from '../hooks/useSubmitHandler';
 import GoToEventList from '../../_components/GoToEventList';
 import AddToSite from '../../_components/AddToSite';
 import { getPublicEventUrl } from '@/lib/utils';
+import { resumeOrCreateCheckout } from '@/lib/actions';
+import { Button } from '@/components/ui/button';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
@@ -116,9 +118,39 @@ export default function EventSingleContainer({
 
   const isExistingEvent = !!eventSingleData;
 
+  const [isRedirecting, startRedirect] = useTransition();
+
+  const handleCompletePayment = () => {
+    if (!eventSingleData?._id) return;
+    startRedirect(async () => {
+      try {
+        const { paymentUrl } = await resumeOrCreateCheckout({
+          occurrenceId: eventSingleData._id!,
+          lang: curLang,
+        });
+        window.location.href = paymentUrl;
+      } catch {
+        showNotification({ title: s.error, message: s.error_text, type: 'error' });
+      }
+    });
+  };
+
   return (
     <>
-      {isSaving && <Processing text={s.saving} />}
+      {(isSaving || isRedirecting) && <Processing text={s.saving} />}
+      {isPaymentPending && !paymentStatus && (
+        <div className="mx-4 mt-4 flex items-center justify-between gap-4 rounded-lg border border-yellow-300 bg-yellow-50 px-4 py-3 text-sm text-yellow-800">
+          <span>{s.payment_pending_notice}</span>
+          <Button
+            size="sm"
+            className="shrink-0 bg-yellow-500 hover:bg-yellow-600 text-white"
+            onClick={handleCompletePayment}
+            disabled={isRedirecting}
+          >
+            {s.complete_payment}
+          </Button>
+        </div>
+      )}
       <Tabs defaultValue={tab ?? 'event'}>
         <UtilityBar
           leftElements={

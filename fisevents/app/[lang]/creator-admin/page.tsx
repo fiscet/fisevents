@@ -19,7 +19,6 @@ export default async function AdminPage({
 
   const eventListData = await getEventList({
     createdBy: session.user!.uid as string,
-    active: true,
   });
 
   if (!eventListData.length) {

@@ -125,20 +125,19 @@ export default defineType({
       name: 'pendingPayment',
       title: 'Pending Payment',
       type: 'boolean',
-      hidden: true,
-      initialValue: false,
+      readOnly: true,
+      initialValue: true,
     }),
     defineField({
       name: 'stripeSessionId',
       title: 'Stripe Session ID',
       type: 'string',
-      hidden: true,
+      readOnly: true,
     }),
     defineField({
       name: 'reminderSentAt',
       title: 'Reminder Sent At',
       type: 'datetime',
-      hidden: true,
       readOnly: true,
     }),
     defineField({
@@ -153,13 +152,17 @@ export default defineType({
     select: {
       title: 'title',
       startDate: 'startDate',
-      mainImage: 'mainImage'
+      mainImage: 'mainImage',
+      active: 'active',
+      pendingPayment: 'pendingPayment',
     },
-    prepare({ title, startDate, mainImage }) {
+    prepare({ title, startDate, mainImage, active, pendingPayment }) {
+      const dateStr = startDate ? new Date(startDate).toLocaleString() : '—';
+      const status = pendingPayment ? '⏳ Pending payment' : active ? '✅ Active' : '⬜ Inactive';
       return {
-        title: title,
-        subtitle: new Date(startDate).toLocaleString(),
-        media: mainImage
+        title,
+        subtitle: `${status} · ${dateStr}`,
+        media: mainImage,
       };
     }
   }

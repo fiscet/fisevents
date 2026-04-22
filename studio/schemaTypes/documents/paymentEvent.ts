@@ -23,11 +23,19 @@ export default {
       title: 'Occurrence ID',
       name: 'occurrenceId',
       type: 'string',
+      description: 'Sanity _id of the event — use this to search in Events if still exists',
+    },
+    {
+      title: 'Event Title',
+      name: 'eventTitle',
+      type: 'string',
+      description: 'Snapshot of the event title at log time — survives deletion',
     },
     {
       title: 'Stripe Session ID',
       name: 'sessionId',
       type: 'string',
+      description: 'Paste in Stripe dashboard → Payments → search to see full details',
     },
     {
       title: 'Status',
@@ -60,14 +68,17 @@ export default {
   ],
   preview: {
     select: {
-      title: 'eventType',
-      subtitle: 'status',
+      eventType: 'eventType',
+      eventTitle: 'eventTitle',
+      occurrenceId: 'occurrenceId',
+      status: 'status',
       date: 'receivedAt',
     },
-    prepare({ title, subtitle, date }: { title?: string; subtitle?: string; date?: string }) {
+    prepare({ eventType, eventTitle, occurrenceId, status, date }: { eventType?: string; eventTitle?: string; occurrenceId?: string; status?: string; date?: string }) {
+      const statusIcon = status === 'processed' ? '✅' : status === 'failed' ? '❌' : status === 'skipped' ? '⏭' : '⏳';
       return {
-        title: title ?? 'unknown',
-        subtitle: `${subtitle ?? ''} · ${date ? new Date(date).toLocaleString() : ''}`,
+        title: `${statusIcon} ${eventTitle ?? occurrenceId ?? 'unknown event'}`,
+        subtitle: `${eventType ?? ''} · ${date ? new Date(date).toLocaleString() : ''}`,
       };
     },
   },
