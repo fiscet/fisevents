@@ -13,7 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Fragment, useState } from 'react';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 import { FDefaultSession } from '@/types/custom.types';
-import { sendMail } from '@/lib/send-mail';
+import { sendBugReportEmail } from '@/lib/mail-actions';
 import { useNotification } from '@/components/Notification/useNotification';
 import { usePathname } from 'next/navigation';
 import { BugReportSchema } from '@/lib/form-schemas';
@@ -49,13 +49,11 @@ export default function ReportBugDialog({
   });
 
   const onSubmit = async (data: BugReportFormValues) => {
-    const bodyTxt = `From: ${data.email}\n\nPathname: ${pathname}\n\n${data.description}`;
-    const bodyHtml = `<p>From: ${data.email}</p><p>Pathname: ${pathname}</p><p>${data.description}</p>`;
-
-    const emailRes = await sendMail({
-      subject: `Fisvents - ${d.report_bug[data.type]}`,
-      text: bodyTxt,
-      html: bodyHtml
+    const emailRes = await sendBugReportEmail({
+      type: d.report_bug[data.type],
+      email: data.email,
+      description: data.description,
+      pathname,
     });
 
     if (emailRes?.accepted.length) {

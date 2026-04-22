@@ -1,6 +1,5 @@
 import { getEventSingleBySlug, getUserBySlug } from '@/lib/actions';
 import { Locale } from '@/lib/i18n';
-import { getEmailDictionary } from '@/lib/i18n.utils';
 import EventNotFound from '../../_components/EventNotFound';
 import PublicEvent from '../../_components/PublicEvent';
 import EventAttendantForm from '../../_features/EventAttendantContainer';
@@ -26,7 +25,6 @@ export default async function PublicEventPage({
     slug: `${peSlug}/${organizationSlug}/${eventSlug}`,
   });
   const userData = await getUserBySlug({ slug: eventData.organizationSlug });
-  const emailDictionary = await getEmailDictionary(lang);
 
   const showForm =
     !!eventData &&
@@ -48,8 +46,6 @@ export default async function PublicEventPage({
                 lang={lang}
                 eventData={eventData}
                 eventSlug={eventSlug}
-                emailDictionary={emailDictionary.event_attendant.subscription}
-                organizerEmailDictionary={emailDictionary.organizer.new_attendant}
               />
             </NotificationProvider>
           )}

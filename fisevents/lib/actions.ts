@@ -27,6 +27,11 @@ import { getSession } from '@/lib/auth';
 import { eventAttendantSchema } from './form-schemas';
 import arcjet, { validateEmail } from '@/lib/arcjet';
 import { request } from '@arcjet/next';
+import { sendMail } from '@/lib/send-mail';
+import { getEmailDictionary } from '@/lib/i18n.utils';
+import { getPublicEventSlug, getPublicEventUrl } from '@/lib/utils';
+import { applyTemplate } from '@/lib/email-template';
+import type { Locale } from '@/lib/i18n';
 
 const aj = arcjet.withRule(
   validateEmail({
@@ -337,4 +342,117 @@ export const updateEventAttendantStatus = async ({
 
   revalidateTags([`eventSingle:${eventId}`]);
   return res;
+};
+
+type EventEmailData = {
+  eventTitle: string;
+  location?: string;
+  talkTo?: string;
+  price?: string;
+  startDate?: string;
+  endDate?: string;
+  companyName: string;
+  organizationSlug: string;
+  eventSlug: string;
+  organizerEmail?: string;
+};
+
+export const subscribeToEvent = async ({
+  eventId,
+  eventAttendant,
+  lang,
+  emailData,
+}: {
+  eventId: string;
+  eventAttendant: Partial<EventAttendant>;
+  lang: Locale;
+  emailData: EventEmailData;
+}) => {
+  const result = await addEventAttendant({ eventId, eventAttendant });
+  if (!result) return;
+
+  const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3000';
+  const publicSlug = getPublicEventSlug(emailData.eventSlug, emailData.organizationSlug);
+  const publicUrl = getPublicEventUrl(publicSlug);
+  const unsubscribeLink = `${baseUrl}/${lang}/pe/unsuscribe?eventId=${eventId}&eventSlug=${publicSlug}&eventAttendantEmail=${result.email}&eventAttendantUuid=${result.uuid}`;
+
+  const emailDict = await getEmailDictionary(lang);
+  const subDict = emailDict.event_attendant.subscription;
+
+  const vars = {
+    attendant_name: result.fullName ?? '',
+    event_title: emailData.eventTitle,
+    public_url: publicUrl,
+    location: emailData.location ?? '--',
+    talk_to: emailData.talkTo ?? '--',
+    price: emailData.price ?? '--',
+    currency: '',
+    start_date: emailData.startDate ? new Date(emailData.startDate).toLocaleString() : '--',
+    end_date: emailData.endDate ? new Date(emailData.endDate).toLocaleString() : '--',
+    unsubscribe_link: unsubscribeLink,
+    company_name: emailData.companyName,
+  };
+
+  await sendMail({
+    sendTo: result.email!,
+    subject: applyTemplate(subDict.subject, vars),
+    text: applyTemplate(subDict.body_txt, vars),
+    html: applyTemplate(subDict.body_html, vars),
+  });
+
+  if (emailData.organizerEmail) {
+    const orgDict = emailDict.organizer.new_attendant;
+    const orgVars = {
+      event_title: emailData.eventTitle,
+      attendant_name: result.fullName ?? '',
+      attendant_email: result.email ?? '',
+    };
+    await sendMail({
+      sendTo: emailData.organizerEmail,
+      subject: applyTemplate(orgDict.subject, orgVars),
+      text: applyTemplate(orgDict.body_txt, orgVars),
+      html: applyTemplate(orgDict.body_html, orgVars),
+    });
+  }
+
+  return result;
+};
+
+export const unsubscribeFromEvent = async ({
+  eventId,
+  eventAttendantUuid,
+  eventAttendantEmail,
+  lang,
+  emailData,
+  alreadyUnsubscribedText,
+}: {
+  eventId: string;
+  eventAttendantUuid: string;
+  eventAttendantEmail: string;
+  lang: Locale;
+  emailData: Pick<EventEmailData, 'eventTitle' | 'companyName' | 'organizationSlug' | 'eventSlug'>;
+  alreadyUnsubscribedText?: string;
+}) => {
+  const result = await removeEventAttendant({ eventId, eventAttendantUuid, alreadyUnsubscribedText });
+
+  const publicSlug = getPublicEventSlug(emailData.eventSlug, emailData.organizationSlug);
+  const publicUrl = getPublicEventUrl(publicSlug);
+
+  const emailDict = await getEmailDictionary(lang);
+  const unsubDict = emailDict.event_attendant.unsubscription;
+
+  const vars = {
+    event_title: emailData.eventTitle,
+    company_name: emailData.companyName,
+    public_url: publicUrl,
+  };
+
+  await sendMail({
+    sendTo: eventAttendantEmail,
+    subject: applyTemplate(unsubDict.subject, vars),
+    text: applyTemplate(unsubDict.body_txt, vars),
+    html: applyTemplate(unsubDict.body_html, vars),
+  });
+
+  return result;
 };
