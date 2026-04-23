@@ -333,7 +333,9 @@
       "delete_event": "Delete event",
       "delete_event_confirm": "Are you sure you want to delete this event? This action cannot be undone.",
       "delete_event_success": "Event deleted successfully.",
-      "deleting": "Deleting..."
+      "deleting": "Deleting...",
+      "your_page": "Your public page",
+      "your_page_description": "Share this link: it shows all your active events"
     },
     "attendants": {
       "attendants": "Attendants",

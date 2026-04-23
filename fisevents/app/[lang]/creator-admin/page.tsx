@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { getEventList } from '@/lib/actions';
+import { getEventList, getUserById } from '@/lib/actions';
 import { Locale } from '@/lib/i18n';
 import { CreatorAdminRoutes } from '@/lib/routes';
 import { getSession } from '@/lib/auth';
@@ -17,13 +17,19 @@ export default async function AdminPage({
     return redirect('/auth');
   }
 
-  const eventListData = await getEventList({
-    createdBy: session.user!.uid as string,
-  });
+  const [eventListData, userData] = await Promise.all([
+    getEventList({ createdBy: session.user!.uid as string }),
+    getUserById({ userId: session.user!.uid as string }),
+  ]);
 
   if (!eventListData.length) {
     return redirect(`/${lang}/${CreatorAdminRoutes.getItem('event')}`);
   }
 
-  return <EventListLoader eventListData={eventListData} />;
+  return (
+    <EventListLoader
+      eventListData={eventListData}
+      orgSlug={userData?.slug?.current}
+    />
+  );
 }
