@@ -327,7 +327,13 @@
       "of": "di",
       "published_short": "Pubbl.",
       "registrations_open_short": "Aperto",
-      "finished_short": "Concluso"
+      "finished_short": "Concluso",
+      "duplicate_event": "Duplica",
+      "duplicate_prefix": "Copia di: ",
+      "delete_event": "Elimina evento",
+      "delete_event_confirm": "Sei sicuro di voler eliminare questo evento? L'operazione non può essere annullata.",
+      "delete_event_success": "Evento eliminato con successo.",
+      "deleting": "Eliminazione in corso..."
     },
     "attendants": {
       "attendants": "Partecipanti",
@@ -408,6 +414,13 @@
       "email_invalid": "L'email non è valida",
       "already_subscribed": "Sei già iscritto a quest'evento",
       "already_unsubscribed": "Sei già disiscritto"
+    },
+    "organizer_page": {
+      "title": "I prossimi eventi",
+      "no_events": "Nessun evento in programma al momento",
+      "register": "Iscriviti",
+      "full": "Completo",
+      "places_left": "posti disponibili"
     }
   }
 }

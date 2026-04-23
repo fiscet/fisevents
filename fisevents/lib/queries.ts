@@ -143,3 +143,29 @@ export const eventForWebhookQuery = defineQuery(`
   "creatorEmail": createdByUser->email,
   "creatorName": createdByUser->name
 }`);
+
+export const publicEventListByOrgSlugQuery = defineQuery(`
+*[
+  _type == "occurrence" &&
+  createdByUser->slug.current == $orgSlug &&
+  active == true &&
+  endDate > now()
+] | order(startDate asc) {
+  _id,
+  title,
+  publicSlug,
+  "pageImage": {
+    "url": mainImage.asset->url,
+    "dimensions": mainImage.asset->metadata.dimensions
+  },
+  startDate,
+  endDate,
+  location,
+  maxSubscribers,
+  "remainingPlaces": maxSubscribers - (coalesce(count(attendants), 0)),
+  "price": select(
+    length(currency) > 0 && basicPrice > 0 => coalesce(string(basicPrice), "") + " " + coalesce(currency, "-"),
+    basicPrice > 0 => coalesce(string(basicPrice), ""),
+    ""
+  )
+}`);

@@ -10,6 +10,7 @@ import {
   eventSingleHasAttendantByEmailQuery,
   eventSingleHasAttendantByUuidQuery,
   eventIdQuery,
+  publicEventListByOrgSlugQuery,
   userQuery,
   userQueryBySlug,
 } from './queries';
@@ -18,6 +19,7 @@ import {
   CurrentUser,
   OccurrenceList,
   OccurrenceSingle,
+  OrgPublicEvent,
   PublicOccurrenceSingle,
 } from '@/types/sanity.extended.types';
 import { EventAttendant, Occurrence, User } from '@/types/sanity.types';
@@ -131,6 +133,46 @@ export const getEventStatusBySlug = async ({ slug }: { slug: string }) => {
     eventStatusBySlugQuery,
     { publicSlug: slug },
     { cache: 'no-store' }
+  );
+};
+
+export const deleteEvent = async ({ id }: { id: string }) => {
+  const session = await validateSession();
+  const userId = session.user!.uid as string;
+
+  const occ = await sanityClient.fetch<{
+    _id: string;
+    pendingPayment?: boolean;
+    attendants?: unknown[];
+    endDate?: string;
+    createdByUser?: { _ref: string };
+  } | null>(
+    `*[_type == "occurrence" && _id == $id][0] { _id, pendingPayment, attendants, endDate, createdByUser }`,
+    { id }
+  );
+
+  if (!occ || occ.createdByUser?._ref !== userId) {
+    throw new Error('Not found or unauthorized');
+  }
+  if (!occ.pendingPayment) {
+    throw new Error('Only unpaid events can be deleted');
+  }
+  if ((occ.attendants?.length ?? 0) > 0) {
+    throw new Error('Cannot delete event with attendants');
+  }
+  if (occ.endDate && new Date(occ.endDate) < new Date()) {
+    throw new Error('Cannot delete an expired event');
+  }
+
+  await sanityClient.delete(id);
+  revalidateTags(['eventList']);
+};
+
+export const getPublicEventListByOrgSlug = async ({ orgSlug }: { orgSlug: string }) => {
+  return await sanityClient.fetch<OrgPublicEvent[]>(
+    publicEventListByOrgSlugQuery,
+    { orgSlug },
+    { next: { tags: [`orgEvents:${orgSlug}`] } }
   );
 };
 

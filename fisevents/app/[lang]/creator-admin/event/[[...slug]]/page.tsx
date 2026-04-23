@@ -8,7 +8,7 @@ export async function generateStaticParams() {
   });
 
   if (!slugData.length) {
-    return []; // Return an empty array if there are no events
+    return [];
   }
 
   return slugData.map(id => ({
@@ -18,10 +18,12 @@ export async function generateStaticParams() {
 
 export default async function EventSinglePage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug?: string[] }>;
+  searchParams: Promise<{ from?: string }>;
 }) {
-  const { slug } = await params;
+  const [{ slug }, { from }] = await Promise.all([params, searchParams]);
   const session = await getSession();
 
   const userData = await getUserById({ userId: session!.user!.uid! });
@@ -30,18 +32,22 @@ export default async function EventSinglePage({
     return <></>;
   }
 
-  const eventSingleData =
-    slug && slug.length > 0 && session?.user
-      ? await getEventSingleById({
-          createdBy: session.user.uid as string,
-          id: slug[0],
-        })
-      : undefined;
+  const userId = session!.user!.uid as string;
+
+  // ?from=ID with no slug → duplicate mode
+  const isDuplicate = !!from && (!slug || slug.length === 0);
+
+  const eventSingleData = isDuplicate
+    ? await getEventSingleById({ createdBy: userId, id: from! })
+    : slug && slug.length > 0
+    ? await getEventSingleById({ createdBy: userId, id: slug[0] })
+    : undefined;
 
   return (
     <EventSingle
       eventSingleData={eventSingleData}
       organizationSlug={userData.slug.current!}
+      isDuplicate={isDuplicate}
     />
   );
 }
