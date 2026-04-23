@@ -12,12 +12,13 @@ import { singleEventSchema } from '@/lib/form-schemas';
 
 export type useEventSingleFormProps = {
   eventSingleData?: OccurrenceSingle;
+  isDuplicate?: boolean;
 };
 
 
 export type EventFormSchemaType = z.infer<typeof singleEventSchema>;
 
-export function useEventSingleForm({ eventSingleData }: useEventSingleFormProps) {
+export function useEventSingleForm({ eventSingleData, isDuplicate = false }: useEventSingleFormProps) {
 
   const { creator_admin: ca } = useDictionary();
   const { events: d } = ca;
@@ -85,13 +86,15 @@ export function useEventSingleForm({ eventSingleData }: useEventSingleFormProps)
   const form = useForm<EventFormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      _id: eventSingleData?._id ?? '',
-      title: eventSingleData?.title ?? '',
+      _id: isDuplicate ? '' : (eventSingleData?._id ?? ''),
+      title: isDuplicate
+        ? `${d.duplicate_prefix}${eventSingleData?.title ?? ''}`
+        : (eventSingleData?.title ?? ''),
       slug: {
-        current: eventSingleData?.slug?.current ?? slugify(eventSingleData?.title ?? ''),
+        current: isDuplicate ? '' : (eventSingleData?.slug?.current ?? slugify(eventSingleData?.title ?? '')),
         _type: 'slug'
       },
-      publicSlug: eventSingleData?.publicSlug ?? '',
+      publicSlug: isDuplicate ? '' : (eventSingleData?.publicSlug ?? ''),
       description: eventSingleData?.description ?? '',
       location: eventSingleData?.location ?? '',
       talkTo: eventSingleData?.talkTo ?? '',
@@ -99,15 +102,17 @@ export function useEventSingleForm({ eventSingleData }: useEventSingleFormProps)
       basicPrice:
         eventSingleData?.basicPrice?.toString().replace(',', '.') ?? '0',
       currency: eventSingleData?.currency ?? '',
-      publicationStartDate:
-        pickerDateToIsoString(eventSingleData?.publicationStartDate) ??
-        undefined,
-      startDate:
-        pickerDateToIsoString(eventSingleData?.startDate) ?? todayString,
-      endDate:
-        pickerDateToIsoString(eventSingleData?.endDate) ??
-        pickerDateToIsoString(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)),
-      active: eventSingleData?.active ?? true
+      publicationStartDate: isDuplicate ? undefined : (
+        pickerDateToIsoString(eventSingleData?.publicationStartDate) ?? undefined
+      ),
+      startDate: isDuplicate
+        ? todayString
+        : (pickerDateToIsoString(eventSingleData?.startDate) ?? todayString),
+      endDate: isDuplicate
+        ? pickerDateToIsoString(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000))
+        : (pickerDateToIsoString(eventSingleData?.endDate) ??
+           pickerDateToIsoString(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000))),
+      active: isDuplicate ? true : (eventSingleData?.active ?? true),
     }
   });
 

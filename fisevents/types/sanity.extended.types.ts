@@ -23,3 +23,23 @@ export type PublicOccurrenceSingle = Partial<Occurrence> & {
   organizerEmail: string;
 };
 
+export type OrgPublicEvent = {
+  _id: string;
+  title: string;
+  publicSlug: string;
+  pageImage: {
+    url: string | null;
+    dimensions: Pick<SanityImageMetadata['dimensions'], never> & {
+      width?: number;
+      height?: number;
+      aspectRatio?: number;
+    } | null;
+  };
+  startDate: string;
+  endDate: string;
+  location?: string;
+  maxSubscribers?: number;
+  remainingPlaces: number;
+  price: string;
+};
+

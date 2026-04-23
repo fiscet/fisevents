@@ -108,6 +108,8 @@ export default async function PublicEvent({
         logoUrl={userData.logoUrl}
         www={userData.www}
         organizedByLabel={dictionary.organized_by}
+        orgPageUrl={eventData.organizationSlug ? `/${lang}/pe/${eventData.organizationSlug}` : undefined}
+        allEventsLabel={dictionary.organizer_page.title}
       />
     </div>
   );

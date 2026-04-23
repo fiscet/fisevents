@@ -25,8 +25,6 @@ export const useSubmitHandler = (
   showNotification: ReturnType<typeof useNotification>['showNotification'],
   lang: string
 ) => {
-  const isNewEvent = !eventSingleData;
-
   const { creator_admin: ca } = useDictionary();
   const { shared: d } = ca;
 
@@ -34,6 +32,9 @@ export const useSubmitHandler = (
     startProcessing(async () => {
       const { ...restValues } = values;
       const insValues = { ...restValues } as Partial<Occurrence>;
+
+      // Empty _id means new event (including duplicates where _id was cleared)
+      const isNewEvent = !insValues._id;
 
       // Safely convert datetime-local format to ISO for storage
       insValues.publicationStartDate = values.publicationStartDate

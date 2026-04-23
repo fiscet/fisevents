@@ -22,15 +22,19 @@ import AddToSite from '../../_components/AddToSite';
 import { getPublicEventUrl } from '@/lib/utils';
 import { resumeOrCreateCheckout } from '@/lib/actions';
 import { Button } from '@/components/ui/button';
+import DeleteEventDialog from '../components/DeleteEventDialog';
+import { isDateInPast } from '@/lib/date-utils';
 
 export type EventSingleContainerProps = {
   eventSingleData?: OccurrenceSingle;
   organizationSlug: string;
+  isDuplicate?: boolean;
 };
 
 export default function EventSingleContainer({
   eventSingleData,
   organizationSlug,
+  isDuplicate = false,
 }: EventSingleContainerProps) {
   const session = useSession();
   const router = useRouter();
@@ -58,6 +62,7 @@ export default function EventSingleContainer({
 
   const { form } = useEventSingleForm({
     eventSingleData,
+    isDuplicate,
   });
 
   const publicUrl = getPublicEventUrl(eventSingleData?.publicSlug);
@@ -116,7 +121,13 @@ export default function EventSingleContainer({
     };
   }, [paymentStatus, isPaymentPending, router, showNotification, s]);
 
-  const isExistingEvent = !!eventSingleData;
+  const isExistingEvent = !!eventSingleData && !isDuplicate;
+
+  const canDelete =
+    isExistingEvent &&
+    !!eventSingleData?.pendingPayment &&
+    !(eventSingleData?.attendants?.length) &&
+    !isDateInPast(eventSingleData?.endDate ?? '');
 
   const [isRedirecting, startRedirect] = useTransition();
 
@@ -168,6 +179,11 @@ export default function EventSingleContainer({
               />
             )
           }
+          rightElements={
+            canDelete ? (
+              <DeleteEventDialog eventId={eventSingleData!._id!} />
+            ) : undefined
+          }
         />
 
         {isExistingEvent && (
@@ -188,7 +204,7 @@ export default function EventSingleContainer({
 
         <TabsContent value="event">
           <EventSingle
-            title={eventSingleData?.title ?? d.new_event}
+            title={isDuplicate ? d.duplicate_event : (eventSingleData?.title ?? d.new_event)}
             form={form}
             imageUploaderRender={() => (
               <ImageUploader

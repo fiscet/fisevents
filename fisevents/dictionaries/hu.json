@@ -327,7 +327,13 @@
       "of": "/",
       "published_short": "Publ.",
       "registrations_open_short": "Nyitva",
-      "finished_short": "Lezárt"
+      "finished_short": "Lezárt",
+      "duplicate_event": "Másolás",
+      "duplicate_prefix": "Másolat: ",
+      "delete_event": "Esemény törlése",
+      "delete_event_confirm": "Biztosan törölni szeretné ezt az eseményt? Ez a művelet nem vonható vissza.",
+      "delete_event_success": "Az esemény sikeresen törölve.",
+      "deleting": "Törlés folyamatban..."
     },
     "attendants": {
       "attendants": "Résztvevők",
@@ -408,6 +414,13 @@
       "email_invalid": "Az e-mail cím érvénytelen",
       "already_subscribed": "Már feliratkozott erre az eseményre",
       "already_unsubscribed": "Már leiratkozott"
+    },
+    "organizer_page": {
+      "title": "Közelgő események",
+      "no_events": "Jelenleg nincs közelgő esemény",
+      "register": "Regisztráció",
+      "full": "Teli",
+      "places_left": "szabad hely"
     }
   }
 }

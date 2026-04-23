@@ -11,7 +11,7 @@ import EventListFilter from '../components/EventListFilter';
 import { CreatorAdminRoutes } from '@/lib/routes';
 import UtilityBar from '../../_components/UtilityBar';
 import { Button } from '@/components/ui/button';
-import { FiChevronRight } from 'react-icons/fi';
+import { FiChevronRight, FiCopy } from 'react-icons/fi';
 import Link from 'next/link';
 import { useCurrentLang } from '@/hooks/useCurrentLang';
 import { Locale } from '@/lib/i18n';
@@ -32,7 +32,8 @@ function PaymentBadge({ row, pendingLabel }: { row: OccurrenceList; pendingLabel
 function getColumns(
   lang: Locale,
   d: Awaited<ReturnType<typeof getDictionary>>['creator_admin']['events'],
-  pendingLabel: string
+  pendingLabel: string,
+  router: ReturnType<typeof import('next/navigation').useRouter>
 ) {
   const columns = [
     {
@@ -124,16 +125,28 @@ function getColumns(
       name: '',
       cell: (row) => {
         return (
-          <Link
-            href={`/${lang}/${CreatorAdminRoutes.getItem('event')}/${row._id}`}
-            onClick={(e) => e.stopPropagation()}
-            className="inline-flex items-center gap-1 px-3 py-1 rounded-lg border border-fe-outline-variant/30 text-xs font-medium text-fe-on-surface hover:bg-fe-surface-container transition-colors whitespace-nowrap"
-          >
-            {d.details} <FiChevronRight className="w-3.5 h-3.5" />
-          </Link>
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                router.push(`/${lang}/${CreatorAdminRoutes.getItem('event')}?from=${row._id}`);
+              }}
+              title={d.duplicate_event}
+              className="p-1.5 rounded-lg border border-fe-outline-variant/30 text-fe-on-surface-variant hover:bg-fe-surface-container transition-colors"
+            >
+              <FiCopy className="w-3.5 h-3.5" />
+            </button>
+            <Link
+              href={`/${lang}/${CreatorAdminRoutes.getItem('event')}/${row._id}`}
+              onClick={(e) => e.stopPropagation()}
+              className="inline-flex items-center gap-1 px-3 py-1 rounded-lg border border-fe-outline-variant/30 text-xs font-medium text-fe-on-surface hover:bg-fe-surface-container transition-colors whitespace-nowrap"
+            >
+              {d.details} <FiChevronRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         );
       },
-      width: '110px',
+      width: '150px',
     }
   ] as TableColumn<OccurrenceList>[];
 
@@ -216,7 +229,7 @@ export default function EventList({ eventListData }: EventListProps) {
         }
       />
       <DataTable
-        columns={getColumns(curLang, d, att.payment_pending)}
+        columns={getColumns(curLang, d, att.payment_pending, router)}
         data={filterEvents(eventListData)}
         pagination
         paginationComponentOptions={{ rowsPerPageText: d.rows_per_page, rangeSeparatorText: d.of }}
