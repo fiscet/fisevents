@@ -333,7 +333,9 @@
       "delete_event": "Elimina evento",
       "delete_event_confirm": "Sei sicuro di voler eliminare questo evento? L'operazione non può essere annullata.",
       "delete_event_success": "Evento eliminato con successo.",
-      "deleting": "Eliminazione in corso..."
+      "deleting": "Eliminazione in corso...",
+      "your_page": "La tua pagina pubblica",
+      "your_page_description": "Condividi questo link: mostra tutti i tuoi eventi attivi"
     },
     "attendants": {
       "attendants": "Partecipanti",

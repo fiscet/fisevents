@@ -333,7 +333,9 @@
       "delete_event": "Esemény törlése",
       "delete_event_confirm": "Biztosan törölni szeretné ezt az eseményt? Ez a művelet nem vonható vissza.",
       "delete_event_success": "Az esemény sikeresen törölve.",
-      "deleting": "Törlés folyamatban..."
+      "deleting": "Törlés folyamatban...",
+      "your_page": "Nyilvános oldalad",
+      "your_page_description": "Ossza meg ezt a linket: megjeleníti az összes aktív eseményt"
     },
     "attendants": {
       "attendants": "Résztvevők",

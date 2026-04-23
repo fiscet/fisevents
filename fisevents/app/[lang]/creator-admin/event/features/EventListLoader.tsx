@@ -9,6 +9,6 @@ const EventList = dynamic(() => import('./EventList'), {
   loading: () => <Processing />,
 });
 
-export default function EventListLoader(props: EventListProps) {
+export default function EventListLoader(props: EventListProps & { orgSlug?: string }) {
   return <EventList {...props} />;
 }

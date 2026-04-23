@@ -11,6 +11,8 @@ import EventListFilter from '../components/EventListFilter';
 import { CreatorAdminRoutes } from '@/lib/routes';
 import UtilityBar from '../../_components/UtilityBar';
 import { Button } from '@/components/ui/button';
+import AddToSite from '../../_components/AddToSite';
+import { getPublicEventUrl } from '@/lib/utils';
 import { FiChevronRight, FiCopy } from 'react-icons/fi';
 import Link from 'next/link';
 import { useCurrentLang } from '@/hooks/useCurrentLang';
@@ -155,14 +157,17 @@ function getColumns(
 
 export type EventListProps = {
   eventListData: OccurrenceList[];
+  orgSlug?: string;
 };
 
-export default function EventList({ eventListData }: EventListProps) {
+export default function EventList({ eventListData, orgSlug }: EventListProps) {
   const router = useRouter();
   const curLang = useCurrentLang();
 
   const { creator_admin: ca } = useDictionary();
-  const { events: d, attendants: att } = ca;
+  const { events: d, attendants: att, shared: s } = ca;
+
+  const orgPageUrl = orgSlug ? getPublicEventUrl(`${curLang}/pe/${orgSlug}`) : '';
 
   const [filter, setFilter] = useState<EventFilterType>('all');
 
@@ -206,6 +211,18 @@ export default function EventList({ eventListData }: EventListProps) {
 
   return (
     <div>
+      {orgPageUrl && (
+        <div className="flex justify-center mt-1 mb-6 px-4">
+          <AddToSite
+            publicUrl={orgPageUrl}
+            title={d.your_page}
+            description={d.your_page_description}
+            copyText={s.copy}
+            copySuccessText={s.copied}
+            copyErrorText={s.copy_error}
+          />
+        </div>
+      )}
       <UtilityBar
         leftElements={
           <EventListFilter
