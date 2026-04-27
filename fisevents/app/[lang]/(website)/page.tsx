@@ -87,12 +87,11 @@ export default async function HomePage({
               id="hero-heading"
               className="text-5xl md:text-7xl font-headline font-extrabold text-fe-on-surface leading-[1.1] tracking-tight mb-6"
             >
-              {(dictionary.home.tagline || '!').split('!')[0]}
-              <em className="text-fe-primary not-italic">!</em>
+              {dictionary.home.tagline}
             </h1>
 
             <p className="text-lg md:text-xl text-fe-on-surface-variant max-w-2xl mb-6 leading-relaxed">
-              {dictionary.home.main_text}
+              {dictionary.home.value_prop}
             </p>
 
             <div className="flex flex-wrap gap-2 mb-10">
@@ -261,7 +260,7 @@ export default async function HomePage({
                 {dictionary.home.readyToHost}
               </h2>
               <p className="text-xl text-slate-300 max-w-2xl mx-auto mb-12 leading-relaxed">
-                {dictionary.home.main_text}
+                {dictionary.home.value_prop}
               </p>
               <Button variant="default" size="xl" asChild>
                 <Link href={`/${lang}/auth`}>

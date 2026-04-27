@@ -25,7 +25,7 @@
       "craftFocus": "Focus on your craft.",
       "readyToHost": "Ready to host your next event?",
       "createFirstEvent": "Create your first event",
-      "tagline": "Your event registrations, without missing a thing!",
+      "tagline": "Registrations for events, classes and appointments. Full stop.",
       "meta": {
         "title": "FisEvents - Simplify Your Event Management",
         "description": "Effortlessly publish and manage your events with FisEvents. From cooking workshops to meetings, FisEvents lets you create, share, and manage one-time events seamlessly.",
@@ -34,6 +34,7 @@
       "payoff": "Effortlessly publish and manage your events!",
       "subtitle": "Simplify Event Management",
       "main_text": "From cooking workshops to meetings, FisEvents lets you create, share, and manage one-time events seamlessly. Get started for free!",
+      "value_prop": "Create your event page in 5 minutes, registrations arrive by email, you manage everything from a simple dashboard. The first event is free.",
       "features": {
         "title": "Features",
         "list": {
@@ -188,7 +189,8 @@
     "waiting_for_the_email": {
       "title": "Check your email inbox",
       "description": "We will send you a \"magic link\" to your email. Just click it or copy it to your browser."
-    }
+    },
+    "tagline": "Registrations for events, classes and appointments. Full stop."
   },
   "auth": {
     "title": "You are almost there ...",
@@ -422,7 +424,8 @@
       "no_events": "No upcoming events at the moment",
       "register": "Register",
       "full": "Full",
-      "places_left": "places available"
+      "places_left": "places available",
+      "free": "Free"
     }
   }
 }
