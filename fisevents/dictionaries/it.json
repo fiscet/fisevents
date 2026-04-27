@@ -25,7 +25,7 @@
       "craftFocus": "Concentrati sulla tua arte.",
       "readyToHost": "Pronto a ospitare il tuo prossimo evento?",
       "createFirstEvent": "Crea il tuo primo evento",
-      "tagline": "Le iscrizioni ai tuoi eventi, senza perdersi niente!",
+      "tagline": "Iscrizioni per eventi, lezioni e appuntamenti. Punto.",
       "meta": {
         "title": "FisEvents - Semplifica la Gestione degli Eventi",
         "description": "Pubblica e gestisci i tuoi eventi facilmente con FisEvents. Dai workshop di cucina agli incontri, FisEvents ti consente di creare, condividere e gestire eventi unici in modo semplice e veloce.",
@@ -34,6 +34,7 @@
       "payoff": "Pubblica e gestisci facilmente i tuoi eventi!",
       "subtitle": "Semplifica la gestione degli eventi",
       "main_text": "Da workshop di cucina a riunioni, FisEvents ti consente di creare, condividere e gestire eventi singoli in modo semplice e veloce. Inizia gratuitamente!",
+      "value_prop": "Crei la pagina per il tuo evento in 5 minuti, le iscrizioni arrivano via email, tu gestisci tutto da un pannello semplice. Il primo evento è gratis.",
       "features": {
         "title": "Funzionalità",
         "list": {
@@ -188,7 +189,8 @@
     "waiting_for_the_email": {
       "title": "Controlla la tua casella di posta",
       "description": "Ti invieremo un collegamento \"magico\" alla tua email. Clicca su di esso o copialo nel tuo browser."
-    }
+    },
+    "tagline": "Iscrizioni per eventi, lezioni e appuntamenti. Punto."
   },
   "auth": {
     "title": "Ci sei quasi ...",

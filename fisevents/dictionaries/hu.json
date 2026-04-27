@@ -25,7 +25,7 @@
       "craftFocus": "Összpontosítson a mesterségére.",
       "readyToHost": "Készen áll a következő esemény megrendezésére?",
       "createFirstEvent": "Hozd létre az első eseményed",
-      "tagline": "Az eseményeid regisztrációi, hogy semmi se maradjon ki!",
+      "tagline": "Regisztrációk eseményekre, órákra és időpontokra. Kész.",
       "meta": {
         "title": "FisEvents - Egyszerűsítse az eseménykezelést",
         "description": "Publikálja és kezelje eseményeit könnyedén a FisEvents segítségével. A főzőtanfolyamoktól a találkozókig, a FisEvents lehetővé teszi, hogy zökkenőmentesen hozzon létre, osszon meg és kezeljen egyszeri eseményeket.",
@@ -34,6 +34,7 @@
       "payoff": "Publikálja és kezelje eseményeit könnyedén!",
       "subtitle": "Egyszerűsített eseménykezelés",
       "main_text": "A főzőtanfolyamoktól a találkozókig, a FisEvents lehetővé teszi, hogy zökkenőmentesen hozzon létre, osszon meg és kezeljen egyszeri eseményeket. Kezdje el ingyen!",
+      "value_prop": "5 perc alatt létrehozza az esemény oldalát, a regisztrációk e-mailben érkeznek, mindent egy egyszerű irányítópultból kezel. Az első esemény ingyenes.",
       "features": {
         "title": "Funkciók",
         "list": {
@@ -188,7 +189,8 @@
     "waiting_for_the_email": {
       "title": "Ellenőrizze e-mailjeit",
       "description": "Küldünk Önnek egy \"mágikus linket\" e-mailben. Csak kattintson rá, vagy másolja be a böngészőjébe."
-    }
+    },
+    "tagline": "Regisztrációk eseményekre, órákra és időpontokra. Kész."
   },
   "auth": {
     "title": "Már majdnem ott vagy...",
