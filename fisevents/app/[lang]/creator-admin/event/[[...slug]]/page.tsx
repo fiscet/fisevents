@@ -1,20 +1,8 @@
 import { getSession } from '@/lib/auth';
-import { getEventSingleById, getEventIdList, getUserById } from '@/lib/actions';
+import { getEventSingleById, getUserById } from '@/lib/actions';
 import EventSingle from '../features/EventSingleContainer';
 
-export async function generateStaticParams() {
-  const slugData = await getEventIdList({
-    active: true,
-  });
-
-  if (!slugData.length) {
-    return [];
-  }
-
-  return slugData.map(id => ({
-    slug: [id._id],
-  }));
-}
+export const dynamic = 'force-dynamic';
 
 export default async function EventSinglePage({
   params,
