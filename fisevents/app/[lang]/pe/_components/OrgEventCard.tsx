@@ -10,6 +10,7 @@ export type OrgEventCardProps = {
   registerLabel: string;
   fullLabel: string;
   placesLeftLabel: string;
+  freeLabel: string;
 };
 
 export default function OrgEventCard({
@@ -18,6 +19,7 @@ export default function OrgEventCard({
   registerLabel,
   fullLabel,
   placesLeftLabel,
+  freeLabel,
 }: OrgEventCardProps) {
   const startDate = new Date(event.startDate).toLocaleDateString(lang, {
     dateStyle: 'medium',
@@ -63,9 +65,9 @@ export default function OrgEventCard({
           )}
         </div>
 
-        {event.price && (
-          <span className="text-sm font-medium text-fe-primary">{event.price}</span>
-        )}
+        <span className="text-sm font-medium text-fe-primary">
+          {event.price || freeLabel}
+        </span>
 
         <div className="mt-auto pt-2 flex items-center justify-between gap-2">
           {isAlmostFull && (

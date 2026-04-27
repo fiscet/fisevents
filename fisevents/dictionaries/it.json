@@ -424,7 +424,8 @@
       "no_events": "Nessun evento in programma al momento",
       "register": "Iscriviti",
       "full": "Completo",
-      "places_left": "posti disponibili"
+      "places_left": "posti disponibili",
+      "free": "Gratis"
     }
   }
 }

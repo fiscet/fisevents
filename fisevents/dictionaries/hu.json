@@ -424,7 +424,8 @@
       "no_events": "Jelenleg nincs közelgő esemény",
       "register": "Regisztráció",
       "full": "Teli",
-      "places_left": "szabad hely"
+      "places_left": "szabad hely",
+      "free": "Ingyenes"
     }
   }
 }

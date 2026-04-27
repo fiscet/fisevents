@@ -69,6 +69,7 @@ export default async function OrganizerPage({
               registerLabel={d.register}
               fullLabel={d.full}
               placesLeftLabel={d.places_left}
+              freeLabel={d.free}
             />
           ))}
         </div>
