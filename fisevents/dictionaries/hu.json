@@ -270,7 +270,12 @@
         "name": "A névnek legalább 5 karakter hosszúnak kell lennie.",
         "companyName": "A cég nevének legalább 5 karakter hosszúnak kell lennie.",
         "www": "Írjon be egy érvényes weboldal URL-t http:// vagy https:// előtaggal"
-      }
+      },
+      "your_data": "Az Ön adatai",
+      "your_data_description": "Töltse le a FisEvents-en tárolt összes adatának másolatát: profil, események és regisztrációk.",
+      "export_data": "Adatok letöltése",
+      "danger_zone": "Veszélyes zóna",
+      "danger_zone_description": "Véglegesen törli fiókját és az összes kapcsolódó adatot (események, regisztrációk)."
     },
     "events": {
       "event": "Esemény",

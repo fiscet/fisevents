@@ -11,6 +11,7 @@ import { ImageUploaderProps } from '../../_components/ImageUploader';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 import { useForm } from 'react-hook-form';
 import DeleteAccountDialog from '../components/DeleteAccountDialog';
+import ExportDataButton from '../components/ExportDataButton';
 
 export type UserAccountProps = {
   form: ReturnType<typeof useForm<UserAccountFormSchemaType>>;
@@ -82,11 +83,16 @@ export default function UserAccount({
         </Form>
       </div>
       <Separator className="my-8" />
+      <div className="px-1 max-w-[650px] mx-auto mb-6">
+        <h2 className="text-sm font-semibold text-gray-700 mb-2">{a.your_data}</h2>
+        <p className="text-sm text-muted-foreground mb-4">{a.your_data_description}</p>
+        <ExportDataButton label={a.export_data} />
+      </div>
+
+      <Separator className="my-8" />
       <div className="px-1 max-w-[650px] mx-auto mb-10">
-        <h2 className="text-sm font-semibold text-destructive mb-2">Danger Zone</h2>
-        <p className="text-sm text-muted-foreground mb-4">
-          Permanently delete your account and all associated data (events, registrations).
-        </p>
+        <h2 className="text-sm font-semibold text-destructive mb-2">{a.danger_zone}</h2>
+        <p className="text-sm text-muted-foreground mb-4">{a.danger_zone_description}</p>
         <DeleteAccountDialog />
       </div>
     </div>

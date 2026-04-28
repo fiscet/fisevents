@@ -270,7 +270,12 @@
         "name": "Il nome deve essere di almeno 5 caratteri!",
         "companyName": "Il nome della società deve essere di almeno 5 caratteri.",
         "www": "Scrivi l'URL del sito web che inizia con http:// o https://"
-      }
+      },
+      "your_data": "I tuoi dati",
+      "your_data_description": "Scarica una copia di tutti i tuoi dati conservati su FisEvents: profilo, eventi e iscrizioni.",
+      "export_data": "Scarica i miei dati",
+      "danger_zone": "Zona pericolosa",
+      "danger_zone_description": "Elimina definitivamente il tuo account e tutti i dati associati (eventi, iscrizioni)."
     },
     "events": {
       "event": "Evento",
