@@ -63,8 +63,21 @@ const PrivacyAndCookiePolicyIT = ({ lastUpdated }: { lastUpdated: string }) => {
           4. Periodo di Conservazione
         </h3>
         <div className="text-gray-600 mb-4">
-          I dati vengono conservati fino alla revoca del consenso o alla
-          cessazione del servizio.
+          <ul className="list-disc list-inside space-y-1">
+            <li>
+              <strong>Dati dei partecipanti agli eventi:</strong> i dati
+              identificativi (nome, email, telefono) vengono anonimizzati
+              automaticamente trascorso <strong>1 mese dalla fine
+              dell'evento</strong>. I dati statistici anonimi (stato
+              check-in, stato pagamento) vengono conservati per la durata
+              dell'account organizzatore.
+            </li>
+            <li>
+              <strong>Account organizzatore:</strong> i dati vengono
+              conservati fino alla cancellazione volontaria dell'account
+              o alla cessazione del servizio.
+            </li>
+          </ul>
         </div>
       </section>
 
@@ -89,7 +102,9 @@ const PrivacyAndCookiePolicyIT = ({ lastUpdated }: { lastUpdated: string }) => {
           </li>
           <li>
             <strong>Cookie di analisi:</strong> Google Analytics e Sanity
-            Analytics per migliorare le performance.
+            Analytics per migliorare le performance. Questi cookie non sono
+            attualmente attivi e verranno abilitati solo previa comunicazione
+            e raccolta del consenso appropriato.
           </li>
         </ul>
       </section>

@@ -35,6 +35,8 @@ import { getEmailDictionary } from '@/lib/i18n.utils';
 import { getPublicEventSlug, getPublicEventUrl } from '@/lib/utils';
 import { applyTemplate } from '@/lib/email-template';
 import type { Locale } from '@/lib/i18n';
+import { createUnsubscribeToken } from '@/lib/unsubscribe-token';
+import { createDeleteAccountToken } from '@/lib/delete-account-token';
 
 const aj = arcjet.withRule(
   validateEmail({
@@ -56,7 +58,7 @@ const revalidateTags = (tags: string[]) => {
 };
 
 /** USERS */
-export const getUserById = async ({ userId }: { userId: string }) => {
+export const getUserById = async ({ userId }: { userId: string; }) => {
   return await sanityClient.fetch<CurrentUser>(
     userQuery,
     { userId },
@@ -64,7 +66,7 @@ export const getUserById = async ({ userId }: { userId: string }) => {
   );
 };
 
-export const getUserBySlug = async ({ slug }: { slug: string }) => {
+export const getUserBySlug = async ({ slug }: { slug: string; }) => {
   return await sanityClient.fetch<CurrentUser>(
     userQueryBySlug,
     { slug },
@@ -91,14 +93,14 @@ export const getEventIdList = async ({
 }: {
   active?: boolean;
 }) => {
-  return await sanityClient.fetch<{ _id: string }[]>(
+  return await sanityClient.fetch<{ _id: string; }[]>(
     eventIdQuery,
     { active },
     { next: { tags: ['eventSlugList'] } }
   );
 };
 
-export const getEventList = async ({ createdBy }: { createdBy: string }) => {
+export const getEventList = async ({ createdBy }: { createdBy: string; }) => {
   return await sanityClient.fetch<OccurrenceList[]>(
     eventListQuery,
     { createdBy },
@@ -120,7 +122,7 @@ export const getEventSingleById = async ({
   );
 };
 
-export const getEventSingleBySlug = async ({ slug }: { slug: string }) => {
+export const getEventSingleBySlug = async ({ slug }: { slug: string; }) => {
   return await sanityClient.fetch<PublicOccurrenceSingle>(
     eventSingleBySlugQuery,
     { publicSlug: slug },
@@ -128,15 +130,15 @@ export const getEventSingleBySlug = async ({ slug }: { slug: string }) => {
   );
 };
 
-export const getEventStatusBySlug = async ({ slug }: { slug: string }) => {
-  return await sanityClient.fetch<{ title: string; active: boolean; pendingPayment: boolean } | null>(
+export const getEventStatusBySlug = async ({ slug }: { slug: string; }) => {
+  return await sanityClient.fetch<{ title: string; active: boolean; pendingPayment: boolean; } | null>(
     eventStatusBySlugQuery,
     { publicSlug: slug },
     { cache: 'no-store' }
   );
 };
 
-export const deleteEvent = async ({ id }: { id: string }) => {
+export const deleteEvent = async ({ id }: { id: string; }) => {
   const session = await validateSession();
   const userId = session.user!.uid as string;
 
@@ -145,7 +147,7 @@ export const deleteEvent = async ({ id }: { id: string }) => {
     pendingPayment?: boolean;
     attendants?: unknown[];
     endDate?: string;
-    createdByUser?: { _ref: string };
+    createdByUser?: { _ref: string; };
   } | null>(
     `*[_type == "occurrence" && _id == $id][0] { _id, pendingPayment, attendants, endDate, createdByUser }`,
     { id }
@@ -168,7 +170,7 @@ export const deleteEvent = async ({ id }: { id: string }) => {
   revalidateTags(['eventList']);
 };
 
-export const getPublicEventListByOrgSlug = async ({ orgSlug }: { orgSlug: string }) => {
+export const getPublicEventListByOrgSlug = async ({ orgSlug }: { orgSlug: string; }) => {
   return await sanityClient.fetch<OrgPublicEvent[]>(
     publicEventListByOrgSlugQuery,
     { orgSlug },
@@ -191,7 +193,7 @@ export const resumeOrCreateCheckout = async ({
     title?: string;
     stripeSessionId?: string;
     pendingPayment?: boolean;
-    createdByUser?: { _ref: string };
+    createdByUser?: { _ref: string; };
   } | null>(
     `*[_type == "occurrence" && _id == $id][0] { _id, title, stripeSessionId, pendingPayment, createdByUser }`,
     { id: occurrenceId }
@@ -233,7 +235,7 @@ export const updateEvent = async ({
   return res;
 };
 
-export const getMonthlyEventCount = async ({ userId }: { userId: string }) => {
+export const getMonthlyEventCount = async ({ userId }: { userId: string; }) => {
   const now = new Date();
   const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
   return await sanityClient.fetch<number>(
@@ -252,7 +254,7 @@ async function startCheckoutForEvent({
   title?: string;
   lang: string;
 }): Promise<string> {
-  const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3000';
+  const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3001';
   const checkoutSession = await stripe.checkout.sessions.create({
     mode: 'payment',
     line_items: [
@@ -324,7 +326,7 @@ export const createEvent = async ({
     1
   ).toISOString();
   const freeThisMonth = await sanityClient.fetch<
-    Array<{ _id: string; _createdAt: string }>
+    Array<{ _id: string; _createdAt: string; }>
   >(
     `*[_type == "occurrence" && createdByUser._ref == $userId && _createdAt >= $monthStart && pendingPayment != true] | order(_createdAt asc) {_id, _createdAt}`,
     { userId, monthStart },
@@ -367,7 +369,7 @@ export const getEventSingleHasAttendantById = async ({
   eventId: string;
   email: string;
 }) => {
-  return await sanityClient.fetch<{ hasAttendant: boolean }>(
+  return await sanityClient.fetch<{ hasAttendant: boolean; }>(
     eventSingleHasAttendantByEmailQuery,
     { eventId, email },
     { next: { tags: [`eventSingleHasAttendant:${eventId}`] } }
@@ -381,7 +383,7 @@ export const getEventSingleHasAttendantByUuid = async ({
   eventId: string;
   uuid: string;
 }) => {
-  return await sanityClient.fetch<{ hasAttendant: boolean }>(
+  return await sanityClient.fetch<{ hasAttendant: boolean; }>(
     eventSingleHasAttendantByUuidQuery,
     { eventId, uuid },
     { next: { tags: [`eventSingleHasAttendant:${eventId}`] } }
@@ -470,7 +472,7 @@ export const updateEventAttendantStatus = async ({
 }: {
   eventId: string;
   eventAttendantUuid: string;
-  data: { checkedIn?: boolean; paymentStatus?: string };
+  data: { checkedIn?: boolean; paymentStatus?: string; };
 }) => {
   const checkRes = await getEventSingleHasAttendantByUuid({
     eventId,
@@ -527,10 +529,11 @@ export const subscribeToEvent = async ({
   const result = await addEventAttendant({ eventId, eventAttendant });
   if (!result) return;
 
-  const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3000';
+  const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3002';
   const publicSlug = getPublicEventSlug(emailData.eventSlug, emailData.organizationSlug);
   const publicUrl = getPublicEventUrl(publicSlug);
-  const unsubscribeLink = `${baseUrl}/${lang}/pe/unsuscribe?eventId=${eventId}&eventSlug=${publicSlug}&eventAttendantEmail=${result.email}&eventAttendantUuid=${result.uuid}`;
+  const token = createUnsubscribeToken({ eventId, uuid: result.uuid!, email: result.email! });
+  const unsubscribeLink = `${baseUrl}/${lang}/pe/unsuscribe?eventSlug=${publicSlug}&t=${token}`;
 
   const emailDict = await getEmailDictionary(lang);
   const subDict = emailDict.event_attendant.subscription;
@@ -611,4 +614,28 @@ export const unsubscribeFromEvent = async ({
   });
 
   return result;
+};
+
+export const acceptToS = async () => {
+  const session = await validateSession();
+  const userId = session.user!.uid as string;
+  await sanityClient.patch(userId).set({ tosAcceptedAt: new Date().toISOString() }).commit();
+  revalidateTags(['user']);
+};
+
+export const requestAccountDeletion = async ({ lang }: { lang: Locale }) => {
+  const session = await validateSession();
+  const userId = session.user!.uid as string;
+  const email = session.user!.email as string;
+
+  const token = createDeleteAccountToken({ userId, email, lang });
+  const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3002';
+  const confirmUrl = `${baseUrl}/api/user/delete-confirm?t=${token}`;
+
+  await sendMail({
+    sendTo: email,
+    subject: 'FisEvents — Confirm account deletion',
+    text: `You requested to delete your FisEvents account.\n\nClick this link to confirm (expires in 1 hour):\n${confirmUrl}\n\nIf you did not request this, ignore this email.`,
+    html: `<h2 style="margin:0 0 16px;color:#1a1a2e;font-size:20px;">Confirm account deletion</h2><p style="margin:0 0 12px;">You requested to permanently delete your FisEvents account and all associated data (events, registrations).</p><p style="margin:0 0 12px;color:#b91c1c;"><strong>This action cannot be undone.</strong></p><p style="margin:20px 0;"><a href="${confirmUrl}" style="display:inline-block;background:#dc2626;color:#ffffff;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;">Confirm deletion</a></p><p style="margin:20px 0 0;font-size:13px;color:#9ca3af;">This link expires in 1 hour. If you did not request this, ignore this email — your account is safe.</p>`,
+  });
 };

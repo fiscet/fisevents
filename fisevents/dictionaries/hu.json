@@ -270,7 +270,12 @@
         "name": "A névnek legalább 5 karakter hosszúnak kell lennie.",
         "companyName": "A cég nevének legalább 5 karakter hosszúnak kell lennie.",
         "www": "Írjon be egy érvényes weboldal URL-t http:// vagy https:// előtaggal"
-      }
+      },
+      "your_data": "Az Ön adatai",
+      "your_data_description": "Töltse le a FisEvents-en tárolt összes adatának másolatát: profil, események és regisztrációk.",
+      "export_data": "Adatok letöltése",
+      "danger_zone": "Veszélyes zóna",
+      "danger_zone_description": "Véglegesen törli fiókját és az összes kapcsolódó adatot (események, regisztrációk)."
     },
     "events": {
       "event": "Esemény",
@@ -365,7 +370,8 @@
       "status_updated": "Státusz frissítve",
       "status_error": "Státusz frissítési hiba",
       "payment_updated": "Fizetési státusz frissítve",
-      "payment_error": "Fizetési státusz frissítési hiba"
+      "payment_error": "Fizetési státusz frissítési hiba",
+      "anonymization_notice": "A résztvevők személyes adatait (név, e-mail, telefon) automatikusan anonimizáljuk %date%-én, az esemény vége után egy hónappal. Ha meg kell őriznie az adatokat, exportálja a CSV-t ez előtt a dátum előtt."
     },
     "notifications": {
       "action_required": "Művelet szükséges!",

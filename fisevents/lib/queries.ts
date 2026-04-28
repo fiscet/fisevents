@@ -11,7 +11,8 @@ export const userQuery = defineQuery(`*[_type == "user" && _id == $userId][0] {
   logo,
   "logoUrl": logo.asset->url,
   www,
-  roles
+  roles,
+  tosAcceptedAt
 }`);
 export const userQueryBySlug = defineQuery(`*[_type == "user" && slug.current == $slug][0] {
   name,

@@ -270,7 +270,12 @@
         "name": "Il nome deve essere di almeno 5 caratteri!",
         "companyName": "Il nome della società deve essere di almeno 5 caratteri.",
         "www": "Scrivi l'URL del sito web che inizia con http:// o https://"
-      }
+      },
+      "your_data": "I tuoi dati",
+      "your_data_description": "Scarica una copia di tutti i tuoi dati conservati su FisEvents: profilo, eventi e iscrizioni.",
+      "export_data": "Scarica i miei dati",
+      "danger_zone": "Zona pericolosa",
+      "danger_zone_description": "Elimina definitivamente il tuo account e tutti i dati associati (eventi, iscrizioni)."
     },
     "events": {
       "event": "Evento",
@@ -365,7 +370,8 @@
       "status_updated": "Stato aggiornato",
       "status_error": "Errore aggiornamento stato",
       "payment_updated": "Pagamento aggiornato",
-      "payment_error": "Errore aggiornamento pagamento"
+      "payment_error": "Errore aggiornamento pagamento",
+      "anonymization_notice": "I dati personali dei partecipanti (nome, email, telefono) verranno anonimizzati automaticamente il %date%, un mese dopo la fine dell'evento. Esporta il CSV prima di quella data se hai bisogno di conservarli."
     },
     "notifications": {
       "action_required": "Azione richiesta!",

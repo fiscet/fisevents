@@ -11,6 +11,8 @@ import DefaultFooter from '@/components/DefaultFooter';
 import { getSession } from '@/lib/auth';
 import Link from 'next/link';
 import Logo from '@/components/Logo';
+import { getUserById } from '@/lib/actions';
+import TosGate from './_components/TosGate';
 
 export default async function AdminLayout({
   children,
@@ -26,6 +28,9 @@ export default async function AdminLayout({
   if (!session) {
     return redirect(`/${lang}/auth`);
   }
+
+  const userData = await getUserById({ userId: session.user!.uid! });
+  const tosAccepted = !!userData?.tosAcceptedAt;
 
   return (
     <DictionaryProvider dictionary={dictionary}>
@@ -43,6 +48,8 @@ export default async function AdminLayout({
             </div>
           </div>
         </header>
+
+        {!tosAccepted && <TosGate />}
 
         {/* Page content */}
         <main id="main-content" className="flex-grow pt-[72px]" tabIndex={-1}>

@@ -183,6 +183,7 @@ export type Occurrence = {
   pendingPayment?: boolean;
   stripeSessionId?: string;
   reminderSentAt?: string;
+  attendantsAnonymizedAt?: string;
   createdByUser?: {
     _ref: string;
     _type: 'reference';
@@ -248,6 +249,7 @@ export type User = {
   };
   www?: string;
   roles?: Array<string>;
+  tosAcceptedAt?: string;
 };
 
 export type SanityImageCrop = {

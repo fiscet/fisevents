@@ -270,7 +270,12 @@
         "name": "Name must be at least 5 characters.",
         "companyName": "Company name must be at least 5 characters.",
         "www": "Write the website URL starting with http:// or https://"
-      }
+      },
+      "your_data": "Your data",
+      "your_data_description": "Download a copy of all your data stored on FisEvents: account profile, events and registrations.",
+      "export_data": "Download my data",
+      "danger_zone": "Danger Zone",
+      "danger_zone_description": "Permanently delete your account and all associated data (events, registrations)."
     },
     "events": {
       "event": "Event",
@@ -365,7 +370,8 @@
       "status_updated": "Status updated",
       "status_error": "Failed to update status",
       "payment_updated": "Payment status updated",
-      "payment_error": "Failed to update payment status"
+      "payment_error": "Failed to update payment status",
+      "anonymization_notice": "Participant personal data (name, email, phone) will be automatically anonymised on %date%, one month after the event ends. Export the CSV before that date if you need to retain the data."
     },
     "notifications": {
       "action_required": "Action required!",

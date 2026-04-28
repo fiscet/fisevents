@@ -141,6 +141,12 @@ export default defineType({
       readOnly: true,
     }),
     defineField({
+      name: 'attendantsAnonymizedAt',
+      title: 'Attendants Anonymized At',
+      type: 'datetime',
+      readOnly: true,
+    }),
+    defineField({
       title: 'Created by',
       name: 'createdByUser',
       type: 'reference',
