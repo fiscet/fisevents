@@ -365,7 +365,8 @@
       "status_updated": "Status updated",
       "status_error": "Failed to update status",
       "payment_updated": "Payment status updated",
-      "payment_error": "Failed to update payment status"
+      "payment_error": "Failed to update payment status",
+      "anonymization_notice": "Participant personal data (name, email, phone) will be automatically anonymised on %date%, one month after the event ends. Export the CSV before that date if you need to retain the data."
     },
     "notifications": {
       "action_required": "Action required!",

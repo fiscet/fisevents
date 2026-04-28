@@ -365,7 +365,8 @@
       "status_updated": "Stato aggiornato",
       "status_error": "Errore aggiornamento stato",
       "payment_updated": "Pagamento aggiornato",
-      "payment_error": "Errore aggiornamento pagamento"
+      "payment_error": "Errore aggiornamento pagamento",
+      "anonymization_notice": "I dati personali dei partecipanti (nome, email, telefono) verranno anonimizzati automaticamente il %date%, un mese dopo la fine dell'evento. Esporta il CSV prima di quella data se hai bisogno di conservarli."
     },
     "notifications": {
       "action_required": "Azione richiesta!",

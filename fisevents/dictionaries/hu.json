@@ -365,7 +365,8 @@
       "status_updated": "Státusz frissítve",
       "status_error": "Státusz frissítési hiba",
       "payment_updated": "Fizetési státusz frissítve",
-      "payment_error": "Fizetési státusz frissítési hiba"
+      "payment_error": "Fizetési státusz frissítési hiba",
+      "anonymization_notice": "A résztvevők személyes adatait (név, e-mail, telefon) automatikusan anonimizáljuk %date%-én, az esemény vége után egy hónappal. Ha meg kell őriznie az adatokat, exportálja a CSV-t ez előtt a dátum előtt."
     },
     "notifications": {
       "action_required": "Művelet szükséges!",

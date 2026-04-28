@@ -222,6 +222,7 @@ export default function EventSingleContainer({
           <EventAttentantList
             eventId={eventSingleData?._id}
             attendants={eventSingleData?.attendants}
+            endDate={eventSingleData?.endDate}
             eventDescription={`${eventSingleData?.title} - ${new Date(
               eventSingleData?.startDate!
             ).toLocaleDateString()}`}
