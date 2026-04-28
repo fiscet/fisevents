@@ -54,8 +54,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
   },
   robots: {
-    index: true,
-    follow: true,
+    index: process.env.VERCEL_ENV === 'production',
+    follow: process.env.VERCEL_ENV === 'production',
   },
 };
 

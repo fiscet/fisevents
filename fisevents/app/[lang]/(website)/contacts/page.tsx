@@ -1,5 +1,6 @@
 import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
+import { getAlternates } from '@/lib/seo';
 import { Metadata } from 'next';
 import { SectionHeader } from '@/components/SectionHeader/SectionHeader';
 import ContactForm from './_components/ContactForm';
@@ -14,6 +15,7 @@ export async function generateMetadata({
   return {
     title: d.meta.title,
     description: d.meta.description,
+    alternates: getAlternates('/contacts', lang),
   };
 }
 
