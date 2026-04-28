@@ -36,6 +36,7 @@ import { getPublicEventSlug, getPublicEventUrl } from '@/lib/utils';
 import { applyTemplate } from '@/lib/email-template';
 import type { Locale } from '@/lib/i18n';
 import { createUnsubscribeToken } from '@/lib/unsubscribe-token';
+import { createDeleteAccountToken } from '@/lib/delete-account-token';
 
 const aj = arcjet.withRule(
   validateEmail({
@@ -613,4 +614,21 @@ export const unsubscribeFromEvent = async ({
   });
 
   return result;
+};
+
+export const requestAccountDeletion = async ({ lang }: { lang: Locale }) => {
+  const session = await validateSession();
+  const userId = session.user!.uid as string;
+  const email = session.user!.email as string;
+
+  const token = createDeleteAccountToken({ userId, email, lang });
+  const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3002';
+  const confirmUrl = `${baseUrl}/api/user/delete-confirm?t=${token}`;
+
+  await sendMail({
+    sendTo: email,
+    subject: 'FisEvents — Confirm account deletion',
+    text: `You requested to delete your FisEvents account.\n\nClick this link to confirm (expires in 1 hour):\n${confirmUrl}\n\nIf you did not request this, ignore this email.`,
+    html: `<h2 style="margin:0 0 16px;color:#1a1a2e;font-size:20px;">Confirm account deletion</h2><p style="margin:0 0 12px;">You requested to permanently delete your FisEvents account and all associated data (events, registrations).</p><p style="margin:0 0 12px;color:#b91c1c;"><strong>This action cannot be undone.</strong></p><p style="margin:20px 0;"><a href="${confirmUrl}" style="display:inline-block;background:#dc2626;color:#ffffff;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;">Confirm deletion</a></p><p style="margin:20px 0 0;font-size:13px;color:#9ca3af;">This link expires in 1 hour. If you did not request this, ignore this email — your account is safe.</p>`,
+  });
 };
