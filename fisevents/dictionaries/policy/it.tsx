@@ -102,7 +102,9 @@ const PrivacyAndCookiePolicyIT = ({ lastUpdated }: { lastUpdated: string }) => {
           </li>
           <li>
             <strong>Cookie di analisi:</strong> Google Analytics e Sanity
-            Analytics per migliorare le performance.
+            Analytics per migliorare le performance. Questi cookie non sono
+            attualmente attivi e verranno abilitati solo previa comunicazione
+            e raccolta del consenso appropriato.
           </li>
         </ul>
       </section>

@@ -120,7 +120,9 @@ const PrivacyAndCookiePolicyEN = ({ lastUpdated }: { lastUpdated: string }) => {
           </li>
           <li>
             <strong>Analytics Cookies:</strong> Google Analytics and Sanity
-            Analytics to improve service performance.
+            Analytics to improve service performance. These cookies are not
+            currently active and will only be enabled with prior notice and
+            appropriate consent.
           </li>
         </ul>
 
