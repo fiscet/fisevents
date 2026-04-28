@@ -3,7 +3,15 @@ import { MetadataRoute } from 'next';
 const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fisevents.vercel.app';
 
+const isProduction = process.env.VERCEL_ENV === 'production';
+
 export default function robots(): MetadataRoute.Robots {
+  if (!isProduction) {
+    return {
+      rules: { userAgent: '*', disallow: '/' },
+    };
+  }
+
   return {
     rules: {
       userAgent: '*',
