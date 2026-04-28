@@ -38,7 +38,7 @@ export default function LocaleSwitcher({
         <SelectValue placeholder={curLang} />
       </SelectTrigger>
       <SelectContent>
-        {i18n.locales.map(locale => {
+        {i18n.visibleLocales.map(locale => {
           return (
             <SelectItem value={locale} key={locale}>
               <span

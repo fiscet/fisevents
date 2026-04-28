@@ -84,10 +84,19 @@ const PrivacyAndCookiePolicyEN = ({ lastUpdated }: { lastUpdated: string }) => {
         <h3 className="text-lg font-medium text-gray-800 mb-2">
           5. Data Retention
         </h3>
-        <p className="text-gray-600 mb-4">
-          Data is retained until the user withdraws consent or the service
-          terminates.
-        </p>
+        <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1">
+          <li>
+            <strong>Event participant data:</strong> identifying data (name,
+            email, phone) is automatically anonymised{' '}
+            <strong>1 month after the event ends</strong>. Anonymous
+            statistical data (check-in status, payment status) is kept for
+            the duration of the organiser&apos;s account.
+          </li>
+          <li>
+            <strong>Organiser account:</strong> data is retained until the
+            account is voluntarily deleted or the service terminates.
+          </li>
+        </ul>
       </section>
 
       {/* Cookie Policy Section */}

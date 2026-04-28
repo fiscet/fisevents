@@ -137,10 +137,14 @@ export default function TermsPage() {
         </ul>
 
         <h3 className="text-base font-semibold text-gray-800 mb-2">7. Data retention</h3>
+        <p className="text-gray-600 mb-2">
+          Participant identifying data (name, email, phone) is automatically anonymised 1 month after
+          the event ends. Anonymous statistical records (check-in status, payment status) are kept for
+          the duration of the organiser&apos;s account.
+        </p>
         <p className="text-gray-600 mb-4">
-          Participant data is retained for the duration of your account. You may delete individual
-          events or your entire account at any time from the admin dashboard, which permanently removes
-          all associated registration data.
+          You may delete individual events or your entire account at any time from the admin dashboard,
+          which permanently removes all associated registration data before the automatic schedule.
         </p>
 
         <h3 className="text-base font-semibold text-gray-800 mb-2">8. Contact</h3>

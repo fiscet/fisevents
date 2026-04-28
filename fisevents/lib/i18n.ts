@@ -1,6 +1,7 @@
 export const i18n = {
   defaultLocale: "en",
   locales: ["en", "it", "hu"],
+  visibleLocales: ["en", "it"],
   localeNames: {
     en: "English",
     it: "Italiano",
