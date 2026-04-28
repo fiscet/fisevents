@@ -37,13 +37,13 @@ export default function TosGate() {
             >
               Terms of Service and DPA
             </Link>
-            . As an organizer you act as Data Controller for your participants'
+            . As an organizer you act as Data Controller for your participants&apos;
             data; FisEvents acts as your Data Processor (Art. 28 GDPR).
           </p>
         </div>
 
         <ul className="text-sm text-gray-600 list-disc list-inside space-y-1">
-          <li>You will collect participants' data only for your event.</li>
+          <li>You will collect participants&apos; data only for your event.</li>
           <li>You will provide participants with a privacy notice.</li>
           <li>You will handle data subject requests within GDPR deadlines.</li>
           <li>FisEvents processes data only on your behalf.</li>

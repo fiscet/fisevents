@@ -16,7 +16,7 @@ export default function TermsPage() {
 
         <h3 className="text-base font-semibold text-gray-800 mb-2">1. Service description</h3>
         <p className="text-gray-600 mb-4">
-          FisEvents is a platform that allows organizers ("you", "the organizer") to publish events
+          FisEvents is a platform that allows organizers (&quot;you&quot;, &quot;the organizer&quot;) to publish events
           and collect registrations from participants. The platform is operated by Christian Zanchetta
           (fisevents@fiscet.it).
         </p>
@@ -51,7 +51,7 @@ export default function TermsPage() {
 
         <h3 className="text-base font-semibold text-gray-800 mb-2">6. Limitation of liability</h3>
         <p className="text-gray-600 mb-4">
-          FisEvents provides the platform on an "as is" basis. We are not liable for any loss of
+          FisEvents provides the platform on an &quot;as is&quot; basis. We are not liable for any loss of
           revenue, data, or goodwill arising from use or unavailability of the service, except where
           required by mandatory law.
         </p>
@@ -69,7 +69,7 @@ export default function TermsPage() {
           Part II — Data Processing Agreement (Art. 28 GDPR)
         </h2>
         <p className="text-gray-600 mb-6">
-          This Data Processing Agreement ("DPA") forms part of the Terms of Service and governs the
+          This Data Processing Agreement (&quot;DPA&quot;) forms part of the Terms of Service and governs the
           processing of personal data in connection with your use of FisEvents, in accordance with
           Regulation (EU) 2016/679 (GDPR).
         </p>
@@ -84,7 +84,7 @@ export default function TermsPage() {
 
         <h3 className="text-base font-semibold text-gray-800 mb-2">2. Nature and purpose of processing</h3>
         <p className="text-gray-600 mb-4">
-          FisEvents processes participants' personal data to: store event registrations, send
+          FisEvents processes participants&apos; personal data to: store event registrations, send
           confirmation and reminder emails, and enable organisers to manage check-in and attendance.
           No personal data of participants is used for any other purpose.
         </p>
@@ -98,7 +98,7 @@ export default function TermsPage() {
 
         <h3 className="text-base font-semibold text-gray-800 mb-2">4. Your obligations as Data Controller</h3>
         <ul className="list-disc list-inside text-gray-600 mb-4">
-          <li>Ensure you have a valid legal basis to collect participants' data (e.g. contract performance).</li>
+          <li>Ensure you have a valid legal basis to collect participants&apos; data (e.g. contract performance).</li>
           <li>Provide participants with a privacy notice before or at the point of registration.</li>
           <li>Respond to data subject requests (access, deletion, etc.) within GDPR deadlines.</li>
           <li>Notify FisEvents promptly if you receive a data subject request that requires our assistance.</li>
