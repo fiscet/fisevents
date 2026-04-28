@@ -60,6 +60,11 @@ export default defineType({
       type: 'url'
     }),
     defineField({
+      name: 'tosAcceptedAt',
+      type: 'datetime',
+      hidden: true,
+    }),
+    defineField({
       title: 'Roles',
       name: 'roles',
       type: 'array',

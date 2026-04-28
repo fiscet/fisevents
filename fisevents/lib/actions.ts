@@ -616,6 +616,13 @@ export const unsubscribeFromEvent = async ({
   return result;
 };
 
+export const acceptToS = async () => {
+  const session = await validateSession();
+  const userId = session.user!.uid as string;
+  await sanityClient.patch(userId).set({ tosAcceptedAt: new Date().toISOString() }).commit();
+  revalidateTags(['user']);
+};
+
 export const requestAccountDeletion = async ({ lang }: { lang: Locale }) => {
   const session = await validateSession();
   const userId = session.user!.uid as string;

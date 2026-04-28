@@ -248,6 +248,7 @@ export type User = {
   };
   www?: string;
   roles?: Array<string>;
+  tosAcceptedAt?: string;
 };
 
 export type SanityImageCrop = {
