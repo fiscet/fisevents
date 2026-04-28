@@ -1,11 +1,50 @@
 import { getEventSingleBySlug, getEventStatusBySlug, getUserBySlug } from '@/lib/actions';
 import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
+import { getAlternates } from '@/lib/seo';
 import EventNotFound from '../../_components/EventNotFound';
 import PublicEvent from '../../_components/PublicEvent';
 import EventAttendantForm from '../../_features/EventAttendantContainer';
 import { NotificationProvider } from '@/components/Notification/NotificationContext';
 import { PublicRoutes } from '@/lib/routes';
+import { Metadata } from 'next';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{
+    lang: Locale;
+    ['organization-slug']: string;
+    ['event-slug']: string;
+  }>;
+}): Promise<Metadata> {
+  const resolvedParams = await params;
+  const organizationSlug = resolvedParams['organization-slug'];
+  const eventSlug = resolvedParams['event-slug'];
+  const lang = resolvedParams.lang;
+  const fullSlug = `${PublicRoutes.getBase()}/${organizationSlug}/${eventSlug}`;
+
+  const eventData = await getEventSingleBySlug({ slug: fullSlug });
+  if (!eventData) return {};
+
+  const description = eventData.description
+    ?.replace(/[#*_~`[\]]/g, '')
+    .slice(0, 160);
+
+  return {
+    title: eventData.title,
+    description,
+    alternates: getAlternates(`/pe/${organizationSlug}/${eventSlug}`, lang),
+    openGraph: {
+      title: eventData.title ?? undefined,
+      description: description ?? undefined,
+      images: eventData.pageImage?.url
+        ? [{ url: eventData.pageImage.url }]
+        : [],
+      type: 'website',
+    },
+  };
+}
 
 export default async function PublicEventPage({
   params,
@@ -55,8 +94,33 @@ export default async function PublicEventPage({
         eventData.remainingPlaces > 0)) &&
     Date.parse(eventData.endDate!) >= Date.now();
 
+  const jsonLd = eventData
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'Event',
+        name: eventData.title,
+        description: eventData.description?.replace(/[#*_~`[\]]/g, '').slice(0, 500),
+        startDate: eventData.startDate,
+        endDate: eventData.endDate,
+        ...(eventData.location
+          ? { location: { '@type': 'Place', name: eventData.location } }
+          : {}),
+        ...(eventData.pageImage?.url ? { image: eventData.pageImage.url } : {}),
+        organizer: {
+          '@type': 'Organization',
+          name: eventData.companyName,
+        },
+      }
+    : null;
+
   return (
     <div>
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
       {eventData && organizationSlug === eventData.organizationSlug ? (
         <>
           <PublicEvent eventData={eventData} userData={userData} lang={lang} />

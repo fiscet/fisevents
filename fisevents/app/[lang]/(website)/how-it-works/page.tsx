@@ -1,5 +1,6 @@
 import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
+import { getAlternates } from '@/lib/seo';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -15,6 +16,7 @@ export async function generateMetadata({
   return {
     title: d.meta.title,
     description: d.meta.description,
+    alternates: getAlternates('/how-it-works', lang),
   };
 }
 

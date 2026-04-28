@@ -145,6 +145,13 @@ export const eventForWebhookQuery = defineQuery(`
   "creatorName": createdByUser->name
 }`);
 
+export const allPublishedEventSlugsQuery = defineQuery(`
+*[_type == "occurrence" && active == true && defined(publicSlug)] {
+  publicSlug,
+  _updatedAt
+}
+`);
+
 export const publicEventListByOrgSlugQuery = defineQuery(`
 *[
   _type == "occurrence" &&

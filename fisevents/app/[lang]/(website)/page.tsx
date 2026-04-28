@@ -1,5 +1,6 @@
 import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
+import { getAlternates } from '@/lib/seo';
 import { Metadata, Viewport } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -24,13 +25,11 @@ export async function generateMetadata({
     title: dictionary.meta.title,
     description: dictionary.meta.description,
     keywords: dictionary.meta.keywords,
-    alternates: {
-      canonical: `https://fisevents.vercel.app/${lang}`
-    },
+    alternates: getAlternates('', lang),
     openGraph: {
       title: dictionary.meta.title,
       description: dictionary.meta.description,
-      url: `https://fisevents.vercel.app/${lang}`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fisevents.vercel.app'}/${lang}`,
       images: [
         {
           url: '/img/og-image.png',
