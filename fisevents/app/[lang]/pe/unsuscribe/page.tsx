@@ -3,21 +3,25 @@ import { Locale } from '@/lib/i18n';
 import PublicEvent from '../_components/PublicEvent';
 import { NotificationProvider } from '@/components/Notification/NotificationContext';
 import EventUnsuscribe from '../_features/EventUnsuscribe';
+import { verifyUnsubscribeToken } from '@/lib/unsubscribe-token';
 
 export default async function UnsuscribePage({
   params,
   searchParams,
 }: {
   params: Promise<{ lang: Locale }>;
-  searchParams: Promise<{
-    eventId: string;
-    eventSlug: string;
-    eventAttendantUuid: string;
-    eventAttendantEmail: string;
-  }>;
+  searchParams: Promise<{ eventSlug: string; t: string }>;
 }) {
   const { lang } = await params;
-  const { eventId, eventSlug, eventAttendantUuid, eventAttendantEmail } = await searchParams;
+  const { eventSlug, t } = await searchParams;
+
+  const payload = verifyUnsubscribeToken(t ?? '');
+  if (!payload) {
+    return <p className="text-center mt-10">Invalid or expired unsubscribe link.</p>;
+  }
+
+  const { eventId, uuid: eventAttendantUuid, email: eventAttendantEmail } = payload;
+
   const eventData = await getEventSingleBySlug({ slug: eventSlug });
   const userData = await getUserBySlug({ slug: eventData.organizationSlug });
 

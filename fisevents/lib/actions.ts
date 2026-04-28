@@ -35,6 +35,7 @@ import { getEmailDictionary } from '@/lib/i18n.utils';
 import { getPublicEventSlug, getPublicEventUrl } from '@/lib/utils';
 import { applyTemplate } from '@/lib/email-template';
 import type { Locale } from '@/lib/i18n';
+import { createUnsubscribeToken } from '@/lib/unsubscribe-token';
 
 const aj = arcjet.withRule(
   validateEmail({
@@ -530,7 +531,8 @@ export const subscribeToEvent = async ({
   const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3002';
   const publicSlug = getPublicEventSlug(emailData.eventSlug, emailData.organizationSlug);
   const publicUrl = getPublicEventUrl(publicSlug);
-  const unsubscribeLink = `${baseUrl}/${lang}/pe/unsuscribe?eventId=${eventId}&eventSlug=${publicSlug}&eventAttendantEmail=${result.email}&eventAttendantUuid=${result.uuid}`;
+  const token = createUnsubscribeToken({ eventId, uuid: result.uuid!, email: result.email! });
+  const unsubscribeLink = `${baseUrl}/${lang}/pe/unsuscribe?eventSlug=${publicSlug}&t=${token}`;
 
   const emailDict = await getEmailDictionary(lang);
   const subDict = emailDict.event_attendant.subscription;
