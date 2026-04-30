@@ -23,6 +23,9 @@ export default async function AdminPage({
   ]);
 
   if (!eventListData.length) {
+    if (!userData?.name || !userData?.companyName) {
+      return redirect(`/${lang}/${CreatorAdminRoutes.getItem('user-account')}`);
+    }
     return redirect(`/${lang}/${CreatorAdminRoutes.getItem('event')}`);
   }
 
