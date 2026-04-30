@@ -1,3 +1,12 @@
+import type { Metadata } from 'next';
+
+const BASE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fisevents.vercel.app';
+
+export const metadata: Metadata = {
+  alternates: { canonical: `${BASE_URL}/en/terms` },
+};
+
 const LAST_UPDATED = '2025-05-01';
 
 export default function TermsPage() {
