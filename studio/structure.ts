@@ -1,6 +1,6 @@
 import { StructureBuilder } from "sanity/structure";
 import { FaHouseUser } from "react-icons/fa";
-import { BsCalendarEventFill, BsGearFill } from "react-icons/bs";
+import { BsCalendarEventFill, BsGearFill, BsMegaphone } from "react-icons/bs";
 import { BsGraphUp } from "react-icons/bs";
 import Dashboard from "./components/Dashboard";
 
@@ -25,6 +25,13 @@ const groups = [
     icon: BsGraphUp,
     menuGroups: [
       ['paymentEvent']
+    ]
+  },
+  {
+    name: 'Marketing',
+    icon: BsMegaphone,
+    menuGroups: [
+      ['landingPage'],
     ]
   },
   {

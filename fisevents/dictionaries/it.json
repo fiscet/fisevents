@@ -433,5 +433,13 @@
       "places_left": "posti disponibili",
       "free": "Gratis"
     }
+  },
+  "landing": {
+    "pain_points_heading": "I tuoi problemi, risolti",
+    "features_heading": "Cosa ottieni con FisEvents",
+    "cta_heading": "Pronto a semplificare le tue iscrizioni?",
+    "cta_sub": "Crea il tuo primo evento in 5 minuti. Il primo è gratis, sempre.",
+    "cta_button": "Inizia gratis",
+    "default_cta": "Inizia gratis"
   }
 }

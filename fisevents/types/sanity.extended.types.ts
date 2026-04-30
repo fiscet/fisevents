@@ -1,4 +1,32 @@
 import { EventAttendant, Occurrence, SanityImageAsset, SanityImageMetadata, User } from '@/types/sanity.types';
+import { PortableTextBlock } from '@portabletext/react';
+
+type LocalizedString = { it?: string; en?: string } | null;
+type LocalizedText = { it?: string; en?: string } | null;
+
+export type LandingPageItem = {
+  icon?: string;
+  title?: LocalizedString;
+  description?: LocalizedText;
+};
+
+export type LandingPage = {
+  title: string;
+  slug: string;
+  coverImageUrl?: string | null;
+  heroHeadline?: LocalizedString;
+  heroSubheadline?: LocalizedText;
+  heroCtaLabel?: LocalizedString;
+  painPoints?: LandingPageItem[];
+  features?: LandingPageItem[];
+  bodyIt?: PortableTextBlock[];
+  bodyEn?: PortableTextBlock[];
+  seoTitleIt?: string;
+  seoDescriptionIt?: string;
+  seoTitleEn?: string;
+  seoDescriptionEn?: string;
+  _updatedAt: string;
+};
 
 export type CurrentUser = Partial<User> & {
   logoUrl: Pick<SanityImageAsset, 'url'>['url'];

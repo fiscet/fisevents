@@ -145,6 +145,41 @@ export const eventForWebhookQuery = defineQuery(`
   "creatorName": createdByUser->name
 }`);
 
+export const landingPageBySlugQuery = defineQuery(`
+*[_type == "landingPage" && slug.current == $slug && active == true][0] {
+  title,
+  "slug": slug.current,
+  "coverImageUrl": coverImage.asset->url,
+  heroHeadline,
+  heroSubheadline,
+  heroCtaLabel,
+  painPoints[] {
+    icon,
+    title,
+    description
+  },
+  features[] {
+    icon,
+    title,
+    description
+  },
+  bodyIt,
+  bodyEn,
+  seoTitleIt,
+  seoDescriptionIt,
+  seoTitleEn,
+  seoDescriptionEn,
+  _updatedAt
+}
+`);
+
+export const allPublishedLandingPageSlugsQuery = defineQuery(`
+*[_type == "landingPage" && active == true] {
+  "slug": slug.current,
+  _updatedAt
+}
+`);
+
 export const allPublishedEventSlugsQuery = defineQuery(`
 *[_type == "occurrence" && active == true && defined(publicSlug)] {
   publicSlug,

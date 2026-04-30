@@ -1,7 +1,10 @@
 import { MetadataRoute } from 'next';
 import { i18n } from '@/lib/i18n';
 import { sanityClient } from '@/lib/sanity.cli';
-import { allPublishedEventSlugsQuery } from '@/lib/queries';
+import {
+  allPublishedEventSlugsQuery,
+  allPublishedLandingPageSlugsQuery,
+} from '@/lib/queries';
 
 export const revalidate = 3600;
 
@@ -34,9 +37,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
   );
 
-  const events = await sanityClient.fetch<
+  const [landingPages, events] = await Promise.all([
+    sanityClient.fetch<{ slug: string; _updatedAt: string }[]>(
+      allPublishedLandingPageSlugsQuery,
+      {},
+      { next: { revalidate: 3600 } }
+    ),
+    sanityClient.fetch<
     { publicSlug: string; _updatedAt: string }[]
-  >(allPublishedEventSlugsQuery, {}, { next: { revalidate: 3600 } });
+  >(allPublishedEventSlugsQuery, {}, { next: { revalidate: 3600 } }),
+  ]);
+
+  const landingPageEntries: MetadataRoute.Sitemap = (landingPages ?? []).flatMap(
+    ({ slug, _updatedAt }) => {
+      if (!slug) return [];
+      const path = `/per/${slug}`;
+      return VISIBLE.map(lang => ({
+        url: `${BASE_URL}/${lang}${path}`,
+        lastModified: new Date(_updatedAt),
+        alternates: { languages: langAlternates(path) },
+      }));
+    }
+  );
 
   const eventEntries: MetadataRoute.Sitemap = (events ?? []).flatMap(
     ({ publicSlug, _updatedAt }) => {
@@ -51,5 +73,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   );
 
-  return [...staticEntries, ...eventEntries];
+  return [...staticEntries, ...landingPageEntries, ...eventEntries];
 }
