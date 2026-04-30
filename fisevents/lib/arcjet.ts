@@ -1,19 +1,11 @@
 import arcjet, {
-  detectBot,
   fixedWindow,
-  protectSignup,
-  sensitiveInfo,
-  shield,
-  validateEmail,
   slidingWindow,
+  validateEmail,
 } from "@arcjet/next";
 
 export {
-  detectBot,
   fixedWindow,
-  protectSignup,
-  sensitiveInfo,
-  shield,
   slidingWindow,
   validateEmail,
 };
