@@ -15,12 +15,14 @@ import ExportDataButton from '../components/ExportDataButton';
 
 export type UserAccountProps = {
   form: ReturnType<typeof useForm<UserAccountFormSchemaType>>;
+  isVeryFirstAccess?: boolean;
   imageUploaderRender: () => ReactElement<ImageUploaderProps>;
   onSubmit: (values: UserAccountFormSchemaType) => void;
 };
 
 export default function UserAccount({
   form,
+  isVeryFirstAccess,
   imageUploaderRender,
   onSubmit
 }: UserAccountProps) {
@@ -82,19 +84,23 @@ export default function UserAccount({
           </form>
         </Form>
       </div>
-      <Separator className="my-8" />
-      <div className="px-1 max-w-[650px] mx-auto mb-6">
-        <h2 className="text-sm font-semibold text-gray-700 mb-2">{a.your_data}</h2>
-        <p className="text-sm text-muted-foreground mb-4">{a.your_data_description}</p>
-        <ExportDataButton label={a.export_data} />
-      </div>
+      {!isVeryFirstAccess && (
+        <>
+          <Separator className="my-8" />
+          <div className="px-1 max-w-[650px] mx-auto mb-6">
+            <h2 className="text-sm font-semibold text-gray-700 mb-2">{a.your_data}</h2>
+            <p className="text-sm text-muted-foreground mb-4">{a.your_data_description}</p>
+            <ExportDataButton label={a.export_data} />
+          </div>
 
-      <Separator className="my-8" />
-      <div className="px-1 max-w-[650px] mx-auto mb-10">
-        <h2 className="text-sm font-semibold text-destructive mb-2">{a.danger_zone}</h2>
-        <p className="text-sm text-muted-foreground mb-4">{a.danger_zone_description}</p>
-        <DeleteAccountDialog />
-      </div>
+          <Separator className="my-8" />
+          <div className="px-1 max-w-[650px] mx-auto mb-10">
+            <h2 className="text-sm font-semibold text-destructive mb-2">{a.danger_zone}</h2>
+            <p className="text-sm text-muted-foreground mb-4">{a.danger_zone_description}</p>
+            <DeleteAccountDialog />
+          </div>
+        </>
+      )}
     </div>
   );
 }

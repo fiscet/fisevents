@@ -127,7 +127,8 @@ export default function UserAccountContainer({
   const { isDirty, isValid, isSubmitted } = form.formState;
 
   const isBackVisible =
-    (!isDirty && isValid) || (isDirty && isValid && isSubmitted);
+    !isVeryFirstAccess &&
+    ((!isDirty && isValid) || (isDirty && isValid && isSubmitted));
 
   return (
     <>
@@ -148,6 +149,7 @@ export default function UserAccountContainer({
       />
       <UserAccount
         form={form}
+        isVeryFirstAccess={isVeryFirstAccess}
         imageUploaderRender={() => (
           <ImageUploader
             label={a.logo}
