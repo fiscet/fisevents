@@ -1,6 +1,7 @@
 'use client';
 
 import { useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import { User } from '@/types/sanity.types';
 import { CurrentUser } from '@/types/sanity.extended.types';
 import { updateUser } from '@/lib/actions';
@@ -30,6 +31,7 @@ export default function UserAccountContainer({
   userData
 }: UserAccountContainerProps) {
   const [isSaving, startProcessing] = useTransition();
+  const router = useRouter();
   const { data: sessionUserData, update: updateSession } = useSession();
   const { showNotification } = useNotification();
   const curLang = useCurrentLang();
@@ -91,11 +93,7 @@ export default function UserAccountContainer({
         await updateSession(newSession);
 
         if (isVeryFirstAccess) {
-          const url = `${
-            window.location.origin
-          }/${curLang}/${CreatorAdminRoutes.getItem('event')}`;
-
-          window.location.href = url;
+          router.push(`/${curLang}/${CreatorAdminRoutes.getItem('event')}`);
         }
       } catch (error) {
         let errorMessage = s.error_text;
