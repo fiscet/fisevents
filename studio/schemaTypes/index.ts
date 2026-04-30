@@ -4,6 +4,7 @@ import verificationToken from './documents/verificationToken';
 import occurrence from './documents/occurrence';
 import eventType from './documents/eventType';
 import paymentEvent from './documents/paymentEvent';
+import landingPage from './documents/landingPage';
 
 import blockContent from './components/blockContent';
 import eventAttendant from './components/eventAttendant';
@@ -15,6 +16,7 @@ export const schemaTypes = [
   occurrence,
   eventType,
   paymentEvent,
+  landingPage,
 
   blockContent,
   eventAttendant,
