@@ -433,5 +433,30 @@
       "places_left": "szabad hely",
       "free": "Ingyenes"
     }
+  },
+  "pwa": {
+    "install": {
+      "android": {
+        "title": "FisEvents telepítése",
+        "description": "Add hozzá a FisEventst a kezdőképernyőhöz a gyors eléréshez.",
+        "cta": "Telepítés",
+        "dismiss": "Most nem"
+      },
+      "ios": {
+        "title": "Telepítsd a FisEventst az iPhone-odra",
+        "intro": "Hogy mindig kéznél legyen, add hozzá a kezdőképernyőhöz 3 lépésben:",
+        "step1": "Koppints a Megosztás gombra a Safari eszköztárán.",
+        "step2": "Görgess le és válaszd a \"Hozzáadás a kezdőképernyőhöz\" lehetőséget.",
+        "step3": "Erősítsd meg a jobb felső sarokban lévő \"Hozzáadás\" gombbal.",
+        "close": "Értem",
+        "remind_later": "Emlékeztess később"
+      }
+    },
+    "update": {
+      "title": "Új verzió érhető el",
+      "description": "Egy FisEvents frissítés készen áll.",
+      "cta": "Újratöltés",
+      "dismiss": "Később"
+    }
   }
 }

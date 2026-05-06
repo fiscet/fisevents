@@ -1,6 +1,7 @@
 import { DictionaryProvider } from '@/app/contexts/DictionaryContext';
 import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
+import PWAClient from '@/components/PWA/PWAClient';
 
 export default async function AuthLayout({
   params,
@@ -27,6 +28,7 @@ export default async function AuthLayout({
         />
         <div className="relative z-10 w-full max-w-md">{children}</div>
       </div>
+      <PWAClient />
     </DictionaryProvider>
   );
 }

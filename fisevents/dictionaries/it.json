@@ -441,5 +441,30 @@
     "cta_sub": "Crea il tuo primo evento in 5 minuti. Il primo è gratis, sempre.",
     "cta_button": "Inizia gratis",
     "default_cta": "Inizia gratis"
+  },
+  "pwa": {
+    "install": {
+      "android": {
+        "title": "Installa FisEvents",
+        "description": "Aggiungi FisEvents alla schermata Home per accedervi velocemente come un'app.",
+        "cta": "Installa",
+        "dismiss": "Non ora"
+      },
+      "ios": {
+        "title": "Installa FisEvents sul tuo iPhone",
+        "intro": "Per averla sempre a portata di mano, aggiungila alla Home in 3 passaggi:",
+        "step1": "Tocca il pulsante Condividi nella barra di Safari.",
+        "step2": "Scorri e seleziona \"Aggiungi alla schermata Home\".",
+        "step3": "Conferma toccando \"Aggiungi\" in alto a destra.",
+        "close": "Ho capito",
+        "remind_later": "Ricordamelo dopo"
+      }
+    },
+    "update": {
+      "title": "Nuova versione disponibile",
+      "description": "C'è un aggiornamento di FisEvents pronto.",
+      "cta": "Ricarica",
+      "dismiss": "Più tardi"
+    }
   }
 }

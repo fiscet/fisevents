@@ -1,7 +1,14 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import { i18n } from '@/lib/i18n';
 import './globals.css';
+
+export const viewport: Viewport = {
+  themeColor: '#ffffff',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 export async function generateStaticParams() {
   return i18n.locales.map(locale => ({ lang: locale }));
@@ -29,6 +36,16 @@ export const metadata: Metadata = {
   description:
     'The all-in-one platform for creators to schedule, sell, and manage their events.',
   metadataBase: new URL('https://fisevents.vercel.app'),
+  manifest: '/manifest.json',
+  applicationName: 'FisEvents',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'FisEvents',
+  },
+  formatDetection: {
+    telephone: false,
+  },
   icons: {
     icon: [
       { url: '/img/favicon-16x16.png', sizes: '16x16', type: 'image/png' },

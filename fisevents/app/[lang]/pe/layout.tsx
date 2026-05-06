@@ -6,6 +6,7 @@ import { getDictionary } from '@/lib/i18n.utils';
 import DefaultFooter from '@/components/DefaultFooter';
 import Link from 'next/link';
 import Logo from '@/components/Logo';
+import PWAClient from '@/components/PWA/PWAClient';
 
 export default async function PeLayout({
   params,
@@ -43,6 +44,7 @@ export default async function PeLayout({
 
         <DefaultFooter />
       </div>
+      <PWAClient />
     </DictionaryProvider>
   );
 }
