@@ -2,6 +2,7 @@ import { sanityClient } from './sanity.cli';
 import {
   landingPageBySlugQuery,
   allPublishedLandingPageSlugsQuery,
+  landingPageNavListQuery,
 } from './queries';
 import { LandingPage } from '@/types/sanity.extended.types';
 
@@ -15,6 +16,13 @@ export const getLandingPageBySlug = (slug: string) =>
 export const getAllPublishedLandingPageSlugs = () =>
   sanityClient.fetch<{ slug: string; _updatedAt: string }[]>(
     allPublishedLandingPageSlugsQuery,
+    {},
+    { next: { revalidate: 3600 } }
+  );
+
+export const getLandingPageNavList = () =>
+  sanityClient.fetch<{ title: string | null; slug: string | null }[]>(
+    landingPageNavListQuery,
     {},
     { next: { revalidate: 3600 } }
   );

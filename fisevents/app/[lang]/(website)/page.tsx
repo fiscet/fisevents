@@ -1,6 +1,7 @@
 import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
 import { getAlternates } from '@/lib/seo';
+import { getLandingPageNavList } from '@/lib/landing-page';
 import { Metadata, Viewport } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -58,6 +59,10 @@ export default async function HomePage({
 }) {
   const { lang } = await params;
   const dictionary = (await getDictionary(lang)).website;
+
+  const landingPages = (await getLandingPageNavList()).filter(
+    (p): p is { title: string; slug: string } => !!p.title && !!p.slug
+  );
 
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.fisevents.com';
@@ -303,6 +308,35 @@ export default async function HomePage({
           </div>
         </div>
       </section>
+
+      {/* ── SOLUTIONS LINKS (discreet, for SEO/internal linking) ─ */}
+      {landingPages.length > 0 && (
+        <section
+          className="pb-16"
+          aria-labelledby="solutions-heading"
+        >
+          <div className="max-w-7xl mx-auto px-6 md:px-8 text-center">
+            <h2
+              id="solutions-heading"
+              className="text-sm font-semibold uppercase tracking-wide text-fe-on-surface-variant mb-4"
+            >
+              {dictionary.home.solutions_heading}
+            </h2>
+            <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+              {landingPages.map(page => (
+                <li key={page.slug}>
+                  <Link
+                    href={`/${lang}/per/${page.slug}`}
+                    className="text-sm text-fe-on-surface-variant hover:text-fe-primary hover:underline"
+                  >
+                    {page.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
     </>
   );
 }
