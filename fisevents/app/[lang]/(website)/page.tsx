@@ -30,7 +30,7 @@ export async function generateMetadata({
       title: dictionary.meta.title,
       description: dictionary.meta.description,
       url: `${
-        process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fisevents.com'
+        process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.fisevents.com'
       }/${lang}`,
       images: [
         {
@@ -60,7 +60,7 @@ export default async function HomePage({
   const dictionary = (await getDictionary(lang)).website;
 
   const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fisevents.com';
+    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.fisevents.com';
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [

@@ -8,7 +8,7 @@ import OrgEventCard from '../_components/OrgEventCard';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const BASE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fisevents.com';
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.fisevents.com';
 
 export async function generateMetadata({
   params,

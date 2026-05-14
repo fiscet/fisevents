@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 const BASE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fisevents.com';
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.fisevents.com';
 
 const isProduction = process.env.VERCEL_ENV === 'production';
 

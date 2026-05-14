@@ -10,7 +10,7 @@ import { PublicRoutes } from '@/lib/routes';
 import { Metadata } from 'next';
 
 const BASE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fisevents.com';
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.fisevents.com';
 
 /**
  * Parses the GROQ-built price string ("<amount> <currency>", "<amount>" or "").
