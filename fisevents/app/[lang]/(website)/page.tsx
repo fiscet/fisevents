@@ -30,7 +30,7 @@ export async function generateMetadata({
       title: dictionary.meta.title,
       description: dictionary.meta.description,
       url: `${
-        process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fisevents.vercel.app'
+        process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fisevents.com'
       }/${lang}`,
       images: [
         {

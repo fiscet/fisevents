@@ -19,16 +19,24 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+export type MailAttachment = {
+  filename: string;
+  content: string;
+  contentType?: string;
+};
+
 export async function sendMail({
   sendTo,
   subject,
   text,
   html,
+  attachments,
 }: {
   sendTo?: string;
   subject: string;
   text: string;
   html?: string;
+  attachments?: MailAttachment[];
 }) {
   try {
     const isVerified = await transporter.verify();
@@ -49,6 +57,7 @@ export async function sendMail({
     subject: subject,
     text: text,
     html: wrappedHtml ?? '',
+    attachments,
   });
 
   return info;

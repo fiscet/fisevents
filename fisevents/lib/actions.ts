@@ -34,6 +34,12 @@ import { sendMail } from '@/lib/send-mail';
 import { getEmailDictionary } from '@/lib/i18n.utils';
 import { getPublicEventSlug, getPublicEventUrl } from '@/lib/utils';
 import { applyTemplate } from '@/lib/email-template';
+import {
+  type CalendarEvent,
+  getGoogleCalendarUrl,
+  getOutlookCalendarUrl,
+  getIcsContent,
+} from '@/lib/calendar-links';
 import type { Locale } from '@/lib/i18n';
 import { createUnsubscribeToken } from '@/lib/unsubscribe-token';
 import { createDeleteAccountToken } from '@/lib/delete-account-token';
@@ -504,6 +510,7 @@ export const updateEventAttendantStatus = async ({
 
 type EventEmailData = {
   eventTitle: string;
+  description?: string;
   location?: string;
   talkTo?: string;
   price?: string;
@@ -538,6 +545,17 @@ export const subscribeToEvent = async ({
   const emailDict = await getEmailDictionary(lang);
   const subDict = emailDict.event_attendant.subscription;
 
+  const hasDates = !!(emailData.startDate && emailData.endDate);
+  const calendarEvent: CalendarEvent | undefined = hasDates
+    ? {
+        title: emailData.eventTitle,
+        description: emailData.description,
+        location: emailData.location,
+        startDate: emailData.startDate!,
+        endDate: emailData.endDate!,
+      }
+    : undefined;
+
   const vars = {
     attendant_name: result.fullName ?? '',
     event_title: emailData.eventTitle,
@@ -550,6 +568,8 @@ export const subscribeToEvent = async ({
     end_date: emailData.endDate ? new Date(emailData.endDate).toLocaleString() : '--',
     unsubscribe_link: unsubscribeLink,
     company_name: emailData.companyName,
+    google_calendar_url: calendarEvent ? getGoogleCalendarUrl(calendarEvent) : '',
+    outlook_calendar_url: calendarEvent ? getOutlookCalendarUrl(calendarEvent) : '',
   };
 
   await sendMail({
@@ -557,6 +577,15 @@ export const subscribeToEvent = async ({
     subject: applyTemplate(subDict.subject, vars),
     text: applyTemplate(subDict.body_txt, vars),
     html: applyTemplate(subDict.body_html, vars),
+    attachments: calendarEvent
+      ? [
+          {
+            filename: 'event.ics',
+            content: getIcsContent(calendarEvent),
+            contentType: 'text/calendar; charset=utf-8; method=PUBLISH',
+          },
+        ]
+      : undefined,
   });
 
   if (emailData.organizerEmail) {

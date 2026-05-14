@@ -1,7 +1,7 @@
 import { i18n, Locale } from '@/lib/i18n';
 
 const BASE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fisevents.vercel.app';
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fisevents.com';
 
 export function getAlternates(path: string, lang: Locale) {
   const normalizedPath = path === '' || path.startsWith('/') ? path : `/${path}`;

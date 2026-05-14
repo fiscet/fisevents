@@ -392,6 +392,12 @@
     "talk_to": "Persona di contatto",
     "places_left": "Posti rimanenti",
     "organized_by": "Organizzato da",
+    "add_to_calendar": {
+      "button": "Aggiungi al calendario",
+      "google": "Google Calendar",
+      "outlook": "Outlook",
+      "apple": "Apple / Altri (.ics)"
+    },
     "fullname": "Nome completo",
     "email": "Email",
     "phone": "Telefono",

@@ -392,6 +392,12 @@
     "talk_to": "Kapcsolat",
     "places_left": "Szabad helyek",
     "organized_by": "Szervező",
+    "add_to_calendar": {
+      "button": "Hozzáadás a naptárhoz",
+      "google": "Google Naptár",
+      "outlook": "Outlook",
+      "apple": "Apple / Egyéb (.ics)"
+    },
     "fullname": "Teljes név",
     "email": "E-mail",
     "phone": "Telefon",
