@@ -35,7 +35,9 @@ export const metadata: Metadata = {
   },
   description:
     'The all-in-one platform for creators to schedule, sell, and manage their events.',
-  metadataBase: new URL('https://fisevents.vercel.app'),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.fisevents.com'
+  ),
   manifest: '/manifest.json',
   applicationName: 'FisEvents',
   appleWebApp: {

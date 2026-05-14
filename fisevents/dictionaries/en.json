@@ -25,6 +25,7 @@
       "craftFocus": "Focus on your craft.",
       "readyToHost": "Ready to host your next event?",
       "createFirstEvent": "Create your first event",
+      "solutions_heading": "FisEvents for every need",
       "tagline": "Registrations for events, classes and appointments. Full stop.",
       "meta": {
         "title": "FisEvents - Simplify Your Event Management",
@@ -392,6 +393,12 @@
     "talk_to": "Contact person",
     "places_left": "Places left",
     "organized_by": "Organized by",
+    "add_to_calendar": {
+      "button": "Add to calendar",
+      "google": "Google Calendar",
+      "outlook": "Outlook",
+      "apple": "Apple / Other (.ics)"
+    },
     "fullname": "Full name",
     "email": "Email",
     "phone": "Phone",
@@ -431,7 +438,8 @@
       "register": "Register",
       "full": "Full",
       "places_left": "places available",
-      "free": "Free"
+      "free": "Free",
+      "meta_description": "Discover all events by {name} and register online on FisEvents."
     }
   },
   "landing": {

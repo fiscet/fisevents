@@ -9,7 +9,7 @@ import {
 export const revalidate = 3600;
 
 const BASE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fisevents.vercel.app';
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.fisevents.com';
 
 const STATIC_PATHS = [
   '',

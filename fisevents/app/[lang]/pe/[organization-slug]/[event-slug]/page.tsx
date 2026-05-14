@@ -9,6 +9,25 @@ import { NotificationProvider } from '@/components/Notification/NotificationCont
 import { PublicRoutes } from '@/lib/routes';
 import { Metadata } from 'next';
 
+const BASE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.fisevents.com';
+
+/**
+ * Parses the GROQ-built price string ("<amount> <currency>", "<amount>" or "").
+ * An empty string means a free event.
+ */
+function parsePrice(
+  raw: string | undefined
+): { price: string; priceCurrency?: string } | null {
+  if (!raw || !raw.trim()) return { price: '0' };
+  const [amount, currency] = raw.trim().split(/\s+/);
+  if (!amount || Number.isNaN(Number(amount))) return null;
+  return {
+    price: amount,
+    priceCurrency: currency && currency !== '-' ? currency : undefined,
+  };
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -39,7 +58,13 @@ export async function generateMetadata({
       title: eventData.title ?? undefined,
       description: description ?? undefined,
       images: eventData.pageImage?.url
-        ? [{ url: eventData.pageImage.url }]
+        ? [
+            {
+              url: eventData.pageImage.url,
+              width: eventData.pageImage.dimensions?.width,
+              height: eventData.pageImage.dimensions?.height,
+            },
+          ]
         : [],
       type: 'website',
     },
@@ -94,6 +119,13 @@ export default async function PublicEventPage({
         eventData.remainingPlaces > 0)) &&
     Date.parse(eventData.endDate!) >= Date.now();
 
+  const eventUrl = `${BASE_URL}/${lang}/pe/${organizationSlug}/${eventSlug}`;
+  const parsedPrice = parsePrice(eventData?.price);
+  const soldOut =
+    typeof eventData?.maxSubscribers === 'number' &&
+    eventData.maxSubscribers > 0 &&
+    eventData.remainingPlaces <= 0;
+
   const jsonLd = eventData
     ? {
         '@context': 'https://schema.org',
@@ -102,14 +134,39 @@ export default async function PublicEventPage({
         description: eventData.description?.replace(/[#*_~`[\]]/g, '').slice(0, 500),
         startDate: eventData.startDate,
         endDate: eventData.endDate,
+        eventStatus: 'https://schema.org/EventScheduled',
+        url: eventUrl,
         ...(eventData.location
-          ? { location: { '@type': 'Place', name: eventData.location } }
+          ? {
+              eventAttendanceMode:
+                'https://schema.org/OfflineEventAttendanceMode',
+              location: { '@type': 'Place', name: eventData.location },
+            }
           : {}),
         ...(eventData.pageImage?.url ? { image: eventData.pageImage.url } : {}),
         organizer: {
           '@type': 'Organization',
           name: eventData.companyName,
+          url: `${BASE_URL}/${lang}/pe/${eventData.organizationSlug}`,
         },
+        ...(parsedPrice
+          ? {
+              offers: {
+                '@type': 'Offer',
+                price: parsedPrice.price,
+                ...(parsedPrice.priceCurrency
+                  ? { priceCurrency: parsedPrice.priceCurrency }
+                  : {}),
+                availability: soldOut
+                  ? 'https://schema.org/SoldOut'
+                  : 'https://schema.org/InStock',
+                url: eventUrl,
+                ...(eventData.startDate
+                  ? { validThrough: eventData.startDate }
+                  : {}),
+              },
+            }
+          : {}),
       }
     : null;
 

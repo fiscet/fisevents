@@ -1,6 +1,7 @@
 import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
 import { getAlternates } from '@/lib/seo';
+import { getLandingPageNavList } from '@/lib/landing-page';
 import { Metadata, Viewport } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -30,7 +31,7 @@ export async function generateMetadata({
       title: dictionary.meta.title,
       description: dictionary.meta.description,
       url: `${
-        process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fisevents.vercel.app'
+        process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.fisevents.com'
       }/${lang}`,
       images: [
         {
@@ -47,8 +48,7 @@ export async function generateMetadata({
       title: dictionary.meta.title,
       description: dictionary.meta.description,
       images: '/img/og-image.png'
-    },
-    robots: 'index, follow'
+    }
   };
 }
 
@@ -60,8 +60,39 @@ export default async function HomePage({
   const { lang } = await params;
   const dictionary = (await getDictionary(lang)).website;
 
+  const landingPages = (await getLandingPageNavList()).filter(
+    (p): p is { title: string; slug: string } => !!p.title && !!p.slug
+  );
+
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.fisevents.com';
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': `${baseUrl}/#organization`,
+        name: 'FisEvents',
+        url: baseUrl,
+        logo: `${baseUrl}/img/icon.png`
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${baseUrl}/#website`,
+        name: 'FisEvents',
+        url: baseUrl,
+        inLanguage: lang,
+        publisher: { '@id': `${baseUrl}/#organization` }
+      }
+    ]
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* ── HERO ──────────────────────────────────────────────── */}
       <section
         className="relative pt-16 pb-20 md:pt-24 md:pb-32 overflow-hidden"
@@ -277,6 +308,35 @@ export default async function HomePage({
           </div>
         </div>
       </section>
+
+      {/* ── SOLUTIONS LINKS (discreet, for SEO/internal linking) ─ */}
+      {landingPages.length > 0 && (
+        <section
+          className="pb-16"
+          aria-labelledby="solutions-heading"
+        >
+          <div className="max-w-7xl mx-auto px-6 md:px-8 text-center">
+            <h2
+              id="solutions-heading"
+              className="text-sm font-semibold uppercase tracking-wide text-fe-on-surface-variant mb-4"
+            >
+              {dictionary.home.solutions_heading}
+            </h2>
+            <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+              {landingPages.map(page => (
+                <li key={page.slug}>
+                  <Link
+                    href={`/${lang}/per/${page.slug}`}
+                    className="text-sm text-fe-on-surface-variant hover:text-fe-primary hover:underline"
+                  >
+                    {page.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
     </>
   );
 }

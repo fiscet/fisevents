@@ -38,6 +38,7 @@ export function useManageSubscription({
             lang,
             emailData: {
               eventTitle: eventData.title ?? '',
+              description: eventData.description ?? undefined,
               location: eventData.location ?? undefined,
               talkTo: eventData.talkTo ?? undefined,
               price: eventData.price,

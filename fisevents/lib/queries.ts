@@ -180,6 +180,13 @@ export const allPublishedLandingPageSlugsQuery = defineQuery(`
 }
 `);
 
+export const landingPageNavListQuery = defineQuery(`
+*[_type == "landingPage" && active == true] | order(title asc) {
+  title,
+  "slug": slug.current
+}
+`);
+
 export const allPublishedEventSlugsQuery = defineQuery(`
 *[_type == "occurrence" && active == true && defined(publicSlug)] {
   publicSlug,

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 const BASE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fisevents.vercel.app';
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.fisevents.com';
 
 export const metadata: Metadata = {
   alternates: { canonical: `${BASE_URL}/en/terms` },

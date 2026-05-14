@@ -25,6 +25,7 @@
       "craftFocus": "Concentrati sulla tua arte.",
       "readyToHost": "Pronto a ospitare il tuo prossimo evento?",
       "createFirstEvent": "Crea il tuo primo evento",
+      "solutions_heading": "FisEvents per ogni realtà",
       "tagline": "Iscrizioni per eventi, lezioni e appuntamenti. Punto.",
       "meta": {
         "title": "FisEvents - Semplifica la Gestione degli Eventi",
@@ -392,6 +393,12 @@
     "talk_to": "Persona di contatto",
     "places_left": "Posti rimanenti",
     "organized_by": "Organizzato da",
+    "add_to_calendar": {
+      "button": "Aggiungi al calendario",
+      "google": "Google Calendar",
+      "outlook": "Outlook",
+      "apple": "Apple / Altri (.ics)"
+    },
     "fullname": "Nome completo",
     "email": "Email",
     "phone": "Telefono",
@@ -431,7 +438,8 @@
       "register": "Iscriviti",
       "full": "Completo",
       "places_left": "posti disponibili",
-      "free": "Gratis"
+      "free": "Gratis",
+      "meta_description": "Scopri tutti gli eventi di {name} e iscriviti online su FisEvents."
     }
   },
   "landing": {

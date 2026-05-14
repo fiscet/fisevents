@@ -16,6 +16,7 @@ import StartEndDatesCard from './StartEndDatesCard';
 import IconCard from './IconCard';
 import OrganizedBy from './OrganizedBy';
 import SubscribeAnchor from './SubscribeAnchor';
+import AddToCalendar from './AddToCalendar';
 
 export type PublicEventProps = {
   eventData: PublicOccurrenceSingle;
@@ -46,10 +47,24 @@ export default async function PublicEvent({
         </h1>
       </div>
 
-      <SubscribeAnchor
-        anchorId="#event-attendant-form-container"
-        label={dictionary.subscribe_button}
-      />
+      <div className="flex flex-wrap items-center gap-3 mt-2 mb-10">
+        <SubscribeAnchor
+          anchorId="#event-attendant-form-container"
+          label={dictionary.subscribe_button}
+        />
+        {eventData.startDate && eventData.endDate && (
+          <AddToCalendar
+            event={{
+              title: eventData.title!,
+              description: eventData.description,
+              location: eventData.location,
+              startDate: eventData.startDate,
+              endDate: eventData.endDate
+            }}
+            dict={dictionary.add_to_calendar}
+          />
+        )}
+      </div>
 
       {/* Info cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-2 mb-8">

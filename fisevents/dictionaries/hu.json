@@ -25,6 +25,7 @@
       "craftFocus": "Összpontosítson a mesterségére.",
       "readyToHost": "Készen áll a következő esemény megrendezésére?",
       "createFirstEvent": "Hozd létre az első eseményed",
+      "solutions_heading": "FisEvents minden igényre",
       "tagline": "Regisztrációk eseményekre, órákra és időpontokra. Kész.",
       "meta": {
         "title": "FisEvents - Egyszerűsítse az eseménykezelést",
@@ -392,6 +393,12 @@
     "talk_to": "Kapcsolat",
     "places_left": "Szabad helyek",
     "organized_by": "Szervező",
+    "add_to_calendar": {
+      "button": "Hozzáadás a naptárhoz",
+      "google": "Google Naptár",
+      "outlook": "Outlook",
+      "apple": "Apple / Egyéb (.ics)"
+    },
     "fullname": "Teljes név",
     "email": "E-mail",
     "phone": "Telefon",
@@ -431,7 +438,8 @@
       "register": "Regisztráció",
       "full": "Teli",
       "places_left": "szabad hely",
-      "free": "Ingyenes"
+      "free": "Ingyenes",
+      "meta_description": "Fedezd fel {name} összes eseményét, és regisztrálj online a FisEvents-en."
     }
   },
   "pwa": {
