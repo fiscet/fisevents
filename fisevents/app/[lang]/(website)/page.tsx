@@ -29,7 +29,9 @@ export async function generateMetadata({
     openGraph: {
       title: dictionary.meta.title,
       description: dictionary.meta.description,
-      url: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fisevents.vercel.app'}/${lang}`,
+      url: `${
+        process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fisevents.vercel.app'
+      }/${lang}`,
       images: [
         {
           url: '/img/og-image.png',
@@ -94,15 +96,17 @@ export default async function HomePage({
             </p>
 
             <div className="flex flex-wrap gap-2 mb-10">
-              {dictionary.home.use_cases.map((uc: { icon: string; label: string }) => (
-                <span
-                  key={uc.label}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-fe-surface-container text-fe-on-surface-variant text-sm border border-fe-outline-variant/20"
-                >
-                  <span aria-hidden="true">{uc.icon}</span>
-                  {uc.label}
-                </span>
-              ))}
+              {dictionary.home.use_cases.map(
+                (uc: { icon: string; label: string }) => (
+                  <span
+                    key={uc.label}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-fe-surface-container text-fe-on-surface-variant text-sm border border-fe-outline-variant/20"
+                  >
+                    <span aria-hidden="true">{uc.icon}</span>
+                    {uc.label}
+                  </span>
+                )
+              )}
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -122,7 +126,7 @@ export default async function HomePage({
             <div className="relative z-10 rounded-[2.5rem] overflow-hidden bg-fe-surface-container-lowest p-3 shadow-[0_40px_60px_-15px_rgba(21,28,39,0.10)] transform rotate-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/img/home-hero.png"
+                src="/img/home-hero-2.jpg"
                 alt="fisevents dashboard preview"
                 className="rounded-[1.5rem] w-full h-auto"
               />

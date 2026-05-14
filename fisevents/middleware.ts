@@ -31,6 +31,17 @@ export function middleware(request: NextRequest) {
     return;
   }
 
+  // Skip PWA assets (manifest, service worker, workbox files)
+  if (
+    pathname === '/manifest.json' ||
+    pathname === '/sw.js' ||
+    pathname === '/sw.js.map' ||
+    pathname.startsWith('/swe-worker-') ||
+    pathname.startsWith('/workbox-')
+  ) {
+    return;
+  }
+
   // Check if there is any supported locale in the pathname
   const pathnameIsMissingLocale = i18n.locales.every(
     locale => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`

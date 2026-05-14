@@ -1,0 +1,49 @@
+{
+  "name": "FisEvents",
+  "short_name": "FisEvents",
+  "description": "Pubblica e gestisci facilmente i tuoi eventi. Iscrizioni online semplici per workshop, lezioni e appuntamenti.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "lang": "it",
+  "dir": "ltr",
+  "categories": ["events", "lifestyle", "business"],
+  "icons": [
+    {
+      "src": "/img/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/img/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "I miei eventi",
+      "short_name": "Eventi",
+      "description": "Vai alla dashboard dei tuoi eventi",
+      "url": "/it/creator-admin",
+      "icons": [{ "src": "/img/android-chrome-192x192.png", "sizes": "192x192" }]
+    }
+  ]
+}

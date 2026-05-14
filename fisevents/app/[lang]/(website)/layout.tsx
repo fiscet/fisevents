@@ -4,6 +4,7 @@ import { getDictionary } from '@/lib/i18n.utils';
 import { NavBar } from './_components/NavBar';
 import DefaultFooter from '@/components/DefaultFooter';
 import { getSession } from '@/lib/auth';
+import PWAClient from '@/components/PWA/PWAClient';
 
 export default async function WebsiteLayout({
   params,
@@ -35,6 +36,7 @@ export default async function WebsiteLayout({
 
         <DefaultFooter showBugReport={false} />
       </div>
+      <PWAClient />
     </DictionaryProvider>
   );
 }

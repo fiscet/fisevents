@@ -13,6 +13,7 @@ import Link from 'next/link';
 import Logo from '@/components/Logo';
 import { getUserById } from '@/lib/actions';
 import TosGate from './_components/TosGate';
+import PWAClient from '@/components/PWA/PWAClient';
 
 export default async function AdminLayout({
   children,
@@ -62,6 +63,7 @@ export default async function AdminLayout({
 
         <DefaultFooter session={session} />
       </div>
+      <PWAClient />
     </DictionaryProvider>
   );
 }

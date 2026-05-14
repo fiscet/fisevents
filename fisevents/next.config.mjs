@@ -1,3 +1,13 @@
+import withSerwistInit from '@serwist/next';
+
+const withSerwist = withSerwistInit({
+  swSrc: 'app/sw.ts',
+  swDest: 'public/sw.js',
+  cacheOnNavigation: false,
+  reloadOnOnline: true,
+  disable: process.env.NODE_ENV === 'development',
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -25,4 +35,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withSerwist(nextConfig);
