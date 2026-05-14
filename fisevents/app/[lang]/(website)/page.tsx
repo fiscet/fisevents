@@ -47,8 +47,7 @@ export async function generateMetadata({
       title: dictionary.meta.title,
       description: dictionary.meta.description,
       images: '/img/og-image.png'
-    },
-    robots: 'index, follow'
+    }
   };
 }
 
@@ -60,8 +59,35 @@ export default async function HomePage({
   const { lang } = await params;
   const dictionary = (await getDictionary(lang)).website;
 
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fisevents.com';
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': `${baseUrl}/#organization`,
+        name: 'FisEvents',
+        url: baseUrl,
+        logo: `${baseUrl}/img/icon.png`
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${baseUrl}/#website`,
+        name: 'FisEvents',
+        url: baseUrl,
+        inLanguage: lang,
+        publisher: { '@id': `${baseUrl}/#organization` }
+      }
+    ]
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* ── HERO ──────────────────────────────────────────────── */}
       <section
         className="relative pt-16 pb-20 md:pt-24 md:pb-32 overflow-hidden"

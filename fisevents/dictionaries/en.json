@@ -437,7 +437,8 @@
       "register": "Register",
       "full": "Full",
       "places_left": "places available",
-      "free": "Free"
+      "free": "Free",
+      "meta_description": "Discover all events by {name} and register online on FisEvents."
     }
   },
   "landing": {

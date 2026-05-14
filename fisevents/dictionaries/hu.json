@@ -437,7 +437,8 @@
       "register": "Regisztráció",
       "full": "Teli",
       "places_left": "szabad hely",
-      "free": "Ingyenes"
+      "free": "Ingyenes",
+      "meta_description": "Fedezd fel {name} összes eseményét, és regisztrálj online a FisEvents-en."
     }
   },
   "pwa": {

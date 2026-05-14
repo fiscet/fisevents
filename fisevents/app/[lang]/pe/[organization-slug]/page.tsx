@@ -1,9 +1,47 @@
 import { getUserBySlug, getPublicEventListByOrgSlug } from '@/lib/actions';
 import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
+import { getAlternates } from '@/lib/seo';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 import OrgEventCard from '../_components/OrgEventCard';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+
+const BASE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fisevents.com';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: Locale; 'organization-slug': string }>;
+}): Promise<Metadata> {
+  const { lang, 'organization-slug': orgSlug } = await params;
+
+  const [userData, dict] = await Promise.all([
+    getUserBySlug({ slug: orgSlug }),
+    getDictionary(lang),
+  ]);
+
+  if (!userData) return {};
+
+  const displayName = userData.companyName ?? userData.name ?? orgSlug;
+  const description = dict.public.organizer_page.meta_description.replace(
+    '{name}',
+    displayName
+  );
+
+  return {
+    title: displayName,
+    description,
+    alternates: getAlternates(`/pe/${orgSlug}`, lang),
+    openGraph: {
+      title: displayName,
+      description,
+      images: userData.logoUrl ? [{ url: userData.logoUrl }] : [],
+      type: 'profile',
+    },
+  };
+}
 
 export default async function OrganizerPage({
   params,
@@ -25,8 +63,21 @@ export default async function OrganizerPage({
   const d = dict.public.organizer_page;
   const displayName = userData.companyName ?? userData.name ?? orgSlug;
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: displayName,
+    url: `${BASE_URL}/${lang}/pe/${orgSlug}`,
+    ...(userData.logoUrl ? { logo: userData.logoUrl } : {}),
+    ...(userData.www ? { sameAs: [userData.www] } : {}),
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Organizer header */}
       <div className="flex flex-col items-center gap-4 mb-10 text-center">
         <Avatar className="w-20 h-20">
