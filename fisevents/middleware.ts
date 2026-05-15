@@ -42,6 +42,11 @@ export function middleware(request: NextRequest) {
     return;
   }
 
+  // Blog is English-only and lives outside the i18n tree
+  if (pathname === '/blog' || pathname.startsWith('/blog/')) {
+    return;
+  }
+
   // Check if there is any supported locale in the pathname
   const pathnameIsMissingLocale = i18n.locales.every(
     locale => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`

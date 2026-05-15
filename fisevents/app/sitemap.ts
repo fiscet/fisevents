@@ -5,6 +5,7 @@ import {
   allPublishedEventSlugsQuery,
   allPublishedLandingPageSlugsQuery,
 } from '@/lib/queries';
+import { getPublishedPosts } from '@/lib/blog';
 
 export const revalidate = 3600;
 
@@ -73,5 +74,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   );
 
-  return [...staticEntries, ...landingPageEntries, ...eventEntries];
+  const publishedPosts = getPublishedPosts();
+  const lastPostDate =
+    publishedPosts[0] ? new Date(publishedPosts[0].publishedAt) : new Date();
+
+  const blogIndexEntry: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/blog`,
+      lastModified: lastPostDate,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+  ];
+
+  const blogPostEntries: MetadataRoute.Sitemap = publishedPosts.map(post => ({
+    url: `${BASE_URL}/blog/${post.slug}`,
+    lastModified: new Date(post.publishedAt),
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
+
+  return [
+    ...staticEntries,
+    ...landingPageEntries,
+    ...eventEntries,
+    ...blogIndexEntry,
+    ...blogPostEntries,
+  ];
 }
