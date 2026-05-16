@@ -52,6 +52,12 @@ export function NavBar({ lang, isLoggedIn }: NavBarProps) {
           >
             {d.website.navbar.contacts}
           </Link>
+          <Link
+            href="/blog"
+            className="text-sm font-medium text-fe-on-surface-variant hover:text-fe-on-surface transition-colors"
+          >
+            Blog
+          </Link>
         </div>
 
         {/* Desktop right section */}
@@ -116,6 +122,13 @@ export function NavBar({ lang, isLoggedIn }: NavBarProps) {
               className="text-sm font-medium text-fe-on-surface-variant hover:text-fe-on-surface py-2 transition-colors"
             >
               {d.website.navbar.contacts}
+            </Link>
+            <Link
+              href="/blog"
+              onClick={() => setIsMenuOpen(false)}
+              className="text-sm font-medium text-fe-on-surface-variant hover:text-fe-on-surface py-2 transition-colors"
+            >
+              Blog
             </Link>
           </nav>
           <div className="flex justify-between items-center border-t border-fe-outline-variant/10 pt-3">

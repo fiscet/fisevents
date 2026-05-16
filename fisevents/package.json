@@ -39,6 +39,7 @@
     "clsx": "^2.1.1",
     "embla-carousel-autoplay": "^8.5.1",
     "embla-carousel-react": "^8.5.1",
+    "gray-matter": "^4.0.3",
     "lucide-react": "^0.416.0",
     "negotiator": "^0.6.3",
     "next": "^15.5.15",
@@ -61,6 +62,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.19",
     "@types/jest": "^29.5.12",
     "@types/negotiator": "^0.6.3",
     "@types/node": "^20",
