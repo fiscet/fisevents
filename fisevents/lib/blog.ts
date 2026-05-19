@@ -35,14 +35,18 @@ function readAllPosts(): BlogPost[] {
   });
 }
 
-function isPublished(post: BlogPost, now = new Date()): boolean {
+export function isPostPublished(post: BlogPost, now = new Date()): boolean {
   const today = now.toISOString().slice(0, 10);
   return post.publishedAt <= today;
 }
 
+export function getAllPosts(): BlogPost[] {
+  return readAllPosts().sort((a, b) => a.seriesOrder - b.seriesOrder);
+}
+
 export function getPublishedPosts(): BlogPost[] {
   return readAllPosts()
-    .filter(p => isPublished(p))
+    .filter(p => isPostPublished(p))
     .sort((a, b) =>
       a.publishedAt === b.publishedAt
         ? a.seriesOrder - b.seriesOrder
@@ -52,7 +56,7 @@ export function getPublishedPosts(): BlogPost[] {
 
 export function getPostBySlug(slug: string): BlogPost | null {
   const post = readAllPosts().find(p => p.slug === slug);
-  if (!post || !isPublished(post)) return null;
+  if (!post || !isPostPublished(post)) return null;
   return post;
 }
 
