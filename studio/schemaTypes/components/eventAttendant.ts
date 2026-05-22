@@ -31,6 +31,16 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      title: 'Custom field values',
+      name: 'customFieldValues',
+      type: 'array',
+      of: [
+        {
+          type: 'customFieldValue'
+        }
+      ]
+    }),
+    defineField({
       title: 'Privacy accepted',
       name: 'privacyAccepted',
       type: 'boolean',

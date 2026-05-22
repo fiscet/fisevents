@@ -64,6 +64,38 @@ export const useSubmitHandler = (
         delete insValues.maxSubscribers;
       }
 
+      // Normalize custom registration fields: drop empty rows, derive a stable
+      // unique key from the label, keep options only for select fields.
+      const seenNames = new Set<string>();
+      insValues.customFields = (values.customFields ?? [])
+        .filter((f) => f.label && f.label.trim())
+        .map((f) => {
+          const label = f.label!.trim();
+          const base =
+            f.name && f.name.trim() ? slugify(f.name.trim()) : slugify(label);
+          let name = base || 'field';
+          let i = 2;
+          while (seenNames.has(name)) {
+            name = `${base}-${i++}`;
+          }
+          seenNames.add(name);
+          return {
+            _type: 'customFieldDef' as const,
+            _key: crypto.randomUUID(),
+            name,
+            label,
+            fieldType: f.fieldType,
+            required: !!f.required,
+            ...(f.fieldType === 'select'
+              ? {
+                  options: (f.options ?? [])
+                    .map((o) => o.trim())
+                    .filter(Boolean),
+                }
+              : {}),
+          };
+        });
+
       let imgRes;
 
       try {

@@ -1,4 +1,4 @@
-import { EventAttendant } from '@/types/sanity.types';
+import { CustomFieldDef, EventAttendant } from '@/types/sanity.types';
 import EventAttentantTable from './EventAttentantTable';
 import EventAttentantCards from './EventAttentantCards';
 import AddAttendantModal from '../components/AddAttendantModal';
@@ -9,6 +9,7 @@ import { Info } from 'lucide-react';
 export type EventAttentantListProps = {
   eventId?: string;
   attendants?: EventAttendant[];
+  customFields?: Array<Partial<CustomFieldDef>>;
   eventDescription?: string;
   endDate?: string;
 };
@@ -16,6 +17,7 @@ export type EventAttentantListProps = {
 export default function EventAttentantList({
   eventId,
   attendants,
+  customFields,
   eventDescription,
   endDate,
 }: EventAttentantListProps) {
@@ -51,6 +53,7 @@ export default function EventAttentantList({
             <AddAttendantModal eventId={eventId} />
             <ExportCsvButton
               attendants={attendants}
+              customFields={customFields}
               filename={`attendants-${eventId}.csv`}
             />
           </div>
@@ -59,11 +62,13 @@ export default function EventAttentantList({
       <EventAttentantTable
         eventId={eventId}
         attendants={attendants}
+        customFields={customFields}
         eventDescription={eventDescription}
       />
       <EventAttentantCards
         eventId={eventId}
         attendants={attendants}
+        customFields={customFields}
         eventDescription={eventDescription}
       />
     </div>

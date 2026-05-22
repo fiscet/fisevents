@@ -8,13 +8,16 @@ import DefaultFormField from '@/components/FormField/DefaultFormField';
 import SaveButton from '../../creator-admin/_components/SaveButton';
 import { AttendantFormSchemaType } from '../_hooks/useEventAttendantForm';
 import { Switch } from '@/components/ui/switch';
+import CustomFieldsRenderer from '@/components/CustomFields/CustomFieldsRenderer';
+import type { CustomFieldDefInput } from '@/lib/custom-fields';
 
 export type EventAttendantProps = {
   form: ReturnType<typeof useForm<AttendantFormSchemaType>>;
   onSubmit: (data: AttendantFormSchemaType) => void;
+  customFields?: CustomFieldDefInput[];
 };
 
-const EventAttendantComponent = ({ form, onSubmit }: EventAttendantProps) => {
+const EventAttendantComponent = ({ form, onSubmit, customFields }: EventAttendantProps) => {
   const { public: d } = useDictionary();
 
   return (
@@ -47,6 +50,11 @@ const EventAttendantComponent = ({ form, onSubmit }: EventAttendantProps) => {
             formComponent={Input}
             description={d.descriptions.phone}
             requiredStatus='optional-with-text'
+          />
+          <CustomFieldsRenderer
+            form={form}
+            customFields={customFields}
+            selectPlaceholder={d.custom_select_placeholder}
           />
           <FormField
             control={form.control}

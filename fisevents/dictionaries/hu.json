@@ -343,7 +343,28 @@
       "delete_event_success": "Az esemény sikeresen törölve.",
       "deleting": "Törlés folyamatban...",
       "your_page": "Nyilvános oldalad",
-      "your_page_description": "Ossza meg ezt a linket: megjeleníti az összes aktív eseményt"
+      "your_page_description": "Ossza meg ezt a linket: megjeleníti az összes aktív eseményt",
+      "custom_fields": {
+        "section": "Egyéni mezők",
+        "section_description": "Adj hozzá további kérdéseket, amelyeket a résztvevőnek ki kell töltenie a regisztrációkor.",
+        "empty": "Még nincsenek egyéni mezők.",
+        "label": "Címke",
+        "label_placeholder": "Pl. Póló méret",
+        "type": "Típus",
+        "type_text": "Szöveg",
+        "type_number": "Szám",
+        "type_select": "Választás",
+        "type_checkbox": "Igen/Nem",
+        "options": "Opciók",
+        "options_placeholder": "Válaszd el az opciókat vesszővel",
+        "required": "Kötelező",
+        "add": "Mező hozzáadása",
+        "remove": "Eltávolítás",
+        "hint_text": "Szabad szöveges mező.",
+        "hint_number": "Csak számokat fogad el.",
+        "hint_select": "Legördülő lista: a résztvevő a megadott opciók közül választ.",
+        "hint_checkbox": "Igen/Nem kapcsoló (pl. „Vegetáriánus vagyok\", „Számlát kérek\")."
+      }
     },
     "attendants": {
       "attendants": "Résztvevők",
@@ -412,7 +433,9 @@
     "validation": {
       "fullName": "A névnek legalább 5 karakter hosszúnak kell lennie.",
       "email": "Az e-mail címnek érvényesnek kell lennie.",
-      "privacy_acceptance": "Szükséges a regisztráció folytatásához"
+      "privacy_acceptance": "Szükséges a regisztráció folytatásához",
+      "custom_required": "Ez a mező kötelező",
+      "custom_invalid_number": "Adj meg egy érvényes számot"
     },
     "subscribe_title": "Iratkozzon fel eseményünkre",
     "subscribe_button": "Feliratkozás most",
@@ -440,7 +463,8 @@
       "places_left": "szabad hely",
       "free": "Ingyenes",
       "meta_description": "Fedezd fel {name} összes eseményét, és regisztrálj online a FisEvents-en."
-    }
+    },
+    "custom_select_placeholder": "Válassz..."
   },
   "pwa": {
     "install": {

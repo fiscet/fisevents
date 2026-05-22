@@ -5,6 +5,7 @@ import {
   updateEvent,
   createEvent,
   resumeOrCreateCheckout,
+  addEventAttendant,
 } from '../actions';
 import { sanityClient } from '../sanity.cli';
 import { stripe } from '../stripe';
@@ -74,6 +75,16 @@ function makePatchMock(resolvedValue: object = {}) {
   const setMock = jest.fn().mockReturnValue({ commit: commitMock });
   const patchMock = jest.fn().mockReturnValue({ set: setMock, commit: commitMock });
   return { patchMock, setMock, commitMock };
+}
+
+// Mocks the patch chain used by addEventAttendant:
+// patch(id).setIfMissing(...).prepend(...).commit()
+function makeAttendantPatchMock(resolvedValue: object = { _id: 'evt-1' }) {
+  const commit = jest.fn().mockResolvedValue(resolvedValue);
+  const prepend = jest.fn().mockReturnValue({ commit });
+  const setIfMissing = jest.fn().mockReturnValue({ prepend });
+  const patch = jest.fn().mockReturnValue({ setIfMissing });
+  return { patch, setIfMissing, prepend, commit };
 }
 
 describe('Actions', () => {
@@ -365,6 +376,81 @@ describe('Actions', () => {
       await expect(resumeOrCreateCheckout({ occurrenceId })).rejects.toThrow(
         'Not found or unauthorized'
       );
+    });
+  });
+
+  describe('addEventAttendant', () => {
+    const baseAttendant = {
+      fullName: 'Jane Doe',
+      email: 'jane@example.com',
+      privacyAccepted: true,
+    };
+
+    // No existing attendant with that email
+    const mockNotSubscribed = () =>
+      (sanityClient.fetch as jest.Mock).mockResolvedValue({ hasAttendant: false });
+
+    it('persists custom field values with _type and _key, dropping empty ones', async () => {
+      mockNotSubscribed();
+      const { patch, prepend } = makeAttendantPatchMock();
+      (sanityClient.patch as jest.Mock).mockImplementation(patch);
+
+      const result = await addEventAttendant({
+        eventId: 'evt-1',
+        eventAttendant: {
+          ...baseAttendant,
+          customFieldValues: [
+            { name: 'shirt', label: 'Shirt size', value: 'L' },
+            { name: 'note', label: 'Note', value: '' }, // empty -> dropped
+            { name: '', label: 'Orphan', value: 'x' }, // no key -> dropped
+          ],
+        } as Parameters<typeof addEventAttendant>[0]['eventAttendant'],
+      });
+
+      // Only the non-empty, keyed value survives, enriched with _type/_key
+      expect(result?.customFieldValues).toHaveLength(1);
+      const stored = result!.customFieldValues![0];
+      expect(stored).toMatchObject({
+        _type: 'customFieldValue',
+        name: 'shirt',
+        label: 'Shirt size',
+        value: 'L',
+      });
+      expect(typeof stored._key).toBe('string');
+      expect(stored._key.length).toBeGreaterThan(0);
+
+      // The same normalised attendant is what gets prepended to the array
+      const prependedAttendant = prepend.mock.calls[0][1][0];
+      expect(prependedAttendant.customFieldValues).toHaveLength(1);
+      expect(prependedAttendant._type).toBe('eventAttendant');
+      expect(typeof prependedAttendant.uuid).toBe('string');
+    });
+
+    it('removes the customFieldValues field entirely when none have values', async () => {
+      mockNotSubscribed();
+      const { patch } = makeAttendantPatchMock();
+      (sanityClient.patch as jest.Mock).mockImplementation(patch);
+
+      const result = await addEventAttendant({
+        eventId: 'evt-1',
+        eventAttendant: {
+          ...baseAttendant,
+          customFieldValues: [{ name: 'note', label: 'Note', value: '' }],
+        } as Parameters<typeof addEventAttendant>[0]['eventAttendant'],
+      });
+
+      expect(result).toBeDefined();
+      expect(result).not.toHaveProperty('customFieldValues');
+    });
+
+    it('throws already_subscribed when the email is already registered', async () => {
+      (sanityClient.fetch as jest.Mock).mockResolvedValue({ hasAttendant: true });
+      const { patch } = makeAttendantPatchMock();
+      (sanityClient.patch as jest.Mock).mockImplementation(patch);
+
+      await expect(
+        addEventAttendant({ eventId: 'evt-1', eventAttendant: baseAttendant })
+      ).rejects.toThrow('already_subscribed');
     });
   });
 });

@@ -10,7 +10,8 @@ import { TfiEmail } from 'react-icons/tfi';
 import { FaPhone } from 'react-icons/fa6';
 import { FcAlarmClock } from 'react-icons/fc';
 import { slugify } from '@/lib/utils';
-import { EventAttendant } from '@/types/sanity.types';
+import { CustomFieldDef, EventAttendant } from '@/types/sanity.types';
+import { getAttendantCustomValue, getCustomFieldKey } from '@/lib/custom-fields';
 import RemoveAttendantDialog from '../components/RemoveAttendantDialog';
 import AttendantStatusToggle from '../components/AttendantStatusToggle';
 import PaymentStatusSelect from '../components/PaymentStatusSelect';
@@ -18,14 +19,17 @@ import PaymentStatusSelect from '../components/PaymentStatusSelect';
 export type EventAttentantCardsProps = {
   eventId?: string;
   attendants?: EventAttendant[];
+  customFields?: Array<Partial<CustomFieldDef>>;
   eventDescription?: string;
 };
 
 export default function EventAttentantCards({
   eventId,
   attendants,
+  customFields,
   eventDescription,
 }: EventAttentantCardsProps) {
+  const customDefs = (customFields ?? []).filter((f) => getCustomFieldKey(f));
   return (
     <div className="md:hidden">
       {attendants &&
@@ -58,6 +62,16 @@ export default function EventAttentantCards({
                 <div className="flex gap-2 items-center mb-4">
                   <FaPhone />
                   {attendant.phone}
+                </div>
+              )}
+              {customDefs.length > 0 && (
+                <div className="mb-4 space-y-1">
+                  {customDefs.map((f) => (
+                    <div key={getCustomFieldKey(f)} className="text-sm">
+                      <span className="text-muted-foreground">{f.label}: </span>
+                      {getAttendantCustomValue(attendant, f)}
+                    </div>
+                  ))}
                 </div>
               )}
               {eventId && attendant.uuid && (

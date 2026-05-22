@@ -343,7 +343,28 @@
       "delete_event_success": "Evento eliminato con successo.",
       "deleting": "Eliminazione in corso...",
       "your_page": "La tua pagina pubblica",
-      "your_page_description": "Condividi questo link: mostra tutti i tuoi eventi attivi"
+      "your_page_description": "Condividi questo link: mostra tutti i tuoi eventi attivi",
+      "custom_fields": {
+        "section": "Campi personalizzati",
+        "section_description": "Aggiungi domande extra che il partecipante dovrà compilare durante l'iscrizione.",
+        "empty": "Nessun campo personalizzato.",
+        "label": "Etichetta",
+        "label_placeholder": "Es. Taglia maglietta",
+        "type": "Tipo",
+        "type_text": "Testo",
+        "type_number": "Numero",
+        "type_select": "Scelta",
+        "type_checkbox": "Sì/No",
+        "options": "Opzioni",
+        "options_placeholder": "Separa le opzioni con una virgola",
+        "required": "Obbligatorio",
+        "add": "Aggiungi campo",
+        "remove": "Rimuovi",
+        "hint_text": "Campo di testo libero.",
+        "hint_number": "Accetta solo numeri.",
+        "hint_select": "Menu a tendina: il partecipante sceglie tra le opzioni che definisci.",
+        "hint_checkbox": "Interruttore Sì/No (es. «Sono vegetariano», «Voglio la ricevuta»)."
+      }
     },
     "attendants": {
       "attendants": "Partecipanti",
@@ -412,7 +433,9 @@
     "validation": {
       "fullName": "Il nome deve essere di almeno 5 caratteri.",
       "email": "L'email deve essere valida",
-      "privacy_acceptance": "Per procedere con la registrazione è necessario accettare la politica sulla privacy"
+      "privacy_acceptance": "Per procedere con la registrazione è necessario accettare la politica sulla privacy",
+      "custom_required": "Questo campo è obbligatorio",
+      "custom_invalid_number": "Inserisci un numero valido"
     },
     "subscribe_title": "Iscriviti all'evento",
     "subscribe_button": "Iscriviti ora",
@@ -440,7 +463,8 @@
       "places_left": "posti disponibili",
       "free": "Gratis",
       "meta_description": "Scopri tutti gli eventi di {name} e iscriviti online su FisEvents."
-    }
+    },
+    "custom_select_placeholder": "Seleziona..."
   },
   "landing": {
     "pain_points_heading": "I tuoi problemi, risolti",

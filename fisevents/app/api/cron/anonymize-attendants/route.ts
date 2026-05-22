@@ -60,6 +60,8 @@ export async function GET(req: NextRequest) {
         fullName: null,
         email: null,
         phone: null,
+        // Custom field answers may contain personal data → drop them entirely.
+        customFieldValues: [],
       }));
 
       await sanityClient

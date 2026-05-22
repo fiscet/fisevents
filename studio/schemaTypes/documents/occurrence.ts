@@ -122,6 +122,17 @@ export default defineType({
       ]
     }),
     defineField({
+      title: 'Custom registration fields',
+      name: 'customFields',
+      type: 'array',
+      description: 'Extra fields the attendant must fill in when subscribing',
+      of: [
+        {
+          type: 'customFieldDef'
+        }
+      ]
+    }),
+    defineField({
       name: 'pendingPayment',
       title: 'Pending Payment',
       type: 'boolean',

@@ -343,7 +343,28 @@
       "delete_event_success": "Event deleted successfully.",
       "deleting": "Deleting...",
       "your_page": "Your public page",
-      "your_page_description": "Share this link: it shows all your active events"
+      "your_page_description": "Share this link: it shows all your active events",
+      "custom_fields": {
+        "section": "Custom fields",
+        "section_description": "Add extra questions attendants must fill in when they register.",
+        "empty": "No custom fields yet.",
+        "label": "Label",
+        "label_placeholder": "E.g. T-shirt size",
+        "type": "Type",
+        "type_text": "Text",
+        "type_number": "Number",
+        "type_select": "Choice",
+        "type_checkbox": "Yes/No",
+        "options": "Options",
+        "options_placeholder": "Separate options with a comma",
+        "required": "Required",
+        "add": "Add field",
+        "remove": "Remove",
+        "hint_text": "Free text field.",
+        "hint_number": "Accepts numbers only.",
+        "hint_select": "Dropdown: the attendant picks one of the options you define.",
+        "hint_checkbox": "A Yes/No toggle (e.g. \"I'm vegetarian\", \"I want a receipt\")."
+      }
     },
     "attendants": {
       "attendants": "Attendants",
@@ -412,7 +433,9 @@
     "validation": {
       "fullName": "Name must be at least 5 characters.",
       "email": "Email must be valid",
-      "privacy_acceptance": "Required to proceed with registration"
+      "privacy_acceptance": "Required to proceed with registration",
+      "custom_required": "This field is required",
+      "custom_invalid_number": "Please enter a valid number"
     },
     "subscribe_title": "Subscribe to our event",
     "subscribe_button": "Subscribe now",
@@ -440,7 +463,8 @@
       "places_left": "places available",
       "free": "Free",
       "meta_description": "Discover all events by {name} and register online on FisEvents."
-    }
+    },
+    "custom_select_placeholder": "Select..."
   },
   "landing": {
     "pain_points_heading": "Your problems, solved",

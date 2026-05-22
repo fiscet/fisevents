@@ -432,6 +432,25 @@ export const addEventAttendant = async ({
   eventAttendant.subcribitionDate = toUserIsoString(new Date());
   eventAttendant.paymentStatus = 'pending';
 
+  if (eventAttendant.customFieldValues?.length) {
+    const normalized = eventAttendant.customFieldValues
+      .filter((v) => v && v.name && v.value !== undefined && v.value !== '')
+      .map((v) => ({
+        _type: 'customFieldValue' as const,
+        _key: uuidv4(),
+        name: v.name,
+        label: v.label,
+        value: v.value,
+      }));
+    if (normalized.length) {
+      eventAttendant.customFieldValues = normalized;
+    } else {
+      delete eventAttendant.customFieldValues;
+    }
+  } else {
+    delete eventAttendant.customFieldValues;
+  }
+
   const res = await sanityClient
     .patch(eventId)
     .setIfMissing({ attendants: [] })

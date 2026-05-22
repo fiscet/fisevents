@@ -113,6 +113,13 @@ export function useEventSingleForm({ eventSingleData, isDuplicate = false }: use
         : (pickerDateToIsoString(eventSingleData?.endDate) ??
            pickerDateToIsoString(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000))),
       active: isDuplicate ? true : (eventSingleData?.active ?? true),
+      customFields: (eventSingleData?.customFields ?? []).map((f) => ({
+        name: f.name,
+        label: f.label ?? '',
+        fieldType: f.fieldType ?? 'text',
+        required: f.required ?? false,
+        options: f.options ?? [],
+      })),
     }
   });
 
