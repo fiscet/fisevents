@@ -17,6 +17,7 @@ import { RiInformation2Fill } from 'react-icons/ri';
 export type ImageUploaderProps = {
   label?: string;
   description?: string;
+  alt?: string;
   boxSize?: number;
   initImageUrl?: string;
   img?: FileImageType;
@@ -29,6 +30,7 @@ const ImageUploader = memo(
   function ImageUploader({
     label,
     description,
+    alt,
     boxSize = 320,
     initImageUrl,
     img,
@@ -42,6 +44,10 @@ const ImageUploader = memo(
       const { files } = e.target;
 
       if (files != null && files.length > 0) {
+        // Release the previous object URL to avoid leaking blobs.
+        if (img?.imgUrl?.startsWith('blob:')) {
+          URL.revokeObjectURL(img.imgUrl);
+        }
         const imageObject = {
           file: files[0],
           imgUrl: URL.createObjectURL(files[0])
@@ -83,8 +89,9 @@ const ImageUploader = memo(
               width={boxSize}
               height={boxSize}
               className="mx-auto"
-              alt=""
+              alt={alt ?? label ?? ''}
               loading="lazy"
+              unoptimized={img.imgUrl.startsWith('blob:')}
             />
           )}
           <div className="w-full h-16 absolute top inset-x-0 bottom-0">
@@ -116,12 +123,10 @@ const ImageUploader = memo(
       </div>
     );
   },
-  (prevProps, nextProps) => {
-    if (prevProps.img?.imgUrl === nextProps.img?.imgUrl) {
-      return true;
-    }
-    return false;
-  }
+  (prevProps, nextProps) =>
+    prevProps.img?.imgUrl === nextProps.img?.imgUrl &&
+    prevProps.initImageUrl === nextProps.initImageUrl &&
+    prevProps.alt === nextProps.alt
 );
 
 export default ImageUploader;

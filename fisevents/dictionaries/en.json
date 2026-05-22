@@ -243,7 +243,10 @@
       "payment_success": "Payment completed! Your event is now published.",
       "payment_cancelled": "Payment cancelled. The event has not been published.",
       "payment_processing": "Confirming your payment. This page will refresh automatically.",
-      "payment_timeout_warning": "Payment confirmation is taking longer than expected. If you've been charged, your event will be published automatically as soon as the system syncs."
+      "payment_timeout_warning": "Payment confirmation is taking longer than expected. If you've been charged, your event will be published automatically as soon as the system syncs.",
+      "image_too_large": "The image is too large (max 5 MB)",
+      "image_invalid_type": "Unsupported image format (use JPG, PNG, WebP, GIF or AVIF)",
+      "image_upload_failed": "Image upload failed"
     },
     "account": {
       "userAccount": "User account",

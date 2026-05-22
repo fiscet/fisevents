@@ -160,8 +160,9 @@ export const deleteEvent = async ({ id }: { id: string; }) => {
     attendantsCount?: number;
     endDate?: string;
     createdByUser?: { _ref: string; };
+    imageRef?: string;
   } | null>(
-    `*[_type == "occurrence" && _id == $id][0] { _id, pendingPayment, attendantsCount, endDate, createdByUser }`,
+    `*[_type == "occurrence" && _id == $id][0] { _id, pendingPayment, attendantsCount, endDate, createdByUser, "imageRef": mainImage.asset._ref }`,
     { id }
   );
 
@@ -179,6 +180,13 @@ export const deleteEvent = async ({ id }: { id: string; }) => {
   }
 
   await deleteOccurrenceCascade(id);
+
+  if (occ.imageRef) {
+    await sanityClient
+      .delete(occ.imageRef)
+      .catch((e) => console.error('Failed to delete event image asset:', e));
+  }
+
   revalidateTags(['eventList']);
 };
 
@@ -239,7 +247,39 @@ export const updateEvent = async ({
   data: Partial<Occurrence>;
 }) => {
   await validateSession();
-  const res = await sanityClient.patch(id).set(data).commit();
+
+  // When the main image changes, capture the previous asset so we can delete it
+  // afterwards (Sanity does not garbage-collect unreferenced assets).
+  const imageChanged = 'mainImage' in data;
+  const newAssetRef = data.mainImage?.asset?._ref;
+  let oldAssetRef: string | undefined;
+
+  if (imageChanged) {
+    const current = await sanityClient.fetch<{ ref?: string } | null>(
+      `*[_type == "occurrence" && _id == $id][0]{ "ref": mainImage.asset._ref }`,
+      { id },
+      { cache: 'no-store' }
+    );
+    oldAssetRef = current?.ref ?? undefined;
+  }
+
+  // Empty/absent asset means "remove the image" → unset rather than store an
+  // empty object.
+  const patch = sanityClient.patch(id);
+  let res;
+  if (imageChanged && !newAssetRef) {
+    const { mainImage: _omit, ...rest } = data;
+    res = await patch.set(rest).unset(['mainImage']).commit();
+  } else {
+    res = await patch.set(data).commit();
+  }
+
+  if (oldAssetRef && oldAssetRef !== newAssetRef) {
+    await sanityClient
+      .delete(oldAssetRef)
+      .catch((e) => console.error('Failed to delete previous image asset:', e));
+  }
+
   revalidateTags([
     `eventSingle:${id}`,
     `eventSingleBySlug:${data.slug?.current}`,

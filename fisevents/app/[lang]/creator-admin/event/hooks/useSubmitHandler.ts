@@ -103,7 +103,14 @@ export const useSubmitHandler = (
           imgRes = await uploadImage();
 
           if (imgRes.error) {
-            throw new Error(String(imgRes.error));
+            const code = typeof imgRes.error === 'string' ? imgRes.error : '';
+            const message =
+              code === 'file_too_large'
+                ? d.image_too_large
+                : code === 'invalid_type'
+                  ? d.image_invalid_type
+                  : d.image_upload_failed;
+            throw new Error(message);
           }
 
           if (imgRes.id) {
@@ -117,7 +124,13 @@ export const useSubmitHandler = (
           }
         }
         if (!newImg.imgUrl) {
-          insValues.mainImage = {} as typeof insValues.mainImage;
+          if (isNewEvent) {
+            // Nothing to store on a brand-new event.
+            delete insValues.mainImage;
+          } else {
+            // Signal removal to updateEvent (which unsets the field).
+            insValues.mainImage = {} as typeof insValues.mainImage;
+          }
         }
 
         insValues.basicPrice = Number(insValues.basicPrice);

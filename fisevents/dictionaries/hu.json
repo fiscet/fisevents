@@ -243,7 +243,10 @@
       "payment_success": "A fizetés sikeres! Az eseményed most megjelent.",
       "payment_cancelled": "A fizetés megszakadt. Az esemény nem lett közzétéve.",
       "payment_processing": "A fizetés megerősítése folyamatban. Az oldal automatikusan frissül.",
-      "payment_timeout_warning": "A fizetés megerősítése a vártnál tovább tart. Ha már megtörtént a terhelés, az esemény automatikusan közzétételre kerül, amint a rendszer szinkronizál."
+      "payment_timeout_warning": "A fizetés megerősítése a vártnál tovább tart. Ha már megtörtént a terhelés, az esemény automatikusan közzétételre kerül, amint a rendszer szinkronizál.",
+      "image_too_large": "A kép túl nagy (max. 5 MB)",
+      "image_invalid_type": "Nem támogatott képformátum (használj JPG, PNG, WebP, GIF vagy AVIF formátumot)",
+      "image_upload_failed": "A kép feltöltése sikertelen"
     },
     "account": {
       "userAccount": "Felhasználói fiók",

@@ -213,6 +213,7 @@ export default function EventSingleContainer({
                 setImg={setNewImg}
                 onRestore={handleRestoreImage}
                 onDelete={handleDeleteImage}
+                alt={eventSingleData?.title ?? ''}
               />
             )}
             onSubmit={onSubmit}
