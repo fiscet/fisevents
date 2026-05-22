@@ -5,6 +5,45 @@
 // Standard format for datetime-local input: YYYY-MM-DDTHH:mm
 export const DATETIME_LOCAL_FORMAT = 'YYYY-MM-DDTHH:mm';
 
+// Fallback timezone for events created before the timezone was stored.
+export const DEFAULT_EVENT_TIME_ZONE = 'Europe/Rome';
+
+/**
+ * Format an instant in a specific IANA timezone and locale.
+ * Use this for EVENT times so every viewer (and every email, regardless of the
+ * server timezone) sees the same wall-clock the organizer intended.
+ */
+export const formatEventDateTime = (
+  date: string | number | Date | undefined | null,
+  lang: string,
+  timeZone: string | undefined | null,
+  options: Intl.DateTimeFormatOptions
+): string => {
+  if (date === undefined || date === null || date === '') return '';
+  const d = date instanceof Date ? date : new Date(date);
+  if (isNaN(d.getTime())) return '';
+  return new Intl.DateTimeFormat(lang, {
+    timeZone: timeZone || DEFAULT_EVENT_TIME_ZONE,
+    ...options,
+  }).format(d);
+};
+
+/**
+ * Format an instant in the runtime's timezone (viewer on the client) with an
+ * explicit locale. Use for metadata timestamps (e.g. subscription date) where
+ * the viewer's local time is the right reference.
+ */
+export const formatLocalDateTime = (
+  date: string | number | Date | undefined | null,
+  lang: string,
+  options: Intl.DateTimeFormatOptions = { dateStyle: 'medium', timeStyle: 'short' }
+): string => {
+  if (date === undefined || date === null || date === '') return '';
+  const d = date instanceof Date ? date : new Date(date);
+  if (isNaN(d.getTime())) return '';
+  return new Intl.DateTimeFormat(lang, options).format(d);
+};
+
 /**
  * Safely parse a date string, handling various formats
  */

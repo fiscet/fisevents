@@ -60,6 +60,7 @@ export function useManageSubscription({
               price: eventData.price,
               startDate: eventData.startDate ?? undefined,
               endDate: eventData.endDate ?? undefined,
+              timeZone: eventData.timeZone ?? undefined,
               companyName: eventData.companyName,
               organizationSlug: eventData.organizationSlug,
               eventSlug,

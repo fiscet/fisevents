@@ -4,6 +4,8 @@ import EventAttentantCards from './EventAttentantCards';
 import AddAttendantModal from '../components/AddAttendantModal';
 import ExportCsvButton from '../components/ExportCsvButton';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
+import { formatLocalDateTime } from '@/lib/date-utils';
+import { useCurrentLang } from '@/hooks/useCurrentLang';
 import { Info } from 'lucide-react';
 
 export type EventAttentantListProps = {
@@ -23,6 +25,7 @@ export default function EventAttentantList({
 }: EventAttentantListProps) {
   const { creator_admin: ca } = useDictionary();
   const { attendants: d } = ca;
+  const lang = useCurrentLang();
 
   const anonymizationDate = endDate
     ? new Date(new Date(endDate).setMonth(new Date(endDate).getMonth() + 1))
@@ -37,7 +40,7 @@ export default function EventAttentantList({
             dangerouslySetInnerHTML={{
               __html: d.anonymization_notice.replace(
                 '%date%',
-                `<strong>${anonymizationDate.toLocaleDateString()}</strong>`
+                `<strong>${formatLocalDateTime(anonymizationDate, lang, { dateStyle: 'long' })}</strong>`
               ),
             }}
           />

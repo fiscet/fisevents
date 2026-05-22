@@ -213,6 +213,7 @@ export type Occurrence = {
   maxSubscribers?: number;
   basicPrice?: number;
   currency?: string;
+  timeZone?: string;
   startDate?: string;
   endDate?: string;
   publicationStartDate?: string;

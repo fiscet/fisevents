@@ -72,6 +72,7 @@ export default async function PublicEvent({
           startDate={eventData.startDate!}
           endDate={eventData.endDate!}
           lang={lang}
+          timeZone={eventData.timeZone}
         />
         {eventData.price && (
           <IconCard Icon={FaRegMoneyBill1} title={dictionary.price}>

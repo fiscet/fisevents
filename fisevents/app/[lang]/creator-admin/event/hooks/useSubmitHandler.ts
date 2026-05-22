@@ -43,6 +43,11 @@ export const useSubmitHandler = (
       insValues.startDate = fromDatetimeLocalToISO(values.startDate);
       insValues.endDate = fromDatetimeLocalToISO(values.endDate);
 
+      // The datetime-local values are wall-clock in the organizer's browser, so
+      // the matching timezone is the browser's. Store it to render the event in
+      // its own local time everywhere (public pages, emails) regardless of viewer.
+      insValues.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
       if (!insValues.slug?.current) {
         insValues.slug = {
           _type: 'slug',

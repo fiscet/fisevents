@@ -39,6 +39,7 @@ import { request } from '@arcjet/next';
 import { sendMail } from '@/lib/send-mail';
 import { getEmailDictionary } from '@/lib/i18n.utils';
 import { getPublicEventSlug, getPublicEventUrl } from '@/lib/utils';
+import { formatEventDateTime } from '@/lib/date-utils';
 import { applyTemplate } from '@/lib/email-template';
 import {
   type CalendarEvent,
@@ -554,6 +555,7 @@ type EventEmailData = {
   price?: string;
   startDate?: string;
   endDate?: string;
+  timeZone?: string;
   companyName: string;
   organizationSlug: string;
   eventSlug: string;
@@ -602,8 +604,12 @@ export const subscribeToEvent = async ({
     talk_to: emailData.talkTo ?? '--',
     price: emailData.price ?? '--',
     currency: '',
-    start_date: emailData.startDate ? new Date(emailData.startDate).toLocaleString() : '--',
-    end_date: emailData.endDate ? new Date(emailData.endDate).toLocaleString() : '--',
+    start_date: emailData.startDate
+      ? formatEventDateTime(emailData.startDate, lang, emailData.timeZone, { dateStyle: 'medium', timeStyle: 'short', hour12: false })
+      : '--',
+    end_date: emailData.endDate
+      ? formatEventDateTime(emailData.endDate, lang, emailData.timeZone, { dateStyle: 'medium', timeStyle: 'short', hour12: false })
+      : '--',
     unsubscribe_link: unsubscribeLink,
     company_name: emailData.companyName,
     google_calendar_url: calendarEvent ? getGoogleCalendarUrl(calendarEvent) : '',

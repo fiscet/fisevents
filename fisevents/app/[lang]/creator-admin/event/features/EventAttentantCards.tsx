@@ -12,6 +12,8 @@ import { FcAlarmClock } from 'react-icons/fc';
 import { slugify } from '@/lib/utils';
 import { CustomFieldDef, Registration } from '@/types/sanity.types';
 import { getAttendantCustomValue, getCustomFieldKey } from '@/lib/custom-fields';
+import { formatLocalDateTime } from '@/lib/date-utils';
+import { useCurrentLang } from '@/hooks/useCurrentLang';
 import RemoveAttendantDialog from '../components/RemoveAttendantDialog';
 import AttendantStatusToggle from '../components/AttendantStatusToggle';
 import PaymentStatusSelect from '../components/PaymentStatusSelect';
@@ -29,6 +31,7 @@ export default function EventAttentantCards({
   customFields,
   eventDescription,
 }: EventAttentantCardsProps) {
+  const lang = useCurrentLang();
   const customDefs = (customFields ?? []).filter((f) => getCustomFieldKey(f));
   return (
     <div className="md:hidden">
@@ -92,7 +95,7 @@ export default function EventAttentantCards({
             <CardFooter>
               <div className="flex gap-2 items-center mt-2 border-t pt-2 w-full text-muted-foreground text-sm">
                 <FcAlarmClock className="w-4 h-4" />
-                {new Date(attendant.subcribitionDate!).toLocaleString()}
+                {formatLocalDateTime(attendant.subcribitionDate, lang)}
               </div>
             </CardFooter>
           </Card>
