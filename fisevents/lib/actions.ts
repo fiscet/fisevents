@@ -39,6 +39,7 @@ import { request } from '@arcjet/next';
 import { sendMail } from '@/lib/send-mail';
 import { getEmailDictionary } from '@/lib/i18n.utils';
 import { getPublicEventSlug, getPublicEventUrl } from '@/lib/utils';
+import { formatEventDateTime } from '@/lib/date-utils';
 import { applyTemplate } from '@/lib/email-template';
 import {
   type CalendarEvent,
@@ -160,8 +161,9 @@ export const deleteEvent = async ({ id }: { id: string; }) => {
     attendantsCount?: number;
     endDate?: string;
     createdByUser?: { _ref: string; };
+    imageRef?: string;
   } | null>(
-    `*[_type == "occurrence" && _id == $id][0] { _id, pendingPayment, attendantsCount, endDate, createdByUser }`,
+    `*[_type == "occurrence" && _id == $id][0] { _id, pendingPayment, attendantsCount, endDate, createdByUser, "imageRef": mainImage.asset._ref }`,
     { id }
   );
 
@@ -179,6 +181,13 @@ export const deleteEvent = async ({ id }: { id: string; }) => {
   }
 
   await deleteOccurrenceCascade(id);
+
+  if (occ.imageRef) {
+    await sanityClient
+      .delete(occ.imageRef)
+      .catch((e) => console.error('Failed to delete event image asset:', e));
+  }
+
   revalidateTags(['eventList']);
 };
 
@@ -239,7 +248,39 @@ export const updateEvent = async ({
   data: Partial<Occurrence>;
 }) => {
   await validateSession();
-  const res = await sanityClient.patch(id).set(data).commit();
+
+  // When the main image changes, capture the previous asset so we can delete it
+  // afterwards (Sanity does not garbage-collect unreferenced assets).
+  const imageChanged = 'mainImage' in data;
+  const newAssetRef = data.mainImage?.asset?._ref;
+  let oldAssetRef: string | undefined;
+
+  if (imageChanged) {
+    const current = await sanityClient.fetch<{ ref?: string } | null>(
+      `*[_type == "occurrence" && _id == $id][0]{ "ref": mainImage.asset._ref }`,
+      { id },
+      { cache: 'no-store' }
+    );
+    oldAssetRef = current?.ref ?? undefined;
+  }
+
+  // Empty/absent asset means "remove the image" → unset rather than store an
+  // empty object.
+  const patch = sanityClient.patch(id);
+  let res;
+  if (imageChanged && !newAssetRef) {
+    const { mainImage: _omit, ...rest } = data;
+    res = await patch.set(rest).unset(['mainImage']).commit();
+  } else {
+    res = await patch.set(data).commit();
+  }
+
+  if (oldAssetRef && oldAssetRef !== newAssetRef) {
+    await sanityClient
+      .delete(oldAssetRef)
+      .catch((e) => console.error('Failed to delete previous image asset:', e));
+  }
+
   revalidateTags([
     `eventSingle:${id}`,
     `eventSingleBySlug:${data.slug?.current}`,
@@ -514,6 +555,7 @@ type EventEmailData = {
   price?: string;
   startDate?: string;
   endDate?: string;
+  timeZone?: string;
   companyName: string;
   organizationSlug: string;
   eventSlug: string;
@@ -562,8 +604,12 @@ export const subscribeToEvent = async ({
     talk_to: emailData.talkTo ?? '--',
     price: emailData.price ?? '--',
     currency: '',
-    start_date: emailData.startDate ? new Date(emailData.startDate).toLocaleString() : '--',
-    end_date: emailData.endDate ? new Date(emailData.endDate).toLocaleString() : '--',
+    start_date: emailData.startDate
+      ? formatEventDateTime(emailData.startDate, lang, emailData.timeZone, { dateStyle: 'medium', timeStyle: 'short', hour12: false })
+      : '--',
+    end_date: emailData.endDate
+      ? formatEventDateTime(emailData.endDate, lang, emailData.timeZone, { dateStyle: 'medium', timeStyle: 'short', hour12: false })
+      : '--',
     unsubscribe_link: unsubscribeLink,
     company_name: emailData.companyName,
     google_calendar_url: calendarEvent ? getGoogleCalendarUrl(calendarEvent) : '',

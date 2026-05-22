@@ -3,6 +3,8 @@
 import { Button } from '@/components/ui/button';
 import { CustomFieldDef, Registration } from '@/types/sanity.types';
 import { getCustomFieldKey } from '@/lib/custom-fields';
+import { formatLocalDateTime } from '@/lib/date-utils';
+import { useCurrentLang } from '@/hooks/useCurrentLang';
 import { Download } from 'lucide-react';
 
 export type ExportCsvButtonProps = {
@@ -18,6 +20,7 @@ export default function ExportCsvButton({
   customFields,
   filename = 'attendants.csv',
 }: ExportCsvButtonProps) {
+  const lang = useCurrentLang();
   const handleExport = () => {
     if (!attendants || attendants.length === 0) return;
 
@@ -39,7 +42,7 @@ export default function ExportCsvButton({
       escapeCsv(attendant.fullName || ''),
       escapeCsv(attendant.email || ''),
       escapeCsv(attendant.phone || ''),
-      escapeCsv(attendant.subcribitionDate ? new Date(attendant.subcribitionDate).toLocaleString() : ''),
+      escapeCsv(formatLocalDateTime(attendant.subcribitionDate, lang)),
       escapeCsv(attendant.checkedIn ? 'Yes' : 'No'),
       escapeCsv(attendant.paymentStatus || 'Pending'),
       ...customDefs.map((f) => {

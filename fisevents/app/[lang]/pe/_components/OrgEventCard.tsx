@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { OrgPublicEvent } from '@/types/sanity.extended.types';
 import { Locale } from '@/lib/i18n';
 import { MdLocationOn, MdDateRange } from 'react-icons/md';
+import { formatEventDateTime } from '@/lib/date-utils';
 
 export type OrgEventCardProps = {
   event: OrgPublicEvent;
@@ -21,7 +22,7 @@ export default function OrgEventCard({
   placesLeftLabel,
   freeLabel,
 }: OrgEventCardProps) {
-  const startDate = new Date(event.startDate).toLocaleDateString(lang, {
+  const startDate = formatEventDateTime(event.startDate, lang, event.timeZone, {
     dateStyle: 'medium',
   });
 

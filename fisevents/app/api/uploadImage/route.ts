@@ -15,6 +15,9 @@ const aj = arcjet.withRule(
   }),
 );
 
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5 MB
+const ALLOWED_MIME = /^image\/(jpeg|png|webp|gif|avif)$/;
+
 export async function POST(req: Request) {
   const session = await getSession();
 
@@ -31,21 +34,31 @@ export async function POST(req: Request) {
   try {
     const formData = await req.formData();
 
-    const file = formData.get("file") as File;
+    const file = formData.get("file");
 
-    const response: SuccessResponseType = { status: "success", id: '', url: '' };
-
-    if (file.name) {
-      const buffer = Buffer.from(await file.arrayBuffer());
-      const res = await sanityClient.assets
-        .upload('image', buffer, {
-          filename: file.name,
-          contentType: file.type,
-        });
-
-      response.id = res._id;
-      response.url = res.url;
+    if (!(file instanceof File) || !file.name) {
+      return NextResponse.json({ status: "fail", error: "no_file" });
     }
+
+    if (!ALLOWED_MIME.test(file.type)) {
+      return NextResponse.json({ status: "fail", error: "invalid_type" });
+    }
+
+    if (file.size > MAX_IMAGE_BYTES) {
+      return NextResponse.json({ status: "fail", error: "file_too_large" });
+    }
+
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const res = await sanityClient.assets.upload('image', buffer, {
+      filename: file.name,
+      contentType: file.type,
+    });
+
+    const response: SuccessResponseType = {
+      status: "success",
+      id: res._id,
+      url: res.url,
+    };
 
     return NextResponse.json(response);
   } catch (e) {

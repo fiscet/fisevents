@@ -76,6 +76,13 @@ export default defineType({
       validation: (rule) => rule.max(3)
     }),
     defineField({
+      title: 'Time Zone',
+      name: 'timeZone',
+      type: 'string',
+      readOnly: true,
+      description: 'IANA timezone of the event (e.g. Europe/Rome), captured from the organizer when the dates were set',
+    }),
+    defineField({
       title: 'Start Date',
       name: 'startDate',
       type: 'datetime',

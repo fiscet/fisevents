@@ -20,6 +20,7 @@ import { useSubmitHandler } from '../hooks/useSubmitHandler';
 import GoToEventList from '../../_components/GoToEventList';
 import AddToSite from '../../_components/AddToSite';
 import { getPublicEventUrl } from '@/lib/utils';
+import { formatEventDateTime } from '@/lib/date-utils';
 import { resumeOrCreateCheckout } from '@/lib/actions';
 import { Button } from '@/components/ui/button';
 import DeleteEventDialog from '../components/DeleteEventDialog';
@@ -213,6 +214,7 @@ export default function EventSingleContainer({
                 setImg={setNewImg}
                 onRestore={handleRestoreImage}
                 onDelete={handleDeleteImage}
+                alt={eventSingleData?.title ?? ''}
               />
             )}
             onSubmit={onSubmit}
@@ -224,9 +226,12 @@ export default function EventSingleContainer({
             attendants={eventSingleData?.attendants}
             customFields={eventSingleData?.customFields}
             endDate={eventSingleData?.endDate}
-            eventDescription={`${eventSingleData?.title} - ${new Date(
-              eventSingleData?.startDate!
-            ).toLocaleDateString()}`}
+            eventDescription={`${eventSingleData?.title} - ${formatEventDateTime(
+              eventSingleData?.startDate,
+              curLang,
+              eventSingleData?.timeZone,
+              { dateStyle: 'medium' }
+            )}`}
           />
         </TabsContent>
       </Tabs>

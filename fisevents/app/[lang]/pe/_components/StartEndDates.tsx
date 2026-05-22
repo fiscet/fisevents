@@ -1,17 +1,20 @@
 import { Locale } from '@/lib/i18n';
 import { MdDateRange } from 'react-icons/md';
 import IconText from './IconText';
+import { formatEventDateTime } from '@/lib/date-utils';
 
 export type StartEndDatesProps = {
   startDate: string;
   endDate: string;
   lang: Locale;
+  timeZone?: string;
 };
 
 export default function StartEndDates({
   startDate,
   endDate,
-  lang
+  lang,
+  timeZone
 }: StartEndDatesProps) {
   const startDateTmst = Date.parse(startDate);
   const endDateTmst = Date.parse(endDate);
@@ -19,26 +22,26 @@ export default function StartEndDates({
   const isSameDay = endDateTmst - startDateTmst < 86400000;
 
   const preDate = isSameDay
-    ? new Date(endDateTmst).toLocaleDateString(lang, { dateStyle: 'short' })
+    ? formatEventDateTime(endDateTmst, lang, timeZone, { dateStyle: 'short' })
     : '';
 
   const startDateText = isSameDay
-    ? new Date(startDateTmst).toLocaleTimeString(lang, {
+    ? formatEventDateTime(startDateTmst, lang, timeZone, {
         timeStyle: 'short',
         hour12: false
       })
-    : new Date(startDateTmst).toLocaleString(lang, {
+    : formatEventDateTime(startDateTmst, lang, timeZone, {
         dateStyle: 'short',
         timeStyle: 'short',
         hour12: false
       });
 
   const endDateText = isSameDay
-    ? new Date(endDateTmst).toLocaleTimeString(lang, {
+    ? formatEventDateTime(endDateTmst, lang, timeZone, {
         timeStyle: 'short',
         hour12: false
       })
-    : new Date(endDateTmst).toLocaleString(lang, {
+    : formatEventDateTime(endDateTmst, lang, timeZone, {
         dateStyle: 'short',
         timeStyle: 'short',
         hour12: false

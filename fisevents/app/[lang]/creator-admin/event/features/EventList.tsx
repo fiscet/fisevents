@@ -13,6 +13,7 @@ import UtilityBar from '../../_components/UtilityBar';
 import { Button } from '@/components/ui/button';
 import AddToSite from '../../_components/AddToSite';
 import { getPublicEventUrl } from '@/lib/utils';
+import { formatEventDateTime } from '@/lib/date-utils';
 import { FiChevronRight, FiCopy } from 'react-icons/fi';
 import Link from 'next/link';
 import { useCurrentLang } from '@/hooks/useCurrentLang';
@@ -104,7 +105,7 @@ function getColumns(
       selector: (row) => row.publicationStartDate,
       format: (row) =>
         row.publicationStartDate
-          ? new Date(row.publicationStartDate as string).toLocaleDateString()
+          ? formatEventDateTime(row.publicationStartDate as string, lang, row.timeZone, { dateStyle: 'short' })
           : '',
       hide: 'md',
       sortable: true
@@ -112,14 +113,14 @@ function getColumns(
     {
       name: d.startDate,
       selector: (row) => row.startDate,
-      format: (row) => new Date(row.startDate as string).toLocaleDateString(),
+      format: (row) => formatEventDateTime(row.startDate as string, lang, row.timeZone, { dateStyle: 'short' }),
       hide: 'md',
       sortable: true
     },
     {
       name: d.endDate,
       selector: (row) => row.endDate,
-      format: (row) => new Date(row.endDate as string).toLocaleDateString(),
+      format: (row) => formatEventDateTime(row.endDate as string, lang, row.timeZone, { dateStyle: 'short' }),
       hide: 'md',
       sortable: true
     },

@@ -243,7 +243,10 @@
       "payment_success": "Pagamento completato! Il tuo evento è ora pubblicato.",
       "payment_cancelled": "Pagamento annullato. L'evento non è stato pubblicato.",
       "payment_processing": "Stiamo confermando il pagamento. La pagina si aggiornerà automaticamente.",
-      "payment_timeout_warning": "La conferma del pagamento sta richiedendo più del previsto. Se ti è stato addebitato, il tuo evento verrà pubblicato automaticamente non appena il sistema si sincronizza."
+      "payment_timeout_warning": "La conferma del pagamento sta richiedendo più del previsto. Se ti è stato addebitato, il tuo evento verrà pubblicato automaticamente non appena il sistema si sincronizza.",
+      "image_too_large": "L'immagine è troppo grande (max 5 MB)",
+      "image_invalid_type": "Formato immagine non supportato (usa JPG, PNG, WebP, GIF o AVIF)",
+      "image_upload_failed": "Caricamento dell'immagine non riuscito"
     },
     "account": {
       "userAccount": "Account utente",

@@ -11,6 +11,8 @@ import {
 import { slugify } from '@/lib/utils';
 import { CustomFieldDef, Registration } from '@/types/sanity.types';
 import { getAttendantCustomValue, getCustomFieldKey } from '@/lib/custom-fields';
+import { formatLocalDateTime } from '@/lib/date-utils';
+import { useCurrentLang } from '@/hooks/useCurrentLang';
 import RemoveAttendantDialog from '../components/RemoveAttendantDialog';
 import AttendantStatusToggle from '../components/AttendantStatusToggle';
 import PaymentStatusSelect from '../components/PaymentStatusSelect';
@@ -30,6 +32,7 @@ export default function EventAttentantTable({
 }: EventAttentantTableProps) {
   const { creator_admin: ca } = useDictionary();
   const { attendants: d } = ca;
+  const lang = useCurrentLang();
 
   const customDefs = (customFields ?? []).filter((f) => getCustomFieldKey(f));
 
@@ -61,7 +64,7 @@ export default function EventAttentantTable({
                 <div className="flex flex-col">
                   <span>{attendant.fullName}</span>
                   <span className="text-xs font-normal text-muted-foreground">
-                    {new Date(attendant.subcribitionDate!).toLocaleString()}
+                    {formatLocalDateTime(attendant.subcribitionDate, lang)}
                   </span>
                 </div>
               </TableCell>

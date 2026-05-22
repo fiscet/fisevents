@@ -4,6 +4,7 @@ import { sendMail } from '@/lib/send-mail';
 import { getEmailDictionary } from '@/lib/i18n.utils';
 import { applyTemplate } from '@/lib/email-template';
 import { getPublicEventSlug, getPublicEventUrl } from '@/lib/utils';
+import { formatEventDateTime } from '@/lib/date-utils';
 import type { Locale } from '@/lib/i18n';
 
 type ReminderEvent = {
@@ -11,6 +12,7 @@ type ReminderEvent = {
   title: string;
   startDate: string;
   endDate?: string;
+  timeZone?: string;
   location?: string;
   talkTo?: string;
   publicSlug: string;
@@ -49,6 +51,7 @@ export async function GET(req: NextRequest) {
       location,
       talkTo,
       publicSlug,
+      timeZone,
       "companyName": createdByUser->companyName,
       "organizationSlug": createdByUser->slug.current,
       "attendants": *[_type == "registration" && occurrence._ref == ^._id] { fullName, email }
@@ -91,8 +94,8 @@ export async function GET(req: NextRequest) {
           public_url: publicUrl,
           location: ev.location ?? '--',
           talk_to: ev.talkTo ?? '--',
-          start_date: new Date(ev.startDate).toLocaleString(),
-          end_date: ev.endDate ? new Date(ev.endDate).toLocaleString() : '--',
+          start_date: formatEventDateTime(ev.startDate, DEFAULT_LANG, ev.timeZone, { dateStyle: 'medium', timeStyle: 'short', hour12: false }),
+          end_date: ev.endDate ? formatEventDateTime(ev.endDate, DEFAULT_LANG, ev.timeZone, { dateStyle: 'medium', timeStyle: 'short', hour12: false }) : '--',
           company_name: ev.companyName ?? '',
         };
 

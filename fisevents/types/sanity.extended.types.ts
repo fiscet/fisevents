@@ -66,6 +66,7 @@ export type OrgPublicEvent = {
   };
   startDate: string;
   endDate: string;
+  timeZone?: string;
   location?: string;
   maxSubscribers?: number;
   remainingPlaces: number;
