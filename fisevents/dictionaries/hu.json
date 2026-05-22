@@ -453,7 +453,8 @@
       "generic": "Hiba történt",
       "email_invalid": "Az e-mail cím érvénytelen",
       "already_subscribed": "Már feliratkozott erre az eseményre",
-      "already_unsubscribed": "Már leiratkozott"
+      "already_unsubscribed": "Már leiratkozott",
+      "event_full": "Erre az eseményre beteltek a helyek"
     },
     "organizer_page": {
       "title": "Közelgő események",

@@ -453,7 +453,8 @@
       "generic": "Qualcosa è andato storto",
       "email_invalid": "L'email non è valida",
       "already_subscribed": "Sei già iscritto a quest'evento",
-      "already_unsubscribed": "Sei già disiscritto"
+      "already_unsubscribed": "Sei già disiscritto",
+      "event_full": "Posti esauriti per questo evento"
     },
     "organizer_page": {
       "title": "I prossimi eventi",

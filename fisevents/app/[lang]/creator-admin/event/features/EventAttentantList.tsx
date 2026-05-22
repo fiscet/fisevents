@@ -1,4 +1,4 @@
-import { CustomFieldDef, EventAttendant } from '@/types/sanity.types';
+import { CustomFieldDef, Registration } from '@/types/sanity.types';
 import EventAttentantTable from './EventAttentantTable';
 import EventAttentantCards from './EventAttentantCards';
 import AddAttendantModal from '../components/AddAttendantModal';
@@ -8,7 +8,7 @@ import { Info } from 'lucide-react';
 
 export type EventAttentantListProps = {
   eventId?: string;
-  attendants?: EventAttendant[];
+  attendants?: Registration[];
   customFields?: Array<Partial<CustomFieldDef>>;
   eventDescription?: string;
   endDate?: string;

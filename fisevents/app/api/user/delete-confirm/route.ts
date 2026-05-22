@@ -28,9 +28,18 @@ export async function GET(request: NextRequest) {
       ),
     ]);
 
+    // Registrations of the user's events must go too (no orphan documents).
+    const occurrenceIds = occurrences.map((o) => o._id);
+    const registrations = occurrenceIds.length
+      ? await sanityClient.fetch<{ _id: string }[]>(
+          `*[_type == "registration" && occurrence._ref in $occurrenceIds]{_id}`,
+          { occurrenceIds }
+        )
+      : [];
+
     const tx = sanityClient.transaction();
-    [...accounts, ...verificationTokens, ...occurrences].forEach((doc) =>
-      tx.delete(doc._id)
+    [...registrations, ...accounts, ...verificationTokens, ...occurrences].forEach(
+      (doc) => tx.delete(doc._id)
     );
     tx.delete(userId);
     await tx.commit();

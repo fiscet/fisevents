@@ -43,22 +43,22 @@ export const organizationCountBySlugQuery = defineQuery(
 
 /** EVENTS */
 export const eventMonthlyCountQuery = defineQuery(
-  `count(*[_type == "occurrence" && createdByUser._ref == $userId && _createdAt >= $monthStart && pendingPayment != true])`
+  `count(*[_type == "occurrence" && !(_id in path("drafts.**")) && createdByUser._ref == $userId && _createdAt >= $monthStart && pendingPayment != true])`
 );
 
 
-export const eventIdQuery = defineQuery(`*[_type == "occurrence" && active == $active && publicationStartDate <= now() && endDate >= now()]|order(publicationStartDate desc) {
+export const eventIdQuery = defineQuery(`*[_type == "occurrence" && !(_id in path("drafts.**")) && active == $active && publicationStartDate <= now() && endDate >= now()]|order(publicationStartDate desc) {
  _id
 }`);
 
-export const eventListQuery = defineQuery(`*[_type == "occurrence" && createdByUser._ref == $createdBy]|order(startDate desc) {
+export const eventListQuery = defineQuery(`*[_type == "occurrence" && !(_id in path("drafts.**")) && createdByUser._ref == $createdBy]|order(startDate desc) {
   _id,
   title,
   slug,
   startDate,
   endDate,
   publicationStartDate,
-  'numAttendants': count(attendants),
+  'numAttendants': coalesce(attendantsCount, 0),
   active,
   pendingPayment
 }`);
@@ -83,12 +83,24 @@ export const eventSingleByIdQuery = defineQuery(`*[_type == "occurrence" && crea
   publicationStartDate,
   active,
   pendingPayment,
+  attendantsCount,
   customFields,
-  attendants
+  "attendants": *[_type == "registration" && occurrence._ref == ^._id] | order(subcribitionDate desc) {
+    _id,
+    uuid,
+    fullName,
+    email,
+    phone,
+    subcribitionDate,
+    checkedIn,
+    paymentStatus,
+    privacyAccepted,
+    customFieldValues
+  }
 }`);
 
 export const eventStatusBySlugQuery = defineQuery(`
-*[_type == "occurrence" && publicSlug == $publicSlug][0] {
+*[_type == "occurrence" && !(_id in path("drafts.**")) && publicSlug == $publicSlug][0] {
   title,
   active,
   pendingPayment
@@ -96,8 +108,9 @@ export const eventStatusBySlugQuery = defineQuery(`
 
 export const eventSingleBySlugQuery = defineQuery(`
 *[
-  _type == "occurrence" && 
-  publicSlug == $publicSlug && 
+  _type == "occurrence" &&
+  !(_id in path("drafts.**")) &&
+  publicSlug == $publicSlug &&
   active == true
   ][0] {
   _id,
@@ -110,7 +123,7 @@ export const eventSingleBySlugQuery = defineQuery(`
   location,
   talkTo,
   maxSubscribers,
-  "remainingPlaces": maxSubscribers-(coalesce(count(attendants), 0)),
+  "remainingPlaces": maxSubscribers - coalesce(attendantsCount, 0),
   "price": select(
     length(currency) > 0 && basicPrice > 0 =>coalesce(string(basicPrice), "") + " " + coalesce(currency, "-"),
     basicPrice > 0 => coalesce(string(basicPrice), ""),
@@ -129,7 +142,7 @@ export const eventSingleHasAttendantByEmailQuery = defineQuery(`
   _type == "occurrence" && 
   _id == $eventId 
   ][0] {
-  "hasAttendant":count(attendants[email match $email]) > 0
+  "hasAttendant": count(*[_type == "registration" && occurrence._ref == $eventId && email == $email]) > 0
 }`);
 
 export const eventSingleHasAttendantByUuidQuery = defineQuery(`
@@ -137,7 +150,7 @@ export const eventSingleHasAttendantByUuidQuery = defineQuery(`
   _type == "occurrence" &&
   _id == $eventId
   ][0] {
-  "hasAttendant":count(attendants[uuid match $uuid]) > 0
+  "hasAttendant": count(*[_type == "registration" && occurrence._ref == $eventId && uuid == $uuid]) > 0
 }`);
 
 export const eventForWebhookQuery = defineQuery(`
@@ -190,7 +203,7 @@ export const landingPageNavListQuery = defineQuery(`
 `);
 
 export const allPublishedEventSlugsQuery = defineQuery(`
-*[_type == "occurrence" && active == true && defined(publicSlug)] {
+*[_type == "occurrence" && !(_id in path("drafts.**")) && active == true && defined(publicSlug)] {
   publicSlug,
   _updatedAt
 }
@@ -199,6 +212,7 @@ export const allPublishedEventSlugsQuery = defineQuery(`
 export const publicEventListByOrgSlugQuery = defineQuery(`
 *[
   _type == "occurrence" &&
+  !(_id in path("drafts.**")) &&
   createdByUser->slug.current == $orgSlug &&
   active == true &&
   endDate > now()
@@ -214,7 +228,7 @@ export const publicEventListByOrgSlugQuery = defineQuery(`
   endDate,
   location,
   maxSubscribers,
-  "remainingPlaces": maxSubscribers - (coalesce(count(attendants), 0)),
+  "remainingPlaces": maxSubscribers - coalesce(attendantsCount, 0),
   "price": select(
     length(currency) > 0 && basicPrice > 0 => coalesce(string(basicPrice), "") + " " + coalesce(currency, "-"),
     basicPrice > 0 => coalesce(string(basicPrice), ""),

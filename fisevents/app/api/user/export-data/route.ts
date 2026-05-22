@@ -26,7 +26,7 @@ export async function GET() {
       { userId }
     ),
     sanityClient.fetch(
-      `*[_type == "occurrence" && createdByUser._ref == $userId] | order(startDate desc) {
+      `*[_type == "occurrence" && !(_id in path("drafts.**")) && createdByUser._ref == $userId] | order(startDate desc) {
         _id,
         title,
         "slug": slug.current,
@@ -43,7 +43,7 @@ export async function GET() {
         pendingPayment,
         attendantsAnonymizedAt,
         _createdAt,
-        attendants[] {
+        "attendants": *[_type == "registration" && occurrence._ref == ^._id] {
           uuid,
           fullName,
           email,

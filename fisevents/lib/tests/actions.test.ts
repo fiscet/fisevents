@@ -13,14 +13,19 @@ import { getSession } from '@/lib/auth';
 import { OccurrenceList, OccurrenceSingle } from '@/types/sanity.extended.types';
 import { revalidateTag } from 'next/cache';
 
-jest.mock('../sanity.cli', () => ({
-  sanityClient: {
+jest.mock('../sanity.cli', () => {
+  const client: Record<string, jest.Mock> = {
     fetch: jest.fn(),
     patch: jest.fn(),
     create: jest.fn(),
     delete: jest.fn(),
-  },
-}));
+    transaction: jest.fn(),
+    withConfig: jest.fn(),
+  };
+  // withConfig returns the same mock so live-client reads/writes hit these mocks
+  client.withConfig.mockReturnValue(client);
+  return { sanityClient: client };
+});
 
 jest.mock('next/cache', () => ({
   revalidateTag: jest.fn(),
@@ -77,14 +82,20 @@ function makePatchMock(resolvedValue: object = {}) {
   return { patchMock, setMock, commitMock };
 }
 
-// Mocks the patch chain used by addEventAttendant:
-// patch(id).setIfMissing(...).prepend(...).commit()
-function makeAttendantPatchMock(resolvedValue: object = { _id: 'evt-1' }) {
-  const commit = jest.fn().mockResolvedValue(resolvedValue);
-  const prepend = jest.fn().mockReturnValue({ commit });
-  const setIfMissing = jest.fn().mockReturnValue({ prepend });
-  const patch = jest.fn().mockReturnValue({ setIfMissing });
-  return { patch, setIfMissing, prepend, commit };
+// Mocks the chainable Sanity transaction used by the registration helpers:
+// transaction().create(...).patch(...).commit()
+function makeTransactionMock(commitResult: object = {}) {
+  const commit = jest.fn().mockResolvedValue(commitResult);
+  const tx = {
+    create: jest.fn(),
+    patch: jest.fn(),
+    delete: jest.fn(),
+    commit,
+  } as Record<string, jest.Mock>;
+  tx.create.mockReturnValue(tx);
+  tx.patch.mockReturnValue(tx);
+  tx.delete.mockReturnValue(tx);
+  return { tx, commit };
 }
 
 describe('Actions', () => {
@@ -386,14 +397,17 @@ describe('Actions', () => {
       privacyAccepted: true,
     };
 
-    // No existing attendant with that email
-    const mockNotSubscribed = () =>
-      (sanityClient.fetch as jest.Mock).mockResolvedValue({ hasAttendant: false });
+    // fetch is called twice on the happy path: duplicate-email check, then the
+    // occurrence read (rev + capacity) inside createRegistration.
+    const mockFreeEvent = (occ: object = { _id: 'evt-1', _rev: 'rev-1', attendantsCount: 0 }) =>
+      (sanityClient.fetch as jest.Mock)
+        .mockResolvedValueOnce(0) // hasRegistrationByEmail -> count 0
+        .mockResolvedValueOnce(occ); // occurrence for capacity/rev
 
-    it('persists custom field values with _type and _key, dropping empty ones', async () => {
-      mockNotSubscribed();
-      const { patch, prepend } = makeAttendantPatchMock();
-      (sanityClient.patch as jest.Mock).mockImplementation(patch);
+    it('creates a registration document with normalised custom field values', async () => {
+      mockFreeEvent();
+      const { tx } = makeTransactionMock();
+      (sanityClient.transaction as jest.Mock).mockReturnValue(tx);
 
       const result = await addEventAttendant({
         eventId: 'evt-1',
@@ -407,29 +421,31 @@ describe('Actions', () => {
         } as Parameters<typeof addEventAttendant>[0]['eventAttendant'],
       });
 
-      // Only the non-empty, keyed value survives, enriched with _type/_key
+      // Returned registration carries the single surviving, enriched value
+      expect(result?._type).toBe('registration');
+      expect(result?.occurrence?._ref).toBe('evt-1');
+      expect(typeof result?.uuid).toBe('string');
       expect(result?.customFieldValues).toHaveLength(1);
       const stored = result!.customFieldValues![0];
       expect(stored).toMatchObject({
         _type: 'customFieldValue',
         name: 'shirt',
-        label: 'Shirt size',
         value: 'L',
       });
       expect(typeof stored._key).toBe('string');
-      expect(stored._key.length).toBeGreaterThan(0);
 
-      // The same normalised attendant is what gets prepended to the array
-      const prependedAttendant = prepend.mock.calls[0][1][0];
-      expect(prependedAttendant.customFieldValues).toHaveLength(1);
-      expect(prependedAttendant._type).toBe('eventAttendant');
-      expect(typeof prependedAttendant.uuid).toBe('string');
+      // The same document is what the transaction creates, and the counter is bumped
+      const createdDoc = tx.create.mock.calls[0][0];
+      expect(createdDoc._type).toBe('registration');
+      expect(createdDoc.customFieldValues).toHaveLength(1);
+      expect(tx.patch).toHaveBeenCalledWith('evt-1', expect.any(Function));
+      expect(tx.commit).toHaveBeenCalled();
     });
 
-    it('removes the customFieldValues field entirely when none have values', async () => {
-      mockNotSubscribed();
-      const { patch } = makeAttendantPatchMock();
-      (sanityClient.patch as jest.Mock).mockImplementation(patch);
+    it('omits customFieldValues entirely when none have values', async () => {
+      mockFreeEvent();
+      const { tx } = makeTransactionMock();
+      (sanityClient.transaction as jest.Mock).mockReturnValue(tx);
 
       const result = await addEventAttendant({
         eventId: 'evt-1',
@@ -444,13 +460,40 @@ describe('Actions', () => {
     });
 
     it('throws already_subscribed when the email is already registered', async () => {
-      (sanityClient.fetch as jest.Mock).mockResolvedValue({ hasAttendant: true });
-      const { patch } = makeAttendantPatchMock();
-      (sanityClient.patch as jest.Mock).mockImplementation(patch);
+      (sanityClient.fetch as jest.Mock).mockResolvedValueOnce(1); // duplicate found
+      const { tx } = makeTransactionMock();
+      (sanityClient.transaction as jest.Mock).mockReturnValue(tx);
 
       await expect(
         addEventAttendant({ eventId: 'evt-1', eventAttendant: baseAttendant })
       ).rejects.toThrow('already_subscribed');
+      expect(tx.commit).not.toHaveBeenCalled();
+    });
+
+    it('throws event_full when the event is at capacity', async () => {
+      mockFreeEvent({ _id: 'evt-1', _rev: 'rev-1', maxSubscribers: 2, attendantsCount: 2 });
+      const { tx } = makeTransactionMock();
+      (sanityClient.transaction as jest.Mock).mockReturnValue(tx);
+
+      await expect(
+        addEventAttendant({ eventId: 'evt-1', eventAttendant: baseAttendant })
+      ).rejects.toThrow('event_full');
+      expect(tx.commit).not.toHaveBeenCalled();
+    });
+
+    it('lets the organizer bypass capacity with enforceCapacity=false', async () => {
+      mockFreeEvent({ _id: 'evt-1', _rev: 'rev-1', maxSubscribers: 2, attendantsCount: 2 });
+      const { tx } = makeTransactionMock();
+      (sanityClient.transaction as jest.Mock).mockReturnValue(tx);
+
+      const result = await addEventAttendant({
+        eventId: 'evt-1',
+        eventAttendant: baseAttendant,
+        enforceCapacity: false,
+      });
+
+      expect(result?._type).toBe('registration');
+      expect(tx.commit).toHaveBeenCalled();
     });
   });
 });

@@ -22,10 +22,16 @@ import {
   OrgPublicEvent,
   PublicOccurrenceSingle,
 } from '@/types/sanity.extended.types';
-import { EventAttendant, Occurrence, User } from '@/types/sanity.types';
+import { EventAttendant, Occurrence, Registration, User } from '@/types/sanity.types';
+import {
+  createRegistration,
+  hasRegistrationByEmail,
+  getRegistrationByUuid,
+  deleteRegistration,
+  setRegistrationStatus,
+  deleteOccurrenceCascade,
+} from '@/lib/registrations';
 import { revalidateTag } from 'next/cache';
-import { v4 as uuidv4 } from 'uuid';
-import { toUserIsoString } from './utils';
 import { getSession } from '@/lib/auth';
 import { eventAttendantSchema } from './form-schemas';
 import arcjet, { validateEmail } from '@/lib/arcjet';
@@ -151,11 +157,11 @@ export const deleteEvent = async ({ id }: { id: string; }) => {
   const occ = await sanityClient.fetch<{
     _id: string;
     pendingPayment?: boolean;
-    attendants?: unknown[];
+    attendantsCount?: number;
     endDate?: string;
     createdByUser?: { _ref: string; };
   } | null>(
-    `*[_type == "occurrence" && _id == $id][0] { _id, pendingPayment, attendants, endDate, createdByUser }`,
+    `*[_type == "occurrence" && _id == $id][0] { _id, pendingPayment, attendantsCount, endDate, createdByUser }`,
     { id }
   );
 
@@ -165,14 +171,14 @@ export const deleteEvent = async ({ id }: { id: string; }) => {
   if (!occ.pendingPayment) {
     throw new Error('Only unpaid events can be deleted');
   }
-  if ((occ.attendants?.length ?? 0) > 0) {
+  if ((occ.attendantsCount ?? 0) > 0) {
     throw new Error('Cannot delete event with attendants');
   }
   if (occ.endDate && new Date(occ.endDate) < new Date()) {
     throw new Error('Cannot delete an expired event');
   }
 
-  await sanityClient.delete(id);
+  await deleteOccurrenceCascade(id);
   revalidateTags(['eventList']);
 };
 
@@ -334,7 +340,7 @@ export const createEvent = async ({
   const freeThisMonth = await sanityClient.fetch<
     Array<{ _id: string; _createdAt: string; }>
   >(
-    `*[_type == "occurrence" && createdByUser._ref == $userId && _createdAt >= $monthStart && pendingPayment != true] | order(_createdAt asc) {_id, _createdAt}`,
+    `*[_type == "occurrence" && !(_id in path("drafts.**")) && createdByUser._ref == $userId && _createdAt >= $monthStart && pendingPayment != true] | order(_createdAt asc) {_id, _createdAt}`,
     { userId, monthStart },
     { cache: 'no-store' }
   );
@@ -399,10 +405,13 @@ export const getEventSingleHasAttendantByUuid = async ({
 export const addEventAttendant = async ({
   eventId,
   eventAttendant,
+  enforceCapacity = true,
 }: {
   eventId: string;
   eventAttendant: Partial<EventAttendant>;
-}) => {
+  /** Public sign-ups enforce maxSubscribers; organizers adding manually bypass it. */
+  enforceCapacity?: boolean;
+}): Promise<Registration | undefined> => {
   const validatedFields = eventAttendantSchema.safeParse(eventAttendant);
 
   if (!validatedFields.success) {
@@ -418,49 +427,23 @@ export const addEventAttendant = async ({
     throw new Error('email_invalid');
   }
 
-  const checkRes = await getEventSingleHasAttendantById({
+  const alreadySubscribed = await hasRegistrationByEmail({
     eventId,
     email: eventAttendant.email!,
   });
 
-  if (checkRes.hasAttendant) {
+  if (alreadySubscribed) {
     throw new Error('already_subscribed');
   }
 
-  eventAttendant._type = 'eventAttendant';
-  eventAttendant.uuid = uuidv4();
-  eventAttendant.subcribitionDate = toUserIsoString(new Date());
-  eventAttendant.paymentStatus = 'pending';
+  const registration = await createRegistration({
+    eventId,
+    attendant: eventAttendant,
+    enforceCapacity,
+  });
 
-  if (eventAttendant.customFieldValues?.length) {
-    const normalized = eventAttendant.customFieldValues
-      .filter((v) => v && v.name && v.value !== undefined && v.value !== '')
-      .map((v) => ({
-        _type: 'customFieldValue' as const,
-        _key: uuidv4(),
-        name: v.name,
-        label: v.label,
-        value: v.value,
-      }));
-    if (normalized.length) {
-      eventAttendant.customFieldValues = normalized;
-    } else {
-      delete eventAttendant.customFieldValues;
-    }
-  } else {
-    delete eventAttendant.customFieldValues;
-  }
-
-  const res = await sanityClient
-    .patch(eventId)
-    .setIfMissing({ attendants: [] })
-    .prepend('attendants', [eventAttendant])
-    .commit<Occurrence>();
-
-  if (res) {
-    revalidateTags([`eventSingle:${eventId}`]);
-    return eventAttendant;
-  }
+  revalidateTags([`eventSingle:${eventId}`, 'eventList']);
+  return registration;
 };
 
 export const removeEventAttendant = async ({
@@ -472,21 +455,21 @@ export const removeEventAttendant = async ({
   eventAttendantUuid: string;
   alreadyUnsubscribedText?: string;
 }) => {
-  const checkRes = await getEventSingleHasAttendantByUuid({
+  const registration = await getRegistrationByUuid({
     eventId,
-    uuid: eventAttendantUuid!,
+    uuid: eventAttendantUuid,
   });
 
-  if (!checkRes.hasAttendant) {
+  if (!registration) {
     throw new Error(alreadyUnsubscribedText);
   }
 
-  const res = await sanityClient
-    .patch(eventId)
-    .unset([`attendants[uuid=="${eventAttendantUuid}"]`])
-    .commit();
+  const res = await deleteRegistration({
+    eventId,
+    registrationId: registration._id,
+  });
 
-  revalidateTags([`eventSingle:${eventId}`]);
+  revalidateTags([`eventSingle:${eventId}`, 'eventList']);
   return res;
 };
 
@@ -499,29 +482,25 @@ export const updateEventAttendantStatus = async ({
   eventAttendantUuid: string;
   data: { checkedIn?: boolean; paymentStatus?: string; };
 }) => {
-  const checkRes = await getEventSingleHasAttendantByUuid({
+  const registration = await getRegistrationByUuid({
     eventId,
     uuid: eventAttendantUuid,
   });
 
-  if (!checkRes.hasAttendant) {
+  if (!registration) {
     throw new Error('Attendant not found');
   }
 
-  // Create an object with the changes to apply
-  const patches: Record<string, boolean | string> = {};
-  if (data.checkedIn !== undefined) {
-    patches[`attendants[uuid=="${eventAttendantUuid}"].checkedIn`] =
-      data.checkedIn;
-  }
-  if (data.paymentStatus !== undefined) {
-    patches[`attendants[uuid=="${eventAttendantUuid}"].paymentStatus`] =
-      data.paymentStatus;
-  }
+  const patch: { checkedIn?: boolean; paymentStatus?: string; } = {};
+  if (data.checkedIn !== undefined) patch.checkedIn = data.checkedIn;
+  if (data.paymentStatus !== undefined) patch.paymentStatus = data.paymentStatus;
 
-  if (Object.keys(patches).length === 0) return;
+  if (Object.keys(patch).length === 0) return;
 
-  const res = await sanityClient.patch(eventId).set(patches).commit();
+  const res = await setRegistrationStatus({
+    registrationId: registration._id,
+    data: patch,
+  });
 
   revalidateTags([`eventSingle:${eventId}`]);
   return res;

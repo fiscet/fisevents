@@ -1,12 +1,12 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { CustomFieldDef, EventAttendant } from '@/types/sanity.types';
+import { CustomFieldDef, Registration } from '@/types/sanity.types';
 import { getCustomFieldKey } from '@/lib/custom-fields';
 import { Download } from 'lucide-react';
 
 export type ExportCsvButtonProps = {
-  attendants?: EventAttendant[];
+  attendants?: Registration[];
   customFields?: Array<Partial<CustomFieldDef>>;
   filename?: string;
 };

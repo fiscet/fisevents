@@ -453,7 +453,8 @@
       "generic": "Something went wrong",
       "email_invalid": "Email is invalid",
       "already_subscribed": "You are already subscribed to this event",
-      "already_unsubscribed": "You are already unsubscribed"
+      "already_unsubscribed": "You are already unsubscribed",
+      "event_full": "This event is sold out"
     },
     "organizer_page": {
       "title": "Upcoming events",

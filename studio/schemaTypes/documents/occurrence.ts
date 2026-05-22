@@ -112,14 +112,12 @@ export default defineType({
       initialValue: true,
     }),
     defineField({
-      title: 'Attendants',
-      name: 'attendants',
-      type: 'array',
-      of: [
-        {
-          type: 'eventAttendant'
-        }
-      ]
+      title: 'Attendants count',
+      name: 'attendantsCount',
+      type: 'number',
+      readOnly: true,
+      initialValue: 0,
+      description: 'Denormalized number of registrations (kept in sync on sign-up/removal)',
     }),
     defineField({
       title: 'Custom registration fields',
