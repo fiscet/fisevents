@@ -32,13 +32,17 @@ export default function EventAttendantContainer({
     privacyAccepted: false,
   };
 
-  const { form } = useEventAttendantForm({ eventAttendantData });
+  const { form } = useEventAttendantForm({
+    eventAttendantData,
+    customFields: eventData.customFields,
+  });
 
   const handleAttendandSubmit = useManageSubscription({
     eventId: eventData._id!,
     lang,
     eventData,
     eventSlug,
+    customFields: eventData.customFields,
     startProcessing,
     setIsSubscribed,
   });
@@ -47,7 +51,11 @@ export default function EventAttendantContainer({
     <>
       {isSaving && <Processing text={d.subscribing} />}
       {!isSubscribed && (
-        <EventAttendantForm form={form} onSubmit={handleAttendandSubmit} />
+        <EventAttendantForm
+          form={form}
+          onSubmit={handleAttendandSubmit}
+          customFields={eventData.customFields}
+        />
       )}
     </>
   );

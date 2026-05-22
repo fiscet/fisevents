@@ -9,7 +9,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { slugify } from '@/lib/utils';
-import { EventAttendant } from '@/types/sanity.types';
+import { CustomFieldDef, EventAttendant } from '@/types/sanity.types';
+import { getAttendantCustomValue, getCustomFieldKey } from '@/lib/custom-fields';
 import RemoveAttendantDialog from '../components/RemoveAttendantDialog';
 import AttendantStatusToggle from '../components/AttendantStatusToggle';
 import PaymentStatusSelect from '../components/PaymentStatusSelect';
@@ -17,16 +18,20 @@ import PaymentStatusSelect from '../components/PaymentStatusSelect';
 export type EventAttentantTableProps = {
   eventId?: string;
   attendants?: EventAttendant[];
+  customFields?: Array<Partial<CustomFieldDef>>;
   eventDescription?: string;
 };
 
 export default function EventAttentantTable({
   eventId,
   attendants,
+  customFields,
   eventDescription,
 }: EventAttentantTableProps) {
   const { creator_admin: ca } = useDictionary();
   const { attendants: d } = ca;
+
+  const customDefs = (customFields ?? []).filter((f) => getCustomFieldKey(f));
 
   return (
     <Table className="hidden md:table">
@@ -35,6 +40,11 @@ export default function EventAttentantTable({
           <TableHead className="w-[100px]">{d.fullname}</TableHead>
           <TableHead>{d.email}</TableHead>
           <TableHead>{d.phone}</TableHead>
+          {customDefs.map((f) => (
+            <TableHead key={getCustomFieldKey(f)} className="whitespace-nowrap">
+              {f.label}
+            </TableHead>
+          ))}
           <TableHead>{d.status}</TableHead>
           <TableHead>{d.payment}</TableHead>
           <TableHead className="w-[50px]"></TableHead>
@@ -61,6 +71,14 @@ export default function EventAttentantTable({
               <TableCell className="whitespace-nowrap">
                 {attendant.phone}
               </TableCell>
+              {customDefs.map((f) => (
+                <TableCell
+                  key={getCustomFieldKey(f)}
+                  className="whitespace-nowrap"
+                >
+                  {getAttendantCustomValue(attendant, f)}
+                </TableCell>
+              ))}
               <TableCell className="whitespace-nowrap">
                 {eventId && attendant.uuid && (
                   <AttendantStatusToggle

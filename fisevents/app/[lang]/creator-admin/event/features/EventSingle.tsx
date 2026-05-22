@@ -14,6 +14,7 @@ import { useDictionary } from '@/app/contexts/DictionaryContext';
 import { isDateInPast, getMinDatetimeLocal } from '@/lib/date-utils';
 import FormFieldHeader from '@/components/FormField/FormFieldHeader';
 import { useForm } from 'react-hook-form';
+import CustomFieldsEditor from '../components/CustomFieldsEditor';
 
 const EditorComp = dynamic(
   () => import('../../_components/MarkdownEditor/Editor'),
@@ -207,6 +208,15 @@ export default function EventSingle({
               isAccordion={true}
               requiredStatus='optional'
             />
+          </section>
+
+          {/* ── CAMPI PERSONALIZZATI ── */}
+          <section className="rounded-2xl border border-fe-outline-variant/20 bg-fe-surface-container-lowest p-6 space-y-5">
+            <div>
+              <h2 className="text-xs font-semibold uppercase tracking-widest text-fe-on-surface-variant">{d.custom_fields.section}</h2>
+              <p className="text-sm text-fe-on-surface-variant mt-1">{d.custom_fields.section_description}</p>
+            </div>
+            <CustomFieldsEditor form={form} />
           </section>
 
           {!isExpired && (

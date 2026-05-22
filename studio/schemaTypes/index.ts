@@ -8,6 +8,8 @@ import landingPage from './documents/landingPage';
 
 import blockContent from './components/blockContent';
 import eventAttendant from './components/eventAttendant';
+import customFieldDef from './components/customFieldDef';
+import customFieldValue from './components/customFieldValue';
 
 export const schemaTypes = [
   account,
@@ -20,4 +22,6 @@ export const schemaTypes = [
 
   blockContent,
   eventAttendant,
+  customFieldDef,
+  customFieldValue,
 ];

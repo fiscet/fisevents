@@ -1,5 +1,21 @@
 import { z } from 'zod';
 
+export const customFieldDefType = z.enum(['text', 'number', 'select', 'checkbox']);
+
+export const customFieldValueSchema = z.object({
+  name: z.string().optional(),
+  label: z.string().optional(),
+  value: z.string().optional(),
+});
+
+export const customFieldDefSchema = z.object({
+  name: z.string().optional(),
+  label: z.string().optional(),
+  fieldType: customFieldDefType,
+  required: z.boolean().optional(),
+  options: z.array(z.string()).optional(),
+});
+
 export const eventAttendantSchema = z.object({
   fullName: z.string(),
   email: z.string().email(),
@@ -47,6 +63,7 @@ export const singleEventSchema = z.object({
   startDate: z.string(),
   endDate: z.string(),
   active: z.boolean(),
+  customFields: z.array(customFieldDefSchema).optional(),
 });
 
 export const userAccountSchema = z.object({

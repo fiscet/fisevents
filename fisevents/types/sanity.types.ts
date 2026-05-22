@@ -68,11 +68,30 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type CustomFieldValue = {
+  _type: 'customFieldValue';
+  _key?: string;
+  name?: string;
+  label?: string;
+  value?: string;
+};
+
+export type CustomFieldDef = {
+  _type: 'customFieldDef';
+  _key?: string;
+  name?: string;
+  label?: string;
+  fieldType?: 'text' | 'number' | 'select' | 'checkbox';
+  required?: boolean;
+  options?: Array<string>;
+};
+
 export type EventAttendant = {
   _type: 'eventAttendant';
   fullName?: string;
   email?: string;
   phone?: string;
+  customFieldValues?: Array<{ _key: string } & CustomFieldValue>;
   privacyAccepted?: boolean;
   subcribitionDate?: string;
   uuid?: string;
@@ -175,6 +194,7 @@ export type Occurrence = {
   endDate?: string;
   publicationStartDate?: string;
   active?: boolean;
+  customFields?: Array<{ _key: string } & CustomFieldDef>;
   attendants?: Array<
     {
       _key: string;

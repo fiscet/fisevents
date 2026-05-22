@@ -83,6 +83,7 @@ export const eventSingleByIdQuery = defineQuery(`*[_type == "occurrence" && crea
   publicationStartDate,
   active,
   pendingPayment,
+  customFields,
   attendants
 }`);
 
@@ -117,6 +118,7 @@ export const eventSingleBySlugQuery = defineQuery(`
   ),
   startDate,
   endDate,
+  customFields,
   "companyName":*[_type == "user" && _id == ^.createdByUser->_id][0].companyName,
   "organizationSlug":*[_type == "user" && _id == ^.createdByUser->_id][0].slug.current,
   "organizerEmail":*[_type == "user" && _id == ^.createdByUser->_id][0].email

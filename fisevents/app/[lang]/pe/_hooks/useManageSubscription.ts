@@ -7,12 +7,18 @@ import { useNotification } from '@/components/Notification/useNotification';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 import type { Locale } from '@/lib/i18n';
 import type { PublicOccurrenceSingle } from '@/types/sanity.extended.types';
+import {
+  customFieldsValuesToArray,
+  type CustomFieldDefInput,
+} from '@/lib/custom-fields';
+import type { AttendantFormSchemaType } from './useEventAttendantForm';
 
 type ManageSubscriptionProps = {
   eventId: string;
   lang: Locale;
   eventData: PublicOccurrenceSingle;
   eventSlug: string;
+  customFields?: CustomFieldDefInput[];
   startProcessing: (callback: () => void) => void;
   setIsSubscribed: (value: boolean) => void;
 };
@@ -22,6 +28,7 @@ export function useManageSubscription({
   lang,
   eventData,
   eventSlug,
+  customFields,
   startProcessing,
   setIsSubscribed,
 }: ManageSubscriptionProps) {
@@ -29,12 +36,21 @@ export function useManageSubscription({
   const { public: d } = useDictionary();
 
   return useCallback(
-    async (data: Partial<EventAttendant>) => {
+    async (data: AttendantFormSchemaType) => {
       startProcessing(async () => {
         try {
+          const { customFields: customFieldsValues, ...attendantBase } = data;
+          const eventAttendant: Partial<EventAttendant> = {
+            ...attendantBase,
+            customFieldValues: customFieldsValuesToArray(
+              customFields,
+              customFieldsValues
+            ) as EventAttendant['customFieldValues'],
+          };
+
           const result = await subscribeToEvent({
             eventId,
-            eventAttendant: data,
+            eventAttendant,
             lang,
             emailData: {
               eventTitle: eventData.title ?? '',
@@ -72,6 +88,6 @@ export function useManageSubscription({
         }
       });
     },
-    [eventId, lang, eventData, eventSlug, startProcessing, d, showNotification, setIsSubscribed]
+    [eventId, lang, eventData, eventSlug, customFields, startProcessing, d, showNotification, setIsSubscribed]
   );
 }
