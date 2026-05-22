@@ -99,6 +99,29 @@ export type EventAttendant = {
   paymentStatus?: 'pending' | 'paid' | 'na';
 };
 
+export type Registration = {
+  _id: string;
+  _type: 'registration';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  occurrence?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'occurrence';
+  };
+  fullName?: string;
+  email?: string;
+  phone?: string;
+  customFieldValues?: Array<{ _key: string } & CustomFieldValue>;
+  privacyAccepted?: boolean;
+  subcribitionDate?: string;
+  uuid?: string;
+  checkedIn?: boolean;
+  paymentStatus?: 'pending' | 'paid' | 'na';
+};
+
 export type BlockContent = Array<
   | {
       children?: Array<{
@@ -195,11 +218,7 @@ export type Occurrence = {
   publicationStartDate?: string;
   active?: boolean;
   customFields?: Array<{ _key: string } & CustomFieldDef>;
-  attendants?: Array<
-    {
-      _key: string;
-    } & EventAttendant
-  >;
+  attendantsCount?: number;
   pendingPayment?: boolean;
   stripeSessionId?: string;
   reminderSentAt?: string;

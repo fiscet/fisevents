@@ -1,19 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sanityClient } from '@/lib/sanity.cli';
 
-type EventToAnonymize = {
-  _id: string;
-  attendants: Array<{
-    _key: string;
-    _type: string;
-    uuid?: string;
-    subcribitionDate?: string;
-    checkedIn?: boolean;
-    paymentStatus?: string;
-    privacyAccepted?: boolean;
-  }>;
-};
-
 export async function GET(req: NextRequest) {
   const authHeader = req.headers.get('authorization');
   const expected = process.env.CRON_SECRET;
@@ -24,24 +11,14 @@ export async function GET(req: NextRequest) {
   const oneMonthAgo = new Date();
   oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
 
-  const events = await sanityClient.fetch<EventToAnonymize[]>(
+  const events = await sanityClient.fetch<{ _id: string }[]>(
     `*[
       _type == "occurrence"
+      && !(_id in path("drafts.**"))
       && endDate < $cutoff
       && !defined(attendantsAnonymizedAt)
-      && count(attendants) > 0
-    ] {
-      _id,
-      attendants[] {
-        _key,
-        _type,
-        uuid,
-        subcribitionDate,
-        checkedIn,
-        paymentStatus,
-        privacyAccepted
-      }
-    }`,
+      && count(*[_type == "registration" && occurrence._ref == ^._id]) > 0
+    ]{ _id }`,
     { cutoff: oneMonthAgo.toISOString() }
   );
 
@@ -49,30 +26,29 @@ export async function GET(req: NextRequest) {
 
   for (const ev of events) {
     try {
-      const anonymizedAttendants = ev.attendants.map((a) => ({
-        _type: a._type,
-        _key: a._key,
-        uuid: a.uuid,
-        subcribitionDate: a.subcribitionDate,
-        checkedIn: a.checkedIn ?? false,
-        paymentStatus: a.paymentStatus ?? 'na',
-        privacyAccepted: a.privacyAccepted ?? true,
-        fullName: null,
-        email: null,
-        phone: null,
-        // Custom field answers may contain personal data → drop them entirely.
-        customFieldValues: [],
-      }));
+      const registrationIds = await sanityClient.fetch<string[]>(
+        `*[_type == "registration" && occurrence._ref == $id]._id`,
+        { id: ev._id }
+      );
 
-      await sanityClient
-        .patch(ev._id)
-        .set({
-          attendants: anonymizedAttendants,
-          attendantsAnonymizedAt: new Date().toISOString(),
-        })
-        .commit();
+      const tx = sanityClient.transaction();
+      // Null out personal data; custom field answers may contain PII → drop them.
+      registrationIds.forEach((id) =>
+        tx.patch(id, (p) =>
+          p.set({
+            fullName: null,
+            email: null,
+            phone: null,
+            customFieldValues: [],
+          })
+        )
+      );
+      tx.patch(ev._id, (p) =>
+        p.set({ attendantsAnonymizedAt: new Date().toISOString() })
+      );
+      await tx.commit();
 
-      results.push({ eventId: ev._id, anonymized: ev.attendants.length });
+      results.push({ eventId: ev._id, anonymized: registrationIds.length });
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
       console.error(`Anonymization failed for event ${ev._id}:`, err);

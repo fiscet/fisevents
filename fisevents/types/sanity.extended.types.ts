@@ -1,4 +1,4 @@
-import { EventAttendant, Occurrence, SanityImageAsset, SanityImageMetadata, User } from '@/types/sanity.types';
+import { EventAttendant, Occurrence, Registration, SanityImageAsset, SanityImageMetadata, User } from '@/types/sanity.types';
 import { PortableTextBlock } from '@portabletext/react';
 
 type LocalizedString = { it?: string; en?: string } | null;
@@ -39,6 +39,7 @@ export type OccurrenceList = Partial<Occurrence> & {
 export type OccurrenceSingle = Partial<Occurrence> & {
   pageImage: Pick<SanityImageAsset, 'url'> & Pick<SanityImageMetadata, 'dimensions'>;
   subcribers: Pick<EventAttendant, 'fullName' | 'email'>[];
+  attendants?: Registration[];
 };
 
 

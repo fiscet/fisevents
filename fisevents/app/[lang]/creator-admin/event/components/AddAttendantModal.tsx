@@ -79,6 +79,7 @@ export default function AddAttendantModal({ eventId }: AddAttendantModalProps) {
         await addEventAttendant({
           eventId,
           eventAttendant: data,
+          enforceCapacity: false,
         });
         showNotification({ type: 'success', message: s.success_text });
         setIsOpen(false);

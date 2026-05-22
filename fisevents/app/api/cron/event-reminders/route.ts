@@ -17,7 +17,6 @@ type ReminderEvent = {
   companyName: string;
   organizationSlug: string;
   attendants?: Array<{
-    _key: string;
     fullName?: string;
     email?: string;
   }>;
@@ -37,6 +36,7 @@ export async function GET(req: NextRequest) {
 
   const events = await sanityClient.fetch<ReminderEvent[]>(
     `*[_type == "occurrence"
+      && !(_id in path("drafts.**"))
       && active == true
       && !defined(reminderSentAt)
       && startDate >= $nowIso
@@ -51,7 +51,7 @@ export async function GET(req: NextRequest) {
       publicSlug,
       "companyName": createdByUser->companyName,
       "organizationSlug": createdByUser->slug.current,
-      attendants[] { _key, fullName, email }
+      "attendants": *[_type == "registration" && occurrence._ref == ^._id] { fullName, email }
     }`,
     { nowIso: now.toISOString(), windowEndIso: windowEnd.toISOString() }
   );

@@ -2,6 +2,7 @@ import account from './documents/account';
 import user from './documents/user';
 import verificationToken from './documents/verificationToken';
 import occurrence from './documents/occurrence';
+import registration from './documents/registration';
 import eventType from './documents/eventType';
 import paymentEvent from './documents/paymentEvent';
 import landingPage from './documents/landingPage';
@@ -16,6 +17,7 @@ export const schemaTypes = [
   user,
   verificationToken,
   occurrence,
+  registration,
   eventType,
   paymentEvent,
   landingPage,

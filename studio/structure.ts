@@ -1,47 +1,8 @@
 import { StructureBuilder } from "sanity/structure";
 import { FaHouseUser } from "react-icons/fa";
-import { BsCalendarEventFill, BsGearFill, BsMegaphone } from "react-icons/bs";
-import { BsGraphUp } from "react-icons/bs";
+import { BsCalendarEventFill, BsGearFill, BsMegaphone, BsGraphUp } from "react-icons/bs";
+import { GrUserFemale } from "react-icons/gr";
 import Dashboard from "./components/Dashboard";
-
-const groups = [
-  {
-    name: 'Users',
-    icon: FaHouseUser,
-    menuGroups: [
-      ['user'],
-    ]
-  },
-  {
-    name: 'Events',
-    icon: BsCalendarEventFill,
-    menuGroups: [
-      ['occurrence'],
-      ['eventType']
-    ]
-  },
-  {
-    name: 'Payments',
-    icon: BsGraphUp,
-    menuGroups: [
-      ['paymentEvent']
-    ]
-  },
-  {
-    name: 'Marketing',
-    icon: BsMegaphone,
-    menuGroups: [
-      ['landingPage'],
-    ]
-  },
-  {
-    name: 'System (auth internals)',
-    icon: BsGearFill,
-    menuGroups: [
-      ['account', 'verificationToken'],
-    ]
-  },
-];
 
 export const structure = (S: StructureBuilder) =>
   S.list()
@@ -50,25 +11,80 @@ export const structure = (S: StructureBuilder) =>
       S.listItem()
         .title('Dashboard')
         .icon(BsGraphUp)
-        .child(
-          S.component(Dashboard)
-            .title('Dashboard')
-        ),
+        .child(S.component(Dashboard).title('Dashboard')),
+
       S.divider(),
-      ...groups.map((group, i) => {
-        return (
-          S.listItem()
-            .title(group.name)
-            .icon(group.icon ?? null)
-            .child(
-              S.list()
-                // Sets a title for our new list
-                .title(group.name)
-                // Add items to the array
-                // Each will pull one of our new singletons
-                .items(
-                  group.menuGroups.flatMap(menuGroup =>
-                    [S.divider(), ...menuGroup.map(sType => S.documentTypeListItem(sType).id(sType).schemaType(sType))])
-                )));
-      })
+
+      // Single-type sections go straight to their document list (no extra submenu)
+      S.documentTypeListItem('user').title('Users').icon(FaHouseUser),
+
+      S.divider(),
+
+      // Events: pick an event, then edit it or view its registrations
+      S.listItem()
+        .title('Events')
+        .icon(BsCalendarEventFill)
+        .child(
+          S.list()
+            .title('Events')
+            .items([
+              S.listItem()
+                .title('Events')
+                .icon(BsCalendarEventFill)
+                .child(
+                  S.documentTypeList('occurrence')
+                    .title('Events')
+                    .child((occurrenceId) =>
+                      S.list()
+                        .title('Event')
+                        .items([
+                          S.listItem()
+                            .title('Edit event')
+                            .icon(BsCalendarEventFill)
+                            .child(
+                              S.document()
+                                .documentId(occurrenceId)
+                                .schemaType('occurrence')
+                            ),
+                          S.listItem()
+                            .title('Registrations')
+                            .icon(GrUserFemale)
+                            .child(
+                              S.documentList()
+                                .title('Registrations')
+                                .schemaType('registration')
+                                .filter(
+                                  '_type == "registration" && occurrence._ref == $occurrenceId'
+                                )
+                                .params({ occurrenceId })
+                            ),
+                        ])
+                    )
+                ),
+              S.documentTypeListItem('eventType').title('Event Types'),
+            ])
+        ),
+
+      S.divider(),
+
+      S.documentTypeListItem('paymentEvent').title('Payments').icon(BsGraphUp),
+
+      S.divider(),
+
+      S.documentTypeListItem('landingPage').title('Marketing').icon(BsMegaphone),
+
+      S.divider(),
+
+      // Multi-type section keeps a submenu
+      S.listItem()
+        .title('System (auth internals)')
+        .icon(BsGearFill)
+        .child(
+          S.list()
+            .title('System')
+            .items([
+              S.documentTypeListItem('account').title('Accounts'),
+              S.documentTypeListItem('verificationToken').title('Verification Tokens'),
+            ])
+        ),
     ]);

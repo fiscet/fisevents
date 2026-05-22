@@ -10,7 +10,7 @@ import { TfiEmail } from 'react-icons/tfi';
 import { FaPhone } from 'react-icons/fa6';
 import { FcAlarmClock } from 'react-icons/fc';
 import { slugify } from '@/lib/utils';
-import { CustomFieldDef, EventAttendant } from '@/types/sanity.types';
+import { CustomFieldDef, Registration } from '@/types/sanity.types';
 import { getAttendantCustomValue, getCustomFieldKey } from '@/lib/custom-fields';
 import RemoveAttendantDialog from '../components/RemoveAttendantDialog';
 import AttendantStatusToggle from '../components/AttendantStatusToggle';
@@ -18,7 +18,7 @@ import PaymentStatusSelect from '../components/PaymentStatusSelect';
 
 export type EventAttentantCardsProps = {
   eventId?: string;
-  attendants?: EventAttendant[];
+  attendants?: Registration[];
   customFields?: Array<Partial<CustomFieldDef>>;
   eventDescription?: string;
 };

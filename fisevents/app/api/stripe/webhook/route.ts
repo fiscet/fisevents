@@ -5,6 +5,7 @@ import { headers } from 'next/headers';
 import Stripe from 'stripe';
 import { sendMail } from '@/lib/send-mail';
 import { eventForWebhookQuery } from '@/lib/queries';
+import { deleteOccurrenceCascade } from '@/lib/registrations';
 
 const HANDLED_EVENTS = [
   'checkout.session.completed',
@@ -128,7 +129,7 @@ export async function POST(req: Request) {
         { id: occurrenceId }
       );
       if (stillPending) {
-        await sanityClient.delete(occurrenceId);
+        await deleteOccurrenceCascade(occurrenceId);
         revalidateTag('eventList');
       } else {
         await logPaymentEvent({
