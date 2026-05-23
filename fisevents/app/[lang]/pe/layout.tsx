@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import Loading from '../creator-admin/loading';
+import PublicEventSkeleton from './_components/PublicEventSkeleton';
 import { DictionaryProvider } from '@/app/contexts/DictionaryContext';
 import { Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/i18n.utils';
@@ -38,7 +38,7 @@ export default async function PeLayout({
           tabIndex={-1}
         >
           <div className="bg-fe-surface-container-lowest w-full max-w-5xl rounded-3xl shadow-editorial border border-fe-outline-variant/10 p-8 md:p-12 h-fit">
-            <Suspense fallback={<Loading />}>{children}</Suspense>
+            <Suspense fallback={<PublicEventSkeleton />}>{children}</Suspense>
           </div>
         </main>
 

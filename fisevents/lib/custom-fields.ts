@@ -2,7 +2,9 @@ import { z } from 'zod';
 import { slugify } from '@/lib/utils';
 import type { CustomFieldDef, CustomFieldValue } from '@/types/sanity.types';
 
-export type CustomFieldDefInput = Partial<CustomFieldDef>;
+// `_key` lives on the array element (not on CustomFieldDef itself in the
+// generated types), so include it explicitly for the stored-definition case.
+export type CustomFieldDefInput = Partial<CustomFieldDef> & { _key?: string };
 export type CustomFieldFormValue = string | boolean;
 export type CustomFieldsFormValues = Record<string, CustomFieldFormValue>;
 
