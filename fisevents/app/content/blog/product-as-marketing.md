@@ -4,6 +4,7 @@ title: "Product-as-marketing"
 description: "Most marketing strategy sessions are attempts to invent claims the product cannot deliver. FisEvents was built so the product itself makes the marketing claims — structurally, in code."
 publishedAt: 2026-06-22
 seriesOrder: 11
+image: /img/blog/product-as-marketing.png
 ---
 
 

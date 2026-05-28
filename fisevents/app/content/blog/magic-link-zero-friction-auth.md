@@ -4,6 +4,7 @@ title: "From magic link to zero friction auth"
 description: "Social login buttons do not reduce friction — they displace it. Why I removed every social login from FisEvents and what it simplified."
 publishedAt: 2026-06-15
 seriesOrder: 9
+image: /img/blog/magic-link-zero-friction-auth.png
 ---
 
 

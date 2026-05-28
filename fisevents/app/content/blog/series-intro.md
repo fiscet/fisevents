@@ -4,6 +4,7 @@ title: "Most 'I built a SaaS' portfolios end at the MVP. Mine starts there."
 description: "A ten-part series on the decisions, trade-offs, and slow grind of building FisEvents over 22 months — what a CEO cares about, not what a junior dev wants to copy."
 publishedAt: 2026-05-15
 seriesOrder: 0
+image: /img/blog/series-intro.png
 ---
 
 

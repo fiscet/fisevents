@@ -4,6 +4,7 @@ title: "PWA instead of a native app"
 description: "'We need a native app' is one of the most expensive sentences spoken in a SaaS meeting. Why I would skip the app store again — and what a PWA actually buys you."
 publishedAt: 2026-06-18
 seriesOrder: 10
+image: /img/blog/pwa-instead-of-native-app.png
 ---
 
 

@@ -4,6 +4,7 @@ title: "Anatomy of a production Stripe flow"
 description: "Every Stripe tutorial ends at the happy path. Real payment flows handle webhook failures, expired sessions, reconciliation crons, and the parts no tutorial covers."
 publishedAt: 2026-06-04
 seriesOrder: 6
+image: /img/blog/anatomy-of-production-stripe-flow.png
 ---
 
 

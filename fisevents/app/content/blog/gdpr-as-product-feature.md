@@ -4,6 +4,7 @@ title: "GDPR as a product feature"
 description: "Most SaaS treats GDPR as a legal layer painted on after the product is built. That is GDPR theater. Done properly, GDPR is five places the user actually touches."
 publishedAt: 2026-06-08
 seriesOrder: 7
+image: /img/blog/gdpr-as-product-feature.png
 ---
 
 

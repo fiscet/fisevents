@@ -4,6 +4,7 @@ title: "Pay-per-publish vs subscription"
 description: "SaaS pricing wisdom says 'always subscription.' It is right 80% of the time. The other 20% is where FisEvents lives — and the pricing model disqualifies most competitors for my user."
 publishedAt: 2026-06-01
 seriesOrder: 5
+image: /img/blog/pay-per-publish-vs-subscription.png
 ---
 
 

@@ -4,6 +4,7 @@ title: "Why I built a niche product instead of a generic calendar"
 description: "Eventbrite, Calendly, Bookly all assume recurring schedules. That assumption is wrong for the irregular organizers FisEvents was built for — and that gap is the entire product strategy."
 publishedAt: 2026-05-18
 seriesOrder: 1
+image: /img/blog/niche-product-over-generic-calendar.png
 ---
 
 

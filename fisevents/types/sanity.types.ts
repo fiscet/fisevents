@@ -70,7 +70,6 @@ export type Geopoint = {
 
 export type CustomFieldValue = {
   _type: 'customFieldValue';
-  _key?: string;
   name?: string;
   label?: string;
   value?: string;
@@ -78,9 +77,8 @@ export type CustomFieldValue = {
 
 export type CustomFieldDef = {
   _type: 'customFieldDef';
-  _key?: string;
-  name?: string;
   label?: string;
+  name?: string;
   fieldType?: 'text' | 'number' | 'select' | 'checkbox';
   required?: boolean;
   options?: Array<string>;
@@ -91,30 +89,11 @@ export type EventAttendant = {
   fullName?: string;
   email?: string;
   phone?: string;
-  customFieldValues?: Array<{ _key: string } & CustomFieldValue>;
-  privacyAccepted?: boolean;
-  subcribitionDate?: string;
-  uuid?: string;
-  checkedIn?: boolean;
-  paymentStatus?: 'pending' | 'paid' | 'na';
-};
-
-export type Registration = {
-  _id: string;
-  _type: 'registration';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  occurrence?: {
-    _ref: string;
-    _type: 'reference';
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: 'occurrence';
-  };
-  fullName?: string;
-  email?: string;
-  phone?: string;
-  customFieldValues?: Array<{ _key: string } & CustomFieldValue>;
+  customFieldValues?: Array<
+    {
+      _key: string;
+    } & CustomFieldValue
+  >;
   privacyAccepted?: boolean;
   subcribitionDate?: string;
   uuid?: string;
@@ -158,6 +137,70 @@ export type BlockContent = Array<
     }
 >;
 
+export type LandingPage = {
+  _id: string;
+  _type: 'landingPage';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  active?: boolean;
+  coverImage?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  heroHeadline?: {
+    it?: string;
+    en?: string;
+  };
+  heroSubheadline?: {
+    it?: string;
+    en?: string;
+  };
+  heroCtaLabel?: {
+    it?: string;
+    en?: string;
+  };
+  painPoints?: Array<{
+    icon?: string;
+    title?: {
+      it?: string;
+      en?: string;
+    };
+    description?: {
+      it?: string;
+      en?: string;
+    };
+    _key: string;
+  }>;
+  features?: Array<{
+    icon?: string;
+    title?: {
+      it?: string;
+      en?: string;
+    };
+    description?: {
+      it?: string;
+      en?: string;
+    };
+    _key: string;
+  }>;
+  bodyIt?: BlockContent;
+  bodyEn?: BlockContent;
+  seoTitleIt?: string;
+  seoDescriptionIt?: string;
+  seoTitleEn?: string;
+  seoDescriptionEn?: string;
+};
+
 export type PaymentEvent = {
   _id: string;
   _type: 'paymentEvent';
@@ -185,6 +228,33 @@ export type EventType = {
   code?: string;
   description?: BlockContent;
   active?: boolean;
+};
+
+export type Registration = {
+  _id: string;
+  _type: 'registration';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  occurrence?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'occurrence';
+  };
+  fullName?: string;
+  email?: string;
+  phone?: string;
+  customFieldValues?: Array<
+    {
+      _key: string;
+    } & CustomFieldValue
+  >;
+  privacyAccepted?: boolean;
+  subcribitionDate?: string;
+  uuid?: string;
+  checkedIn?: boolean;
+  paymentStatus?: 'pending' | 'paid' | 'na';
 };
 
 export type Occurrence = {
@@ -218,8 +288,12 @@ export type Occurrence = {
   endDate?: string;
   publicationStartDate?: string;
   active?: boolean;
-  customFields?: Array<{ _key: string } & CustomFieldDef>;
   attendantsCount?: number;
+  customFields?: Array<
+    {
+      _key: string;
+    } & CustomFieldDef
+  >;
   pendingPayment?: boolean;
   stripeSessionId?: string;
   reminderSentAt?: string;
@@ -288,8 +362,8 @@ export type User = {
     _type: 'image';
   };
   www?: string;
-  roles?: Array<string>;
   tosAcceptedAt?: string;
+  roles?: Array<string>;
 };
 
 export type SanityImageCrop = {
@@ -370,10 +444,14 @@ export type AllSanitySchemaTypes =
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
+  | CustomFieldValue
+  | CustomFieldDef
   | EventAttendant
   | BlockContent
+  | LandingPage
   | PaymentEvent
   | EventType
+  | Registration
   | Occurrence
   | VerificationToken
   | Account

@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import {
   getAllPosts,
@@ -161,6 +162,7 @@ export default function BlogIndexPage() {
                     >
                       {number}
                     </div>
+                    <div className="flex-1 min-w-0 flex gap-4 md:gap-6">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap text-xs uppercase tracking-wider font-medium">
                         {published ? (
@@ -214,6 +216,23 @@ export default function BlogIndexPage() {
                           Read &rarr;
                         </Link>
                       )}
+                    </div>
+                    {post.image && published && (
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        className="flex-shrink-0 hidden sm:block"
+                        tabIndex={-1}
+                        aria-hidden="true"
+                      >
+                        <Image
+                          src={post.image}
+                          alt=""
+                          width={120}
+                          height={63}
+                          className="rounded-lg object-cover w-[120px] h-[63px]"
+                        />
+                      </Link>
+                    )}
                     </div>
                   </article>
                 </li>
