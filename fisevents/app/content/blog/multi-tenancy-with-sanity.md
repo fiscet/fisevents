@@ -4,6 +4,7 @@ title: "Multi-tenancy when your CMS won't do it natively"
 description: "Sanity is the best content modeling tool I have used. It is also single-tenant by design. How I built multi-tenant isolation on top of it — and what that costs."
 publishedAt: 2026-05-21
 seriesOrder: 2
+image: /img/blog/multi-tenancy-with-sanity.png
 ---
 
 

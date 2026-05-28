@@ -4,6 +4,7 @@ title: "The SEO mistakes most developers make"
 description: "The first 80% of SEO lives in the code, not in the copy. Five mistakes I shipped to production — including the one where staging environments leak into Google."
 publishedAt: 2026-06-11
 seriesOrder: 8
+image: /img/blog/seo-mistakes-developers-make.png
 ---
 
 

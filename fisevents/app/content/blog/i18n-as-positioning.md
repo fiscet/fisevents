@@ -4,6 +4,7 @@ title: "i18n as positioning, not cosmetics"
 description: "Most apps that advertise 'available in X languages' have shipped a chore, not a strategy. How i18n done from day one let me add a third language in one hour with one JSON file."
 publishedAt: 2026-05-28
 seriesOrder: 4
+image: /img/blog/i18n-as-positioning.png
 ---
 
 

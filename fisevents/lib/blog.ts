@@ -8,6 +8,7 @@ export type BlogPost = {
   description: string;
   publishedAt: string;
   seriesOrder: number;
+  image?: string;
   content: string;
 };
 
@@ -30,6 +31,7 @@ function readAllPosts(): BlogPost[] {
       description: String(data.description),
       publishedAt,
       seriesOrder: Number(data.seriesOrder ?? 0),
+      image: data.image ? String(data.image) : undefined,
       content,
     };
   });

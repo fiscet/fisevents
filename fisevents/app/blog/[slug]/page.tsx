@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
@@ -48,11 +49,13 @@ export async function generateMetadata({
       publishedTime: post.publishedAt,
       authors: [AUTHOR_NAME],
       section: 'Engineering',
+      ...(post.image && { images: [{ url: `${BASE_URL}${post.image}` }] }),
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.description,
+      ...(post.image && { images: [`${BASE_URL}${post.image}`] }),
     },
   };
 }
@@ -79,7 +82,9 @@ export default async function BlogArticlePage({ params }: { params: Params }) {
   const newerPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
 
   const articleUrl = `${BASE_URL}/blog/${post.slug}`;
-  const ogImage = `${BASE_URL}/img/og-image.png`;
+  const ogImage = post.image
+    ? `${BASE_URL}${post.image}`
+    : `${BASE_URL}/img/og-image.png`;
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -210,6 +215,18 @@ export default async function BlogArticlePage({ params }: { params: Params }) {
       </header>
 
       <div className="max-w-3xl mx-auto px-6 md:px-8">
+        {post.image && (
+          <div className="mb-10 rounded-2xl overflow-hidden">
+            <Image
+              src={post.image}
+              alt={post.title}
+              width={1200}
+              height={630}
+              className="w-full h-auto object-cover"
+              priority
+            />
+          </div>
+        )}
         <div className="prose prose-lg max-w-none prose-headings:font-headline prose-headings:text-fe-on-surface prose-p:text-fe-on-surface prose-strong:text-fe-on-surface prose-a:text-fe-primary prose-li:text-fe-on-surface prose-code:text-fe-primary prose-blockquote:text-fe-on-surface-variant prose-blockquote:border-fe-primary">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {post.content}

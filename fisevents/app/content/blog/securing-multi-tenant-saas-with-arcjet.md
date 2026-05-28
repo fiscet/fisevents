@@ -4,6 +4,7 @@ title: "Securing a multi-tenant SaaS with ArcJet"
 description: "A SaaS becomes a real product the first time a stranger can break it. Rate limiting, bot protection, and hardened webhooks — applied, not theorized."
 publishedAt: 2026-05-25
 seriesOrder: 3
+image: /img/blog/securing-multi-tenant-saas-with-arcjet.png
 ---
 
 
