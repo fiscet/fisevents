@@ -26,7 +26,19 @@
       "readyToHost": "Pronto a ospitare il tuo prossimo evento?",
       "createFirstEvent": "Crea il tuo primo evento",
       "solutions_heading": "FisEvents per ogni realtà",
-      "tagline": "Iscrizioni per eventi, lezioni e appuntamenti. Punto.",
+      "screenshots": {
+        "hero": "Anteprima del pannello di controllo FisEvents con la lista eventi",
+        "carousel": [
+          "Pannello con la lista eventi e il link condivisibile",
+          "Editor dell'evento con nome, date e immagine",
+          "Impostazioni evento: prezzo, valuta e campi personalizzati",
+          "Lista iscritti con export CSV e check-in",
+          "Pagina pubblica dell'organizzatore con gli eventi in arrivo",
+          "Pagina pubblica dell'evento con il pulsante di iscrizione",
+          "Form di iscrizione che gli iscritti compilano"
+        ]
+      },
+      "tagline": "La pagina del tuo evento online in 5 minuti. Il primo è gratis.",
       "meta": {
         "title": "FisEvents - Semplifica la Gestione degli Eventi",
         "description": "Pubblica e gestisci i tuoi eventi facilmente con FisEvents. Dai workshop di cucina agli incontri, FisEvents ti consente di creare, condividere e gestire eventi unici in modo semplice e veloce.",
@@ -78,7 +90,8 @@
           }
         },
         "per_month": "/mese",
-        "per_event": "/evento"
+        "per_event": "/evento",
+        "example": "Esempio: 4 eventi in un mese = 14,10€ (1 gratis + 3 × 4,70€)"
       },
       "use_cases": [
         {

@@ -26,7 +26,19 @@
       "readyToHost": "Ready to host your next event?",
       "createFirstEvent": "Create your first event",
       "solutions_heading": "FisEvents for every need",
-      "tagline": "Registrations for events, classes and appointments. Full stop.",
+      "screenshots": {
+        "hero": "Preview of the FisEvents dashboard with the event list",
+        "carousel": [
+          "Dashboard with the event list and the shareable link",
+          "Event editor with name, dates and image",
+          "Event settings: price, currency and custom fields",
+          "Attendee list with CSV export and check-in",
+          "Organizer's public page listing upcoming events",
+          "Public event page with the registration button",
+          "Registration form attendees fill in"
+        ]
+      },
+      "tagline": "Your event page online in 5 minutes. The first one is free.",
       "meta": {
         "title": "FisEvents - Simplify Your Event Management",
         "description": "Effortlessly publish and manage your events with FisEvents. From cooking workshops to meetings, FisEvents lets you create, share, and manage one-time events seamlessly.",
@@ -78,7 +90,8 @@
           }
         },
         "per_month": "/month",
-        "per_event": "/event"
+        "per_event": "/event",
+        "example": "Example: 4 events in a month = €14.10 (1 free + 3 × €4.70)"
       },
       "use_cases": [
         {

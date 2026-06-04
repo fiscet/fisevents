@@ -11,8 +11,9 @@ export default function HPPricing() {
   const lang = params?.lang as string;
 
   return (
-    <div className="flex flex-col md:flex-row justify-center items-stretch gap-6 max-w-3xl mx-auto">
-      {/* Starter plan */}
+    <div className="max-w-3xl mx-auto">
+      <div className="flex flex-col md:flex-row justify-center items-stretch gap-6">
+        {/* Starter plan */}
       <div className="flex-1 bg-fe-surface-container-lowest rounded-3xl p-8 border border-fe-outline-variant/15 shadow-editorial flex flex-col">
         <h4 className="font-headline font-bold text-xl text-fe-on-surface mb-2">
           {d.home.pricing.list.starter.title}
@@ -86,6 +87,13 @@ export default function HPPricing() {
           <Link href={`/${lang}/auth`}>{d.home.getStarted}</Link>
         </Button>
       </div>
+      </div>
+
+      {d.home.pricing.example && (
+        <p className="mt-8 text-center text-sm text-fe-on-surface-variant">
+          {d.home.pricing.example}
+        </p>
+      )}
     </div>
   );
 }
