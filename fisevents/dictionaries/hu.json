@@ -26,7 +26,19 @@
       "readyToHost": "Készen áll a következő esemény megrendezésére?",
       "createFirstEvent": "Hozd létre az első eseményed",
       "solutions_heading": "FisEvents minden igényre",
-      "tagline": "Regisztrációk eseményekre, órákra és időpontokra. Kész.",
+      "screenshots": {
+        "hero": "A FisEvents irányítópult előnézete az eseménylistával",
+        "carousel": [
+          "Irányítópult az eseménylistával és a megosztható linkkel",
+          "Eseményszerkesztő névvel, dátumokkal és képpel",
+          "Eseménybeállítások: ár, pénznem és egyéni mezők",
+          "Résztvevőlista CSV-exporttal és bejelentkezéssel",
+          "A szervező nyilvános oldala a közelgő eseményekkel",
+          "Az esemény nyilvános oldala a regisztrációs gombbal",
+          "Regisztrációs űrlap, amelyet a résztvevők kitöltenek"
+        ]
+      },
+      "tagline": "Eseményed oldala 5 perc alatt online. Az első ingyenes.",
       "meta": {
         "title": "FisEvents - Egyszerűsítse az eseménykezelést",
         "description": "Publikálja és kezelje eseményeit könnyedén a FisEvents segítségével. A főzőtanfolyamoktól a találkozókig, a FisEvents lehetővé teszi, hogy zökkenőmentesen hozzon létre, osszon meg és kezeljen egyszeri eseményeket.",
@@ -78,7 +90,8 @@
           }
         },
         "per_month": "/hó",
-        "per_event": "/esemény"
+        "per_event": "/esemény",
+        "example": "Példa: 4 esemény egy hónapban = 14,10€ (1 ingyenes + 3 × 4,70€)"
       },
       "use_cases": [
         {

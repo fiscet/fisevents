@@ -72,14 +72,9 @@ export function NavBar({ lang, isLoggedIn }: NavBarProps) {
               <LogoutLink label={d.auth.logout} onSignOut={signOut} />
             </>
           ) : (
-            <>
-              <Button variant="ghost" size="sm" asChild>
-                <Link href={`/${lang}/auth`}>{d.auth.login}</Link>
-              </Button>
-              <Button variant="default" size="sm" asChild>
-                <Link href={`/${lang}/auth`}>Start for free</Link>
-              </Button>
-            </>
+            <Button variant="default" size="sm" asChild>
+              <Link href={`/${lang}/auth`}>{d.website.home.getStartedFree}</Link>
+            </Button>
           )}
         </div>
 
@@ -144,25 +139,12 @@ export function NavBar({ lang, isLoggedIn }: NavBarProps) {
             </div>
           ) : (
             <div className="flex flex-col gap-3">
-              <Button
-                variant="ghost"
-                size="sm"
-                asChild
-                className="justify-start"
-              >
-                <Link
-                  href={`/${lang}/auth`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {d.auth.login}
-                </Link>
-              </Button>
               <Button variant="default" size="sm" asChild>
                 <Link
                   href={`/${lang}/auth`}
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Start for free
+                  {d.website.home.getStartedFree}
                 </Link>
               </Button>
             </div>

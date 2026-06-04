@@ -21,6 +21,12 @@ export async function generateMetadata({
 }
 
 const STEP_ICONS = ['👤', '🗓️', '🔗', '📋'];
+const STEP_IMAGES = [
+  null,
+  '/img/Sh-02.png',
+  '/img/Sh-06.png',
+  '/img/Sh-04.png'
+];
 
 export default async function HowItWorksPage({
   params,
@@ -72,6 +78,15 @@ export default async function HowItWorksPage({
                     <p className="text-fe-on-surface-variant leading-relaxed">
                       {step.text}
                     </p>
+                    {STEP_IMAGES[index] && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={STEP_IMAGES[index]}
+                        alt={step.title}
+                        loading="lazy"
+                        className="mt-6 rounded-2xl w-full h-auto border border-fe-outline-variant/15 shadow-editorial"
+                      />
+                    )}
                   </div>
                 </div>
               )
