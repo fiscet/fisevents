@@ -42,7 +42,7 @@ export default async function PeLayout({
           </div>
         </main>
 
-        <DefaultFooter />
+        <DefaultFooter publicEvent />
       </div>
       <PWAClient />
     </DictionaryProvider>
