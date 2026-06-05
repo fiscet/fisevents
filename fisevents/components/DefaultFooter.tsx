@@ -6,9 +6,11 @@ import { NotificationProvider } from './Notification/NotificationContext';
 export default function DefaultFooter({
   session,
   showBugReport = true,
+  publicEvent = false
 }: {
   session?: FDefaultSession;
   showBugReport?: boolean;
+  publicEvent?: boolean;
 }) {
   return (
     <NotificationProvider>
@@ -29,6 +31,26 @@ export default function DefaultFooter({
             </p>
             <PrivacyCookiePolicyLink />
             {showBugReport && <ReportBugDialog session={session} />}
+            {publicEvent ? (
+              <a
+                href="https://www.fisevents.com"
+                target="_blank"
+                rel="noopener"
+                className="font-medium hover:text-fe-primary transition-colors"
+              >
+                Created with fisevents.com
+              </a>
+            ) : (
+              <a
+                href="https://www.fiscet.it"
+                target="_blank"
+                rel="noopener"
+                className="font-medium hover:text-fe-primary transition-colors"
+              >
+                Made with <span className="text-red-500">&hearts;</span> by
+                Fiscet.it
+              </a>
+            )}
           </div>
         </div>
       </footer>
