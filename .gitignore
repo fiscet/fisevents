@@ -413,3 +413,10 @@ fisevents/public/img/oops.jpg
 .kilo/plans/stitch/04.my_events_management/screen.png
 .kilo/plans/stitch/05.registration_form/code.html
 .kilo/plans/stitch/05.registration_form/screen.png
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
