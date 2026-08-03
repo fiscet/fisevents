@@ -10,14 +10,21 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-To run Storybook:
+To run the Unit tests (Jest):
 
 ```bash
-npm run storybook
+npm test
 ```
 
-To run the Unit tests:
+To run the End-to-End tests (Playwright):
 
 ```bash
-npx jest
+npm run test:e2e
 ```
+
+To run Playwright in UI mode (Interactive Debugging):
+
+```bash
+npm run test:e2e:ui
+```
+
