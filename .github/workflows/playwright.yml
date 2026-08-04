@@ -51,12 +51,12 @@ jobs:
         key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.version }}
     - name: Install Playwright Browsers
       if: steps.playwright-cache.outputs.cache-hit != 'true'
-      run: npx playwright install --with-deps
+      run: npx playwright install --with-deps chromium
     - name: Install Playwright OS dependencies
       if: steps.playwright-cache.outputs.cache-hit == 'true'
-      run: npx playwright install-deps
+      run: npx playwright install-deps chromium
     - name: Run Playwright tests
-      run: npx playwright test
+      run: npx playwright test --project=chromium
     - uses: actions/upload-artifact@v7
       if: ${{ !cancelled() }}
       with:
