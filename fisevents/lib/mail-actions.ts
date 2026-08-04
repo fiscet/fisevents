@@ -1,10 +1,16 @@
 'use server';
 
 import { sendMail } from '@/lib/send-mail';
-import arcjet, { slidingWindow, validateEmail } from '@/lib/arcjet';
+import arcjet, { detectBot, slidingWindow, validateEmail } from '@/lib/arcjet';
 import { request } from '@arcjet/next';
 
 const aj = arcjet
+  .withRule(
+    detectBot({
+      mode: 'LIVE',
+      allow: [],
+    })
+  )
   .withRule(
     slidingWindow({
       mode: 'LIVE',
@@ -32,7 +38,12 @@ export async function sendContactEmail({
   const decision = await aj.protect(req, { email });
 
   if (decision.isDenied()) {
-    throw new Error(decision.reason.isRateLimit() ? 'rate_limit' : 'email_invalid');
+    const reason = decision.reason.isRateLimit()
+      ? 'rate_limit'
+      : decision.reason.isBot()
+        ? 'bot_detected'
+        : 'email_invalid';
+    throw new Error(reason);
   }
 
   const text = `From: ${name}\nEmail: ${email}\n\n${message}`;
@@ -60,7 +71,12 @@ export async function sendBugReportEmail({
   const decision = await aj.protect(req, { email });
 
   if (decision.isDenied()) {
-    throw new Error(decision.reason.isRateLimit() ? 'rate_limit' : 'email_invalid');
+    const reason = decision.reason.isRateLimit()
+      ? 'rate_limit'
+      : decision.reason.isBot()
+        ? 'bot_detected'
+        : 'email_invalid';
+    throw new Error(reason);
   }
 
   const text = `From: ${email}\n\nPathname: ${pathname}\n\n${description}`;

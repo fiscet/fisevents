@@ -29,8 +29,8 @@ const nextConfig = {
       },
     ],
   },
+  serverExternalPackages: ['@sanity/client', 'next-sanity'],
   experimental: {
-    serverComponentsExternalPackages: ['@sanity/client', 'next-sanity'],
     optimizePackageImports: ['react-icons'],
   },
 };

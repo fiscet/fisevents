@@ -420,3 +420,5 @@ fisevents/public/img/oops.jpg
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+.vercel
+.env*
