@@ -1,12 +1,10 @@
 import arcjet, {
-  detectBot,
   fixedWindow,
   slidingWindow,
   validateEmail,
 } from "@arcjet/next";
 
 export {
-  detectBot,
   fixedWindow,
   slidingWindow,
   validateEmail,
