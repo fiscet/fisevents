@@ -255,6 +255,8 @@ export type Registration = {
   uuid?: string;
   checkedIn?: boolean;
   paymentStatus?: 'pending' | 'paid' | 'na';
+  status?: 'confirmed' | 'waitlisted' | 'offered' | 'expired';
+  offerExpiresAt?: string;
 };
 
 export type Occurrence = {

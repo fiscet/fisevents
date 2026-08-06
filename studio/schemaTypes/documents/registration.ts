@@ -71,17 +71,42 @@ export default defineType({
       },
       initialValue: 'pending',
     }),
+    defineField({
+      title: 'Status',
+      name: 'status',
+      type: 'string',
+      description:
+        'Confirmed: holds a counted spot. Waitlisted: queued behind a full event. Offered: a spot was freed and is held for this person until offerExpiresAt. Expired: the offer timed out without a response.',
+      options: {
+        list: [
+          {title: 'Confirmed', value: 'confirmed'},
+          {title: 'Waitlisted', value: 'waitlisted'},
+          {title: 'Offered', value: 'offered'},
+          {title: 'Expired', value: 'expired'},
+        ],
+      },
+      initialValue: 'confirmed',
+    }),
+    defineField({
+      title: 'Offer Expires At',
+      name: 'offerExpiresAt',
+      type: 'datetime',
+      readOnly: true,
+      description: 'Set when a waitlisted registration is offered a freed spot; cleared once accepted or expired.',
+    }),
   ],
   preview: {
     select: {
       title: 'fullName',
       email: 'email',
       date: 'subcribitionDate',
+      status: 'status',
     },
-    prepare({title, email, date}) {
+    prepare({title, email, date, status}) {
       const when = date ? new Date(date).toLocaleDateString() : ''
+      const statusLabel = status && status !== 'confirmed' ? ` [${status}]` : ''
       return {
-        title: title || '(anonymized)',
+        title: (title || '(anonymized)') + statusLabel,
         subtitle: [email, when].filter(Boolean).join(' · '),
       }
     },

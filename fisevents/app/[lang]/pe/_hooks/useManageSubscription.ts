@@ -71,7 +71,7 @@ export function useManageSubscription({
           if (result) {
             showNotification({
               title: d.success,
-              message: d.success_subscribed,
+              message: result.status === 'waitlisted' ? d.success_waitlisted : d.success_subscribed,
               type: 'success',
             });
             setIsSubscribed(true);

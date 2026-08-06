@@ -111,6 +111,7 @@ describe('Actions', () => {
           endDate: '2024-08-15T04:31:00+02:00',
           publicationStartDate: '2024-08-13T14:30:00+02:00',
           numAttendants: 1,
+          numWaitlisted: 0,
           _id: '13b54393-fe75-42cf-a301-c7ccf57c497c',
           title: 'Where are you going?',
           slug: { current: 'where-can-i-get-some', _type: 'slug' },
@@ -494,6 +495,26 @@ describe('Actions', () => {
 
       expect(result?._type).toBe('registration');
       expect(tx.commit).toHaveBeenCalled();
+    });
+
+    it('joins the waitlist instead of failing when the event is full and allowWaitlist is true', async () => {
+      mockFreeEvent({ _id: 'evt-1', _rev: 'rev-1', maxSubscribers: 2, attendantsCount: 2 });
+      const { tx } = makeTransactionMock();
+      (sanityClient.transaction as jest.Mock).mockReturnValue(tx);
+      (sanityClient.create as jest.Mock).mockResolvedValue({});
+
+      const result = await addEventAttendant({
+        eventId: 'evt-1',
+        eventAttendant: baseAttendant,
+        allowWaitlist: true,
+      });
+
+      expect(result?.status).toBe('waitlisted');
+      expect(sanityClient.create).toHaveBeenCalledWith(
+        expect.objectContaining({ status: 'waitlisted' })
+      );
+      // The waitlist join is a plain create — it must never touch the counter.
+      expect(tx.commit).not.toHaveBeenCalled();
     });
   });
 });

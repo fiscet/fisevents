@@ -409,7 +409,17 @@
       "status_error": "Errore aggiornamento stato",
       "payment_updated": "Pagamento aggiornato",
       "payment_error": "Errore aggiornamento pagamento",
-      "anonymization_notice": "I dati personali dei partecipanti (nome, email, telefono) verranno anonimizzati automaticamente il %date%, un mese dopo la fine dell'evento. Esporta il CSV prima di quella data se hai bisogno di conservarli."
+      "anonymization_notice": "I dati personali dei partecipanti (nome, email, telefono) verranno anonimizzati automaticamente il %date%, un mese dopo la fine dell'evento. Esporta il CSV prima di quella data se hai bisogno di conservarli.",
+      "waitlist_tab": "Lista d'attesa",
+      "waitlist_empty": "Nessuno in lista d'attesa",
+      "waitlist_joined_on": "In lista dal",
+      "offer_expires_on": "Offerta valida fino al",
+      "waitlist_count_tooltip": "%count% in lista d'attesa",
+      "waitlist_status": {
+        "waitlisted": "In attesa",
+        "offered": "Offerta inviata",
+        "expired": "Offerta scaduta"
+      }
     },
     "notifications": {
       "action_required": "Azione richiesta!",
@@ -464,13 +474,25 @@
     "unsuscribe_confirm_yes": "Sì, voglio disiscrivermi da quest'evento",
     "unsuscribe_success": "La disiscrizione è avvenuta con successo",
     "unsubscribing": "Disiscrizione in corso",
+    "waitlist_full_title": "Questo evento è al completo!",
+    "waitlist_full_notice": "Puoi comunque iscriverti alla lista d'attesa: se si libera un posto te lo offriremo via email e avrai 24 ore per confermarlo.",
+    "waitlist_button": "Iscriviti alla lista d'attesa",
+    "success_waitlisted": "Sei stato aggiunto alla lista d'attesa. Ti avviseremo via email se si libera un posto.",
+    "waitlist_accept_title": "Conferma il tuo posto",
+    "waitlist_accept_confirm": "Si è liberato un posto per te. Confermi la tua iscrizione a quest'evento?",
+    "waitlist_accept_button": "Sì, confermo la mia iscrizione",
+    "accepting": "Conferma in corso",
+    "waitlist_accept_success": "La tua iscrizione è confermata. Ti aspettiamo!",
     "errors": {
       "default_title": "Errore",
       "generic": "Qualcosa è andato storto",
       "email_invalid": "L'email non è valida",
       "already_subscribed": "Sei già iscritto a quest'evento",
       "already_unsubscribed": "Sei già disiscritto",
-      "event_full": "Posti esauriti per questo evento"
+      "event_full": "Posti esauriti per questo evento",
+      "not_found": "Iscrizione non trovata",
+      "offer_not_available": "Questa offerta non è più disponibile",
+      "offer_expired": "Questa offerta è scaduta ed è stata assegnata alla persona successiva in lista"
     },
     "organizer_page": {
       "title": "I prossimi eventi",

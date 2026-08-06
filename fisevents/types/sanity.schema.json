@@ -1562,6 +1562,38 @@
           ]
         },
         "optional": true
+      },
+      "status": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "confirmed"
+            },
+            {
+              "type": "string",
+              "value": "waitlisted"
+            },
+            {
+              "type": "string",
+              "value": "offered"
+            },
+            {
+              "type": "string",
+              "value": "expired"
+            }
+          ]
+        },
+        "optional": true
+      },
+      "offerExpiresAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
       }
     }
   },

@@ -409,7 +409,17 @@
       "status_error": "Státusz frissítési hiba",
       "payment_updated": "Fizetési státusz frissítve",
       "payment_error": "Fizetési státusz frissítési hiba",
-      "anonymization_notice": "A résztvevők személyes adatait (név, e-mail, telefon) automatikusan anonimizáljuk %date%-én, az esemény vége után egy hónappal. Ha meg kell őriznie az adatokat, exportálja a CSV-t ez előtt a dátum előtt."
+      "anonymization_notice": "A résztvevők személyes adatait (név, e-mail, telefon) automatikusan anonimizáljuk %date%-én, az esemény vége után egy hónappal. Ha meg kell őriznie az adatokat, exportálja a CSV-t ez előtt a dátum előtt.",
+      "waitlist_tab": "Várólista",
+      "waitlist_empty": "Senki sincs a várólistán",
+      "waitlist_joined_on": "Várólistán ettől",
+      "offer_expires_on": "Az ajánlat érvényes eddig",
+      "waitlist_count_tooltip": "%count% a várólistán",
+      "waitlist_status": {
+        "waitlisted": "Várakozik",
+        "offered": "Ajánlat elküldve",
+        "expired": "Ajánlat lejárt"
+      }
     },
     "notifications": {
       "action_required": "Művelet szükséges!",
@@ -464,13 +474,25 @@
     "unsuscribe_confirm_yes": "Igen, le szeretnék iratkozni",
     "unsuscribe_success": "Sikeresen leiratkozott",
     "unsubscribing": "Leiratkozás folyamatban",
+    "waitlist_full_title": "Ez az esemény betelt!",
+    "waitlist_full_notice": "Ennek ellenére felkerülhetsz a várólistára: ha felszabadul egy hely, e-mailben felajánljuk neked, és 24 órád lesz megerősíteni.",
+    "waitlist_button": "Feliratkozás a várólistára",
+    "success_waitlisted": "Felkerültél a várólistára. E-mailben értesítünk, ha felszabadul egy hely.",
+    "waitlist_accept_title": "Erősítsd meg a helyed",
+    "waitlist_accept_confirm": "Felszabadult egy hely számodra. Megerősíted a regisztrációdat erre az eseményre?",
+    "waitlist_accept_button": "Igen, megerősítem a regisztrációmat",
+    "accepting": "Megerősítés folyamatban",
+    "waitlist_accept_success": "A regisztrációd megerősítve. Találkozunk ott!",
     "errors": {
       "default_title": "Hiba",
       "generic": "Hiba történt",
       "email_invalid": "Az e-mail cím érvénytelen",
       "already_subscribed": "Már feliratkozott erre az eseményre",
       "already_unsubscribed": "Már leiratkozott",
-      "event_full": "Erre az eseményre beteltek a helyek"
+      "event_full": "Erre az eseményre beteltek a helyek",
+      "not_found": "A regisztráció nem található",
+      "offer_not_available": "Ez az ajánlat már nem elérhető",
+      "offer_expired": "Ez az ajánlat lejárt, és a várólista következő személyéhez került"
     },
     "organizer_page": {
       "title": "Közelgő események",

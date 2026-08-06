@@ -62,7 +62,14 @@ export default function EventAttentantTable({
             >
               <TableCell className="whitespace-nowrap font-bold w-full">
                 <div className="flex flex-col">
-                  <span>{attendant.fullName}</span>
+                  <span className="flex items-center gap-2">
+                    {attendant.fullName}
+                    {attendant.status === 'offered' && (
+                      <span className="inline-flex items-center rounded-full bg-amber-100 text-amber-800 text-[11px] font-normal px-2 py-0.5">
+                        {d.waitlist_status.offered}
+                      </span>
+                    )}
+                  </span>
                   <span className="text-xs font-normal text-muted-foreground">
                     {formatLocalDateTime(attendant.subcribitionDate, lang)}
                   </span>

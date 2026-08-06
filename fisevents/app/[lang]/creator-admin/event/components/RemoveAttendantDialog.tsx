@@ -4,6 +4,7 @@ import { useTransition, useState } from 'react';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 import { removeEventAttendant } from '@/lib/actions';
 import { useNotification } from '@/components/Notification/useNotification';
+import { useCurrentLang } from '@/hooks/useCurrentLang';
 import {
   Dialog,
   DialogContent,
@@ -29,6 +30,7 @@ export default function RemoveAttendantDialog({
   const { creator_admin: ca } = useDictionary();
   const { attendants: d, shared: s } = ca;
   const { showNotification } = useNotification();
+  const lang = useCurrentLang();
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
 
@@ -38,6 +40,7 @@ export default function RemoveAttendantDialog({
         await removeEventAttendant({
           eventId,
           eventAttendantUuid: attendantUuid,
+          lang,
         });
         showNotification({
           type: 'success',

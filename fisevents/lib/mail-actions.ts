@@ -37,7 +37,7 @@ export async function sendContactEmail({
     throw new Error(reason);
   }
 
-  if (await isSpamMessage(message)) {
+  if (await isSpamMessage(message, name)) {
     throw new Error('spam_detected');
   }
 
