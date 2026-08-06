@@ -59,6 +59,13 @@ const PrivacyAndCookiePolicyIT = ({ lastUpdated }: { lastUpdated: string }) => {
           utenti e migliorare la piattaforma tramite strumenti di analisi.
         </div>
 
+        <div className="text-gray-600 mb-4">
+          Per prevenire spam e abusi nei moduli di contatto e segnalazione,
+          utilizziamo strumenti automatici, inclusi sistemi di intelligenza
+          artificiale, che analizzano il contenuto dei messaggi al solo scopo
+          di individuare contenuti fraudolenti o indesiderati.
+        </div>
+
         <h3 className="text-lg font-medium text-gray-800 mb-2">
           4. Periodo di Conservazione
         </h3>
