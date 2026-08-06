@@ -15,12 +15,14 @@ export type EventAttendantContainerProps = {
   lang: Locale;
   eventData: PublicOccurrenceSingle;
   eventSlug: string;
+  isFull?: boolean;
 };
 
 export default function EventAttendantContainer({
   lang,
   eventData,
   eventSlug,
+  isFull = false,
 }: EventAttendantContainerProps) {
   const { isSaving, startProcessing, isSubscribed, setIsSubscribed } = useEventSubscription();
   const { public: d } = useDictionary();
@@ -55,6 +57,7 @@ export default function EventAttendantContainer({
           form={form}
           onSubmit={handleAttendandSubmit}
           customFields={eventData.customFields}
+          isFull={isFull}
         />
       )}
     </>

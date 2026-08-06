@@ -60,6 +60,7 @@ export const eventListQuery = defineQuery(`*[_type == "occurrence" && !(_id in p
   endDate,
   publicationStartDate,
   'numAttendants': coalesce(attendantsCount, 0),
+  'numWaitlisted': count(*[_type == "registration" && occurrence._ref == ^._id && status == "waitlisted"]),
   active,
   pendingPayment
 }`);
@@ -87,7 +88,7 @@ export const eventSingleByIdQuery = defineQuery(`*[_type == "occurrence" && crea
   pendingPayment,
   attendantsCount,
   customFields,
-  "attendants": *[_type == "registration" && occurrence._ref == ^._id] | order(subcribitionDate desc) {
+  "attendants": *[_type == "registration" && occurrence._ref == ^._id && (!defined(status) || status in ["confirmed", "offered"])] | order(subcribitionDate desc) {
     _id,
     uuid,
     fullName,
@@ -97,7 +98,19 @@ export const eventSingleByIdQuery = defineQuery(`*[_type == "occurrence" && crea
     checkedIn,
     paymentStatus,
     privacyAccepted,
-    customFieldValues
+    customFieldValues,
+    status,
+    offerExpiresAt
+  },
+  "waitlist": *[_type == "registration" && occurrence._ref == ^._id && status in ["waitlisted", "expired"]] | order(subcribitionDate asc) {
+    _id,
+    uuid,
+    fullName,
+    email,
+    phone,
+    subcribitionDate,
+    status,
+    offerExpiresAt
   }
 }`);
 
@@ -154,6 +167,30 @@ export const eventSingleHasAttendantByUuidQuery = defineQuery(`
   _id == $eventId
   ][0] {
   "hasAttendant": count(*[_type == "registration" && occurrence._ref == $eventId && uuid == $uuid]) > 0
+}`);
+
+/** Fields needed to build a transactional email (offer/confirmation) for an
+ * attendant, looked up by event id — used by flows that only have the event
+ * id at hand (admin removal, cron jobs), unlike the public pages which already
+ * carry this data from `eventSingleBySlugQuery`. */
+export const eventEmailContextQuery = defineQuery(`
+*[_type == "occurrence" && _id == $eventId][0] {
+  title,
+  description,
+  location,
+  talkTo,
+  "price": select(
+    length(currency) > 0 && basicPrice > 0 => coalesce(string(basicPrice), "") + " " + coalesce(currency, "-"),
+    basicPrice > 0 => coalesce(string(basicPrice), ""),
+    ""
+  ),
+  timeZone,
+  startDate,
+  endDate,
+  publicSlug,
+  "companyName": createdByUser->companyName,
+  "organizationSlug": createdByUser->slug.current,
+  "organizerEmail": createdByUser->email
 }`);
 
 export const eventForWebhookQuery = defineQuery(`

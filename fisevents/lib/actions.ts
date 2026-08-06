@@ -30,7 +30,10 @@ import {
   deleteRegistration,
   setRegistrationStatus,
   deleteOccurrenceCascade,
+  joinWaitlist,
+  acceptWaitlistOffer,
 } from '@/lib/registrations';
+import { notifyWaitlistPromotion } from '@/lib/waitlist-notify';
 import { revalidateTag } from 'next/cache';
 import { getSession } from '@/lib/auth';
 import { eventAttendantSchema } from './form-schemas';
@@ -57,6 +60,9 @@ const aj = arcjet.withRule(
     deny: ['DISPOSABLE', 'INVALID', 'NO_MX_RECORDS'],
   })
 );
+
+/** Used for transactional emails triggered without a visitor locale in context (admin actions, cron). */
+const DEFAULT_LANG: Locale = 'it';
 
 const validateSession = async () => {
   const session = await getSession();
@@ -447,11 +453,14 @@ export const addEventAttendant = async ({
   eventId,
   eventAttendant,
   enforceCapacity = true,
+  allowWaitlist = false,
 }: {
   eventId: string;
   eventAttendant: Partial<EventAttendant>;
   /** Public sign-ups enforce maxSubscribers; organizers adding manually bypass it. */
   enforceCapacity?: boolean;
+  /** Public sign-ups join the waitlist instead of failing when the event is full. */
+  allowWaitlist?: boolean;
 }): Promise<Registration | undefined> => {
   const validatedFields = eventAttendantSchema.safeParse(eventAttendant);
 
@@ -477,11 +486,20 @@ export const addEventAttendant = async ({
     throw new Error('already_subscribed');
   }
 
-  const registration = await createRegistration({
-    eventId,
-    attendant: eventAttendant,
-    enforceCapacity,
-  });
+  let registration: Registration;
+  try {
+    registration = await createRegistration({
+      eventId,
+      attendant: eventAttendant,
+      enforceCapacity,
+    });
+  } catch (err) {
+    if (allowWaitlist && err instanceof Error && err.message === 'event_full') {
+      registration = await joinWaitlist({ eventId, attendant: eventAttendant });
+    } else {
+      throw err;
+    }
+  }
 
   revalidateTags([`eventSingle:${eventId}`, 'eventList']);
   return registration;
@@ -491,10 +509,12 @@ export const removeEventAttendant = async ({
   eventId,
   eventAttendantUuid,
   alreadyUnsubscribedText = 'Attendant not subscribed',
+  lang = DEFAULT_LANG,
 }: {
   eventId: string;
   eventAttendantUuid: string;
   alreadyUnsubscribedText?: string;
+  lang?: Locale;
 }) => {
   const registration = await getRegistrationByUuid({
     eventId,
@@ -505,13 +525,18 @@ export const removeEventAttendant = async ({
     throw new Error(alreadyUnsubscribedText);
   }
 
-  const res = await deleteRegistration({
+  const promoted = await deleteRegistration({
     eventId,
     registrationId: registration._id,
+    status: registration.status,
   });
 
+  if (promoted) {
+    await notifyWaitlistPromotion({ eventId, promoted, lang });
+  }
+
   revalidateTags([`eventSingle:${eventId}`, 'eventList']);
-  return res;
+  return promoted;
 };
 
 export const updateEventAttendantStatus = async ({
@@ -573,7 +598,7 @@ export const subscribeToEvent = async ({
   lang: Locale;
   emailData: EventEmailData;
 }) => {
-  const result = await addEventAttendant({ eventId, eventAttendant });
+  const result = await addEventAttendant({ eventId, eventAttendant, allowWaitlist: true });
   if (!result) return;
 
   const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3002';
@@ -583,6 +608,35 @@ export const subscribeToEvent = async ({
   const unsubscribeLink = `${baseUrl}/${lang}/pe/unsuscribe?eventSlug=${publicSlug}&t=${token}`;
 
   const emailDict = await getEmailDictionary(lang);
+
+  if (result.status === 'waitlisted') {
+    const wlDict = emailDict.event_attendant.waitlist_joined;
+    const vars = {
+      attendant_name: result.fullName ?? '',
+      event_title: emailData.eventTitle,
+      public_url: publicUrl,
+      location: emailData.location ?? '--',
+      talk_to: emailData.talkTo ?? '--',
+      start_date: emailData.startDate
+        ? formatEventDateTime(emailData.startDate, lang, emailData.timeZone, { dateStyle: 'medium', timeStyle: 'short', hour12: false })
+        : '--',
+      end_date: emailData.endDate
+        ? formatEventDateTime(emailData.endDate, lang, emailData.timeZone, { dateStyle: 'medium', timeStyle: 'short', hour12: false })
+        : '--',
+      unsubscribe_link: unsubscribeLink,
+      company_name: emailData.companyName,
+    };
+
+    await sendMail({
+      sendTo: result.email!,
+      subject: applyTemplate(wlDict.subject, vars),
+      text: applyTemplate(wlDict.body_txt, vars),
+      html: applyTemplate(wlDict.body_html, vars),
+    });
+
+    return result;
+  }
+
   const subDict = emailDict.event_attendant.subscription;
 
   const hasDates = !!(emailData.startDate && emailData.endDate);
@@ -665,7 +719,7 @@ export const unsubscribeFromEvent = async ({
   emailData: Pick<EventEmailData, 'eventTitle' | 'companyName' | 'organizationSlug' | 'eventSlug'>;
   alreadyUnsubscribedText?: string;
 }) => {
-  const result = await removeEventAttendant({ eventId, eventAttendantUuid, alreadyUnsubscribedText });
+  const result = await removeEventAttendant({ eventId, eventAttendantUuid, alreadyUnsubscribedText, lang });
 
   const publicSlug = getPublicEventSlug(emailData.eventSlug, emailData.organizationSlug);
   const publicUrl = getPublicEventUrl(publicSlug);
@@ -684,6 +738,79 @@ export const unsubscribeFromEvent = async ({
     subject: applyTemplate(unsubDict.subject, vars),
     text: applyTemplate(unsubDict.body_txt, vars),
     html: applyTemplate(unsubDict.body_html, vars),
+  });
+
+  return result;
+};
+
+/** Confirms a waitlist offer via the accept link sent by `notifyWaitlistPromotion`. */
+export const confirmWaitlistOffer = async ({
+  eventId,
+  eventAttendantUuid,
+  lang,
+  emailData,
+}: {
+  eventId: string;
+  eventAttendantUuid: string;
+  lang: Locale;
+  emailData: EventEmailData;
+}) => {
+  const result = await acceptWaitlistOffer({ eventId, uuid: eventAttendantUuid });
+
+  revalidateTags([`eventSingle:${eventId}`, 'eventList']);
+
+  const baseUrl = process.env.NEXTAUTH_URL ?? 'http://localhost:3002';
+  const publicSlug = getPublicEventSlug(emailData.eventSlug, emailData.organizationSlug);
+  const publicUrl = getPublicEventUrl(publicSlug);
+  const token = createUnsubscribeToken({ eventId, uuid: result.uuid!, email: result.email! });
+  const unsubscribeLink = `${baseUrl}/${lang}/pe/unsuscribe?eventSlug=${publicSlug}&t=${token}`;
+
+  const emailDict = await getEmailDictionary(lang);
+  const confirmDict = emailDict.event_attendant.waitlist_confirmed;
+
+  const hasDates = !!(emailData.startDate && emailData.endDate);
+  const calendarEvent: CalendarEvent | undefined = hasDates
+    ? {
+        title: emailData.eventTitle,
+        description: emailData.description,
+        location: emailData.location,
+        startDate: emailData.startDate!,
+        endDate: emailData.endDate!,
+      }
+    : undefined;
+
+  const vars = {
+    attendant_name: result.fullName ?? '',
+    event_title: emailData.eventTitle,
+    public_url: publicUrl,
+    location: emailData.location ?? '--',
+    talk_to: emailData.talkTo ?? '--',
+    start_date: emailData.startDate
+      ? formatEventDateTime(emailData.startDate, lang, emailData.timeZone, { dateStyle: 'medium', timeStyle: 'short', hour12: false })
+      : '--',
+    end_date: emailData.endDate
+      ? formatEventDateTime(emailData.endDate, lang, emailData.timeZone, { dateStyle: 'medium', timeStyle: 'short', hour12: false })
+      : '--',
+    unsubscribe_link: unsubscribeLink,
+    company_name: emailData.companyName,
+    google_calendar_url: calendarEvent ? getGoogleCalendarUrl(calendarEvent) : '',
+    outlook_calendar_url: calendarEvent ? getOutlookCalendarUrl(calendarEvent) : '',
+  };
+
+  await sendMail({
+    sendTo: result.email!,
+    subject: applyTemplate(confirmDict.subject, vars),
+    text: applyTemplate(confirmDict.body_txt, vars),
+    html: applyTemplate(confirmDict.body_html, vars),
+    attachments: calendarEvent
+      ? [
+          {
+            filename: 'event.ics',
+            content: getIcsContent(calendarEvent),
+            contentType: 'text/calendar; charset=utf-8; method=PUBLISH',
+          },
+        ]
+      : undefined,
   });
 
   return result;

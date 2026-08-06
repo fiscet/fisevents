@@ -13,6 +13,7 @@ import EventSingle from './EventSingle';
 import Processing from '@/components/Processing';
 import UtilityBar from '../../_components/UtilityBar';
 import EventAttentantList from './EventAttentantList';
+import EventWaitlist from './EventWaitlist';
 import { useUploadImage } from '@/hooks/useUploadImage';
 import { useNotification } from '@/components/Notification/useNotification';
 import { useImageHandlers } from '@/hooks/useImageHandlers';
@@ -199,6 +200,14 @@ export default function EventSingleContainer({
                   </span>
                 )}
               </TabsTrigger>
+              {!!eventSingleData.waitlist?.length && (
+                <TabsTrigger value="waitlist">
+                  {ca.attendants.waitlist_tab}
+                  <span className="ml-2 inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-fe-secondary-container text-fe-on-secondary-container text-xs font-semibold">
+                    {eventSingleData.waitlist.length}
+                  </span>
+                </TabsTrigger>
+              )}
             </TabsList>
           </div>
         )}
@@ -234,6 +243,11 @@ export default function EventSingleContainer({
             )}`}
           />
         </TabsContent>
+        {!!eventSingleData?.waitlist?.length && (
+          <TabsContent value="waitlist">
+            <EventWaitlist eventId={eventSingleData?._id} waitlist={eventSingleData?.waitlist} />
+          </TabsContent>
+        )}
       </Tabs>
     </>
   );

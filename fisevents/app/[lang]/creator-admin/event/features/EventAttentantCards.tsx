@@ -17,6 +17,7 @@ import { useCurrentLang } from '@/hooks/useCurrentLang';
 import RemoveAttendantDialog from '../components/RemoveAttendantDialog';
 import AttendantStatusToggle from '../components/AttendantStatusToggle';
 import PaymentStatusSelect from '../components/PaymentStatusSelect';
+import { useDictionary } from '@/app/contexts/DictionaryContext';
 
 export type EventAttentantCardsProps = {
   eventId?: string;
@@ -32,6 +33,8 @@ export default function EventAttentantCards({
   eventDescription,
 }: EventAttentantCardsProps) {
   const lang = useCurrentLang();
+  const { creator_admin: ca } = useDictionary();
+  const { attendants: d } = ca;
   const customDefs = (customFields ?? []).filter((f) => getCustomFieldKey(f));
   return (
     <div className="md:hidden">
@@ -40,11 +43,16 @@ export default function EventAttentantCards({
           <Card key={`${index}_${slugify(attendant.email!)}`} className="my-1">
             <CardHeader>
               <CardTitle className="relative flex justify-between items-center">
-                <div>
+                <div className="flex items-center gap-2">
                   <span className="text-slate-500 text-sm absolute top-0 right-0 translate-x-[18px] -translate-y-[20px]">
                     {index + 1}.
                   </span>
                   {attendant.fullName}
+                  {attendant.status === 'offered' && (
+                    <span className="inline-flex items-center rounded-full bg-amber-100 text-amber-800 text-[11px] font-normal px-2 py-0.5">
+                      {d.waitlist_status.offered}
+                    </span>
+                  )}
                 </div>
                 {eventId && attendant.uuid && (
                   <RemoveAttendantDialog

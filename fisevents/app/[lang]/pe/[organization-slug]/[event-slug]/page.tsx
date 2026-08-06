@@ -111,20 +111,16 @@ export default async function PublicEventPage({
 
   const userData = await getUserBySlug({ slug: eventData.organizationSlug });
 
-  const showForm =
-    !!eventData &&
-    (!eventData.maxSubscribers ||
-      (eventData.maxSubscribers &&
-        eventData.maxSubscribers >= 0 &&
-        eventData.remainingPlaces > 0)) &&
-    Date.parse(eventData.endDate!) >= Date.now();
-
   const eventUrl = `${BASE_URL}/${lang}/pe/${organizationSlug}/${eventSlug}`;
   const parsedPrice = parsePrice(eventData?.price);
   const soldOut =
     typeof eventData?.maxSubscribers === 'number' &&
     eventData.maxSubscribers > 0 &&
     eventData.remainingPlaces <= 0;
+
+  // The form stays visible when sold out — signing up there joins the
+  // waitlist instead of a confirmed spot.
+  const showForm = !!eventData && Date.parse(eventData.endDate!) >= Date.now();
 
   const jsonLd = eventData
     ? {
@@ -188,6 +184,7 @@ export default async function PublicEventPage({
                 lang={lang}
                 eventData={eventData}
                 eventSlug={eventSlug}
+                isFull={soldOut}
               />
             </NotificationProvider>
           )}

@@ -409,7 +409,17 @@
       "status_error": "Failed to update status",
       "payment_updated": "Payment status updated",
       "payment_error": "Failed to update payment status",
-      "anonymization_notice": "Participant personal data (name, email, phone) will be automatically anonymised on %date%, one month after the event ends. Export the CSV before that date if you need to retain the data."
+      "anonymization_notice": "Participant personal data (name, email, phone) will be automatically anonymised on %date%, one month after the event ends. Export the CSV before that date if you need to retain the data.",
+      "waitlist_tab": "Waitlist",
+      "waitlist_empty": "Nobody on the waitlist",
+      "waitlist_joined_on": "Waiting since",
+      "offer_expires_on": "Offer valid until",
+      "waitlist_count_tooltip": "%count% on the waitlist",
+      "waitlist_status": {
+        "waitlisted": "Waiting",
+        "offered": "Offer sent",
+        "expired": "Offer expired"
+      }
     },
     "notifications": {
       "action_required": "Action required!",
@@ -464,13 +474,25 @@
     "unsuscribe_confirm_yes": "Yes, I want to unsubscribe",
     "unsuscribe_success": "You have been successfully unsubscribed",
     "unsubscribing": "Unsubscribing",
+    "waitlist_full_title": "This event is full!",
+    "waitlist_full_notice": "You can still join the waitlist: if a spot opens up we'll offer it to you by email and you'll have 24 hours to confirm it.",
+    "waitlist_button": "Join the waitlist",
+    "success_waitlisted": "You've been added to the waitlist. We'll email you if a spot opens up.",
+    "waitlist_accept_title": "Confirm your spot",
+    "waitlist_accept_confirm": "A spot has opened up for you. Do you want to confirm your registration for this event?",
+    "waitlist_accept_button": "Yes, confirm my registration",
+    "accepting": "Confirming",
+    "waitlist_accept_success": "Your registration is confirmed. See you there!",
     "errors": {
       "default_title": "Error",
       "generic": "Something went wrong",
       "email_invalid": "Email is invalid",
       "already_subscribed": "You are already subscribed to this event",
       "already_unsubscribed": "You are already unsubscribed",
-      "event_full": "This event is sold out"
+      "event_full": "This event is sold out",
+      "not_found": "Registration not found",
+      "offer_not_available": "This offer is no longer available",
+      "offer_expired": "This offer has expired and was passed on to the next person in line"
     },
     "organizer_page": {
       "title": "Upcoming events",

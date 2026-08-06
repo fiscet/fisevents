@@ -34,12 +34,14 @@ export type CurrentUser = Partial<User> & {
 
 export type OccurrenceList = Partial<Occurrence> & {
   numAttendants: number;
+  numWaitlisted: number;
 };
 
 export type OccurrenceSingle = Partial<Occurrence> & {
   pageImage: Pick<SanityImageAsset, 'url'> & Pick<SanityImageMetadata, 'dimensions'>;
   subcribers: Pick<EventAttendant, 'fullName' | 'email'>[];
   attendants?: Registration[];
+  waitlist?: Registration[];
 };
 
 

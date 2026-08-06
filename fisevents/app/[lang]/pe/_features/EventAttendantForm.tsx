@@ -10,14 +10,16 @@ import { AttendantFormSchemaType } from '../_hooks/useEventAttendantForm';
 import { Switch } from '@/components/ui/switch';
 import CustomFieldsRenderer from '@/components/CustomFields/CustomFieldsRenderer';
 import type { CustomFieldDefInput } from '@/lib/custom-fields';
+import { MdOutlineErrorOutline } from 'react-icons/md';
 
 export type EventAttendantProps = {
   form: ReturnType<typeof useForm<AttendantFormSchemaType>>;
   onSubmit: (data: AttendantFormSchemaType) => void;
   customFields?: CustomFieldDefInput[];
+  isFull?: boolean;
 };
 
-const EventAttendantComponent = ({ form, onSubmit, customFields }: EventAttendantProps) => {
+const EventAttendantComponent = ({ form, onSubmit, customFields, isFull = false }: EventAttendantProps) => {
   const { public: d } = useDictionary();
 
   return (
@@ -25,6 +27,17 @@ const EventAttendantComponent = ({ form, onSubmit, customFields }: EventAttendan
       <h2 className="text-xl font-semibold text-center mb-6">
         {d.subscribe_title}
       </h2>
+      {isFull && (
+        <div className="rounded-xl border border-orange-200 bg-orange-50 px-4 py-3 mb-6">
+          <div className="flex items-center justify-center gap-2 text-orange-700 font-bold text-base">
+            <MdOutlineErrorOutline className="w-5 h-5 shrink-0" />
+            <span>{d.waitlist_full_title}</span>
+          </div>
+          <p className="text-sm text-center text-fe-on-surface-variant mt-1.5">
+            {d.waitlist_full_notice}
+          </p>
+        </div>
+      )}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <DefaultFormField
@@ -76,7 +89,7 @@ const EventAttendantComponent = ({ form, onSubmit, customFields }: EventAttendan
             )}
           />
           <div className="flex justify-center">
-            <SaveButton label={d.subscribe_button} isEnabled={form.formState.isValid} />
+            <SaveButton label={isFull ? d.waitlist_button : d.subscribe_button} isEnabled={form.formState.isValid} />
           </div>
         </form>
       </Form>

@@ -36,6 +36,7 @@ function getColumns(
   lang: Locale,
   d: Awaited<ReturnType<typeof getDictionary>>['creator_admin']['events'],
   pendingLabel: string,
+  waitlistTooltip: string,
   router: ReturnType<typeof import('next/navigation').useRouter>
 ) {
   const columns = [
@@ -75,7 +76,11 @@ function getColumns(
               )}
               inset="4px"
             />
-            <NumAttendants num={row.numAttendants} />
+            <NumAttendants
+              num={row.numAttendants}
+              waiting={row.numWaitlisted}
+              waitingLabel={waitlistTooltip.replace('%count%', String(row.numWaitlisted))}
+            />
           </div>
         </div>
       ),
@@ -92,7 +97,11 @@ function getColumns(
             onClick={(e) => e.stopPropagation()}
             className="group flex items-center gap-1 hover:underline underline-offset-2"
           >
-            <NumAttendants num={row.numAttendants} />
+            <NumAttendants
+              num={row.numAttendants}
+              waiting={row.numWaitlisted}
+              waitingLabel={waitlistTooltip.replace('%count%', String(row.numWaitlisted))}
+            />
           </Link>
         );
       },
@@ -247,7 +256,7 @@ export default function EventList({ eventListData, orgSlug }: EventListProps) {
         }
       />
       <DataTable
-        columns={getColumns(curLang, d, att.payment_pending, router)}
+        columns={getColumns(curLang, d, att.payment_pending, att.waitlist_count_tooltip, router)}
         data={filterEvents(eventListData)}
         pagination
         paginationComponentOptions={{ rowsPerPageText: d.rows_per_page, rangeSeparatorText: d.of }}

@@ -10,7 +10,11 @@ const liveClient = sanityClient.withConfig({ useCdn: false });
 
 const MAX_CAPACITY_RETRIES = 5;
 
+/** How long a waitlisted person has to accept an offered spot before it moves on. */
+export const WAITLIST_OFFER_WINDOW_HOURS = 24;
+
 type AttendantInput = Partial<EventAttendant>;
+type RegistrationStatus = NonNullable<Registration['status']>;
 
 /** Sanity returns HTTP 409 when an `ifRevisionId` precondition fails. */
 function isRevisionConflict(err: unknown): boolean {
@@ -36,6 +40,30 @@ function normalizeCustomFieldValues(input?: AttendantInput['customFieldValues'])
   return normalized.length ? normalized : undefined;
 }
 
+function buildRegistrationDoc(
+  eventId: string,
+  attendant: AttendantInput,
+  status: RegistrationStatus
+) {
+  const customFieldValues = normalizeCustomFieldValues(attendant.customFieldValues);
+
+  return {
+    _id: uuidv4(),
+    _type: 'registration' as const,
+    occurrence: { _type: 'reference' as const, _ref: eventId, _weak: true },
+    fullName: attendant.fullName,
+    email: attendant.email,
+    phone: attendant.phone,
+    privacyAccepted: attendant.privacyAccepted ?? false,
+    uuid: uuidv4(),
+    subcribitionDate: toUserIsoString(new Date()),
+    paymentStatus: 'pending' as const,
+    checkedIn: false,
+    status,
+    ...(customFieldValues ? { customFieldValues } : {}),
+  };
+}
+
 /**
  * Creates a registration document and atomically bumps the event's
  * `attendantsCount`. When `enforceCapacity` is true the count is guarded by an
@@ -51,22 +79,7 @@ export async function createRegistration({
   attendant: AttendantInput;
   enforceCapacity?: boolean;
 }): Promise<Registration> {
-  const customFieldValues = normalizeCustomFieldValues(attendant.customFieldValues);
-
-  const doc = {
-    _id: uuidv4(),
-    _type: 'registration' as const,
-    occurrence: { _type: 'reference' as const, _ref: eventId, _weak: true },
-    fullName: attendant.fullName,
-    email: attendant.email,
-    phone: attendant.phone,
-    privacyAccepted: attendant.privacyAccepted ?? false,
-    uuid: uuidv4(),
-    subcribitionDate: toUserIsoString(new Date()),
-    paymentStatus: 'pending' as const,
-    checkedIn: false,
-    ...(customFieldValues ? { customFieldValues } : {}),
-  };
+  const doc = buildRegistrationDoc(eventId, attendant, 'confirmed');
 
   for (let attempt = 0; attempt < MAX_CAPACITY_RETRIES; attempt++) {
     const occ = await liveClient.fetch<{
@@ -133,27 +146,207 @@ export async function getRegistrationByUuid({
 }: {
   eventId: string;
   uuid: string;
-}): Promise<{ _id: string } | null> {
-  return liveClient.fetch<{ _id: string } | null>(
-    `*[_type == "registration" && occurrence._ref == $eventId && uuid == $uuid][0]{ _id }`,
+}): Promise<{ _id: string; status?: RegistrationStatus } | null> {
+  return liveClient.fetch<{ _id: string; status?: RegistrationStatus } | null>(
+    `*[_type == "registration" && occurrence._ref == $eventId && uuid == $uuid][0]{ _id, status }`,
     { eventId, uuid },
     { cache: 'no-store' }
   );
 }
 
-/** Deletes a registration and decrements the event counter atomically. */
+/**
+ * Deletes a registration. Registrations without a `status` predate this field
+ * and were always confirmed, so they're treated as spot-holding too.
+ * Confirmed/offered registrations hold a counted spot: deleting one frees it,
+ * so the event counter is decremented and the next waitlisted person (if any)
+ * is offered the newly-freed spot. Waitlisted/expired registrations don't hold
+ * a spot, so deleting them is a plain delete.
+ */
 export async function deleteRegistration({
+  eventId,
+  registrationId,
+  status,
+}: {
+  eventId: string;
+  registrationId: string;
+  status?: RegistrationStatus;
+}): Promise<Registration | null> {
+  const heldSpot = status === undefined || status === 'confirmed' || status === 'offered';
+
+  if (!heldSpot) {
+    await liveClient.transaction().delete(registrationId).commit();
+    return null;
+  }
+
+  // Sync visibility (unlike the async writes above) so the promotion check
+  // right after this reads the post-delete count, not a stale one — deletions
+  // are infrequent enough that the extra latency doesn't matter.
+  await liveClient
+    .transaction()
+    .delete(registrationId)
+    .patch(eventId, (p) => p.dec({ attendantsCount: 1 }))
+    .commit();
+
+  return promoteNextWaitlisted(eventId);
+}
+
+/**
+ * Adds an attendant to the waitlist. Waitlisted registrations don't hold a
+ * counted spot — they only reserve one once `promoteNextWaitlisted` offers it
+ * to them — so this is a plain create with no capacity check.
+ */
+export async function joinWaitlist({
+  eventId,
+  attendant,
+}: {
+  eventId: string;
+  attendant: AttendantInput;
+}): Promise<Registration> {
+  const doc = buildRegistrationDoc(eventId, attendant, 'waitlisted');
+  await liveClient.create(doc);
+  return doc as Registration;
+}
+
+/**
+ * Offers a freed spot to the longest-waiting person on the waitlist. The offer
+ * counts toward `attendantsCount` immediately (same as a confirmed spot) so a
+ * concurrent public sign-up can't take the seat out from under them during the
+ * acceptance window; if they don't accept in time, `expireOffer` releases it.
+ * No-ops if the event has no free capacity or nobody is waiting. Guarded the
+ * same way as `createRegistration`: read rev → verify capacity → write guarded
+ * by that rev, retried on conflict.
+ */
+export async function promoteNextWaitlisted(eventId: string): Promise<Registration | null> {
+  for (let attempt = 0; attempt < MAX_CAPACITY_RETRIES; attempt++) {
+    const occ = await liveClient.fetch<{
+      _id: string;
+      _rev: string;
+      maxSubscribers?: number;
+      attendantsCount?: number;
+    } | null>(
+      `*[_type == "occurrence" && _id == $id][0]{ _id, _rev, maxSubscribers, attendantsCount }`,
+      { id: eventId },
+      { cache: 'no-store' }
+    );
+
+    if (!occ) return null;
+
+    const count = occ.attendantsCount ?? 0;
+    const max = occ.maxSubscribers ?? 0;
+    if (max <= 0 || count >= max) return null;
+
+    const next = await liveClient.fetch<Registration | null>(
+      `*[_type == "registration" && occurrence._ref == $eventId && status == "waitlisted"] | order(subcribitionDate asc)[0]`,
+      { eventId },
+      { cache: 'no-store' }
+    );
+    if (!next) return null;
+
+    const offerExpiresAt = new Date(
+      Date.now() + WAITLIST_OFFER_WINDOW_HOURS * 60 * 60 * 1000
+    ).toISOString();
+
+    try {
+      await liveClient
+        .transaction()
+        .patch(next._id, (p) => p.set({ status: 'offered', offerExpiresAt }))
+        .patch(eventId, (p) => p.ifRevisionId(occ._rev).set({ attendantsCount: count + 1 }))
+        .commit();
+
+      return { ...next, status: 'offered', offerExpiresAt };
+    } catch (err) {
+      if (isRevisionConflict(err) && attempt < MAX_CAPACITY_RETRIES - 1) {
+        continue;
+      }
+      throw err;
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Called by the expiry cron for a registration whose offer window has passed
+ * without a response. Releases the reserved spot and tries to hand it to the
+ * next person in line. Guarded by `_rev` in case the attendant accepted the
+ * offer in the moment between the cron's query and this call — in that case
+ * the registration is no longer 'offered' and expiry is skipped.
+ */
+export async function expireOffer({
   eventId,
   registrationId,
 }: {
   eventId: string;
   registrationId: string;
-}) {
-  return liveClient
-    .transaction()
-    .delete(registrationId)
-    .patch(eventId, (p) => p.dec({ attendantsCount: 1 }))
-    .commit({ visibility: 'async' });
+}): Promise<Registration | null> {
+  const current = await liveClient.fetch<{ _rev: string; status?: RegistrationStatus } | null>(
+    `*[_id == $registrationId][0]{ _rev, status }`,
+    { registrationId },
+    { cache: 'no-store' }
+  );
+  if (!current || current.status !== 'offered') return null;
+
+  try {
+    await liveClient
+      .transaction()
+      .patch(registrationId, (p) =>
+        p.ifRevisionId(current._rev).set({ status: 'expired' }).unset(['offerExpiresAt'])
+      )
+      .patch(eventId, (p) => p.dec({ attendantsCount: 1 }))
+      .commit();
+  } catch (err) {
+    if (isRevisionConflict(err)) return null;
+    throw err;
+  }
+
+  return promoteNextWaitlisted(eventId);
+}
+
+/**
+ * Confirms a waitlist offer. The offer already reserved the spot (counted in
+ * `attendantsCount` since `promoteNextWaitlisted`), so accepting is just a
+ * status flip — no capacity math needed here.
+ */
+export async function acceptWaitlistOffer({
+  eventId,
+  uuid,
+}: {
+  eventId: string;
+  uuid: string;
+}): Promise<Registration> {
+  const registration = await liveClient.fetch<
+    Pick<Registration, 'fullName' | 'email' | 'uuid'> & {
+      _id: string;
+      _rev: string;
+      status?: RegistrationStatus;
+      offerExpiresAt?: string;
+    } | null
+  >(
+    `*[_type == "registration" && occurrence._ref == $eventId && uuid == $uuid][0]{ _id, _rev, fullName, email, uuid, status, offerExpiresAt }`,
+    { eventId, uuid },
+    { cache: 'no-store' }
+  );
+
+  if (!registration) throw new Error('not_found');
+  if (registration.status !== 'offered') throw new Error('offer_not_available');
+  if (!registration.offerExpiresAt || new Date(registration.offerExpiresAt) <= new Date()) {
+    throw new Error('offer_expired');
+  }
+
+  try {
+    await liveClient
+      .patch(registration._id)
+      .ifRevisionId(registration._rev)
+      .set({ status: 'confirmed' })
+      .unset(['offerExpiresAt'])
+      .commit();
+  } catch (err) {
+    // The cron expired this offer in the moment between our read and write.
+    if (isRevisionConflict(err)) throw new Error('offer_expired');
+    throw err;
+  }
+
+  return { ...registration, status: 'confirmed' } as Registration;
 }
 
 export async function setRegistrationStatus({

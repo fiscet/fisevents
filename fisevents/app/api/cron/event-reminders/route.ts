@@ -54,7 +54,7 @@ export async function GET(req: NextRequest) {
       timeZone,
       "companyName": createdByUser->companyName,
       "organizationSlug": createdByUser->slug.current,
-      "attendants": *[_type == "registration" && occurrence._ref == ^._id] { fullName, email }
+      "attendants": *[_type == "registration" && occurrence._ref == ^._id && (!defined(status) || status == "confirmed")] { fullName, email }
     }`,
     { nowIso: now.toISOString(), windowEndIso: windowEnd.toISOString() }
   );
