@@ -57,11 +57,23 @@
           },
           "events": {
             "title": "Customizable Event Details",
-            "text": "Add a title, description, image, location, and set maximum participants, price, and currency."
+            "text": "Add a title, description, image, and location, set maximum participants, price, and currency, and tailor the sign-up form with <strong>custom fields</strong>."
           },
           "date_management": {
             "title": "Flexible Date Management",
             "text": "Set start and end dates for your event, decide when users can register."
+          },
+          "waitlist": {
+            "title": "Automatic waitlist",
+            "text": "If someone cancels, the spot is automatically offered to the next person in line — no more lost attendees."
+          },
+          "attendee_management": {
+            "title": "Smart attendee management",
+            "text": "Check-in, payment status, and CSV export, all from one panel."
+          },
+          "auto_emails": {
+            "title": "Automatic communications",
+            "text": "Confirmation, reminders, and calendar invites go out on their own — you don't write a thing."
           },
           "start_free": {
             "title": "You can use it for free!",

@@ -57,11 +57,23 @@
           },
           "events": {
             "title": "Testreszabható eseményadatok",
-            "text": "Adjon hozzá címet, leírást, képet, helyszínt, és állítson be maximális résztvevőszámot, árat és pénznemet."
+            "text": "Adjon hozzá címet, leírást, képet, helyszínt, állítson be maximális résztvevőszámot, árat és pénznemet, majd szabja testre a jelentkezési űrlapot <strong>egyéni mezőkkel</strong>."
           },
           "date_management": {
             "title": "Rugalmas időpontkezelés",
             "text": "Állítson be kezdő- és záróidőpontokat az eseményhez, döntse el, mikor lehet regisztrálni."
+          },
+          "waitlist": {
+            "title": "Automatikus várólista",
+            "text": "Ha valaki lemondja a részvételt, a hely automatikusan felajánlásra kerül a következő várakozónak — egyetlen résztvevőt sem veszítesz el."
+          },
+          "attendee_management": {
+            "title": "Intelligens résztvevő-kezelés",
+            "text": "Check-in, fizetési státusz és CSV-exportálás, mindez egyetlen felületről."
+          },
+          "auto_emails": {
+            "title": "Automatikus kommunikáció",
+            "text": "A visszaigazolás, az emlékeztető és a naptármeghívó magától elmegy — neked semmit sem kell írnod."
           },
           "start_free": {
             "title": "Használja ingyen!",

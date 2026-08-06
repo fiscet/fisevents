@@ -57,11 +57,23 @@
           },
           "events": {
             "title": "Dettagli personalizzati dell'evento",
-            "text": "Aggiungi un titolo, una descrizione, un'immagine, una posizione e imposta i partecipanti massimi, il prezzo e la valuta."
+            "text": "Aggiungi un titolo, una descrizione, un'immagine, una posizione, imposta i partecipanti massimi, il prezzo e la valuta, e personalizza il modulo con <strong>campi personalizzati</strong>."
           },
           "date_management": {
             "title": "Gestione delle date flessibile",
             "text": "Imposta data e ora di inizio e fine del tuo evento, decidi quando gli utenti possono iscriversi."
+          },
+          "waitlist": {
+            "title": "Lista d'attesa automatica",
+            "text": "Se qualcuno cancella, il posto viene offerto in automatico al prossimo in lista: niente più iscritti persi."
+          },
+          "attendee_management": {
+            "title": "Gestione partecipanti smart",
+            "text": "Check-in, stato pagamento ed esportazione CSV, tutto da un unico pannello."
+          },
+          "auto_emails": {
+            "title": "Comunicazioni automatiche",
+            "text": "Conferma, promemoria e invito al calendario partono da soli: tu non devi scrivere nulla."
           },
           "start_free": {
             "title": "Puoi usarlo gratuitamente!",

@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { SectionHeader } from '@/components/SectionHeader/SectionHeader';
 import HPPricing from './_components/HPPricing';
 import HPCarousel from './_components/HPCarousel';
+import { FiArrowDown } from 'react-icons/fi';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -147,8 +148,11 @@ export default async function HomePage({
                   {dictionary.home.getStartedFree}
                 </Link>
               </Button>
-              <Button variant="outline" size="xl" asChild>
-                <a href="#features">{dictionary.home.seeFeatures}</a>
+              <Button variant="secondary" size="xl" asChild>
+                <a href="#features" className="group">
+                  {dictionary.home.seeFeatures}
+                  <FiArrowDown className="w-5 h-5 transition-transform group-hover:translate-y-0.5" />
+                </a>
               </Button>
             </div>
           </div>
@@ -187,58 +191,33 @@ export default async function HomePage({
             description={dictionary.home.main_text}
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Card — Registration link */}
-            <div className="group bg-fe-surface-container-lowest rounded-3xl p-8 card-hover border border-fe-outline-variant/15">
-              <div className="w-12 h-12 rounded-2xl bg-fe-primary-fixed mb-6 flex items-center justify-center text-fe-primary text-xl">
-                🔗
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[
+              { icon: '🔗', bg: 'bg-fe-primary-fixed', fg: 'text-fe-primary', item: dictionary.home.features.list.reg_link },
+              { icon: '🎨', bg: 'bg-fe-secondary-fixed', fg: 'text-fe-on-secondary-container', item: dictionary.home.features.list.events },
+              { icon: '⏳', bg: 'bg-fe-tertiary-fixed', fg: 'text-fe-tertiary', item: dictionary.home.features.list.waitlist },
+              { icon: '✅', bg: 'bg-fe-primary-fixed', fg: 'text-fe-primary', item: dictionary.home.features.list.attendee_management },
+              { icon: '📧', bg: 'bg-fe-secondary-fixed', fg: 'text-fe-on-secondary-container', item: dictionary.home.features.list.auto_emails },
+              { icon: '🚀', bg: 'bg-fe-tertiary-fixed', fg: 'text-fe-tertiary', item: dictionary.home.features.list.start_free },
+            ].map(({ icon, bg, fg, item }) => (
+              <div
+                key={item.title}
+                className="group bg-fe-surface-container-lowest rounded-2xl p-5 card-hover border border-fe-outline-variant/15 flex gap-4"
+              >
+                <div className={`w-10 h-10 shrink-0 rounded-xl ${bg} flex items-center justify-center ${fg} text-lg`}>
+                  {icon}
+                </div>
+                <div>
+                  <h3 className="text-base font-headline font-bold mb-1 text-fe-on-surface leading-snug">
+                    {item.title}
+                  </h3>
+                  <p
+                    className="text-sm text-fe-on-surface-variant leading-relaxed [&_strong]:font-semibold [&_strong]:text-fe-on-surface"
+                    dangerouslySetInnerHTML={{ __html: item.text }}
+                  />
+                </div>
               </div>
-              <h3 className="text-2xl font-headline font-bold mb-4 text-fe-on-surface">
-                {dictionary.home.features.list.reg_link.title}
-              </h3>
-              <p className="text-fe-on-surface-variant leading-relaxed">
-                {dictionary.home.features.list.reg_link.text}
-              </p>
-            </div>
-
-            {/* Card — Customizable events */}
-            <div className="group bg-fe-surface-container-lowest rounded-3xl p-8 card-hover border border-fe-outline-variant/15">
-              <div className="w-12 h-12 rounded-2xl bg-fe-secondary-fixed mb-6 flex items-center justify-center text-fe-on-secondary-container text-xl">
-                🎨
-              </div>
-              <h3 className="text-2xl font-headline font-bold mb-4 text-fe-on-surface">
-                {dictionary.home.features.list.events.title}
-              </h3>
-              <p className="text-fe-on-surface-variant leading-relaxed">
-                {dictionary.home.features.list.events.text}
-              </p>
-            </div>
-
-            {/* Card — Date management */}
-            <div className="group bg-fe-surface-container-lowest rounded-3xl p-8 card-hover border border-fe-outline-variant/15">
-              <div className="w-12 h-12 rounded-2xl bg-fe-tertiary-fixed mb-6 flex items-center justify-center text-fe-tertiary text-xl">
-                📅
-              </div>
-              <h3 className="text-2xl font-headline font-bold mb-4 text-fe-on-surface">
-                {dictionary.home.features.list.date_management.title}
-              </h3>
-              <p className="text-fe-on-surface-variant leading-relaxed">
-                {dictionary.home.features.list.date_management.text}
-              </p>
-            </div>
-
-            {/* Card wide — Start free, with carousel */}
-            <div className="md:col-span-1 group bg-gradient-to-br from-fe-primary-fixed to-fe-surface-container-lowest rounded-3xl p-8 card-hover border border-fe-outline-variant/15">
-              <div className="w-12 h-12 rounded-2xl bg-fe-primary text-fe-on-primary mb-6 flex items-center justify-center text-xl">
-                🚀
-              </div>
-              <h3 className="text-2xl font-headline font-bold mb-4 text-fe-on-surface">
-                {dictionary.home.features.list.start_free.title}
-              </h3>
-              <p className="text-fe-on-surface-variant leading-relaxed">
-                {dictionary.home.features.list.start_free.text}
-              </p>
-            </div>
+            ))}
           </div>
 
           {/* App screenshots carousel */}
