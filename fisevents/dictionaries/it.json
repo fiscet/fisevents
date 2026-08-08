@@ -205,10 +205,12 @@
         "success_title": "Messaggio inviato!",
         "success_text": "Grazie per averci scritto. Ti risponderemo al più presto.",
         "error_text": "Qualcosa è andato storto. Riprova o scrivici direttamente via email.",
+        "privacy_prefix": "Accetto la",
         "validation": {
           "name": "Il nome deve avere almeno 2 caratteri.",
           "email": "Inserisci un'email valida.",
-          "message": "Il messaggio deve essere tra 10 e 1000 caratteri."
+          "message": "Il messaggio deve essere tra 10 e 1000 caratteri.",
+          "privacy": "Devi accettare la privacy policy per inviare il messaggio."
         }
       }
     },

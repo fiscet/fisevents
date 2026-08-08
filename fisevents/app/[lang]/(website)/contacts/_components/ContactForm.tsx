@@ -1,11 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { sendContactEmail } from '@/lib/mail-actions';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import Link from 'next/link';
+import { Locale } from '@/lib/i18n';
 
 type Props = {
   labels: {
@@ -17,36 +20,46 @@ type Props = {
     success_title: string;
     success_text: string;
     error_text: string;
+    privacy_prefix: string;
     validation: {
       name: string;
       email: string;
       message: string;
+      privacy: string;
     };
   };
+  lang: Locale;
+  privacyPolicyLabel: string;
 };
 
 type ContactFormValues = {
   name: string;
   email: string;
   message: string;
+  privacyAccepted: boolean;
 };
 
-export default function ContactForm({ labels: l }: Props) {
+export default function ContactForm({ labels: l, lang, privacyPolicyLabel }: Props) {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
   const schema = z.object({
     name: z.string().min(2, l.validation.name),
     email: z.string().email(l.validation.email),
     message: z.string().min(10, l.validation.message).max(1000, l.validation.message),
+    privacyAccepted: z.boolean().refine((val) => val === true, {
+      message: l.validation.privacy,
+    }),
   });
 
   const {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm<ContactFormValues>({
     resolver: zodResolver(schema),
+    defaultValues: { privacyAccepted: false },
   });
 
   const onSubmit = async (data: ContactFormValues) => {
@@ -122,6 +135,36 @@ export default function ContactForm({ labels: l }: Props) {
         />
         {errors.message && (
           <p className="mt-1 text-xs text-red-500">{errors.message.message}</p>
+        )}
+      </div>
+
+      {/* Privacy */}
+      <div>
+        <div className="flex items-center gap-2">
+          <Controller
+            name="privacyAccepted"
+            control={control}
+            render={({ field }) => (
+              <Checkbox
+                id="privacyAccepted"
+                checked={field.value}
+                onCheckedChange={field.onChange}
+              />
+            )}
+          />
+          <label htmlFor="privacyAccepted" className="text-sm text-fe-on-surface-variant">
+            {l.privacy_prefix}{' '}
+            <Link
+              href={`/${lang}/privacy-cookie-policy`}
+              className="text-fe-primary underline underline-offset-2 hover:opacity-80 transition-opacity"
+              target="_blank"
+            >
+              {privacyPolicyLabel}
+            </Link>
+          </label>
+        </div>
+        {errors.privacyAccepted && (
+          <p className="mt-1 text-xs text-red-500">{errors.privacyAccepted.message}</p>
         )}
       </div>
 
