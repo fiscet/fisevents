@@ -58,6 +58,14 @@ const PrivacyAndCookiePolicyHU = ({ lastUpdated }: { lastUpdated: string }) => {
           a platform fejlesztése érdekében kezeljük.
         </div>
 
+        <div className="text-gray-600 mb-4">
+          A kapcsolatfelvételi és visszajelzési űrlapokon érkező spam és
+          visszaélések megelőzése érdekében automatizált eszközöket, köztük
+          mesterséges intelligencia rendszereket használunk, amelyek
+          kizárólag a csalárd vagy nem kívánt tartalmak kiszűrése céljából
+          elemzik a beküldött üzenetek tartalmát.
+        </div>
+
         <h3 className="text-lg font-medium text-gray-800 mb-2">
           4. Adatok Megőrzési Ideje
         </h3>

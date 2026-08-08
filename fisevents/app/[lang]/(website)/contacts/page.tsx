@@ -25,7 +25,8 @@ export default async function ContactsPage({
   params: Promise<{ lang: Locale }>;
 }) {
   const { lang } = await params;
-  const d = (await getDictionary(lang)).website.contacts;
+  const dictionary = await getDictionary(lang);
+  const d = dictionary.website.contacts;
 
   return (
     <section className="relative pt-32 pb-24 md:pt-48 overflow-hidden">
@@ -41,7 +42,7 @@ export default async function ContactsPage({
         />
 
         <div className="bg-fe-surface-container-lowest rounded-3xl p-8 border border-fe-outline-variant/15 shadow-editorial">
-          <ContactForm labels={d.form} />
+          <ContactForm labels={d.form} lang={lang} privacyPolicyLabel={dictionary.common.privacy_policy} />
         </div>
 
         <div className="mt-6 bg-fe-surface-container-lowest rounded-3xl p-6 border border-fe-outline-variant/15 flex gap-4 items-start">

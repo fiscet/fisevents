@@ -64,6 +64,13 @@ const PrivacyAndCookiePolicyEN = ({ lastUpdated }: { lastUpdated: string }) => {
         </p>
 
         <p className="text-gray-600 mb-4">
+          To prevent spam and abuse in our contact and feedback forms, we use
+          automated tools, including artificial intelligence systems, that
+          analyse the content of submitted messages solely to detect
+          fraudulent or unwanted content.
+        </p>
+
+        <p className="text-gray-600 mb-4">
           <strong>Legal Basis:</strong>
           <ul className="list-disc list-inside mt-2">
             <li>Performance of a contract (Art. 6.1.b GDPR)</li>

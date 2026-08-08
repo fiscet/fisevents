@@ -205,10 +205,12 @@
         "success_title": "Üzenet elküldve!",
         "success_text": "Köszönjük, hogy írt nekünk. Mielőbb válaszolunk.",
         "error_text": "Valami hiba történt. Próbálja újra, vagy írjon nekünk közvetlenül emailben.",
+        "privacy_prefix": "Elfogadom az",
         "validation": {
           "name": "A névnek legalább 2 karakternek kell lennie.",
           "email": "Adjon meg egy érvényes email-címet.",
-          "message": "Az üzenetnek 10 és 1000 karakter között kell lennie."
+          "message": "Az üzenetnek 10 és 1000 karakter között kell lennie.",
+          "privacy": "Az üzenet elküldéséhez el kell fogadnia az adatvédelmi irányelveket."
         }
       }
     },

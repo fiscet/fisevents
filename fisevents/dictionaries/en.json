@@ -205,10 +205,12 @@
         "success_title": "Message sent!",
         "success_text": "Thanks for writing to us. We will reply as soon as possible.",
         "error_text": "Something went wrong. Please try again or write to us directly by email.",
+        "privacy_prefix": "I agree to the",
         "validation": {
           "name": "Name must be at least 2 characters.",
           "email": "Please enter a valid email.",
-          "message": "Message must be between 10 and 1000 characters."
+          "message": "Message must be between 10 and 1000 characters.",
+          "privacy": "You must accept the privacy policy to send the message."
         }
       }
     },
