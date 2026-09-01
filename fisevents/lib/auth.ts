@@ -5,6 +5,20 @@ import { SanityAdapter } from 'next-auth-sanity';
 import { sanityClient } from '@/lib/sanity.cli';
 import { FDefaultSession } from '@/types/custom.types';
 
+/**
+ * The adapter looks users up by email. With the default `raw` perspective a
+ * draft copy of a user (created by editing the doc in the Studio) sorts before
+ * the published one, so the session id became `drafts.user.<uuid>` and every
+ * document written with it referenced a draft. Reading published-only keeps the
+ * adapter on the real user documents.
+ */
+const authSanityClient = sanityClient.withConfig({
+  perspective: 'published',
+  useCdn: false,
+});
+
+const toPublishedId = (id: string) => id.replace(/^drafts\./, '');
+
 export const authOptions = {
   providers: [
     Email({
@@ -19,7 +33,7 @@ export const authOptions = {
       from: process.env.EMAIL_FROM,
     }),
   ],
-  adapter: SanityAdapter(sanityClient),
+  adapter: SanityAdapter(authSanityClient),
   session: {
     strategy: 'jwt',
   },
@@ -33,7 +47,7 @@ export const authOptions = {
       session: FDefaultSession;
     }) {
       if (token) {
-        session.user!.uid = token.sub || '';
+        session.user!.uid = toPublishedId(token.sub || '');
         session.user!.name = token.name;
         session.user!.email = token.email;
         session.user!.image = token.picture;
