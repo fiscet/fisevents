@@ -26,27 +26,6 @@ function getLocale(request: NextRequest): string | undefined {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // ... else it doesn't load the images
-  if (pathname.includes('/img/')) {
-    return;
-  }
-
-  // Skip PWA assets (manifest, service worker, workbox files)
-  if (
-    pathname === '/manifest.json' ||
-    pathname === '/sw.js' ||
-    pathname === '/sw.js.map' ||
-    pathname.startsWith('/swe-worker-') ||
-    pathname.startsWith('/workbox-')
-  ) {
-    return;
-  }
-
-  // Blog is English-only and lives outside the i18n tree
-  if (pathname === '/blog' || pathname.startsWith('/blog/')) {
-    return;
-  }
-
   // Check if there is any supported locale in the pathname
   const pathnameIsMissingLocale = i18n.locales.every(
     locale => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
@@ -66,6 +45,13 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Matcher ignoring `/_next/` and `/api/`
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)'],
+  // Run the middleware only where a locale redirect can actually happen.
+  // Everything else (API routes, Next internals, static assets under /img,
+  // the English-only /blog tree, and any file with an extension —
+  // manifest.json, sw.js, robots.txt, sitemap.xml, plus bot probes like
+  // /.env or /wp-login.php) is excluded, so it never costs a middleware
+  // invocation.
+  matcher: [
+    '/((?!api|_next|blog|img|.*\\.(?:png|jpg|jpeg|gif|webp|avif|svg|ico|txt|xml|json|js|mjs|map|css|woff|woff2|ttf|eot|pdf|php|env|bak|sql|zip|tar|gz|yml|yaml|ini|asp|aspx|jsp|cgi|sh)$).*)',
+  ],
 };
