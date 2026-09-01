@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import { i18n } from '@/lib/i18n';
 import './globals.css';
@@ -88,7 +89,10 @@ export default async function RootLayout({
       className={`${inter.variable} ${plusJakartaSans.variable} scroll-smooth`}
       suppressHydrationWarning
     >
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
