@@ -12,13 +12,13 @@ import Autoplay from 'embla-carousel-autoplay';
 import { useDictionary } from '@/app/contexts/DictionaryContext';
 
 const images = [
-  '/img/Sh-01.png',
-  '/img/Sh-02.png',
-  '/img/Sh-03.png',
-  '/img/Sh-04.png',
-  '/img/Sh-05.png',
-  '/img/Sh-06.png',
-  '/img/Sh-07.png',
+  '/img/Sh-01.jpg',
+  '/img/Sh-02.jpg',
+  '/img/Sh-03.jpg',
+  '/img/Sh-04.jpg',
+  '/img/Sh-05.jpg',
+  '/img/Sh-06.jpg',
+  '/img/Sh-07.jpg',
 ];
 
 export default function HPCarousel() {

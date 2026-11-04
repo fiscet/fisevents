@@ -23,9 +23,9 @@ export async function generateMetadata({
 const STEP_ICONS = ['👤', '🗓️', '🔗', '📋'];
 const STEP_IMAGES = [
   null,
-  '/img/Sh-02.png',
-  '/img/Sh-06.png',
-  '/img/Sh-04.png'
+  '/img/Sh-02.jpg',
+  '/img/Sh-06.jpg',
+  '/img/Sh-04.jpg'
 ];
 
 export default async function HowItWorksPage({
